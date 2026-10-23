@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>D3 Reliable uploads — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .d3-sim { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); border: var(--stroke-sticker) dashed var(--line-strong); }
+  .d3-sim .label { color: var(--ink-muted); }
+  .d3-file { display: flex; align-items: center; gap: var(--space-3); }
+  .d3-file + .d3-file { border-top: var(--stroke-sticker) dashed var(--line); padding-top: var(--space-3); }
+  .d3-file .thumb { width: 52px; height: 52px; }
+  .d3-file .bar { height: 10px; margin-top: 6px; }
+  .d3-add { min-height: 96px; border-radius: var(--radius-lg); border: var(--stroke-sticker) dashed var(--line-strong); background: var(--surface-raised); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); cursor: pointer; font-weight: 800; width: 100%; }
+  .d3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .d3-grid .thumb { width: 100%; height: 96px; }
+  .d3-thread { background: var(--surface-sunken); border-radius: var(--radius-lg); padding: var(--space-3); display: flex; flex-direction: column; gap: var(--space-2); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar, PawProgress, ChatBubble } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const FILES = [
+  { id: 'f1', name: 'Belly, close up', meta: 'Photo · 3.1 MB', bg: 'bg-brand-t', ic: 'image' },
+  { id: 'f2', name: 'Front paws', meta: 'Photo · 2.8 MB', bg: 'bg-gum-t', ic: 'image' },
+  { id: 'f3', name: 'Scratching at night', meta: 'Video · 48 MB → 9 MB', bg: 'bg-sky-t', ic: 'video' }
+];
+
+/* Status per file: done | up (uploading, n%) | wait (no signal, will retry) */
+function statusOf(s, id) { return (s.files || {})[id] || { st: 'none' }; }
+
+function FileRow({ f, st }) {
+  const badge = st.st === 'done' ? <Badge tone="success">Sent</Badge>
+    : st.st === 'wait' ? <Badge tone="waiting">Waiting for signal</Badge>
+    : <Badge tone="neutral">{st.pct || 0}%</Badge>;
+  return (
+    <div className="d3-file">
+      <span className={`thumb ${f.bg}`}><Icon name={f.ic} /></span>
+      <div className="grow">
+        <p className="row__t">{f.name}</p>
+        <p className="row__s">{st.st === 'wait' ? `Retry ${st.tries || 1} of 10 · we’ll keep trying` : f.meta}</p>
+        {st.st !== 'done' && <div className="bar"><i style={{ width: `${st.pct || 0}%` }} /></div>}
+      </div>
+      {badge}
+    </div>
+  );
+}
+
+function allDone(s) { return FILES.every(f => statusOf(s, f.id).st === 'done'); }
+
+function Intake(api) {
+  const s = api.state;
+  const added = s.added;
+  return (
+    <Phone cta={<Button block size="lg" disabled={!added} onClick={api.next}>Continue to waiting room</Button>}>
+      <AppBar title="Book a consult" onBack={api.back} />
+      <Scroll>
+        <PawProgress steps={['Symptoms', 'Photos', 'Time']} current={1} />
+        <div className="vstack">
+          <p className="h-title">Show {vet.name} what you see</p>
+          <p className="small muted">Photos upload now, before the call, so she can look at them while you wait.</p>
+        </div>
+        {!added
+          ? <button className="d3-add" onClick={() => api.set({ added: true })}>
+              <span className="ic-badge bg-brand"><Icon name="camera" /></span>Add photos or a video
+            </button>
+          : <div className="card card--flat">{FILES.map(f => <FileRow key={f.id} f={f} st={statusOf(s, f.id)} />)}</div>}
+        {added && <div className="card card--sky"><div className="hstack"><Icon name="shield" /><p className="small">You can carry on. Uploads keep going in the background — even if you close the app — and we retry by ourselves when the signal comes back.</p></div></div>}
+        <p className="small muted">Videos are shrunk on your phone first, so they send faster on mobile data.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Waiting(api) {
+  const s = api.state;
+  const done = allDone(s);
+  return (
+    <Phone cta={<Button block size="lg" variant={done ? 'primary' : 'secondary'} onClick={api.next}>{done ? 'Lock phone and wait' : 'Leave the app for now'}</Button>}>
+      <AppBar title="Waiting room" onBack={api.back} />
+      <Scroll>
+        <div className="card card--sky">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name} joins in about 6 min</p><p className="small">Bella · itchy skin</p></div><Badge tone="online">Online</Badge></div>
+        </div>
+        <Section title={done ? 'All sent to Dr. Weber' : 'Sending to Dr. Weber'}>
+          <div className="card card--flat">{FILES.map(f => <FileRow key={f.id} f={f} st={statusOf(s, f.id)} />)}</div>
+        </Section>
+        {done
+          ? <div className="card card--success" role="status"><div className="hstack"><Icon name="check" /><p className="small"><b>Everything arrived.</b> Dr. Weber can open your photos before she joins.</p></div></div>
+          : <p className="small muted">No need to wait here. We’ll send a notification when everything has arrived, or if something needs you.</p>}
+        {!done && <div className="d3-sim"><span className="label">Prototype:</span>
+          <Button size="sm" variant="secondary" onClick={() => api.set(st => ({ files: Object.assign({}, st.files, { f3: { st: 'wait', pct: 22, tries: (((st.files || {}).f3 || {}).tries || 1) + 1 } }) }))}>Still no signal</Button>
+          <Button size="sm" variant="ghost" onClick={() => { api.set({ files: { f1: { st: 'done' }, f2: { st: 'done' }, f3: { st: 'done' } } }); api.toast('Signal back — uploads finished'); }}>Signal comes back</Button>
+        </div>}
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Thursday 12 March" time="14:26" hint="Tap the notification">
+        <Push title={`${vet.name} is ready for you`} text="Your 2 photos and video arrived. Tap to join the video call." onClick={() => { api.set({ files: { f1: { st: 'done' }, f2: { st: 'done' }, f3: { st: 'done' } } }); api.next(); }} />
+        <Push when="4 min ago" title="All 3 files sent" text="Finished in the background when your signal came back." />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function VetPre(api) {
+  return (
+    <Desk title="Next: Bella (dog) · joins in 1 min">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Owner’s note</p>
+            <p className="small">Scratching belly and paws for 10 days, worse at night. No new food.</p>
+          </div>
+          <div className="card card--lift">
+            <div className="hstack"><p className="h-head grow">Uploads</p><Badge tone="success">3 of 3 received</Badge></div>
+            <div className="d3-grid">
+              {FILES.map(f => <button key={f.id} className={`thumb ${f.bg}`} style={{ cursor: 'pointer' }} onClick={() => api.set(st => ({ seen: Object.assign({}, st.seen, { [f.id]: true }) }))} aria-label={`Open ${f.name}`}><Icon name={f.ic} size={28} /></button>)}
+            </div>
+            <div className="vstack" style={{ gap: 4 }}>
+              {FILES.map(f => <p key={f.id} className="small"><span className="hstack" style={{ gap: 6, display: 'inline-flex' }}><Icon name={(api.state.seen || {})[f.id] ? 'check' : 'clock'} size={16} />{(api.state.seen || {})[f.id] ? 'Opened' : 'Not opened yet'}</span> · {f.name}</p>)}
+            </div>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--sky">
+            <div className="hstack"><Icon name="clock" /><p className="small"><b>Received before the call:</b> 14:18, 14:19 and 14:23 (retried 3 times on a weak signal).</p></div>
+          </div>
+          <Button block icon="video" onClick={api.next}>Join consult</Button>
+          <p className="small muted">Files that are still arriving show here as “arriving” with a time, so the vet never asks for a photo the owner already sent.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function InCall(api) {
+  const extra = api.state.extra;
+  return (
+    <Phone cta={<Button block size="lg" variant="secondary" icon="plus" onClick={() => { api.set({ extra: 'up' }); setTimeout(() => api.set({ extra: 'done' }), 1400); }}>Send another photo</Button>}>
+      <AppBar title="Consult · 05:40" right={<Badge tone="success">Connected</Badge>} />
+      <Scroll>
+        <div className="video" style={{ minHeight: 180 }}><div className="vstack center"><VetAv initials={vet.initials} /><p className="small">{vet.name}</p></div><div className="video__pip small">You</div></div>
+        <div className="d3-thread">
+          <ChatBubble from="system">Your 3 files were shared before the call</ChatBubble>
+          <ChatBubble from="vet" author={vet.name} time="14:31">I’ve looked at your photos. The red patch on her belly in the first one is what I want to check — can you show me it on camera?</ChatBubble>
+          <ChatBubble from="owner" time="14:32">Yes, one second</ChatBubble>
+          {extra && <ChatBubble from="owner" time="14:34">{extra === 'up' ? 'Sending photo… keeps going if the call drops' : 'Photo: belly in daylight · sent'}</ChatBubble>}
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'D3', group: 'Fix friction', title: 'Reliable uploads before the call',
+    persona: 'All owners', impact: 'Low–Med ~+0.8pp', effort: 'S–M', when: 'Other mission — advocate',
+    story: 'As an owner, I want my photos and files to upload reliably before the call, so that the vet can see them.',
+    why: '8% of visits have a failed upload; those owners return at 15.2% vs 21.7%. A lost photo also turns into re-telling: “There’s a file, but apparently nobody read it.”',
+    measure: ['Upload failure rate: 8% → < 2%', 'Share of files received before the vet joins', 'Re-telling rate on consults with uploads', 'Return after a consult with uploads'],
+    notes: ['Upload starts in the booking flow, not in the call, so there is time to retry', 'Background upload with automatic retry; status always icon + word (“Sent”, “Waiting for signal”)', 'Vet sees what arrived and when, so they never ask for a photo already sent']
+  },
+  initialState: { files: { f1: { st: 'done' }, f2: { st: 'up', pct: 64 }, f3: { st: 'wait', pct: 22, tries: 1 } } },
+  screens: [
+    { id: 'intake', label: 'Add photos while booking', who: 'Owner', render: Intake, caption: 'Uploads start during booking. One file hits a weak signal.' },
+    { id: 'waiting', label: 'Waiting room: retrying', who: 'Owner', render: Waiting, caption: 'The decision point: Anna can leave the app and trust it to finish. Try both prototype buttons.' },
+    { id: 'lock', label: 'Finished in background', who: 'Owner', render: Lock },
+    { id: 'vet', label: 'Vet sees files pre-call', who: 'Vet', render: VetPre, caption: 'Click a thumbnail to mark it opened.' },
+    { id: 'call', label: 'In the call', who: 'Owner', render: InCall, caption: 'The vet starts from the photos — no re-telling.' }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C5 Annual wellness check reminder — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .wl-check { display: flex; align-items: center; gap: var(--space-3); padding: 8px 0; }
+  .wl-check + .wl-check { border-top: var(--stroke-sticker) dashed var(--line); }
+  .wl-box { flex: none; width: 24px; height: 24px; border-radius: 7px; border: var(--stroke-sticker) solid var(--ink); display: grid; place-items: center; }
+  .wl-box.is-pre { background: var(--mint); color: var(--on-brand); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet, owner } = data;
+
+const CHANGES = ['Eating or drinking', 'Weight', 'Energy', 'Skin or coat', 'Teeth or breath', 'Nothing new'];
+const SLOTS = ['Sat 6 Mar 10:00', 'Sat 6 Mar 10:40', 'Mon 8 Mar 18:30'];
+const SNOOZE = ['In 2 weeks', 'In 1 month', 'After Easter'];
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Tuesday 23 February" time="19:05" hint="Tap the notification">
+        <Push title="A year since Bella’s last check" text="A 20-minute wellness check by video helps catch small things early. Book when it suits you." onClick={api.next} />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Offer(api) {
+  return (
+    <Phone cta={<>
+      <Button block size="lg" icon="calendar" onClick={api.next}>Book wellness check</Button>
+      <Button block variant="ghost" onClick={() => api.go('later')}>Not now</Button>
+    </>}>
+      <AppBar title="Yearly check" onBack={api.back} />
+      <Scroll>
+        <div className="hstack">
+          <PetAvatar name={pet.name} species="dog" size={64} />
+          <div className="grow"><p className="h-title">Time for Bella’s yearly check</p><p className="small muted">Last consult: tummy upset, March 2026</p></div>
+        </div>
+        <div className="card card--lift">
+          <p className="label">What the vet looks at</p>
+          <Row icon="scale" title="Weight and body shape" sub="Last weight 27.4 kg" right={null} />
+          <Row icon="camera" title="Teeth, ears, eyes and coat" sub="You hold the phone close, the vet guides you" right={null} />
+          <Row icon="shield" title="Vaccines and parasite protection" sub="What’s due this year, from her vaccine pass" right={null} />
+          <Row icon="bowl" title="Diet and exercise" sub="Any changes since last year" right={null} />
+        </div>
+        <div className="card card--sky">
+          <div className="hstack"><Icon name="file" /><p className="small grow">You get a written summary for Bella’s record, and a note if anything needs a hands-on visit.</p></div>
+        </div>
+        <div className="hstack"><p className="grow small muted">Video wellness check, 20 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Prep(api) {
+  const ch = api.state.changes;
+  const slot = api.state.slot;
+  const toggle = x => api.set(s => {
+    if (x === 'Nothing new') return { changes: ['Nothing new'] };
+    const cur = s.changes.filter(y => y !== 'Nothing new');
+    return { changes: cur.includes(x) ? cur.filter(y => y !== x) : [...cur, x] };
+  });
+  return (
+    <Phone cta={<Button block size="lg" icon="check" disabled={!slot || !ch.length} onClick={api.next}>Confirm booking</Button>}>
+      <AppBar title="Book wellness check" onBack={api.back} />
+      <Scroll>
+        <Section title="Anything changed since March?">
+          <p className="small muted">Pick all that apply. It helps the vet use the 20 minutes well.</p>
+          <div className="chips">{CHANGES.map(x => <Chip key={x} selected={ch.includes(x)} onClick={() => toggle(x)}>{x}</Chip>)}</div>
+        </Section>
+        <Section title="Pick a time">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="label">{vet.name}</p><p className="small muted">Saw Bella in March</p></div><Badge tone="online">Same vet</Badge></div>
+          <div className="chips">{SLOTS.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+        </Section>
+        <div className="card card--sunken"><p className="small">Have Bella’s vaccine pass and a treat nearby. Daylight helps for the teeth and coat check.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Booked(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.next}>See what Dr. Weber gets</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="heart" size={40} /></span>
+          <p className="h-display">Booked for Bella</p>
+          <p className="lead">{api.state.slot || SLOTS[0]} with {vet.name}. Nothing wrong, just keeping it that way.</p>
+        </div>
+        <div className="card card--lift">
+          <Row icon="bell" title="Reminder the evening before" sub="With a 3-step checklist" right={null} />
+          <Row icon="calendar" title="Next yearly check" sub="We’ll suggest one again in February 2028" right={null} />
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetView(api) {
+  const ch = api.state.changes.length ? api.state.changes : ['Nothing new'];
+  const items = [
+    { t: 'Weight and body condition score', pre: 'Last: 27.4 kg (Mar 2026)' },
+    { t: 'Teeth, gums, ears, eyes', pre: null },
+    { t: 'Skin and coat', pre: null },
+    { t: 'Vaccines due', pre: 'Lepto booster due Apr 2027 (from pass photo)' },
+    { t: 'Tick and worm protection', pre: null },
+    { t: 'Diet and exercise', pre: 'Bland diet ended Mar 2026; back on adult dry food' }
+  ];
+  return (
+    <Desk title={`Wellness check · Bella (dog, 5 years) · ${api.state.slot || SLOTS[0]}`}>
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Since last visit</p>
+            <Row icon="file" title="Tummy upset · 12–15 Mar 2026" sub={`${vet.name} · resolved on day 3`} right={<Badge tone="success">Resolved</Badge>} />
+            <dl className="kv"><dt>Owner says changed</dt><dd>{ch.join(', ')}</dd><dt>Booked from</dt><dd>Yearly reminder</dd></dl>
+          </div>
+          <div className="card card--sunken"><p className="small">Bella’s owner has had one consult in 12 months. A good wellness visit is the reason to come back before the next problem.</p></div>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-brand"><Icon name="list" /></span><div className="grow"><p className="h-head">Wellness template · adult dog</p><p className="small muted">Pre-filled where we already know the answer</p></div></div>
+          {items.map(i => (
+            <div key={i.t} className="wl-check">
+              <span className={`wl-box ${i.pre ? 'is-pre' : ''}`}>{i.pre && <Icon name="check" size={14} />}</span>
+              <div className="grow"><p className="label">{i.t}</p>{i.pre && <p className="small muted">{i.pre}</p>}</div>
+            </div>
+          ))}
+          <Button block variant="secondary" size="sm" icon="calendar" onClick={() => api.toast('Plan for the year starts after the call')}>Start a yearly plan after the call</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Later(api) {
+  const mode = api.state.mode || 'snooze';
+  const pick = api.state.snooze;
+  return (
+    <Phone cta={<Button block size="lg" disabled={mode === 'snooze' ? !pick : !api.state.clinicMonth} onClick={() => { api.toast(mode === 'snooze' ? `We’ll remind you ${pick.toLowerCase()}` : 'Saved to Bella’s record'); setTimeout(api.reset, 1300); }}>{mode === 'snooze' ? 'Remind me then' : 'Save'}</Button>}>
+      <AppBar title="Not now" onBack={() => api.go('offer')} />
+      <Scroll>
+        <div className="vstack" role="radiogroup" aria-label="Why not now">
+          <button role="radio" aria-checked={mode === 'snooze'} className={`choice ${mode === 'snooze' ? 'is-on' : ''}`} onClick={() => api.set({ mode: 'snooze' })}>
+            <span className="choice__dot bg-sunny"><Icon name="clock" size={20} /></span><span>Remind me later<span className="choice__sub">Pick when suits you</span></span>
+          </button>
+          <button role="radio" aria-checked={mode === 'clinic'} className={`choice ${mode === 'clinic' ? 'is-on' : ''}`} onClick={() => api.set({ mode: 'clinic' })}>
+            <span className="choice__dot bg-sky"><Icon name="check" size={20} /></span><span>Bella had a check at a clinic<span className="choice__sub">We’ll add it to her record</span></span>
+          </button>
+        </div>
+        {mode === 'snooze' ? (
+          <div className="chips">{SNOOZE.map(s => <Chip key={s} selected={pick === s} onClick={() => api.set({ snooze: s })}>{s}</Chip>)}</div>
+        ) : (
+          <Section title="When was it?">
+            <div className="chips">{['Dec 2026', 'Jan 2027', 'Feb 2027'].map(m => <Chip key={m} selected={api.state.clinicMonth === m} onClick={() => api.set({ clinicMonth: m })}>{m}</Chip>)}</div>
+            <Row icon="camera" title="Add a photo of the report" sub="Optional · so any PetDoc vet can see it" onClick={() => api.toast('Camera opens here')} />
+            <p className="small muted">We’ll move the next yearly reminder to 12 months after this date.</p>
+          </Section>
+        )}
+        <p className="small muted">You can turn yearly reminders off in Profile → Notifications.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'C5', group: 'Plan ahead', title: 'Annual wellness check reminder',
+    persona: 'Worried one-timer (Acute)', impact: 'Low–Med', effort: 'S', when: 'Q4 (month 10)',
+    story: 'As a one-time user, I want a reminder for a yearly check, so that I come back before something goes wrong.',
+    why: 'Acute owners return only 14.3% in 180 days, and when they do it’s ~70 days later for a new episode. A yearly check gives a planned reason to come back while the pet is well.',
+    measure: ['Reminder → wellness booking rate', 'Acute owners with a 2nd consult within 12 months', '“Already checked at a clinic” share (sizes the clinic-partnership case)', 'Notification opt-outs (guardrail)'],
+    notes: ['Sent ~11 months after the first consult, timed to the vaccine pass where we have it', '“Not now” offers snooze or “done at a clinic”, never a dead end', 'Vet gets a wellness template pre-filled from the profile, and can start a yearly plan (C1 engine)']
+  },
+  initialState: { changes: [] },
+  screens: [
+    { id: 'lock', label: 'Yearly reminder', who: 'Owner', render: Lock, caption: '11 months after Bella’s only consult.' },
+    { id: 'offer', label: 'What the check covers', who: 'Owner', render: Offer, caption: 'The test: will a well pet’s owner book? Try “Not now” too.' },
+    { id: 'prep', label: 'What’s changed + time', who: 'Owner', render: Prep },
+    { id: 'booked', label: 'Booked', who: 'Owner', render: Booked },
+    { id: 'vet', label: 'Vet wellness template', who: 'Vet', render: VetView, caption: 'Dr. Weber’s view: pre-filled from Bella’s record and Anna’s answers.' },
+    { id: 'later', label: 'Snooze or done elsewhere', who: 'Owner', render: Later }
+  ]
+});
+</script>
+</body>
+</html>

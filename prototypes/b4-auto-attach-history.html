@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B4 Auto-attach history — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .b4-off { opacity: .6; }
+  .b4-off .row__t { text-decoration: line-through; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar, PawProgress } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Row, VetAv, Section, Desk, LockScreen, Push, data } = window.Proto;
+const { senior, vet, vet2, owner } = data;
+
+const ITEMS = [
+  { id: 'bloods', icon: 'file', t: 'Bloods · 2 Oct', s: 'Praxis am Stadtpark · creatinine 2.4, SDMA 22' },
+  { id: 'meds', icon: 'pill', t: 'Active meds (2)', s: 'Benazepril 2.5 mg · renal diet' },
+  { id: 'consult', icon: 'video', t: 'Last consult · 2 Oct', s: `${vet.name} · CKD review, plan` },
+  { id: 'bp', icon: 'chart', t: 'Home BP log', s: '6 readings · last 150 mmHg' },
+  { id: 'weight', icon: 'scale', t: 'Weight log', s: '4.1 kg · down 0.1 kg in 4 weeks' }
+];
+
+function Upload(api) {
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" icon="check" onClick={() => { api.toast('Saved to Oskar’s profile'); setTimeout(api.next, 900); }}>Save to Oskar’s profile</Button>}>
+      <AppBar title="Add results" />
+      <Scroll nav>
+        <div className="hstack"><PetAvatar name={senior.name} species="cat" size={56} /><div className="grow"><p className="h-head">{senior.name}</p><p className="small muted">{senior.condition}</p></div></div>
+        <div className="card card--lift">
+          <div className="hstack"><span className="thumb bg-sky-t"><Icon name="file" size={28} /></span>
+            <div className="grow"><p className="h-head">Laborbefund_Oskar.pdf</p><p className="small muted">2 pages · from Praxis am Stadtpark</p></div></div>
+          <hr className="divider" />
+          <p className="label">We read it as</p>
+          <div className="chips"><Chip selected>Bloodwork</Chip><Chip>Urine</Chip><Chip>X-ray</Chip><Chip>Other</Chip></div>
+          <p className="label">Date of test</p>
+          <p className="small"><b>2 October</b> · from the document</p>
+        </div>
+        <div className="card card--sky">
+          <div className="hstack"><Icon name="refresh" /><p className="small grow"><b>Upload once.</b> We attach Oskar’s latest results to every booking, so you never send this again.</p></div>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Wednesday 29 October" time="08:15" hint="Tap the notification">
+        <Push title="Oskar’s 4-week check is due" text="Book now. His latest bloods and meds are attached for the vet." onClick={api.next} />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Book(api) {
+  const on = api.state.on;
+  const toggle = id => api.set(s => ({ on: Object.assign({}, s.on, { [id]: !s.on[id] }) }));
+  const count = ITEMS.filter(i => on[i.id]).length;
+  return (
+    <Phone cta={<Button block size="lg" onClick={api.next}>Continue with {count} attached</Button>}>
+      <AppBar title="Book a check" onBack={api.back} />
+      <Scroll>
+        <PawProgress steps={['Attach', 'Time', 'Done']} current={0} />
+        <div className="card card--success">
+          <div className="hstack"><Icon name="check" /><p className="h-head grow">Attached automatically</p></div>
+          <p className="small">The newest version of each, from Oskar’s profile. Nothing to upload.</p>
+        </div>
+        <div className="card card--lift">
+          {ITEMS.map(i => (
+            <div key={i.id} className={on[i.id] ? '' : 'b4-off'}>
+              <Row icon={i.icon} title={i.t} sub={i.s} right={
+                <button className="toggle-sw" role="switch" aria-checked={!!on[i.id]} aria-label={`Share ${i.t}`} onClick={() => toggle(i.id)} />
+              } />
+            </div>
+          ))}
+        </div>
+        <p className="small muted">Switch off anything you’d rather not share for this consult. It stays in Oskar’s profile.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Slot(api) {
+  const slot = api.state.slot;
+  return (
+    <Phone cta={<Button block size="lg" icon="video" disabled={!slot} onClick={api.next}>Book for {data.price}</Button>}>
+      <AppBar title="Book a check" onBack={api.back} />
+      <Scroll>
+        <PawProgress steps={['Attach', 'Time', 'Done']} current={1} />
+        <Section title="Pick a time">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name}</p><p className="small muted">Oskar’s usual vet</p></div><Badge tone="busy">Busy today</Badge></div>
+          <div className="chips">{['Thu 30 Oct 10:20', 'Fri 31 Oct 16:40'].map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s, vetPick: 'weber' })}>{s}</button>)}</div>
+          <hr className="divider" />
+          <div className="hstack"><VetAv initials={vet2.initials} /><div className="grow"><p className="h-head">{vet2.name}</p><p className="small muted">Internal medicine</p></div><Badge tone="online">Online</Badge></div>
+          <div className="chips">{['Today 11:00', 'Today 13:30'].map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s, vetPick: 'brandt' })}>{s}</button>)}</div>
+        </Section>
+        <div className="card card--sunken"><p className="small">Whichever vet you choose gets the same attachments, so a new vet starts as prepared as Dr. Weber.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetView(api) {
+  const on = api.state.on;
+  const v = api.state.vetPick === 'weber' ? vet : vet2;
+  const shared = ITEMS.filter(i => on[i.id]);
+  const held = ITEMS.filter(i => !on[i.id]);
+  return (
+    <Desk title={`${v.name} · next: ${senior.name}`} right={<span className="small">{api.state.slot || 'Today 11:00'}</span>}>
+      <div className="hstack">
+        <PetAvatar name={senior.name} species="cat" size={56} />
+        <div className="grow"><p className="h-title">{senior.name}, {senior.age}</p><p className="small muted">{senior.condition} · owner {owner.name} · 4-week check</p></div>
+        <Badge tone="success">Prepared</Badge>
+      </div>
+      <div className="desk__grid">
+        <div className="card card--lift">
+          <p className="label">Attached by PetDoc · {shared.length} items</p>
+          {shared.map(i => <Row key={i.id} icon={i.icon} title={i.t} sub={i.s} right={<Icon name="check" size={20} />} />)}
+          {!shared.length && <p className="small muted">Nothing shared for this consult.</p>}
+        </div>
+        <div className="vstack">
+          <div className="card card--sunny">
+            <p className="label">Trend since last check</p>
+            <p className="small"><b>Creatinine</b> 2.1 → 2.4 mg/dl</p>
+            <p className="small"><b>BP at home</b> 155 → 150 mmHg</p>
+            {on.weight && <p className="small"><b>Weight</b> 4.2 → 4.1 kg</p>}
+          </div>
+          {held.length > 0 && (
+            <div className="card card--flat">
+              <div className="hstack"><Icon name="lock" /><p className="small grow">{owner.name} chose not to share: {held.map(i => i.t).join(', ')}. Ask only if you need it.</p></div>
+            </div>
+          )}
+          <Button block icon="video" onClick={() => { api.toast("Joining the call"); setTimeout(api.reset, 1400); }}>Join call</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Done(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.next}>See what the vet gets</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">All set for Oskar</p>
+          <p className="lead">{api.state.slot || 'Today 11:00'}. Your vet already has his latest results. Nothing to send, nothing to repeat.</p>
+        </div>
+        <div className="card card--sky"><Row icon="file" title="New results from your local vet?" sub="Add them any time. We’ll attach them next time too." right={null} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'B4', group: 'Remember', title: 'Auto-attach history to every booking',
+    persona: 'Care manager (Chronic)', impact: 'Med', effort: 'S (after B1)', when: 'Q3 (month 7)',
+    story: 'As a care manager, I want my latest results and meds attached automatically, so that the vet is prepared without me uploading again.',
+    why: 'Chronic owners return every ~26 days and are 7× more likely to return than acute owners, but re-telling cuts their return from 55% to 35%.',
+    measure: ['Chronic 30-day return 29.5% → 33%', 'Re-telling rate < 5% for chronic', 'Repeat uploads of the same document (should fall to near zero)', 'Share of attachments switched off (privacy signal)'],
+    notes: ['Attached by default, owner can switch items off per booking', 'Always the newest version of each item; the vet sees the trend, not a pile of PDFs', 'Same pack for any vet, so a fallback vet is as prepared as the usual one']
+  },
+  initialState: { on: { bloods: true, meds: true, consult: true, bp: true, weight: true } },
+  screens: [
+    { id: 'upload', label: 'Upload results once', who: 'Owner', render: Upload, caption: 'Anna adds Oskar’s bloods from the local practice, once.' },
+    { id: 'lock', label: '4-week check reminder', who: 'Owner', render: Lock },
+    { id: 'book', label: 'Attached automatically', who: 'Owner', render: Book, caption: 'The test: booking with nothing to upload. Switch an item off to see what the vet gets.' },
+    { id: 'slot', label: 'Any vet, same pack', who: 'Owner', render: Slot },
+    { id: 'done', label: 'Booked', who: 'Owner', render: Done },
+    { id: 'vet', label: 'Vet sees the pack', who: 'Vet', render: VetView, caption: 'Before the call: the vet gets exactly what Anna chose to share.' }
+  ]
+});
+</script>
+</body>
+</html>

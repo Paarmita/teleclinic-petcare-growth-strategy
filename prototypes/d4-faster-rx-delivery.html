@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>D4 Faster Rx delivery — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .d4-when { margin-left: auto; text-align: right; flex: none; }
+  .d4-when b { display: block; font-size: 15px; }
+  .d4-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .d4-table th { text-align: left; font-weight: 800; padding: 8px 6px; border-bottom: var(--stroke-sticker) solid var(--ink); }
+  .d4-table td { padding: 10px 6px; border-bottom: var(--stroke-sticker) dashed var(--line); font-weight: 600; vertical-align: middle; }
+  .d4-table tr.is-risk td { background: var(--warning-tint); }
+  .d4-stat { display: flex; flex-direction: column; gap: 2px; }
+  .d4-stat b { font-family: var(--font-display); font-weight: 600; font-size: 26px; }
+  .tl__dot.is-done { background: var(--mint); }
+  .tl__dot.is-now { background: var(--brand); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const MED = { name: 'Apoquel 16 mg', dose: '1 tablet twice a day for 14 days, then once a day', pack: '20 tablets', price: 38.9 };
+const OPTS = {
+  pickup: { t: 'Pick up today', s: 'Rosen-Apotheke, Schönhauser Allee 82 · 1.2 km', when: 'Today', at: 'from 17:30', fee: 0, c: 'bg-mint', ic: 'paw' },
+  express: { t: 'Express delivery', s: 'DHL Express to Kastanienallee 14', when: 'Tomorrow', at: 'by 12:00', fee: 4.9, c: 'bg-sky', ic: 'truck' },
+  standard: { t: 'Standard delivery', s: 'Partner pharmacy, DHL parcel', when: 'Mon 16 Mar', at: 'within 4 days', fee: 0, c: 'bg-sunny', ic: 'truck' }
+};
+const eur = n => '€' + n.toFixed(2).replace('.', ',');
+
+function VetRx(api) {
+  return (
+    <Desk title="Consultation · Bella (dog) · prescription">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Assessment</p>
+            <p className="small">Allergic dermatitis, likely environmental. Itch score 7/10. Start oclacitinib, review in 14 days.</p>
+          </div>
+          <div className="card card--lift">
+            <div className="hstack"><span className="ic-badge bg-brand"><Icon name="pill" /></span><div className="grow"><p className="h-head">{MED.name}</p><p className="small muted">{MED.pack} · for {pet.name}, {pet.weight}</p></div></div>
+            <p className="small">{MED.dose}</p>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--sky">
+            <p className="label">Fastest way for Anna (10437 Berlin)</p>
+            <Row icon="paw" title="In stock at a partner pharmacy" sub="Rosen-Apotheke · 1.2 km · ready today 17:30" right={<Badge tone="success">In stock</Badge>} />
+            <Row icon="truck" title="Delivery by Monday at the latest" sub="All options meet the 4-day promise" right={null} />
+          </div>
+          <Button block icon="send" onClick={() => { api.toast('Prescription sent — Anna chooses pickup or delivery'); setTimeout(api.next, 900); }}>Send e-prescription</Button>
+          <p className="small muted">Stock is checked while the vet writes the prescription, so Anna only sees options that can really arrive in time.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Choose(api) {
+  const pick = api.state.pick;
+  const o = OPTS[pick];
+  const total = o ? MED.price + o.fee : 0;
+  return (
+    <Phone cta={<Button block size="lg" disabled={!pick} onClick={api.next}>{pick ? `Confirm and pay ${eur(total)}` : 'Choose an option'}</Button>}>
+      <AppBar title="Bella’s medicine" onBack={api.back} />
+      <Scroll>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-brand"><Icon name="pill" /></span><div className="grow"><p className="h-head">{MED.name}</p><p className="small muted">Prescribed by {vet.name} · {MED.pack}</p></div><p className="h-head">{eur(MED.price)}</p></div>
+          <p className="small">{MED.dose}</p>
+        </div>
+        <Section title="How do you want it?">
+          <div className="vstack" role="radiogroup" aria-label="Pickup or delivery">
+            {Object.keys(OPTS).map(k => { const x = OPTS[k]; return (
+              <button key={k} role="radio" aria-checked={pick === k} className={`choice ${pick === k ? 'is-on' : ''}`} onClick={() => api.set({ pick: k })}>
+                <span className={`choice__dot ${x.c}`}><Icon name={pick === k ? 'check' : x.ic} size={20} /></span>
+                <span className="grow">{x.t}<span className="choice__sub">{x.s}{x.fee ? ` · + ${eur(x.fee)}` : ' · no fee'}</span></span>
+                <span className="d4-when small"><b>{x.when}</b>{x.at}</span>
+              </button>
+            ); })}
+          </div>
+        </Section>
+        <div className="card card--sunken"><div className="hstack"><Icon name="shield" /><p className="small"><b>Our promise:</b> your medicine arrives within 4 days, or we refund the delivery and tell you the nearest pharmacy that has it.</p></div></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Track(api) {
+  const pick = api.state.pick || 'pickup';
+  const o = OPTS[pick];
+  const isPickup = pick === 'pickup';
+  const steps = isPickup
+    ? [['Prescription received', '14:51', 'done'], ['Rosen-Apotheke is preparing it', 'now', 'now'], ['Ready to collect', 'from 17:30', ''], ['First dose tonight', 'we’ll remind you at 19:00', '']]
+    : [['Prescription received', '14:51', 'done'], ['Packed by partner pharmacy', 'now', 'now'], ['On its way', pick === 'express' ? 'tonight' : 'Fri 13 Mar', ''], ['Delivered', `${o.when}, ${o.at}`, '']];
+  return (
+    <Phone nav="consults" cta={<Button block size="lg" variant="secondary" onClick={api.next}>Done</Button>}>
+      <AppBar title="Order tracking" onBack={api.back} />
+      <Scroll nav>
+        <div className="card card--success" role="status"><div className="hstack"><Icon name="check" /><p className="small"><b>Paid {eur(MED.price + o.fee)}.</b> {isPickup ? 'Ready today from 17:30.' : `Arrives ${o.when.toLowerCase()} ${o.at}.`}</p></div></div>
+        <div className="card card--flat">
+          <ol className="tl">
+            {steps.map((st, i) => (
+              <li key={i}><span className={`tl__dot ${st[2] === 'done' ? 'is-done' : st[2] === 'now' ? 'is-now' : ''}`} />
+                <p className="row__t">{st[0]}</p><p className="row__s">{st[1]}</p></li>
+            ))}
+          </ol>
+        </div>
+        {isPickup && <div className="card card--sky"><Row icon="file" title="Bring nothing" sub="Say “PetDoc for Bella” and show order code BW-4821" right={null} /></div>}
+        <div className="hstack card card--flat" style={{ flexDirection: 'row' }}><div className="grow"><p className="row__t">Remind me to give the first dose</p><p className="row__s">Tonight at 19:00, then twice a day</p></div>
+          <button className="toggle-sw" role="switch" aria-checked={api.state.remind !== false} aria-label="First dose reminder" onClick={() => api.set(s => ({ remind: s.remind === false }))} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Ops(api) {
+  const fixed = api.state.rerouted;
+  return (
+    <Desk title="Ops · Rx delivery promise (≤ 4 days)">
+      <div className="hstack wrap" style={{ gap: 'var(--space-6)' }}>
+        <div className="d4-stat"><span className="small muted">Within 4 days, this week</span><b>94%</b></div>
+        <div className="d4-stat"><span className="small muted">Before (baseline)</span><b>72%</b></div>
+        <div className="d4-stat"><span className="small muted">Local pickup share</span><b>31%</b></div>
+        <div className="d4-stat"><span className="small muted">At risk now</span><b>{fixed ? 0 : 1}</b></div>
+      </div>
+      <div className="card card--flat" style={{ overflowX: 'auto' }}>
+        <table className="d4-table">
+          <thead><tr><th>Order</th><th>Pet</th><th>Day</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>BW-4821</td><td>Bella</td><td>0</td><td><Badge tone="success">On track</Badge></td><td></td></tr>
+            <tr className={fixed ? '' : 'is-risk'}><td>MK-4790</td><td>Milo</td><td>3</td>
+              <td>{fixed ? <Badge tone="success">Rerouted</Badge> : <Badge tone="waiting">Not shipped</Badge>}</td>
+              <td>{fixed ? <span className="small muted">Owner told</span> : <Button size="sm" onClick={() => { api.set({ rerouted: true }); api.toast('Moved to Löwen-Apotheke, Hamburg · owner notified'); }}>Move to local pharmacy</Button>}</td></tr>
+            <tr><td>OS-4766</td><td>Oskar</td><td>2</td><td><Badge tone="success">Out for delivery</Badge></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="small muted">Any order not shipped by day 2 is flagged. Ops can move it to a partner pharmacy near the owner, and the owner gets a message with the new time before they have to ask.</p>
+      <div><Button variant="secondary" onClick={api.next}>See Anna’s notification</Button></div>
+    </Desk>
+  );
+}
+
+function Ready(api) {
+  const isPickup = (api.state.pick || 'pickup') === 'pickup';
+  return (
+    <Phone dark>
+      <LockScreen date={isPickup ? 'Thursday 12 March' : 'Friday 13 March'} time={isPickup ? '17:24' : '11:08'} hint="Tap the notification">
+        <Push title={isPickup ? 'Bella’s medicine is ready' : 'Bella’s medicine was delivered'} text={isPickup ? 'Collect it at Rosen-Apotheke, Schönhauser Allee 82, until 20:00. Code BW-4821.' : 'Left with you at Kastanienallee 14. First dose tonight at 19:00.'} onClick={() => api.reset()} />
+        <Push when="2h ago" title="Your care summary is ready" text="Home care steps and what to watch for." />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'D4', group: 'Fix friction', title: 'Faster Rx delivery',
+    persona: 'Owners with a prescription', impact: 'Med ~+0.9pp', effort: 'L', when: 'Other mission — advocate',
+    story: 'As an owner, I want medication within a few days, so that treatment starts quickly.',
+    why: '28% of prescriptions take 5 days or more; those owners return at 16.5% vs 25.6% when delivery takes 4 days or less. Each extra day cuts the odds of returning by about 15%.',
+    measure: ['Rx delivered in ≤ 4 days: 72% → 95%', 'Share of local pharmacy pickups', 'Return for Rx users: 16.5% → 25%', 'Delivery refunds paid (cost guardrail)'],
+    notes: ['Stock is checked while the vet prescribes, so every option shown can meet the 4-day promise', 'Each option shows an arrival day, not a vague “2–5 working days”', 'Ops sees at-risk orders on day 2 and reroutes before the owner notices']
+  },
+  initialState: { pick: 'pickup' },
+  screens: [
+    { id: 'vet', label: 'Vet sends e-prescription', who: 'Vet', render: VetRx, caption: 'Stock near the owner is checked while the vet prescribes.' },
+    { id: 'choose', label: 'Pickup or delivery', who: 'Owner', render: Choose, caption: 'The decision point: a same-day local option next to delivery dates. Try each option.' },
+    { id: 'track', label: 'Tracking + first dose', who: 'Owner', render: Track },
+    { id: 'ops', label: 'Ops: at-risk orders', who: 'Ops', render: Ops, caption: 'Orders not shipped by day 2 get rerouted to a local pharmacy.' },
+    { id: 'ready', label: 'Ready / delivered', who: 'Owner', render: Ready }
+  ]
+});
+</script>
+</body>
+</html>

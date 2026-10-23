@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A1 Day-3 check-in — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const DAYS = ['Day 2', 'Day 3', 'Day 5', 'Day 7'];
+const SLOTS = ['Today 18:30', 'Today 19:10', 'Tomorrow 08:40'];
+
+function VetSetup(api) {
+  const day = api.state.day;
+  return (
+    <Desk title="Consultation · Bella (dog) · 14:32">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="video"><span className="h-head">Anna &amp; Bella</span><div className="video__pip small">You</div></div>
+          <div className="card card--flat">
+            <p className="label">Assessment</p>
+            <p className="small">Acute gastroenteritis. Bland diet 3 days, probiotic, fluids. No blood in stool, alert and drinking.</p>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack"><span className="ic-badge bg-brand"><Icon name="bell" /></span>
+              <div className="grow"><p className="h-head">Check-in for Bella</p><p className="small muted">Default for gastro: day 3. Anna gets a one-tap question.</p></div></div>
+            <div className="chips" role="group" aria-label="Check-in day">
+              {DAYS.map(d => <Chip key={d} selected={day === d} onClick={() => api.set({ day: d })}>{d}</Chip>)}
+            </div>
+            <hr className="divider" />
+            <p className="label">Re-check if</p>
+            <div className="chips">
+              {['Still vomiting', 'Not eating', 'Lethargic'].map(f => <Chip key={f} selected={(api.state.flags || []).includes(f)} onClick={() => api.set(s => ({ flags: (s.flags || []).includes(f) ? s.flags.filter(x => x !== f) : [...(s.flags || []), f] }))}>{f}</Chip>)}
+            </div>
+            <Button block icon="check" onClick={() => { api.toast(`Check-in set for ${day}`); setTimeout(api.next, 900); }}>Confirm check-in</Button>
+            <Button block variant="ghost" size="sm" onClick={api.next}>No check-in needed</Button>
+          </div>
+          <p className="small muted">Adds about 5 seconds to the end of the call. Vet Experience to sign off.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Sunday 15 March" time="10:02" hint="Tap the notification">
+        <Push title={`How is ${pet.name} today?`} text={`${vet.name} asked us to check in. Tap to answer — it takes 5 seconds.`} onClick={api.next} />
+        <Push when="2d ago" title="Your care summary is ready" text="Home care steps and what to watch for." />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function CheckIn(api) {
+  const ans = api.state.answer;
+  const opts = [
+    { id: 'better', t: 'Better', s: 'Eating and back to normal', c: 'bg-mint', ic: 'check' },
+    { id: 'same', t: 'About the same', s: 'No real change yet', c: 'bg-sunny', ic: 'clock' },
+    { id: 'worse', t: 'Worse', s: 'New or stronger symptoms', c: 'bg-gum', ic: 'alert' }
+  ];
+  return (
+    <Phone cta={<Button block size="lg" disabled={!ans} onClick={() => api.go(ans === 'better' ? 'closed' : 'recheck')}>Send answer</Button>}>
+      <AppBar title="Check-in" onBack={api.back} />
+      <Scroll>
+        <div className="hstack">
+          <PetAvatar name={pet.name} species="dog" size={64} />
+          <div><p className="h-title">How is {pet.name} today?</p><p className="small muted">Day 3 after your consult with {vet.name}</p></div>
+        </div>
+        <div className="vstack" role="radiogroup" aria-label="How is Bella">
+          {opts.map(o => (
+            <button key={o.id} role="radio" aria-checked={ans === o.id} className={`choice ${ans === o.id ? 'is-on' : ''}`} onClick={() => api.set({ answer: o.id })}>
+              <span className={`choice__dot ${o.c}`}><Icon name={ans === o.id ? 'check' : o.ic} size={20} /></span>
+              <span>{o.t}<span className="choice__sub">{o.s}</span></span>
+            </button>
+          ))}
+        </div>
+        <div className="card card--sunken">
+          <p className="label">What Dr. Weber asked you to watch for</p>
+          <p className="small">Vomiting more than twice a day, not eating for 24 hours, or very tired.</p>
+        </div>
+        <div className="card card--danger"><div className="hstack"><Icon name="alert" /><p className="small"><b>Blood in vomit or stool, or Bella collapses?</b> Call your nearest emergency clinic now.</p></div></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Recheck(api) {
+  const worse = api.state.answer === 'worse';
+  const slot = api.state.slot;
+  return (
+    <Phone cta={<Button block size="lg" icon="video" disabled={!slot} onClick={api.next}>Book re-check with Dr. Weber</Button>}>
+      <AppBar title="Re-check" onBack={api.back} />
+      <Scroll>
+        <div className={`card ${worse ? 'card--warn' : 'card--sunny'}`}>
+          <p className="h-head">{worse ? 'Let’s have Dr. Weber take another look' : 'Thanks — a quick re-check can help'}</p>
+          <p className="small">{worse ? 'Worse after 3 days is worth checking today.' : 'If there’s no change by day 3, Dr. Weber suggested a short follow-up.'}</p>
+        </div>
+        <Section title="Same vet, already up to speed">
+          <div className="card card--lift">
+            <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name}</p><p className="small muted">Saw Bella on Thursday</p></div><Badge tone="online">Online</Badge></div>
+            <hr className="divider" />
+            <p className="label">Attached for Dr. Weber</p>
+            <Row icon="file" title="Thursday’s consult notes" sub="Acute gastroenteritis · bland diet" right={<Icon name="check" size={20} />} />
+            <Row icon="image" title="2 photos you uploaded" sub="Stool, 12 March" right={<Icon name="check" size={20} />} />
+            <Row icon="chat" title={`Today’s answer: ${worse ? 'Worse' : 'About the same'}`} sub="Sent with your check-in" right={<Icon name="check" size={20} />} />
+          </div>
+        </Section>
+        <Section title="Pick a time">
+          <div className="chips">{SLOTS.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+          <p className="small muted">Dr. Weber busy? We’ll offer the next available vet within 2 hours — with the same notes.</p>
+        </Section>
+        <div className="hstack"><p className="grow small muted">Video re-check, 15 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Booked(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to home</Button>}>
+      <Scroll style={{ justifyContent: 'center' }}>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">You’re booked</p>
+          <p className="lead">{api.state.slot || 'Today 18:30'} with {vet.name}. She already has Bella’s notes, so you can start with what’s changed.</p>
+        </div>
+        <div className="card card--sky"><Row icon="video" title="Video re-check" sub="We’ll remind you 10 min before" right={null} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Closed(api) {
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Done</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 40 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="paw" size={40} /></span>
+          <p className="h-display">Great news about Bella</p>
+          <p className="lead">We’ve closed this episode and saved it to Bella’s record, so any vet will know what happened.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={44} /><div className="grow"><p className="h-head">Tummy upset · 12–15 March</p><p className="small muted">{vet.name} · bland diet, probiotic</p></div><Badge tone="success">Resolved</Badge></div>
+        </div>
+        <p className="small muted center">Something changes? You can reopen this from Bella’s profile.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'A1', group: 'Follow up', title: 'Vet-set day-3 check-in',
+    persona: 'Worried one-timer (Acute)', impact: 'High ~+3pp', effort: 'M', when: 'Q1 main bet',
+    story: 'As a worried one-timer, I want the app to check on my pet a few days after the call, so that I can get a re-check quickly if things aren’t improving.',
+    why: 'Acute owners are 61% of new users and only 2.2% return within 30 days. Nobody checks in after the call.',
+    measure: ['Check-in response rate (target 40%)', 'Re-check within 14 days: 0.7% → 4–5%', 'Re-checks vets mark “not needed” < 15% (guardrail)', 'Notification opt-outs'],
+    notes: ['Vet sets the date; default by condition type', 'Same vet first, fallback within 2 hours, history always attached', '“Better” closes the case and feeds the pet record (A7)']
+  },
+  initialState: { day: 'Day 3', flags: ['Still vomiting', 'Not eating'] },
+  screens: [
+    { id: 'vet', label: 'Vet sets check-in', who: 'Vet', render: VetSetup, caption: 'End of the consultation: the vet confirms when PetDoc should check in.' },
+    { id: 'lock', label: 'Day-3 notification', who: 'Owner', render: Lock, caption: 'Three days later, Anna gets one question.' },
+    { id: 'checkin', label: 'Better / same / worse', who: 'Owner', render: CheckIn, caption: 'The decision point: does a check-in turn into a re-check? Try “Better” too.' },
+    { id: 'recheck', label: 'Re-check, history attached', who: 'Owner', render: Recheck },
+    { id: 'booked', label: 'Booked', who: 'Owner', render: Booked },
+    { id: 'closed', label: 'Better → case closed', who: 'Owner', render: Closed, caption: 'The “Better” branch: the episode is saved to Bella’s record.' }
+  ]
+});
+</script>
+</body>
+</html>

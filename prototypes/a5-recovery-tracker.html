@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A5 Recovery tracker — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .a5-chart { display: flex; align-items: flex-end; gap: 8px; height: 140px; padding: 8px 4px 0; border-bottom: 2px solid var(--line-strong); }
+  .a5-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%; }
+  .a5-bar { width: 100%; max-width: 28px; border-radius: 8px 8px 0 0; border: var(--stroke-sticker) solid var(--ink); border-bottom: 0; background: var(--brand-tint); }
+  .a5-bar.is-today { background: var(--brand); }
+  .a5-days { display: flex; gap: 8px; padding: 0 4px; }
+  .a5-days span { flex: 1; text-align: center; font-size: 12px; font-weight: 700; color: var(--ink-muted); }
+  .a5-scale { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .a5-scale button { min-height: 48px; border-radius: var(--radius-md); border: var(--stroke-sticker) solid var(--line-strong); background: var(--surface-raised); font-weight: 800; font-size: 16px; cursor: pointer; color: var(--ink); }
+  .a5-scale button.is-on { background: var(--brand-tint); border-color: var(--ink); box-shadow: 0 2px 0 0 var(--ink); }
+  .a5-photos { display: flex; gap: 8px; overflow-x: auto; }
+  .a5-photos .thumb { background: var(--bubblegum-tint); flex-direction: column; font-size: 12px; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const PAST = [4, 4, 3]; // itch scores days 1–3
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu'];
+
+function Chart({ scores }) {
+  return (
+    <div>
+      <div className="a5-chart" role="img" aria-label={`Itch score by day: ${scores.join(', ')} out of 5`}>
+        {scores.map((v, i) => (
+          <div key={i} className="a5-col">
+            <span className="small"><b>{v}</b></span>
+            <div className={`a5-bar ${i === scores.length - 1 ? 'is-today' : ''}`} style={{ height: `${Math.max(v, 0.2) * 20}%` }} />
+          </div>
+        ))}
+      </div>
+      <div className="a5-days">{scores.map((_, i) => <span key={i}>{DAYS[i]}</span>)}</div>
+    </div>
+  );
+}
+
+function VetSetup(api) {
+  const { track } = api.state;
+  const items = ['Daily photo', 'Itch score 0–5', 'Licking or scratching at night', 'Appetite'];
+  return (
+    <Desk title="Consultation · Bella (dog) · wrap-up">
+      <div className="desk__grid">
+        <div className="card card--flat">
+          <p className="label">Assessment</p>
+          <p className="small">Acute moist dermatitis (hotspot), left flank, ~3 cm. Clipped and cleaned on camera with owner. Chlorhexidine wash twice daily, cone at night. Re-check day 5.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-gum"><Icon name="chart" /></span>
+            <div className="grow"><p className="h-head">Recovery tracker</p><p className="small muted">Anna logs once a day; you see the trend at the re-check</p></div></div>
+          <p className="label">Ask Anna to log</p>
+          <div className="chips">
+            {items.map(f => <Chip key={f} selected={track.includes(f)} onClick={() => api.set(s => ({ track: s.track.includes(f) ? s.track.filter(x => x !== f) : [...s.track, f] }))}>{f}</Chip>)}
+          </div>
+          <div className="card card--sunken"><p className="small">Alert you if the itch score is 4 or more two days running, or Anna marks it worse.</p></div>
+          <Button block icon="check" onClick={() => { api.toast('Tracker set for 5 days'); setTimeout(api.next, 900); }}>Start 5-day tracker</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Thursday 5 June" time="19:30" hint="Tap the notification">
+        <Push title="Day 4 · Bella’s skin check" text="One photo and a score. Takes about 30 seconds." onClick={api.next} />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Log(api) {
+  const { score, photo, track } = api.state;
+  const labels = ['None', 'Rare', 'Some', 'Often', 'A lot', 'Non-stop'];
+  return (
+    <Phone cta={<Button block size="lg" disabled={score === null} onClick={api.next}>Save day 4</Button>}>
+      <AppBar title="Day 4 of 5" onBack={api.back} />
+      <Scroll>
+        <div className="hstack"><PetAvatar name={pet.name} species="dog" size={48} /><div><p className="h-title">How’s the hotspot?</p><p className="small muted">For {vet.name}’s re-check on Friday</p></div></div>
+        {track.includes('Daily photo') && (photo ? (
+          <div className="hstack">
+            <div className="thumb bg-gum-t"><Icon name="image" /></div>
+            <div className="grow"><p className="label">Photo added</p><p className="small muted">Same spot as day 1 — nice</p></div>
+            <Button size="sm" variant="ghost" onClick={() => api.set({ photo: false })}>Retake</Button>
+          </div>
+        ) : (
+          <button className="card card--tap card--sunken" style={{ width: '100%' }} onClick={() => api.set({ photo: true })}>
+            <div className="hstack"><span className="ic-badge bg-sky"><Icon name="camera" /></span><div className="grow" style={{ textAlign: 'left' }}><p className="label">Take today’s photo</p><p className="small muted">We’ll show a ghost of day 1 so you match the angle</p></div></div>
+          </button>
+        ))}
+        {track.includes('Itch score 0–5') && (
+          <Section title="How much is she scratching?">
+            <div className="a5-scale" role="radiogroup" aria-label="Itch score">
+              {labels.map((l, i) => <button key={i} role="radio" aria-checked={score === i} aria-label={`${i} ${l}`} className={score === i ? 'is-on' : ''} onClick={() => api.set({ score: i })}>{i}</button>)}
+            </div>
+            <p className="small muted">{score === null ? '0 = none, 5 = non-stop' : `${score} · ${labels[score]}`}</p>
+          </Section>
+        )}
+        {track.includes('Licking or scratching at night') && (
+          <div className="card"><div className="hstack"><p className="grow label">Woke up scratching last night</p>
+            <button className="toggle-sw" role="switch" aria-checked={!!api.state.night} aria-label="Woke up scratching" onClick={() => api.set(s => ({ night: !s.night }))} /></div></div>
+        )}
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Trend(api) {
+  const scores = [...PAST, api.state.score === null ? 2 : api.state.score];
+  const worse = scores[3] >= 4 && scores[2] >= 3;
+  const better = scores[3] < scores[0];
+  return (
+    <Phone nav="pets" cta={worse
+      ? <Button block size="lg" icon="video" onClick={() => api.toast('Re-check moved to today 18:30')}>Bring re-check forward</Button>
+      : <Button block size="lg" variant="secondary" onClick={api.next}>See it from Dr. Weber’s side</Button>}>
+      <AppBar title="Bella’s recovery" onBack={api.back} />
+      <Scroll nav>
+        {worse ? (
+          <div className="card card--warn"><div className="hstack"><Icon name="alert" /><p className="small"><b>Not improving.</b> The score went up today. Dr. Weber asked us to offer an earlier re-check.</p></div></div>
+        ) : (
+          <div className="card card--mint"><div className="hstack"><Icon name="check" /><p className="small"><b>{better ? 'Heading the right way.' : 'Holding steady.'}</b> {better ? 'The itch score is down since Monday.' : 'Keep going — Dr. Weber will review on Friday.'}</p></div></div>
+        )}
+        <div className="card card--lift">
+          <p className="label">Itch score · 0–5</p>
+          <Chart scores={scores} />
+        </div>
+        <Section title="Photos">
+          <div className="a5-photos">
+            {DAYS.map((d, i) => <div key={d} className="thumb"><Icon name="image" size={20} /><span>{d}</span></div>)}
+          </div>
+        </Section>
+        <div className="card card--sky"><Row icon="calendar" title="Re-check with Dr. Weber" sub="Fri 6 June, 18:00 · she’ll see this log" right={null} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetView(api) {
+  const scores = [...PAST, api.state.score === null ? 2 : api.state.score];
+  return (
+    <Desk title="Re-check · Bella (dog) · Fri 18:00">
+      <div className="desk__grid">
+        <div className="card card--lift">
+          <div className="hstack"><p className="h-head grow">Anna’s log so far</p><Badge tone="success">4 of 4 days logged</Badge></div>
+          <Chart scores={scores} />
+          <div className="a5-photos">{DAYS.map(d => <div key={d} className="thumb"><Icon name="image" size={20} /><span>{d}</span></div>)}</div>
+        </div>
+        <div className="card">
+          <p className="label">At a glance</p>
+          <dl className="kv">
+            <dt>Itch</dt><dd>{scores[0]} → {scores[3]} over 4 days</dd>
+            <dt>Nights</dt><dd>{api.state.night ? 'Woke scratching on day 4' : 'Slept through days 3–4'}</dd>
+            <dt>Care</dt><dd>Wash done 7 of 8 times</dd>
+          </dl>
+          <p className="small muted">Saved to Bella’s record when the episode closes.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+mount({
+  idea: {
+    code: 'A5', group: 'Follow up', title: 'Recovery tracker',
+    persona: 'Worried one-timer (Acute)', impact: 'Low–Med', effort: 'M', when: 'Q4 · months 10–11',
+    story: 'As a worried one-timer, I want to log how my pet is doing day by day, so that the vet can see the trend at the re-check.',
+    why: 'Re-telling hits 19% of visits and cuts return by a third. For skin, wounds and GI, a daily log means the re-check starts from a trend instead of a memory, and gives owners a reason to open the app between calls.',
+    measure: ['Tracker completion (days logged / days set)', 'Re-checks booked early from a worsening trend', 'Re-telling rate at re-check (< 5%)', 'Owners opening the app without a consult, month on month'],
+    notes: ['Vet chooses what to log so it stays short (one photo, one score)', 'A worsening trend offers an earlier re-check rather than medical advice', 'Ghost overlay of day 1 keeps photos comparable']
+  },
+  initialState: { track: ['Daily photo', 'Itch score 0–5', 'Licking or scratching at night'], score: null, photo: true, night: false },
+  screens: [
+    { id: 'vet', label: 'Vet sets the tracker', who: 'Vet', render: VetSetup },
+    { id: 'lock', label: 'Daily nudge', who: 'Owner', render: Lock },
+    { id: 'log', label: 'Log day 4', who: 'Owner', render: Log, caption: 'Try a score of 4 or 5 to see the “not improving” branch, or 0–2 for steady recovery.' },
+    { id: 'trend', label: 'Trend + next step', who: 'Owner', render: Trend },
+    { id: 'vetview', label: 'Vet sees the trend', who: 'Vet', render: VetView }
+  ]
+});
+</script>
+</body>
+</html>

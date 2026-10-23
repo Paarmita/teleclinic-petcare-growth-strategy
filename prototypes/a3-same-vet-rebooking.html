@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A3 Same-vet re-booking — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet, vet2 } = data;
+
+const WEBER_SLOTS = ['Tue 18:30', 'Tue 19:10', 'Wed 08:40', 'Wed 12:20'];
+const ANY_SLOTS = ['Today 16:05', 'Today 16:30', 'Today 17:15'];
+const SHARE = [
+  { id: 'notes', icon: 'file', t: 'Last consult notes', s: 'Itchy skin · 2 Feb · Dr. Weber' },
+  { id: 'meds', icon: 'pill', t: 'Medication', s: 'Apoquel 16 mg, ½ tablet twice a day' },
+  { id: 'photos', icon: 'image', t: '3 photos', s: 'Belly and paws, 2–9 Feb' }
+];
+
+function Home(api) {
+  return (
+    <Phone nav="home">
+      <Scroll nav>
+        <p className="h-title">Hi Anna</p>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={52} /><div className="grow"><p className="h-head">{pet.name}</p><p className="small muted">{pet.breed} · {pet.age}</p></div></div>
+          <hr className="divider" />
+          <p className="label">Last seen by</p>
+          <div className="hstack">
+            <VetAv initials={vet.initials} />
+            <div className="grow"><p className="h-head">{vet.name}</p><p className="small muted">Itchy skin · 2 Feb · you rated 5 stars</p></div>
+          </div>
+          <Button block icon="calendar" onClick={() => { api.set({ mode: 'same', slot: null }); api.next(); }}>Book again with Dr. Weber</Button>
+          <p className="small muted center">She’ll have Bella’s notes, meds and photos.</p>
+        </div>
+        <Section title="Something else?">
+          <div className="card">
+            <Row icon="chat" title="Start a new consultation" sub="First available vet, usually under 10 min" onClick={() => { api.set({ mode: 'any', slot: null }); api.next(); }} />
+          </div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Pick(api) {
+  const { mode, slot } = api.state;
+  const same = mode === 'same';
+  const slots = same ? WEBER_SLOTS : ANY_SLOTS;
+  return (
+    <Phone cta={<Button block size="lg" disabled={!slot} onClick={api.next}>Continue</Button>}>
+      <AppBar title="Book a consultation" onBack={api.back} />
+      <Scroll>
+        <div className="vstack" role="radiogroup" aria-label="Which vet">
+          <button role="radio" aria-checked={same} className={`choice ${same ? 'is-on' : ''}`} onClick={() => api.set({ mode: 'same', slot: null })}>
+            <span className="vet-av">{vet.initials}</span>
+            <span className="grow">{vet.name}<span className="choice__sub">Knows Bella · next free Tue 18:30</span></span>
+            {same && <Icon name="check" />}
+          </button>
+          <button role="radio" aria-checked={!same} className={`choice ${!same ? 'is-on' : ''}`} onClick={() => api.set({ mode: 'any', slot: null })}>
+            <span className="choice__dot bg-sky"><Icon name="clock" size={20} /></span>
+            <span className="grow">First available vet<span className="choice__sub">Today · Bella’s notes still attached</span></span>
+            {!same && <Icon name="check" />}
+          </button>
+        </div>
+        {same ? (
+          <div className="card card--sunny"><div className="hstack"><Icon name="clock" /><p className="small">Dr. Weber’s next slot is in 2 days. If Bella gets worse before then, pick “first available vet”.</p></div></div>
+        ) : (
+          <div className="card card--sky"><div className="hstack"><VetAv initials={vet2.initials} /><p className="small grow">Likely {vet2.name} — he’ll read Dr. Weber’s notes before the call.</p></div></div>
+        )}
+        <Section title="Pick a time">
+          <div className="chips">{slots.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Share(api) {
+  const { share, mode, slot } = api.state;
+  const who = mode === 'same' ? vet : vet2;
+  const toggle = id => api.set(s => ({ share: s.share.includes(id) ? s.share.filter(x => x !== id) : [...s.share, id] }));
+  return (
+    <Phone cta={<Button block size="lg" icon="video" onClick={api.next}>Book for {data.price}</Button>}>
+      <AppBar title="Check and book" onBack={api.back} />
+      <Scroll>
+        <div className="card card--lift">
+          <div className="hstack"><VetAv initials={who.initials} /><div className="grow"><p className="h-head">{who.name}</p><p className="small muted">Video · {slot} · 15 min</p></div></div>
+        </div>
+        <Section title="What’s changed since 2 Feb?">
+          <div className="chips">
+            {['Itching is back', 'New red patch', 'Meds finished', 'Licking paws'].map(c => (
+              <Chip key={c} selected={(api.state.changes || []).includes(c)} onClick={() => api.set(s => ({ changes: (s.changes || []).includes(c) ? s.changes.filter(x => x !== c) : [...(s.changes || []), c] }))}>{c}</Chip>
+            ))}
+          </div>
+          <p className="small muted">Just the new bits. You won’t need to tell the story again.</p>
+        </Section>
+        <Section title={`Shared with ${who.name}`}>
+          <div className="card">
+            {SHARE.map(x => (
+              <Row key={x.id} icon={x.icon} title={x.t} sub={x.s}
+                right={<button className="toggle-sw" role="switch" aria-checked={share.includes(x.id)} aria-label={`Share ${x.t}`} onClick={() => toggle(x.id)} />} />
+            ))}
+          </div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Booked(api) {
+  const { mode, slot } = api.state;
+  const who = mode === 'same' ? vet : vet2;
+  return (
+    <Phone nav="consults" cta={<Button block size="lg" variant="secondary" onClick={api.next}>See the vet’s view</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 40 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">See you {slot}</p>
+          <p className="lead">{mode === 'same' ? 'Dr. Weber is looking forward to catching up with Bella.' : `${who.name} has Dr. Weber’s notes and will pick up where she left off.`}</p>
+        </div>
+        <div className="card card--sky"><Row icon="video" title={`Video with ${who.name}`} sub="We’ll remind you 10 min before" right={null} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetView(api) {
+  const { mode, share, changes } = api.state;
+  const who = mode === 'same' ? vet : vet2;
+  const ch = changes && changes.length ? changes : ['Itching is back'];
+  return (
+    <Desk title={`${who.name} · upcoming · Bella (dog)`} right={<Badge tone={mode === 'same' ? 'fun' : 'neutral'}>{mode === 'same' ? 'Returning patient' : 'Seen by Dr. Weber'}</Badge>}>
+      <div className="desk__grid">
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={48} /><div className="grow"><p className="h-head">Bella · {pet.breed}</p><p className="small muted">{pet.age} · {pet.weight} · owner Anna</p></div></div>
+          <hr className="divider" />
+          <p className="label">New since last time</p>
+          <div className="chips">{ch.map(c => <Badge key={c} tone="waiting">{c}</Badge>)}</div>
+        </div>
+        <div className="card">
+          <p className="label">Last consult · 2 Feb · {vet.name}</p>
+          {share.includes('notes') ? <p className="small">Atopic dermatitis flare, belly and paws. Apoquel 16 mg ½ tab BID 14 d. Re-check if itch returns after course.</p> : <p className="small muted">Anna chose not to share notes.</p>}
+          {share.includes('meds') && <Row icon="pill" title="Apoquel 16 mg" sub="Finished 16 Feb" right={null} />}
+          {share.includes('photos') && <Row icon="image" title="3 photos" sub="Belly and paws, 2–9 Feb" right={null} />}
+        </div>
+        <p className="small muted">No intake questions repeated. Measured against the “vet already knew my pet” survey.</p>
+      </div>
+    </Desk>
+  );
+}
+
+mount({
+  idea: {
+    code: 'A3', group: 'Follow up', title: 'Same-vet re-booking',
+    persona: 'All owners', impact: 'Med', effort: 'M', when: 'Q2 · months 4–5',
+    story: 'As an owner, I want to see the same vet again, so that I don’t have to start from scratch with someone new.',
+    why: '19% of visits involve re-telling known info, which cuts return from 23% to 15% (chronic 55% → 35%). “Context present” comments have the highest return of any theme (36%).',
+    measure: ['Share of returning owners who book the same vet', '“The vet already knew my pet” → 70% by end of Q2', 'Re-telling rate 17–19% → < 5%', 'Time to consult when waiting for the same vet (guardrail)'],
+    notes: ['Same vet is the default, but never at the cost of urgency: “first available” is one tap away and still carries the notes', 'Owner adds only what’s new as chips; history is attached, not re-typed', 'Owner controls what is shared, per item']
+  },
+  initialState: { mode: 'same', slot: null, share: ['notes', 'meds', 'photos'], changes: [] },
+  screens: [
+    { id: 'home', label: 'Book again with Dr. Weber', who: 'Owner', render: Home, caption: 'Home remembers who saw Bella last.' },
+    { id: 'pick', label: 'Same vet or first available', who: 'Owner', render: Pick, caption: 'The trade-off we’re testing: will owners wait 2 days for the vet who knows their pet?' },
+    { id: 'share', label: 'What’s new + history', who: 'Owner', render: Share },
+    { id: 'booked', label: 'Booked', who: 'Owner', render: Booked },
+    { id: 'vet', label: 'Vet sees the history', who: 'Vet', render: VetView, caption: 'Reflects what Anna picked and shared.' }
+  ]
+});
+</script>
+</body>
+</html>

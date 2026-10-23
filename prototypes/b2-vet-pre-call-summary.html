@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B2 Vet pre-call summary — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .b2-new { border-color: var(--ink); background: var(--sunny-tint); }
+  .b2-lab { display: grid; grid-template-columns: 1fr auto auto; gap: 4px 14px; font-size: 14px; align-items: center; }
+  .b2-lab dt { font-weight: 800; }
+  .b2-lab dd { margin: 0; font-weight: 700; }
+  .b2-full { grid-column: 1 / -1; }
+  .b2-meta { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Row, VetAv, Section, Desk, data } = window.Proto;
+const { senior, vet, vet2, owner } = data;
+
+const MISSING = ['Nothing, it was enough', 'Recent weight', 'Diet details', 'Home BP readings', 'Older bloods'];
+
+function Queue(api) {
+  return (
+    <Desk title={`Today · ${vet2.name}`} right={<Badge tone="online">Online</Badge>}>
+      <p className="h-title">Your next consults</p>
+      <div className="card card--lift">
+        <div className="hstack">
+          <PetAvatar name={senior.name} species="cat" size={56} />
+          <div className="grow">
+            <p className="h-head">{senior.name} · {senior.age} · cat</p>
+            <p className="small muted">{owner.name} · video · starts in 2 min · first time with you</p>
+          </div>
+          <Badge tone="waiting">In waiting room</Badge>
+        </div>
+        <div className="b2-meta">
+          <Badge tone="neutral">CKD stage 2</Badge>
+          <Badge tone="neutral">4 past consults</Badge>
+          <Badge tone="fun">Owner added what’s new</Badge>
+        </div>
+        <Button icon="paw" onClick={api.next}>Open one-screen summary</Button>
+      </div>
+      <div className="card card--flat">
+        <Row icon="paw" title="Milo · 10 weeks · kitten" sub="15:20 · first consult · vaccines question" right={<Badge tone="neutral">New pet</Badge>} />
+        <Row icon="paw" title="Bella · 4 years · dog" sub="15:40 · itching again · seen by you in January" right={<Badge tone="neutral">Returning</Badge>} />
+      </div>
+      <p className="small muted">Summary opens 2 minutes before the call. Target read time: under 60 seconds.</p>
+    </Desk>
+  );
+}
+
+function Waiting(api) {
+  return (
+    <Phone cta={<Button block size="lg" variant="secondary" icon="video" onClick={api.next}>Check camera and mic</Button>}>
+      <AppBar title="Waiting room" />
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 24 }}>
+          <VetAv initials={vet2.initials} lg />
+          <p className="h-title">{vet2.name} joins in about 2 min</p>
+          <p className="small muted">{vet2.specialty}</p>
+        </div>
+        <div className="card card--success">
+          <div className="hstack"><Icon name="check" /><p className="h-head grow">Reading Oskar’s summary now</p></div>
+          <p className="small">Dr. Brandt can see Oskar’s last 3 consults, his kidney medication, the bloods from 2 October and what you told us has changed.</p>
+        </div>
+        <div className="card card--sunken">
+          <p className="label">You told us</p>
+          <p className="small">“Drinking more since last week. Ate less on Sunday and Monday.”</p>
+        </div>
+        <p className="small muted center">You don’t need to repeat Oskar’s history. Start with what worries you most.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Summary(api) {
+  const open = api.state.labOpen;
+  return (
+    <Desk title={`${senior.name} · pre-call summary`} right={<span className="small">Call starts in 1:42</span>}>
+      <div className="hstack">
+        <PetAvatar name={senior.name} species="cat" size={56} />
+        <div className="grow">
+          <p className="h-title">{senior.name}, {senior.age}, {senior.weight}</p>
+          <p className="small muted">{senior.breed} · neutered male · owner {owner.name}</p>
+        </div>
+        <Badge tone="neutral">No known allergies</Badge>
+      </div>
+
+      <div className="card b2-new">
+        <div className="hstack"><span className="ic-badge bg-sunny"><Icon name="sparkle" /></span>
+          <div className="grow"><p className="label">What’s new, from the owner · today 14:58</p>
+            <p className="h-head">Drinking more since last week. Ate less on Sunday and Monday.</p></div></div>
+        <div className="chips"><Badge tone="waiting">Drinking more</Badge><Badge tone="waiting">Appetite down</Badge><Badge tone="neutral">No vomiting</Badge><Badge tone="neutral">Meds given daily</Badge></div>
+      </div>
+
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card">
+            <p className="label">Last 3 consults</p>
+            <ul className="tl">
+              <li><span className="tl__dot bg-sky-t" /><p className="small"><b>2 Oct · {vet.name}</b> · CKD review. Bloods stable, BP 155. Continue benazepril, recheck in 4 weeks.</p></li>
+              <li><span className="tl__dot bg-sky-t" /><p className="small"><b>4 Sep · {vet.name}</b> · Renal diet switch going well. Weight 4.2 kg.</p></li>
+              <li><span className="tl__dot bg-sky-t" /><p className="small"><b>6 Aug · {vet.name}</b> · CKD stage 2 confirmed. Started benazepril 2.5 mg.</p></li>
+            </ul>
+          </div>
+          <div className="card">
+            <p className="label">Active meds</p>
+            <Row icon="pill" title="Benazepril 2.5 mg" sub="½ tablet once daily · since 6 Aug · ~5 days left" right={<Badge tone="waiting">Refill soon</Badge>} />
+            <Row icon="bowl" title="Renal diet (wet)" sub="Since 4 Sep" right={<Badge tone="success">Active</Badge>} />
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card">
+            <p className="label">Latest uploads</p>
+            <Row icon="file" title="Bloods · Praxis am Stadtpark" sub="2 Oct · uploaded by owner" onClick={() => api.set({ labOpen: !open })} right={<Icon name={open ? 'down' : 'chevron'} size={20} />} />
+            {open && (
+              <dl className="b2-lab">
+                <dt>Creatinine</dt><dd>2.4 mg/dl</dd><dd className="t-warn">↑ from 2.1</dd>
+                <dt>SDMA</dt><dd>22 µg/dl</dd><dd className="t-warn">↑ from 19</dd>
+                <dt>Urine SG</dt><dd>1.018</dd><dd className="muted">same</dd>
+                <dt>Phosphate</dt><dd>1.6 mmol/l</dd><dd className="muted">same</dd>
+              </dl>
+            )}
+            <Row icon="image" title="Water bowl photo" sub="Today · from owner" />
+          </div>
+          <div className="card card--sunken">
+            <p className="label">Suggested opener</p>
+            <p className="small">“I can see Oskar’s kidney values crept up a little in October and he’s drinking more. Tell me about this week.”</p>
+          </div>
+        </div>
+      </div>
+      <div className="hstack">
+        <p className="small muted grow">Everything above is already known. Please don’t ask the owner for it again.</p>
+        <Button icon="video" onClick={api.next}>Join call</Button>
+      </div>
+    </Desk>
+  );
+}
+
+function Call(api) {
+  return (
+    <Desk title={`Consultation · ${senior.name} (cat) · 15:02`}>
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="video"><span className="h-head">{owner.name} and {senior.name}</span><div className="video__pip small">You</div></div>
+          <div className="card card--flat">
+            <p className="label">Your notes</p>
+            <p className="small">Polydipsia ~1 week, reduced appetite 2 days. Creatinine 2.1 → 2.4. Plan: repeat bloods + urine, BP check at local practice, add appetite support.</p>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack"><span className="ic-badge bg-brand"><Icon name="paw" /></span>
+              <div className="grow"><p className="h-head">Summary, pinned</p><p className="small muted">Stays beside the video so you don’t need to ask</p></div></div>
+            <Row icon="sparkle" title="New: drinking more, eating less" sub="Since last week" />
+            <Row icon="pill" title="Benazepril 2.5 mg daily" sub="~5 days left" />
+            <Row icon="file" title="Creatinine 2.4 (2 Oct)" sub="Up from 2.1" />
+          </div>
+          <Button block icon="check" onClick={api.next}>End call</Button>
+          <p className="small muted">Call length stays the guardrail: target no longer than today’s 16 min average.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Wrap(api) {
+  const miss = api.state.missing || [];
+  const toggle = m => api.set(s => {
+    const cur = s.missing || [];
+    if (m === MISSING[0]) return { missing: cur.includes(m) ? [] : [m] };
+    const rest = cur.filter(x => x !== MISSING[0]);
+    return { missing: rest.includes(m) ? rest.filter(x => x !== m) : [...rest, m] };
+  });
+  return (
+    <Desk title={`Wrap-up · ${senior.name}`}>
+      <div className="card card--success"><div className="hstack"><Icon name="check" /><p className="h-head grow">Consult saved to Oskar’s profile</p><Badge tone="success">Saved</Badge></div></div>
+      <div className="card card--lift">
+        <p className="h-head">Was anything missing from the summary?</p>
+        <p className="small muted">One tap. Goes to Vet Experience, not to your performance review.</p>
+        <div className="chips">{MISSING.map(m => <Chip key={m} selected={miss.includes(m)} onClick={() => toggle(m)}>{m}</Chip>)}</div>
+        <div className="hstack">
+          <p className="small muted grow">Did you have to ask {owner.name} for anything already on file?</p>
+          <div className="chips">
+            {['No', 'Yes'].map(x => <Chip key={x} selected={api.state.asked === x} onClick={() => api.set({ asked: x })}>{x}</Chip>)}
+          </div>
+        </div>
+        <Button disabled={!miss.length || !api.state.asked} onClick={() => { api.toast('Thanks, sent to Vet Experience'); setTimeout(api.reset, 1400); }}>Finish and see next patient</Button>
+      </div>
+      <p className="small muted">Vet-reported re-asking is checked against the owner survey (B7) to find gaps in the summary.</p>
+    </Desk>
+  );
+}
+
+mount({
+  idea: {
+    code: 'B2', group: 'Remember', title: 'Vet pre-call one-screen summary',
+    persona: 'PetDoc vet · care manager', impact: 'High for chronic', effort: 'M (needs B1)', when: 'Q1 core (months 2–3)',
+    story: 'As a PetDoc vet, I want a short summary of the pet before the call starts, so that I don’t ask for information the owner already gave.',
+    why: 'When the vet asks for known information, chronic owners return at 35% instead of 55%. Ratings only drop 4.35 → 3.90, so this churn is invisible today.',
+    measure: ['Re-telling rate 17–19% → < 5%', '“The vet already knew my pet” ≥ 80%', 'Consultation length unchanged (guardrail)', 'Summary opened before join (target 90%)'],
+    notes: ['Owner’s “what’s new” sits at the top: that is where the call should start', 'Lab values show the trend, not just the number; details on tap', 'Summary stays pinned beside the video; co-designed with Vet Experience']
+  },
+  initialState: { labOpen: false },
+  screens: [
+    { id: 'queue', label: 'Vet’s queue', who: 'Vet', render: Queue, caption: 'Dr. Brandt has never seen Oskar. The consult starts in 2 minutes.' },
+    { id: 'waiting', label: 'Owner waiting room', who: 'Owner', render: Waiting, caption: 'Meanwhile, Anna sees that the vet is reading up on Oskar.' },
+    { id: 'summary', label: 'One-screen summary', who: 'Vet', render: Summary, caption: 'The test: can a vet get up to speed in under a minute? Tap the bloods to expand.' },
+    { id: 'call', label: 'In the call', who: 'Vet', render: Call },
+    { id: 'wrap', label: 'Was anything missing?', who: 'Vet', render: Wrap, caption: 'One tap after the call tells us what the summary is missing.' }
+  ]
+});
+</script>
+</body>
+</html>

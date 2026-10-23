@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="components/bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="components/bundle.js"></script><title>Snoutly design system</title>
+<style>
+  
+  .cover { position: relative; width: 960px; height: 300px; overflow: hidden; background: var(--surface); }
+  .art { position: absolute; left: 480px; top: 0; }
+  .brand { fill: var(--brand); } .berry { fill: var(--berry); } .gum { fill: var(--bubblegum); }
+  .mint { fill: var(--mint); } .sunny { fill: var(--sunny); }
+  .cut { fill: var(--surface); } .toe-gum { fill: var(--bubblegum); } .toe-ink { fill: var(--ink); }
+  .r-xl { rx: var(--radius-xl); } .r-md { rx: var(--radius-md); } .pill { rx: 36px; }
+  .text { position: absolute; left: 48px; bottom: 48px; max-width: 440px; }
+  .name { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 104px; line-height: .95; letter-spacing: -2px; color: var(--ink); }
+  .tag { margin: 16px 0 0; font-family: var(--font-body); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted); }
+
+.coverwrap{overflow-x:auto;border-radius:var(--radius-lg);border:var(--stroke-sticker) solid var(--ink);margin-bottom:var(--space-8)}
+.demo{margin:0 0 var(--space-8)} .demo h2{margin:0 0 var(--space-3)}
+.toggle{position:fixed;top:12px;right:12px;z-index:5}</style></head>
+<body>
+<button class="sn-btn sn-btn--secondary sn-btn--sm toggle" onclick="var r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark'">Light / dark</button>
+<div class="coverwrap">
+<div class="cover">
+  <svg class="art" width="480" height="300" viewBox="0 0 480 300" aria-hidden="true">
+    <!--
+      blocks: brand 192×232 (bleeds top, radius-xl) · berry 216×136 (radius-xl) · bubblegum pill 216×72 · sunny 56×56 (radius-md) · mint disc r36
+      arrangement: one tall tangerine slab bleeding off the top with satellites stacked beside and below it — a sticker sheet
+      pattern: literal motif (paw) built from radius discs — "a pocket-sized sticker-book world… the paw is our mascot shape" (README); one big paw cut out of the slab, a small bubblegum paw on berry, 3 ink toes on the pill
+      scales: gaps space-4 (16px) and space-6 (24px); radii radius-xl 32, radius-md 16, pill = half of 72
+    -->
+    <rect class="brand r-xl" x="24" y="-32" width="192" height="232"/>
+    <rect class="berry r-xl" x="232" y="40" width="216" height="136"/>
+    <rect class="gum pill" x="232" y="192" width="216" height="72"/>
+    <rect class="sunny r-md" x="24" y="216" width="56" height="56"/>
+    <circle class="mint" cx="140" cy="244" r="36"/>
+    <!-- big paw cut from the slab -->
+    <g class="cut">
+      <ellipse cx="72" cy="96" rx="15" ry="18"/><ellipse cx="102" cy="62" rx="15" ry="19"/>
+      <ellipse cx="138" cy="62" rx="15" ry="19"/><ellipse cx="168" cy="96" rx="15" ry="18"/>
+      <path d="M120 106c-22 0-38 20-38 36 0 12 8 18 18 18 8 0 12-4 20-4s12 4 20 4c10 0 18-6 18-18 0-16-16-36-38-36z"/>
+    </g>
+    <!-- small paw on berry -->
+    <g class="toe-gum">
+      <circle cx="372" cy="92" r="8"/><circle cx="388" cy="78" r="8"/><circle cx="406" cy="78" r="8"/><circle cx="422" cy="92" r="8"/>
+      <ellipse cx="397" cy="118" rx="20" ry="16"/>
+    </g>
+    <!-- paw-print trail on the pill -->
+    <g class="toe-ink"><circle cx="276" cy="228" r="9"/><circle cx="316" cy="228" r="9"/><circle cx="356" cy="228" r="9"/></g>
+  </svg>
+  <div class="text">
+    <h1 class="name">Snoutly</h1>
+    <p class="tag">Cute care, real vets — straight from the couch.</p>
+  </div>
+</div>
+</div>
+<section class="demo"><h2 class="heading">Button</h2>
+<div id="root-Button"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-Button')).render(h('div',{className:'sn-stack'},
+ h('div',{className:'sn-row'},h(S.Button,{icon:'video'},'Start video consult'),h(S.Button,{variant:'secondary',icon:'calendar'},'Book later')),
+ h('div',{className:'sn-row'},h(S.Button,{variant:'ghost',icon:'back',size:'sm'},'Back'),h(S.Button,{size:'sm',iconRight:'send'},'Send'),h(S.Button,{variant:'danger',icon:'alert',size:'sm'},'Emergency help'),h(S.Button,{disabled:true,size:'sm'},'Disabled'))));
+</script>
+</section>
+<section class="demo"><h2 class="heading">Chip</h2>
+<div id="root-Chip"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-Chip')).render(h(function(){var st=React.useState(['Vomiting','Not eating']),sel=st[0],set=st[1];
+ var all=['Vomiting','Not eating','Itchy skin','Limping','Sneezing','Lethargic','Something else'];
+ return h('div',{className:'sn-row',style:{maxWidth:380,gap:8}},all.map(function(s){var on=sel.indexOf(s)>=0;return h(S.Chip,{key:s,selected:on,onClick:function(){set(on?sel.filter(function(x){return x!==s}):sel.concat(s))}},s)}));}));
+</script>
+</section>
+<section class="demo"><h2 class="heading">Badge</h2>
+<div id="root-Badge"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-Badge')).render(h('div',{className:'sn-row'},h(S.Badge,{tone:'online'},'Online'),h(S.Badge,{tone:'busy'},'In a consult'),h(S.Badge,{tone:'away'},'Away'),h(S.Badge,{tone:'success'},'Consult complete'),h(S.Badge,{tone:'waiting'},'Vet joining in 2 min'),h(S.Badge,{tone:'urgent'},'Urgent'),h(S.Badge,{tone:'fun'},'First visit free'),h(S.Badge,null,'Dog · 4 yrs')));
+</script>
+</section>
+<section class="demo"><h2 class="heading">Icon</h2>
+<div id="root-Icon"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-Icon')).render(h('div',{className:'sn-row',style:{gap:18}},['paw','chat','video','calendar','home','user','heart','star','send','check','alert','clock','plus','back'].map(function(n){return h('div',{key:n,style:{display:'flex',flexDirection:'column',alignItems:'center',gap:4,fontSize:12,fontWeight:700,color:'var(--ink-muted)'}},h('span',{style:{color:'var(--ink)'}},h(S.Icon,{name:n,size:28})),n)})));
+</script>
+</section>
+<section class="demo"><h2 class="heading">TextField</h2>
+<div id="root-TextField"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-TextField')).render(h('div',{className:'sn-stack'},h(S.TextField,{label:"Pet's name",placeholder:'e.g. Biscuit',defaultValue:'Biscuit'}),h(S.TextField,{label:"What's going on?",multiline:true,placeholder:'Since when, how often, anything they ate…',hint:'The more you tell us, the faster the vet can help.'}),h(S.TextField,{label:'Weight (kg)',defaultValue:'abc',error:'Please enter a number, like 12.5'})));
+</script>
+</section>
+<section class="demo"><h2 class="heading">PetAvatar</h2>
+<div id="root-PetAvatar"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-PetAvatar')).render(h('div',{className:'sn-row',style:{gap:20}},h(S.PetAvatar,{name:'Biscuit',species:'dog',size:72}),h(S.PetAvatar,{name:'Mochi',species:'cat',size:64}),h(S.PetAvatar,{name:'Kiwi',species:'bird',size:56}),h(S.PetAvatar,{name:'Clover',species:'rabbit',size:48}),h(S.PetAvatar,{name:'Shelly',species:'other',size:40,showPaw:false})));
+</script>
+</section>
+<section class="demo"><h2 class="heading">VetCard</h2>
+<div id="root-VetCard"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-VetCard')).render(h('div',{className:'sn-stack',style:{gap:20}},h(S.VetCard,{name:'Dr. Meera Kapoor',specialty:'Small animals · Skin & allergies',rating:'4.9',reviews:1240,price:'₹499',nextSlot:'Replies in ~3 min',status:'online',mode:'video',cta:'Consult now'})));
+</script>
+</section>
+<section class="demo"><h2 class="heading">ChatBubble</h2>
+<div id="root-ChatBubble"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-ChatBubble')).render(h('div',{style:{display:'flex',flexDirection:'column',gap:8,maxWidth:380,background:'var(--surface-sunken)',padding:16,borderRadius:24}},h(S.ChatBubble,{from:'system'},'Dr. Meera joined the consult'),h(S.ChatBubble,{from:'vet',author:'Dr. Meera',time:'10:41'},"Hi! I'm here. How is Biscuit doing right now?"),h(S.ChatBubble,{from:'owner',time:'10:42 · Seen'},"He's been scratching his ears all morning"),h(S.TypingDots,{label:'Dr. Meera is typing…'})));
+</script>
+</section>
+<section class="demo"><h2 class="heading">TypingDots</h2>
+<div id="root-TypingDots"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-TypingDots')).render(h(S.TypingDots,{label:'Dr. Meera is typing…'}));
+</script>
+</section>
+<section class="demo"><h2 class="heading">PawProgress</h2>
+<div id="root-PawProgress"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-PawProgress')).render(h('div',{style:{maxWidth:380}},h(S.PawProgress,{steps:['Your pet','Symptoms','Pick a vet','Pay'],current:2})));
+</script>
+</section>
+<section class="demo"><h2 class="heading">BottomNav</h2>
+<div id="root-BottomNav"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root-BottomNav')).render(h(function(){var st=React.useState('consult');return h(S.BottomNav,{active:st[0],onChange:st[1],items:[{id:'home',label:'Home',icon:'home'},{id:'consult',label:'Consult',icon:'chat',badge:2},{id:'visits',label:'Visits',icon:'calendar'},{id:'pets',label:'My pets',icon:'paw'},{id:'me',label:'Me',icon:'user'}]})}));
+</script>
+</section>
+</body></html>

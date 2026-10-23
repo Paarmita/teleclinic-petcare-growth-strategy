@@ -1,0 +1,1414 @@
+consultation_id,owner_id,date,weekday,time,segment,platform,wait_time_min,consultation_duration_min,video_audio_issue,consultation_restarted,upload_failed,vet_asked_for_known_info,prescription_issued,prescription_delivery_days,rating,comment_de,comment_en,comment_theme,follow_up_consultation_180d,days_to_follow_up
+C200001,P201178,2025-08-01,Friday,17:00,Acute,Android,7,14,no,no,no,yes,yes,3,5,"Die halbe Zeit ging fürs Erzählen drauf. Schade, die Beratung selbst war gut.","Half the time went on telling the story. A pity, the advice itself was good.",Context lost (re-telling),no,
+C200002,P200404,2025-08-01,Friday,20:00,Acute,Android,3,9,no,no,no,no,no,,,,,,no,
+C200003,P200440,2025-08-01,Friday,20:00,Acute,Android,3,17,no,no,no,no,yes,4,5,In fünfzehn Minuten dran und alles lag vor. Gerne wieder.,Seen within fifteen minutes and everything was on hand. Happy to come back.,Context present (positive),yes,103
+C200004,P200554,2025-08-02,Saturday,11:00,Acute,Android,4,8,no,no,no,no,yes,7,4,Die Lieferung war viel zu langsam. Beim nächsten Mal gehe ich wieder in die Praxis.,Delivery was far too slow. Next time I'll go back to the clinic.,Delivery,no,
+C200005,P200076,2025-08-02,Saturday,17:00,Young animal,Android,5,15,no,no,no,no,yes,3,,,,,yes,63
+C200006,P200102,2025-08-02,Saturday,22:00,Young animal,iOS,16,10,no,no,no,yes,no,,4,,,,no,
+C200007,P201111,2025-08-02,Saturday,22:00,Acute,iOS,12,15,no,no,no,no,no,,,,,,no,
+C200008,P200181,2025-08-02,Saturday,23:00,Acute,iOS,12,17,no,no,no,no,no,,5,,,,no,
+C200009,P200547,2025-08-02,Saturday,23:00,Acute,Web,9,10,no,no,no,no,yes,1,,,,,no,
+C200010,P200719,2025-08-03,Sunday,14:00,Chronic,Web,2,11,no,no,no,yes,no,,5,,,,yes,25
+C200011,P200272,2025-08-03,Sunday,16:00,Unclear,Web,8,13,no,no,no,no,yes,3,,,,,no,
+C200012,P200637,2025-08-03,Sunday,17:00,Chronic,Android,18,9,no,no,no,no,no,,4,,,,no,
+C200013,P201011,2025-08-03,Sunday,18:00,Acute,Web,35,19,no,no,no,no,no,,,,,,no,
+C200014,P200078,2025-08-03,Sunday,19:00,Acute,Android,24,9,no,no,no,no,yes,3,,,,,no,
+C200015,P200335,2025-08-03,Sunday,19:00,Chronic,iOS,16,8,no,no,no,no,no,,,,,,no,
+C200016,P200739,2025-08-03,Sunday,20:00,Chronic,Android,37,17,no,no,no,no,yes,8,,,,,yes,30
+C200017,P200108,2025-08-03,Sunday,22:00,Unclear,Web,21,11,no,no,no,no,no,,,,,,yes,13
+C200018,P200194,2025-08-04,Monday,09:00,Acute,iOS,10,12,no,no,no,no,yes,8,,,,,no,
+C200019,P200641,2025-08-04,Monday,10:00,Young animal,iOS,7,10,no,no,no,no,yes,10,4,"Keine Info zum Versand, tagelang nichts gehört.","No shipping info, heard nothing for days.",Delivery,no,
+C200020,P200026,2025-08-04,Monday,14:00,Acute,Android,5,13,no,no,no,no,yes,3,5,,,,no,
+C200021,P200137,2025-08-04,Monday,15:00,Acute,Web,12,9,no,no,no,no,no,,,,,,no,
+C200022,P200010,2025-08-04,Monday,16:00,Acute,Android,11,9,no,no,no,no,yes,4,5,"Ruhig erklärt, nichts überstürzt. Klare Empfehlung.","Explained calmly, nothing rushed. Clear recommendation.",Positive (other),no,
+C200023,P200013,2025-08-04,Monday,16:00,Acute,Android,10,17,yes,yes,no,no,no,,,,,,no,
+C200024,P200418,2025-08-04,Monday,19:00,Acute,Web,3,7,no,no,no,no,no,,4,Hat geholfen. Mehr aber auch nicht.,It helped. But no more than that.,Neutral,no,
+C200025,P200466,2025-08-05,Tuesday,07:00,Acute,iOS,6,12,yes,no,no,no,no,,,,,,no,
+C200026,P200429,2025-08-05,Tuesday,13:00,Unclear,Web,2,7,no,no,no,no,no,,,,,,no,
+C200027,P200109,2025-08-06,Wednesday,09:00,Acute,iOS,4,15,no,no,no,no,no,,,,,,no,
+C200028,P200714,2025-08-06,Wednesday,09:00,Young animal,Android,3,17,no,no,no,no,no,,,,,,no,
+C200029,P201104,2025-08-06,Wednesday,14:00,Young animal,Web,4,12,no,no,no,yes,no,,,,,,yes,58
+C200030,P200150,2025-08-06,Wednesday,17:00,Young animal,Android,10,12,no,no,no,no,no,,4,,,,no,
+C200031,P200665,2025-08-06,Wednesday,19:00,Acute,Android,3,15,no,no,no,no,yes,6,,,,,no,
+C200032,P200088,2025-08-06,Wednesday,20:00,Acute,Web,10,10,no,no,no,no,yes,2,,,,,no,
+C200033,P200107,2025-08-06,Wednesday,20:00,Young animal,Android,3,11,no,no,no,yes,no,,,,,,no,
+C200034,P200800,2025-08-07,Thursday,08:00,Acute,Android,8,9,no,no,yes,no,no,,,,,,no,
+C200035,P200098,2025-08-07,Thursday,17:00,Young animal,Android,7,17,no,no,no,no,no,,5,,,,no,
+C200036,P200333,2025-08-07,Thursday,19:00,Acute,iOS,9,12,no,no,no,no,yes,2,,,,,yes,134
+C200037,P200958,2025-08-07,Thursday,20:00,Acute,Web,6,14,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. So stelle ich mir das vor.","I had photos and previous findings ready, it went very quickly. That's how I imagine it should be.",Context present (positive),no,
+C200038,P200844,2025-08-08,Friday,09:00,Acute,Android,4,13,no,no,no,no,no,,4,"Ganz nett, aber nichts Besonderes.","Quite nice, but nothing special.",Neutral,no,
+C200039,P200271,2025-08-08,Friday,13:00,Unclear,Android,4,12,no,no,no,no,no,,5,,,,no,
+C200040,P200587,2025-08-08,Friday,13:00,Acute,iOS,3,9,no,no,no,no,yes,6,,,,,no,
+C200041,P201183,2025-08-08,Friday,16:00,Acute,iOS,3,10,no,no,no,yes,no,,4,,,,no,
+C200042,P200553,2025-08-08,Friday,19:00,Acute,Web,11,15,no,no,no,no,yes,3,5,,,,no,
+C200043,P200632,2025-08-08,Friday,19:00,Acute,Web,14,17,no,no,no,no,no,,4,Erwartbar. Mehr aber auch nicht.,As expected. But no more than that.,Neutral,no,
+C200044,P200021,2025-08-08,Friday,22:00,Acute,Web,7,11,no,no,no,no,no,,,,,,no,
+C200045,P200444,2025-08-09,Saturday,08:00,Acute,Android,4,7,no,no,no,yes,yes,3,,,,,no,
+C200046,P201106,2025-08-09,Saturday,09:00,Chronic,Android,9,10,no,no,no,no,no,,4,Hat geholfen.,It helped.,Neutral,no,
+C200047,P200303,2025-08-09,Saturday,14:00,Young animal,iOS,5,18,no,no,no,no,yes,1,5,,,,yes,40
+C200048,P200635,2025-08-09,Saturday,15:00,Acute,Web,5,18,no,no,no,no,yes,2,,,,,no,
+C200049,P201061,2025-08-09,Saturday,17:00,Acute,Android,4,18,no,no,no,no,no,,,,,,no,
+C200050,P200407,2025-08-10,Sunday,10:00,Young animal,iOS,7,15,no,no,no,no,no,,5,,,,yes,42
+C200051,P200351,2025-08-10,Sunday,11:00,Chronic,Android,15,8,no,no,no,no,no,,,,,,yes,38
+C200052,P200697,2025-08-10,Sunday,13:00,Acute,Android,5,9,no,no,no,yes,yes,2,5,,,,no,
+C200053,P200472,2025-08-10,Sunday,16:00,Acute,iOS,8,19,no,no,no,no,no,,,,,,no,
+C200054,P201136,2025-08-10,Sunday,19:00,Acute,iOS,32,11,no,no,no,no,no,,,,,,no,
+C200055,P200831,2025-08-10,Sunday,20:00,Acute,Android,13,11,no,no,no,no,no,,4,Hat geholfen.,It helped.,Neutral,no,
+C200056,P200017,2025-08-10,Sunday,21:00,Acute,Web,14,12,no,no,no,no,no,,,,,,no,
+C200057,P200262,2025-08-10,Sunday,22:00,Acute,iOS,16,9,no,no,no,yes,no,,,,,,no,
+C200058,P200911,2025-08-10,Sunday,22:00,Unclear,Web,42,16,no,no,no,no,yes,4,4,"Warten mit einem kranken Tier ist genau das, was ich vermeiden wollte — für den Preis ärgerlich.",Waiting with a sick animal is exactly what I wanted to avoid — annoying for the price.,Waiting,no,
+C200059,P200986,2025-08-11,Monday,10:00,Young animal,iOS,3,9,no,no,no,no,yes,2,5,,,,yes,18
+C200060,P200423,2025-08-11,Monday,12:00,Acute,Android,4,5,no,no,no,no,yes,3,,,,,no,
+C200061,P200074,2025-08-11,Monday,13:00,Acute,Android,5,10,no,no,no,yes,yes,14,,,,,no,
+C200062,P200055,2025-08-11,Monday,17:00,Acute,Web,15,9,no,no,no,no,no,,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Genau so.,The check-up was as easy as last time. Exactly like that.,Context present (positive),no,
+C200063,P200290,2025-08-11,Monday,18:00,Unclear,Android,8,14,no,no,no,no,no,,,,,,no,
+C200064,P201093,2025-08-11,Monday,18:00,Acute,Web,7,17,no,no,no,no,yes,2,,,,,yes,101
+C200065,P200685,2025-08-11,Monday,19:00,Unclear,iOS,6,9,no,no,no,no,yes,2,,,,,no,
+C200066,P200079,2025-08-11,Monday,22:00,Unclear,Android,9,15,no,no,no,no,yes,2,4,,,,no,
+C200067,P200125,2025-08-12,Tuesday,08:00,Acute,Android,4,15,no,no,no,no,yes,10,,,,,no,
+C200068,P200930,2025-08-12,Tuesday,08:00,Chronic,Web,12,11,no,no,no,no,no,,,,,,yes,25
+C200069,P200253,2025-08-12,Tuesday,10:00,Chronic,Web,8,11,no,no,no,yes,no,,,,,,yes,12
+C200070,P200266,2025-08-12,Tuesday,10:00,Acute,iOS,4,13,no,no,no,no,no,,4,War okay. Nichts zu meckern.,It was okay. Nothing to complain about.,Neutral,no,
+C200071,P200479,2025-08-12,Tuesday,13:00,Acute,Web,3,12,yes,no,no,yes,no,,,,,,no,
+C200072,P201145,2025-08-12,Tuesday,13:00,Acute,Android,9,18,no,no,no,no,no,,,,,,no,
+C200073,P200379,2025-08-12,Tuesday,14:00,Acute,iOS,9,10,no,no,no,no,no,,,,,,no,
+C200074,P200585,2025-08-12,Tuesday,15:00,Chronic,Android,4,14,no,no,no,no,no,,,,,,no,
+C200075,P200782,2025-08-12,Tuesday,17:00,Chronic,Android,11,18,no,no,no,no,no,,,,,,yes,51
+C200076,P200065,2025-08-12,Tuesday,18:00,Acute,iOS,20,16,no,no,no,no,no,,,,,,no,
+C200077,P200807,2025-08-12,Tuesday,18:00,Acute,iOS,5,12,no,no,no,no,yes,7,,,,,no,
+C200078,P200599,2025-08-12,Tuesday,21:00,Chronic,iOS,14,8,no,no,yes,no,yes,2,,,,,no,
+C200079,P200117,2025-08-12,Tuesday,22:00,Acute,Web,26,16,yes,yes,no,no,yes,2,,,,,no,
+C200080,P201177,2025-08-13,Wednesday,07:00,Young animal,Web,18,18,no,no,no,no,no,,,,,,yes,103
+C200081,P200222,2025-08-13,Wednesday,08:00,Acute,Web,13,15,no,no,no,no,yes,7,,,,,no,
+C200082,P200336,2025-08-13,Wednesday,10:00,Acute,Android,8,15,no,no,no,no,yes,3,,,,,yes,106
+C200083,P200884,2025-08-13,Wednesday,12:00,Acute,Web,6,21,no,no,no,no,yes,2,5,,,,no,
+C200084,P201133,2025-08-13,Wednesday,13:00,Acute,iOS,6,15,no,no,no,no,no,,,,,,no,
+C200085,P200923,2025-08-13,Wednesday,19:00,Acute,iOS,4,23,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch. Danke dafür.,More convenient than a clinic visit. Thanks for that.,Positive (other),no,
+C200086,P200113,2025-08-14,Thursday,08:00,Acute,Web,7,17,no,no,no,no,yes,3,,,,,no,
+C200087,P200403,2025-08-14,Thursday,10:00,Acute,Web,14,8,no,no,no,no,no,,,,,,yes,55
+C200088,P200228,2025-08-14,Thursday,11:00,Chronic,Web,6,12,no,no,yes,no,yes,3,,,,,yes,35
+C200089,P200408,2025-08-14,Thursday,11:00,Acute,Web,10,8,no,no,no,no,yes,3,4,Erwartbar. Mehr aber auch nicht.,As expected. But no more than that.,Neutral,yes,6
+C200090,P200060,2025-08-14,Thursday,15:00,Acute,Web,7,16,no,no,no,no,yes,2,,,,,no,
+C200091,P200164,2025-08-14,Thursday,16:00,Young animal,iOS,9,16,no,no,yes,no,no,,,,,,no,
+C200092,P200182,2025-08-14,Thursday,17:00,Acute,Android,11,20,no,no,no,no,no,,,,,,no,
+C200093,P200543,2025-08-14,Thursday,18:00,Chronic,Android,10,14,no,no,no,no,yes,3,,,,,yes,46
+C200094,P200967,2025-08-15,Friday,11:00,Acute,Web,5,13,no,no,no,no,no,,,,,,no,
+C200095,P200576,2025-08-15,Friday,18:00,Acute,iOS,5,16,no,no,no,no,no,,4,,,,no,
+C200096,P200652,2025-08-15,Friday,18:00,Acute,iOS,5,20,no,no,no,no,yes,9,,,,,no,
+C200097,P200131,2025-08-15,Friday,20:00,Young animal,iOS,4,9,yes,no,yes,yes,no,,1,,,,no,
+C200098,P200108,2025-08-16,Saturday,12:00,Unclear,Web,7,18,no,no,yes,yes,no,,2,"Dokumente vom Vortierarzt wurden nicht angenommen. Das war der Punkt, an dem ich abgehakt habe.",Documents from the previous vet weren't accepted. That was the point where I gave up on it.,Upload,no,
+C200099,P200846,2025-08-16,Saturday,12:00,Chronic,iOS,5,15,no,no,no,no,no,,5,,,,yes,4
+C200100,P200354,2025-08-16,Saturday,14:00,Chronic,iOS,13,15,yes,yes,yes,no,no,,1,,,,no,
+C200101,P200035,2025-08-16,Saturday,15:00,Acute,iOS,11,13,no,no,no,no,no,,,,,,yes,95
+C200102,P200313,2025-08-16,Saturday,19:00,Acute,Web,12,19,no,no,no,no,yes,3,4,"Ganz nett, aber nichts Besonderes.","Quite nice, but nothing special.",Neutral,no,
+C200103,P201009,2025-08-16,Saturday,21:00,Acute,iOS,17,6,no,no,no,no,yes,3,,,,,no,
+C200104,P200348,2025-08-16,Saturday,23:00,Acute,Android,12,14,no,no,no,no,yes,3,,,,,no,
+C200105,P200636,2025-08-17,Sunday,08:00,Acute,iOS,4,18,yes,yes,no,no,yes,4,,,,,no,
+C200106,P200443,2025-08-17,Sunday,14:00,Young animal,Web,4,9,no,no,no,no,no,,,,,,no,
+C200107,P200470,2025-08-17,Sunday,14:00,Acute,Web,4,17,no,no,no,no,no,,4,,,,no,
+C200108,P200090,2025-08-17,Sunday,23:00,Acute,Web,39,12,no,no,no,no,no,,,,,,no,
+C200109,P200862,2025-08-18,Monday,09:00,Acute,Android,6,10,no,no,no,no,no,,,,,,no,
+C200110,P201199,2025-08-18,Monday,11:00,Acute,iOS,7,11,no,no,no,yes,yes,1,4,Die halbe Zeit ging fürs Erzählen drauf. Ärgerlich mit einem kranken Tier.,Half the time went on telling the story. Annoying with a sick animal.,Context lost (re-telling),yes,134
+C200111,P201085,2025-08-18,Monday,17:00,Acute,Web,11,22,no,no,no,no,yes,3,4,,,,yes,69
+C200112,P200207,2025-08-19,Tuesday,08:00,Acute,Android,12,13,no,no,no,no,no,,4,Ging in Ordnung. Passt.,It was fine. Fine.,Neutral,no,
+C200113,P200852,2025-08-19,Tuesday,11:00,Acute,Web,3,11,no,no,no,no,yes,5,5,,,,yes,59
+C200114,P200163,2025-08-19,Tuesday,12:00,Acute,Android,6,10,no,no,no,yes,no,,,,,,yes,15
+C200115,P200062,2025-08-19,Tuesday,20:00,Young animal,iOS,8,8,no,no,yes,yes,yes,3,,,,,no,
+C200116,P200840,2025-08-20,Wednesday,08:00,Acute,iOS,8,19,yes,no,no,no,no,,3,"Halbe Konsultation ging für Technik drauf. Schade, die Beratung selbst war gut.","Half the consultation went on technical problems. A pity, the advice itself was good.",Video/audio,no,
+C200117,P200410,2025-08-20,Wednesday,11:00,Acute,Android,7,8,no,no,no,no,no,,4,"Solide, keine Beschwerden. Nichts zu meckern.","Solid, no complaints. Nothing to complain about.",Neutral,no,
+C200118,P200408,2025-08-20,Wednesday,14:00,Acute,Web,4,11,no,no,no,no,no,,5,,,,no,
+C200119,P200724,2025-08-20,Wednesday,14:00,Acute,Android,5,12,no,no,no,no,no,,,,,,no,
+C200120,P200396,2025-08-20,Wednesday,17:00,Acute,Android,10,18,yes,yes,no,no,no,,,,,,no,
+C200121,P200693,2025-08-20,Wednesday,17:00,Chronic,Android,3,10,no,no,no,no,no,,,,,,no,
+C200122,P200846,2025-08-20,Wednesday,21:00,Chronic,iOS,6,14,no,no,no,no,no,,,,,,no,
+C200123,P200563,2025-08-21,Thursday,10:00,Young animal,Web,9,18,no,no,no,no,no,,5,,,,no,
+C200124,P200141,2025-08-21,Thursday,12:00,Young animal,iOS,6,16,no,no,no,yes,no,,3,,,,no,
+C200125,P200823,2025-08-21,Thursday,12:00,Acute,iOS,6,10,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Danke dafür.","I had photos and previous findings ready, it went very quickly. Thanks for that.",Context present (positive),no,
+C200126,P200105,2025-08-21,Thursday,17:00,Young animal,Web,5,12,no,no,no,no,no,,5,,,,no,
+C200127,P201152,2025-08-21,Thursday,18:00,Acute,Web,3,10,yes,no,no,no,yes,3,,,,,no,
+C200128,P201004,2025-08-21,Thursday,20:00,Acute,Android,4,11,no,no,no,yes,yes,5,4,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Bitte nachbessern.","There's a file, but apparently nobody read it. Please improve this.",Context lost (re-telling),no,
+C200129,P200405,2025-08-22,Friday,10:00,Acute,iOS,8,14,no,no,no,yes,no,,,,,,no,
+C200130,P201007,2025-08-22,Friday,10:00,Acute,iOS,2,11,no,no,no,yes,no,,3,,,,no,
+C200131,P200651,2025-08-22,Friday,12:00,Young animal,iOS,4,12,no,no,no,no,yes,3,,,,,no,
+C200132,P201109,2025-08-22,Friday,22:00,Young animal,Android,8,18,no,no,no,no,no,,5,,,,no,
+C200133,P200015,2025-08-23,Saturday,10:00,Acute,iOS,8,6,no,no,no,yes,no,,5,Dieselben Fragen wie beim letzten Mal.,The same questions as last time.,Context lost (re-telling),no,
+C200134,P200643,2025-08-23,Saturday,16:00,Acute,iOS,7,21,no,no,no,no,no,,,,,,no,
+C200135,P200378,2025-08-23,Saturday,17:00,Young animal,iOS,6,8,no,no,no,no,no,,5,,,,yes,39
+C200136,P200607,2025-08-23,Saturday,22:00,Acute,Android,11,9,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Genau so.","I had photos and previous findings ready, it went very quickly. Exactly like that.",Context present (positive),yes,74
+C200137,P201073,2025-08-24,Sunday,12:00,Young animal,Android,6,7,no,no,no,no,no,,,,,,no,
+C200138,P200573,2025-08-24,Sunday,16:00,Unclear,Android,4,8,no,no,no,yes,no,,,,,,no,
+C200139,P200253,2025-08-24,Sunday,17:00,Chronic,Web,5,19,no,no,no,no,yes,7,5,,,,no,
+C200140,P200708,2025-08-24,Sunday,21:00,Acute,Android,13,6,no,no,yes,no,no,,,,,,no,
+C200141,P200830,2025-08-24,Sunday,21:00,Acute,Android,13,8,no,no,no,no,no,,4,Hat seinen Zweck erfüllt. Mehr aber auch nicht.,It served its purpose. But no more than that.,Neutral,yes,22
+C200142,P201134,2025-08-24,Sunday,21:00,Acute,Android,22,14,no,no,no,no,no,,,,,,no,
+C200143,P200248,2025-08-25,Monday,09:00,Chronic,Android,7,8,no,no,no,yes,yes,3,4,,,,no,
+C200144,P200462,2025-08-25,Monday,12:00,Acute,Android,8,9,no,no,no,no,no,,,,,,yes,99
+C200145,P200064,2025-08-25,Monday,13:00,Acute,iOS,10,13,no,no,no,yes,yes,4,,,,,no,
+C200146,P200004,2025-08-25,Monday,14:00,Acute,iOS,4,18,no,no,no,no,no,,,,,,no,
+C200147,P201058,2025-08-25,Monday,19:00,Acute,iOS,9,13,no,no,no,no,yes,6,4,Die Lieferung war viel zu langsam. Ärgerlich mit einem kranken Tier.,Delivery was far too slow. Annoying with a sick animal.,Delivery,no,
+C200148,P200372,2025-08-25,Monday,20:00,Chronic,Web,4,18,no,no,no,yes,no,,4,"Dieselben Fragen wie beim letzten Mal. Schade, die Beratung selbst war gut.","The same questions as last time. A pity, the advice itself was good.",Context lost (re-telling),no,
+C200149,P200765,2025-08-26,Tuesday,08:00,Acute,Web,3,12,no,no,no,no,no,,,,,,no,
+C200150,P200046,2025-08-26,Tuesday,09:00,Young animal,Android,7,12,no,no,no,no,no,,5,,,,no,
+C200151,P201094,2025-08-26,Tuesday,09:00,Young animal,iOS,6,22,no,no,no,no,yes,2,5,,,,no,
+C200152,P200546,2025-08-26,Tuesday,10:00,Chronic,Web,3,13,no,no,yes,no,no,,4,"Die Vorbefunde konnte ich nicht anhängen. Das war der Punkt, an dem ich abgehakt habe.",I couldn't attach the previous findings. That was the point where I gave up on it.,Upload,yes,71
+C200153,P200721,2025-08-26,Tuesday,11:00,Young animal,Web,11,14,no,no,no,yes,yes,3,5,,,,no,
+C200154,P200251,2025-08-26,Tuesday,12:00,Young animal,Web,5,9,no,no,no,no,yes,3,5,Die Tierärztin kannte die Vorgeschichte. So stelle ich mir das vor.,The vet knew the history. That's how I imagine it should be.,Context present (positive),no,
+C200155,P200311,2025-08-26,Tuesday,12:00,Young animal,Android,11,7,no,no,no,no,no,,5,In fünfzehn Minuten dran und alles lag vor. Gerne wieder.,Seen within fifteen minutes and everything was on hand. Happy to come back.,Context present (positive),no,
+C200156,P200741,2025-08-26,Tuesday,12:00,Young animal,Web,9,8,no,no,no,no,no,,,,,,no,
+C200157,P200754,2025-08-26,Tuesday,17:00,Young animal,iOS,9,11,no,no,no,no,yes,2,,,,,yes,8
+C200158,P200987,2025-08-26,Tuesday,19:00,Chronic,iOS,9,11,no,no,no,yes,yes,3,,,,,no,
+C200159,P200008,2025-08-26,Tuesday,21:00,Young animal,Android,2,31,yes,no,no,no,no,,,,,,yes,98
+C200160,P200056,2025-08-27,Wednesday,08:00,Chronic,iOS,4,11,no,no,no,no,no,,,,,,yes,79
+C200161,P200794,2025-08-27,Wednesday,08:00,Acute,Android,3,11,no,no,no,no,yes,4,,,,,yes,44
+C200162,P200127,2025-08-27,Wednesday,09:00,Acute,iOS,7,13,no,no,no,yes,yes,2,,,,,no,
+C200163,P201086,2025-08-27,Wednesday,09:00,Chronic,Android,6,13,no,no,no,no,no,,,,,,yes,21
+C200164,P200842,2025-08-27,Wednesday,12:00,Acute,Android,18,16,no,no,no,no,no,,4,,,,no,
+C200165,P200534,2025-08-27,Wednesday,14:00,Acute,iOS,3,15,yes,no,no,no,yes,1,,,,,no,
+C200166,P200082,2025-08-27,Wednesday,18:00,Acute,Android,4,13,no,no,no,yes,yes,2,,,,,no,
+C200167,P200522,2025-08-27,Wednesday,18:00,Acute,Web,6,15,no,no,yes,no,no,,5,,,,no,
+C200168,P200759,2025-08-27,Wednesday,20:00,Acute,Android,6,24,no,no,no,no,no,,4,"Ganz nett, aber nichts Besonderes. Passt.","Quite nice, but nothing special. Fine.",Neutral,no,
+C200169,P200582,2025-08-28,Thursday,10:00,Chronic,Android,6,10,yes,no,no,no,no,,3,,,,no,
+C200170,P200850,2025-08-28,Thursday,12:00,Young animal,iOS,9,25,no,no,no,no,no,,,,,,no,
+C200171,P200719,2025-08-28,Thursday,13:00,Chronic,Web,5,13,no,no,no,no,no,,,,,,no,
+C200172,P200845,2025-08-28,Thursday,15:00,Acute,iOS,3,10,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder.,The second time went even more smoothly.,Context present (positive),no,
+C200173,P200413,2025-08-28,Thursday,17:00,Acute,Web,6,11,no,no,no,no,no,,4,"Solide, keine Beschwerden. Mehr aber auch nicht.","Solid, no complaints. But no more than that.",Neutral,no,
+C200174,P200564,2025-08-28,Thursday,17:00,Unclear,Web,13,14,no,no,no,no,yes,6,5,,,,no,
+C200175,P200696,2025-08-28,Thursday,18:00,Acute,Android,7,10,no,no,no,no,yes,4,4,,,,no,
+C200176,P200555,2025-08-28,Thursday,20:00,Acute,iOS,7,15,no,no,no,yes,no,,,,,,no,
+C200177,P200022,2025-08-29,Friday,10:00,Acute,iOS,3,8,no,no,yes,no,yes,3,3,,,,no,
+C200178,P200986,2025-08-29,Friday,10:00,Young animal,iOS,13,15,no,no,no,no,yes,11,3,,,,no,
+C200179,P200093,2025-08-29,Friday,16:00,Chronic,iOS,13,13,no,no,no,no,yes,2,,,,,yes,24
+C200180,P200247,2025-08-29,Friday,16:00,Young animal,Web,6,13,no,no,no,no,no,,,,,,no,
+C200181,P200715,2025-08-29,Friday,18:00,Acute,iOS,3,6,no,no,no,yes,yes,4,4,,,,no,
+C200182,P200283,2025-08-29,Friday,19:00,Unclear,Android,6,8,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig.","I had photos and previous findings ready, it went very quickly.",Context present (positive),no,
+C200183,P200779,2025-08-29,Friday,22:00,Acute,iOS,4,17,no,no,no,no,no,,3,,,,no,
+C200184,P201161,2025-08-30,Saturday,13:00,Chronic,iOS,7,12,no,no,no,no,yes,2,4,Hat seinen Zweck erfüllt. Nichts zu meckern.,It served its purpose. Nothing to complain about.,Neutral,yes,26
+C200185,P200819,2025-08-30,Saturday,16:00,Young animal,iOS,6,9,no,no,no,no,no,,,,,,no,
+C200186,P201021,2025-08-30,Saturday,16:00,Acute,iOS,5,19,no,no,no,yes,yes,4,4,Die halbe Zeit ging fürs Erzählen drauf. So macht das keinen Sinn.,Half the time went on telling the story. This way it makes no sense.,Context lost (re-telling),no,
+C200187,P201034,2025-08-30,Saturday,16:00,Acute,iOS,4,13,no,no,yes,no,no,,,,,,no,
+C200188,P200775,2025-08-31,Sunday,09:00,Acute,Android,7,13,no,no,no,no,no,,,,,,no,
+C200189,P200571,2025-08-31,Sunday,11:00,Acute,Web,6,23,no,no,no,no,no,,,,,,no,
+C200190,P201024,2025-08-31,Sunday,13:00,Young animal,Web,5,14,yes,no,no,no,yes,7,,,,,no,
+C200191,P200431,2025-08-31,Sunday,21:00,Young animal,Android,21,19,no,no,no,no,no,,,,,,yes,104
+C200192,P200226,2025-08-31,Sunday,23:00,Acute,iOS,17,14,no,no,no,no,yes,2,4,,,,no,
+C200193,P200583,2025-09-01,Monday,07:00,Acute,iOS,6,10,no,no,no,no,no,,,,,,no,
+C200194,P200684,2025-09-01,Monday,11:00,Young animal,Android,11,14,no,no,no,no,no,,5,,,,yes,15
+C200195,P200659,2025-09-01,Monday,15:00,Acute,Web,6,22,no,no,no,yes,no,,,,,,no,
+C200196,P200793,2025-09-01,Monday,16:00,Unclear,Android,6,12,no,no,no,no,no,,5,,,,no,
+C200197,P200217,2025-09-01,Monday,17:00,Acute,iOS,6,12,no,no,no,no,no,,,,,,no,
+C200198,P200143,2025-09-01,Monday,18:00,Acute,Android,4,10,no,no,no,no,no,,,,,,yes,81
+C200199,P200612,2025-09-02,Tuesday,10:00,Acute,Web,16,10,no,no,no,no,yes,7,,,,,no,
+C200200,P200739,2025-09-02,Tuesday,19:00,Chronic,Android,3,8,no,no,no,no,yes,4,5,Die Kontrolle war unkompliziert wie beim letzten Mal. So stelle ich mir das vor.,The check-up was as easy as last time. That's how I imagine it should be.,Context present (positive),yes,12
+C200201,P201040,2025-09-02,Tuesday,19:00,Acute,iOS,9,10,no,no,no,no,yes,1,,,,,no,
+C200202,P200789,2025-09-03,Wednesday,08:00,Acute,iOS,5,7,no,no,no,no,yes,4,,,,,no,
+C200203,P200945,2025-09-03,Wednesday,08:00,Chronic,Web,8,14,no,no,no,yes,no,,,,,,yes,46
+C200204,P200536,2025-09-03,Wednesday,09:00,Young animal,Web,4,11,no,no,no,yes,yes,4,5,Die halbe Zeit ging fürs Erzählen drauf — für den Preis ärgerlich.,Half the time went on telling the story — annoying for the price.,Context lost (re-telling),no,
+C200205,P200874,2025-09-03,Wednesday,09:00,Acute,Android,5,11,no,no,no,no,yes,4,,,,,yes,79
+C200206,P200341,2025-09-03,Wednesday,13:00,Acute,iOS,6,9,no,no,no,no,yes,2,4,,,,no,
+C200207,P200163,2025-09-03,Wednesday,18:00,Acute,Android,5,16,no,no,no,no,no,,4,,,,no,
+C200208,P200295,2025-09-03,Wednesday,18:00,Acute,Android,6,13,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Danke dafür.","I had photos and previous findings ready, it went very quickly. Thanks for that.",Context present (positive),no,
+C200209,P200754,2025-09-03,Wednesday,18:00,Young animal,iOS,4,20,no,no,no,no,no,,,,,,yes,51
+C200210,P200161,2025-09-04,Thursday,10:00,Acute,Android,12,13,no,no,no,no,no,,4,"Solide, keine Beschwerden.","Solid, no complaints.",Neutral,no,
+C200211,P200142,2025-09-04,Thursday,12:00,Acute,Android,5,7,yes,no,no,no,yes,4,,,,,no,
+C200212,P200115,2025-09-04,Thursday,15:00,Acute,iOS,8,10,no,no,no,no,no,,5,,,,yes,118
+C200213,P200956,2025-09-04,Thursday,15:00,Acute,Web,10,13,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder. Daran gibt es nichts auszusetzen.,The second time went even more smoothly. Nothing to fault.,Context present (positive),yes,29
+C200214,P200315,2025-09-04,Thursday,17:00,Acute,Android,3,21,no,no,no,no,yes,6,3,,,,no,
+C200215,P200895,2025-09-04,Thursday,17:00,Young animal,Android,19,18,no,no,no,no,yes,3,,,,,yes,70
+C200216,P201170,2025-09-04,Thursday,20:00,Acute,Web,4,17,no,no,no,no,no,,,,,,no,
+C200217,P200969,2025-09-04,Thursday,21:00,Acute,Web,9,12,no,no,no,no,no,,,,,,no,
+C200218,P200281,2025-09-05,Friday,08:00,Acute,Android,3,13,no,no,no,no,yes,4,5,,,,no,
+C200219,P200552,2025-09-05,Friday,12:00,Acute,iOS,11,15,no,no,no,yes,no,,4,,,,no,
+C200220,P201053,2025-09-05,Friday,12:00,Chronic,iOS,3,19,no,no,no,no,no,,4,Hat seinen Zweck erfüllt. Nichts zu meckern.,It served its purpose. Nothing to complain about.,Neutral,yes,64
+C200221,P201069,2025-09-05,Friday,12:00,Acute,Android,3,13,no,no,no,yes,no,,,,,,no,
+C200222,P200307,2025-09-05,Friday,13:00,Young animal,Web,3,9,no,no,no,no,no,,,,,,no,
+C200223,P200505,2025-09-05,Friday,17:00,Acute,Android,12,11,no,no,no,no,no,,,,,,yes,39
+C200224,P200949,2025-09-05,Friday,18:00,Unclear,Web,5,11,no,no,no,no,no,,,,,,no,
+C200225,P201139,2025-09-05,Friday,18:00,Acute,iOS,13,13,no,no,no,no,no,,,,,,yes,66
+C200226,P200029,2025-09-05,Friday,19:00,Acute,iOS,4,14,yes,no,no,no,no,,3,Der Ton hat immer wieder ausgesetzt. Beim nächsten Mal gehe ich wieder in die Praxis.,The sound kept cutting out. Next time I'll go back to the clinic.,Video/audio,no,
+C200227,P200239,2025-09-05,Friday,20:00,Acute,Android,6,12,no,no,no,no,yes,5,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid.,Two in the morning and within ten minutes I knew what was going on.,Positive (other),no,
+C200228,P200432,2025-09-05,Friday,20:00,Chronic,Android,10,12,yes,no,yes,no,no,,,,,,no,
+C200229,P200086,2025-09-06,Saturday,15:00,Young animal,iOS,5,17,no,no,no,no,no,,5,,,,no,
+C200230,P200280,2025-09-06,Saturday,15:00,Acute,Android,6,14,no,no,no,no,no,,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Danke dafür.,Two in the morning and within ten minutes I knew what was going on. Thanks for that.,Positive (other),no,
+C200231,P200816,2025-09-06,Saturday,15:00,Young animal,iOS,2,7,no,no,no,yes,no,,,,,,no,
+C200232,P200943,2025-09-06,Saturday,18:00,Acute,Web,8,13,no,no,no,yes,no,,,,,,no,
+C200233,P200930,2025-09-06,Saturday,20:00,Chronic,Web,7,15,no,no,no,yes,no,,,,,,yes,31
+C200234,P200072,2025-09-06,Saturday,21:00,Acute,Web,8,14,no,no,no,no,yes,2,,,,,no,
+C200235,P200705,2025-09-06,Saturday,23:00,Acute,Web,11,9,no,no,no,yes,no,,4,"Ich musste Gewicht, Alter und Vorerkrankungen nochmal durchgeben. Bitte nachbessern.","I had to give weight, age and previous conditions again. Please improve this.",Context lost (re-telling),no,
+C200236,P200122,2025-09-07,Sunday,12:00,Acute,iOS,3,6,no,no,yes,yes,no,,3,,,,no,
+C200237,P200312,2025-09-07,Sunday,15:00,Chronic,iOS,12,16,no,no,no,no,yes,1,4,,,,yes,75
+C200238,P200477,2025-09-07,Sunday,18:00,Chronic,iOS,25,10,yes,no,no,no,no,,,,,,no,
+C200239,P201012,2025-09-07,Sunday,18:00,Acute,iOS,12,18,no,no,no,no,yes,2,5,,,,no,
+C200240,P200155,2025-09-08,Monday,08:00,Young animal,Android,6,13,no,no,no,no,yes,2,,,,,no,
+C200241,P200537,2025-09-08,Monday,12:00,Acute,iOS,8,10,no,no,no,no,yes,3,,,,,no,
+C200242,P200148,2025-09-08,Monday,18:00,Young animal,iOS,8,13,yes,yes,no,no,yes,3,,,,,no,
+C200243,P200070,2025-09-08,Monday,22:00,Acute,Web,10,15,no,no,no,no,no,,,,,,no,
+C200244,P200985,2025-09-09,Tuesday,07:00,Chronic,iOS,8,7,no,no,no,no,no,,4,"Solide, keine Beschwerden. Passt.","Solid, no complaints. Fine.",Neutral,no,
+C200245,P200810,2025-09-09,Tuesday,13:00,Acute,iOS,6,9,no,no,yes,no,no,,3,,,,no,
+C200246,P201157,2025-09-09,Tuesday,13:00,Chronic,Web,11,7,no,no,no,no,no,,,,,,no,
+C200247,P200545,2025-09-09,Tuesday,14:00,Acute,Web,9,8,no,no,no,yes,no,,4,"Ich musste Gewicht, Alter und Vorerkrankungen nochmal durchgeben.","I had to give weight, age and previous conditions again.",Context lost (re-telling),no,
+C200248,P200743,2025-09-09,Tuesday,14:00,Acute,Android,3,21,no,no,yes,no,yes,3,3,,,,no,
+C200249,P200904,2025-09-09,Tuesday,16:00,Acute,Web,3,11,no,no,no,yes,yes,5,,,,,no,
+C200250,P201074,2025-09-09,Tuesday,20:00,Acute,iOS,5,18,no,no,no,yes,yes,3,,,,,no,
+C200251,P200369,2025-09-09,Tuesday,21:00,Young animal,iOS,5,12,no,no,no,no,no,,,,,,no,
+C200252,P200345,2025-09-10,Wednesday,08:00,Acute,Web,4,16,no,no,no,no,yes,4,5,"Schnell, freundlich, klare Ansage. Genau so.","Fast, friendly, clear advice. Exactly like that.",Positive (other),no,
+C200253,P200027,2025-09-10,Wednesday,10:00,Young animal,iOS,4,12,no,no,no,no,no,,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Daran gibt es nichts auszusetzen.,The check-up was as easy as last time. Nothing to fault.,Context present (positive),no,
+C200254,P201140,2025-09-10,Wednesday,19:00,Young animal,Android,4,13,no,no,no,no,yes,3,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Gerne wieder.,Two in the morning and within ten minutes I knew what was going on. Happy to come back.,Positive (other),yes,82
+C200255,P200446,2025-09-10,Wednesday,21:00,Acute,Android,5,9,no,no,no,no,no,,5,,,,no,
+C200256,P201032,2025-09-10,Wednesday,21:00,Acute,iOS,7,11,no,no,no,yes,yes,2,4,Ich habe alles nochmal von vorne erklärt.,I explained everything again from the start.,Context lost (re-telling),no,
+C200257,P200888,2025-09-11,Thursday,11:00,Acute,iOS,8,17,no,no,no,no,no,,,,,,no,
+C200258,P201167,2025-09-11,Thursday,11:00,Young animal,iOS,14,13,no,no,no,no,yes,7,5,,,,no,
+C200259,P200861,2025-09-11,Thursday,12:00,Acute,iOS,3,15,yes,no,no,no,no,,,,,,no,
+C200260,P200223,2025-09-11,Thursday,14:00,Chronic,Android,6,6,no,no,no,yes,no,,,,,,no,
+C200261,P200203,2025-09-11,Thursday,20:00,Acute,Web,11,12,no,no,no,no,no,,,,,,no,
+C200262,P200024,2025-09-11,Thursday,23:00,Young animal,Android,6,14,no,no,no,no,no,,,,,,no,
+C200263,P200254,2025-09-12,Friday,08:00,Acute,Web,10,6,yes,no,yes,no,yes,4,,,,,no,
+C200264,P200089,2025-09-12,Friday,09:00,Chronic,iOS,2,11,yes,no,no,no,yes,2,4,Die Verbindung war die ganze Zeit instabil.,The connection was unstable the whole time.,Video/audio,yes,23
+C200265,P200387,2025-09-12,Friday,10:00,Acute,iOS,6,13,no,no,no,no,yes,1,5,,,,yes,39
+C200266,P201144,2025-09-12,Friday,10:00,Acute,Android,7,11,no,no,no,no,yes,3,,,,,no,
+C200267,P201186,2025-09-12,Friday,13:00,Young animal,iOS,3,9,no,no,yes,no,yes,6,2,,,,yes,53
+C200268,P200350,2025-09-12,Friday,14:00,Young animal,Web,11,11,no,no,no,yes,no,,4,"Ich musste Gewicht, Alter und Vorerkrankungen nochmal durchgeben. Schade, die Beratung selbst war gut.","I had to give weight, age and previous conditions again. A pity, the advice itself was good.",Context lost (re-telling),no,
+C200269,P200982,2025-09-13,Saturday,10:00,Acute,iOS,9,23,no,no,no,yes,no,,3,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Schade, die Beratung selbst war gut.","There's a file, but apparently nobody read it. A pity, the advice itself was good.",Context lost (re-telling),no,
+C200270,P201031,2025-09-13,Saturday,11:00,Chronic,Android,7,7,no,no,no,yes,no,,,,,,no,
+C200271,P201154,2025-09-13,Saturday,11:00,Acute,Web,14,17,no,no,no,yes,yes,5,,,,,no,
+C200272,P200452,2025-09-13,Saturday,13:00,Young animal,iOS,7,10,no,no,no,no,yes,8,,,,,no,
+C200273,P201028,2025-09-13,Saturday,13:00,Acute,Android,9,9,no,no,no,yes,yes,3,,,,,no,
+C200274,P201075,2025-09-13,Saturday,19:00,Acute,Web,7,14,no,no,no,yes,yes,6,,,,,no,
+C200275,P200513,2025-09-13,Saturday,20:00,Unclear,iOS,8,12,no,no,no,yes,no,,,,,,no,
+C200276,P200924,2025-09-13,Saturday,22:00,Acute,Web,14,9,no,no,no,yes,no,,,,,,no,
+C200277,P200193,2025-09-14,Sunday,13:00,Acute,Android,3,11,no,no,yes,no,yes,7,,,,,yes,142
+C200278,P200841,2025-09-14,Sunday,13:00,Acute,Android,5,9,no,no,no,no,yes,4,,,,,no,
+C200279,P200530,2025-09-14,Sunday,18:00,Young animal,Web,22,20,no,no,no,no,yes,9,3,,,,no,
+C200280,P201171,2025-09-14,Sunday,18:00,Unclear,Android,25,15,no,no,no,no,yes,3,,,,,no,
+C200281,P200499,2025-09-14,Sunday,19:00,Young animal,Web,10,8,no,no,no,no,yes,3,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Gerne wieder.,The check-up was as easy as last time. Happy to come back.,Context present (positive),no,
+C200282,P200157,2025-09-14,Sunday,20:00,Young animal,iOS,48,9,no,no,no,no,no,,4,"Die Wartezeit war doppelt so lang wie angezeigt. Das war der Punkt, an dem ich abgehakt habe.",The wait was twice as long as shown. That was the point where I gave up on it.,Waiting,no,
+C200283,P200580,2025-09-14,Sunday,20:00,Young animal,iOS,10,8,no,no,no,no,yes,2,,,,,yes,14
+C200284,P200608,2025-09-14,Sunday,22:00,Acute,iOS,28,15,no,no,no,no,no,,,,,,no,
+C200285,P200720,2025-09-14,Sunday,23:00,Acute,iOS,12,10,no,no,no,no,no,,,,,,no,
+C200286,P200739,2025-09-14,Sunday,23:00,Chronic,Android,19,14,yes,no,no,no,no,,,,,,no,
+C200287,P200512,2025-09-15,Monday,09:00,Young animal,iOS,2,11,no,no,no,no,yes,5,,,,,no,
+C200288,P200521,2025-09-15,Monday,09:00,Young animal,Android,6,11,no,no,no,no,no,,,,,,yes,159
+C200289,P200367,2025-09-15,Monday,10:00,Unclear,Android,12,17,no,no,no,yes,no,,,,,,no,
+C200290,P200712,2025-09-15,Monday,10:00,Acute,Android,6,8,no,no,no,no,no,,,,,,yes,3
+C200291,P200830,2025-09-15,Monday,12:00,Acute,Android,4,11,no,no,yes,no,no,,,,,,no,
+C200292,P200803,2025-09-15,Monday,16:00,Acute,Android,16,9,no,no,no,yes,no,,4,Am Wochenende offenbar hoffnungslos überlastet. So macht das keinen Sinn.,Apparently hopelessly overloaded at the weekend. This way it makes no sense.,Waiting,no,
+C200293,P201083,2025-09-15,Monday,19:00,Acute,Web,6,16,no,no,no,no,no,,5,,,,no,
+C200294,P200811,2025-09-15,Monday,20:00,Acute,Web,6,14,no,no,no,no,no,,,,,,no,
+C200295,P200835,2025-09-15,Monday,21:00,Acute,Android,7,14,no,no,no,yes,yes,2,,,,,no,
+C200296,P201001,2025-09-16,Tuesday,08:00,Acute,Android,13,17,no,no,no,no,yes,3,,,,,no,
+C200297,P200255,2025-09-16,Tuesday,12:00,Acute,Android,4,11,no,no,no,no,no,,,,,,no,
+C200298,P200257,2025-09-16,Tuesday,13:00,Acute,Web,11,11,yes,no,no,no,no,,,,,,no,
+C200299,P200896,2025-09-16,Tuesday,17:00,Acute,Android,3,8,no,no,no,no,no,,,,,,no,
+C200300,P201036,2025-09-16,Tuesday,17:00,Acute,iOS,5,16,no,no,no,no,yes,2,5,Beim zweiten Mal lief es noch runder. Gerne wieder.,The second time went even more smoothly. Happy to come back.,Context present (positive),no,
+C200301,P200684,2025-09-16,Tuesday,19:00,Young animal,Android,3,11,no,no,no,no,no,,,,,,no,
+C200302,P200622,2025-09-17,Wednesday,08:00,Acute,iOS,10,12,yes,yes,no,no,no,,,,,,no,
+C200303,P200213,2025-09-17,Wednesday,11:00,Unclear,iOS,2,15,yes,yes,no,no,no,,,,,,no,
+C200304,P200351,2025-09-17,Wednesday,17:00,Chronic,Android,3,14,no,no,no,yes,no,,,,,,no,
+C200305,P200941,2025-09-17,Wednesday,19:00,Acute,Android,3,9,no,no,no,no,yes,3,,,,,no,
+C200306,P201043,2025-09-17,Wednesday,20:00,Acute,Web,6,5,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Daran gibt es nichts auszusetzen.,The vet knew the history. Nothing to fault.,Context present (positive),yes,127
+C200307,P200296,2025-09-17,Wednesday,21:00,Young animal,Web,8,11,no,no,no,no,yes,3,5,,,,yes,15
+C200308,P201086,2025-09-17,Wednesday,22:00,Chronic,Android,11,13,no,no,no,no,yes,7,,,,,no,
+C200309,P200005,2025-09-18,Thursday,07:00,Chronic,iOS,9,17,no,no,no,yes,yes,4,,,,,no,
+C200310,P200303,2025-09-18,Thursday,08:00,Young animal,iOS,5,18,no,no,no,no,no,,5,,,,no,
+C200311,P200712,2025-09-18,Thursday,09:00,Acute,Android,8,8,no,no,no,no,yes,4,,,,,no,
+C200312,P201019,2025-09-18,Thursday,10:00,Unclear,Android,12,12,no,no,no,no,yes,3,4,Hat seinen Zweck erfüllt. Mehr aber auch nicht.,It served its purpose. But no more than that.,Neutral,no,
+C200313,P200228,2025-09-18,Thursday,19:00,Chronic,Web,4,7,no,no,yes,yes,yes,2,4,,,,no,
+C200314,P200486,2025-09-19,Friday,07:00,Acute,Android,4,21,no,no,no,no,yes,5,5,,,,yes,93
+C200315,P200397,2025-09-19,Friday,11:00,Acute,iOS,6,11,no,no,no,no,no,,,,,,no,
+C200316,P200032,2025-09-19,Friday,14:00,Acute,iOS,10,13,no,no,no,no,no,,,,,,no,
+C200317,P200003,2025-09-19,Friday,16:00,Chronic,Web,4,15,no,no,no,no,no,,4,Erwartbar. Passt.,As expected. Fine.,Neutral,no,
+C200318,P200983,2025-09-19,Friday,17:00,Acute,Web,3,10,yes,no,no,no,yes,3,3,Die Verbindung war die ganze Zeit instabil. Beim nächsten Mal gehe ich wieder in die Praxis.,The connection was unstable the whole time. Next time I'll go back to the clinic.,Video/audio,no,
+C200319,P200755,2025-09-19,Friday,18:00,Young animal,iOS,3,22,no,no,no,yes,yes,2,,,,,no,
+C200320,P200942,2025-09-19,Friday,18:00,Young animal,Android,6,12,no,no,no,no,yes,6,,,,,no,
+C200321,P200134,2025-09-19,Friday,23:00,Acute,iOS,3,12,yes,no,no,no,yes,2,,,,,no,
+C200322,P200709,2025-09-20,Saturday,15:00,Unclear,iOS,2,16,no,no,no,no,yes,7,,,,,yes,69
+C200323,P200516,2025-09-20,Saturday,16:00,Acute,iOS,6,19,no,no,no,no,no,,4,,,,no,
+C200324,P201151,2025-09-21,Sunday,08:00,Acute,iOS,11,11,no,no,no,yes,no,,4,Ich habe alles nochmal von vorne erklärt. Ärgerlich mit einem kranken Tier.,I explained everything again from the start. Annoying with a sick animal.,Context lost (re-telling),yes,19
+C200325,P200370,2025-09-21,Sunday,10:00,Acute,iOS,5,12,no,no,no,no,yes,9,4,,,,no,
+C200326,P200328,2025-09-21,Sunday,17:00,Acute,Web,2,11,no,no,no,no,yes,5,5,,,,no,
+C200327,P200407,2025-09-21,Sunday,23:00,Young animal,iOS,16,16,no,no,no,no,yes,4,,,,,no,
+C200328,P200898,2025-09-22,Monday,10:00,Acute,Android,3,7,no,no,no,no,no,,,,,,no,
+C200329,P200788,2025-09-22,Monday,11:00,Young animal,iOS,4,11,no,no,no,no,yes,4,5,,,,yes,26
+C200330,P201128,2025-09-22,Monday,12:00,Chronic,Android,4,11,no,no,no,no,yes,4,4,"Ganz nett, aber nichts Besonderes.","Quite nice, but nothing special.",Neutral,yes,11
+C200331,P200414,2025-09-22,Monday,13:00,Young animal,Web,6,11,no,no,no,no,yes,9,,,,,yes,24
+C200332,P200703,2025-09-22,Monday,13:00,Acute,iOS,6,9,no,no,no,no,no,,,,,,no,
+C200333,P200210,2025-09-22,Monday,15:00,Acute,iOS,9,8,no,no,no,yes,no,,5,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Schade, die Beratung selbst war gut.","There's a file, but apparently nobody read it. A pity, the advice itself was good.",Context lost (re-telling),no,
+C200334,P201054,2025-09-22,Monday,16:00,Acute,Android,18,13,no,no,no,no,no,,4,,,,no,
+C200335,P200220,2025-09-22,Monday,18:00,Acute,Android,11,8,no,no,no,no,no,,5,"Kein Warten, keine Technikprobleme, direkt geholfen. Genau so.","No waiting, no technical problems, helped right away. Exactly like that.",Video/audio,no,
+C200336,P200263,2025-09-22,Monday,18:00,Acute,Android,5,7,no,no,no,no,no,,,,,,no,
+C200337,P200394,2025-09-22,Monday,18:00,Acute,Android,11,10,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch. Daran gibt es nichts auszusetzen.,More convenient than a clinic visit. Nothing to fault.,Positive (other),no,
+C200338,P200761,2025-09-22,Monday,19:00,Young animal,Web,4,9,no,no,no,no,no,,4,,,,no,
+C200339,P200093,2025-09-22,Monday,22:00,Chronic,iOS,4,14,no,no,no,no,no,,5,"Schnell, freundlich, klare Ansage. Daran gibt es nichts auszusetzen.","Fast, friendly, clear advice. Nothing to fault.",Positive (other),yes,28
+C200340,P201100,2025-09-23,Tuesday,09:00,Acute,Web,7,13,no,no,no,no,no,,,,,,no,
+C200341,P200368,2025-09-23,Tuesday,11:00,Acute,Android,14,15,no,no,no,no,yes,3,4,War okay.,It was okay.,Neutral,no,
+C200342,P200506,2025-09-23,Tuesday,14:00,Acute,iOS,3,10,no,no,no,no,no,,5,"Schnell, freundlich, klare Ansage. So stelle ich mir das vor.","Fast, friendly, clear advice. That's how I imagine it should be.",Positive (other),yes,171
+C200343,P200428,2025-09-23,Tuesday,17:00,Acute,Android,3,12,no,no,no,no,yes,1,,,,,no,
+C200344,P200039,2025-09-24,Wednesday,08:00,Young animal,iOS,7,12,no,no,no,no,no,,5,,,,no,
+C200345,P200955,2025-09-24,Wednesday,08:00,Unclear,Web,4,14,no,no,no,no,no,,4,,,,no,
+C200346,P200383,2025-09-24,Wednesday,09:00,Acute,iOS,9,12,no,no,no,no,yes,4,,,,,no,
+C200347,P201029,2025-09-24,Wednesday,10:00,Acute,Web,6,11,no,no,no,no,no,,5,,,,no,
+C200348,P201116,2025-09-24,Wednesday,23:00,Acute,Web,5,14,no,no,no,no,no,,,,,,no,
+C200349,P200680,2025-09-25,Thursday,08:00,Acute,Android,2,15,no,no,no,no,no,,,,,,no,
+C200350,P201119,2025-09-25,Thursday,08:00,Acute,Android,7,12,yes,no,no,no,yes,2,3,Die Verbindung war die ganze Zeit instabil — für den Preis ärgerlich.,The connection was unstable the whole time — annoying for the price.,Video/audio,no,
+C200351,P200091,2025-09-25,Thursday,09:00,Acute,Web,5,14,no,no,no,no,no,,4,,,,no,
+C200352,P200227,2025-09-25,Thursday,09:00,Young animal,iOS,5,20,no,no,no,yes,yes,4,4,Wieder bei null angefangen mit den Daten meines Tieres. So macht das keinen Sinn.,Started from zero again with my pet's data. This way it makes no sense.,Context lost (re-telling),no,
+C200353,P201161,2025-09-25,Thursday,13:00,Chronic,iOS,3,15,no,no,no,no,no,,,,,,yes,56
+C200354,P200736,2025-09-25,Thursday,16:00,Young animal,iOS,11,15,no,no,no,no,no,,,,,,yes,137
+C200355,P200912,2025-09-25,Thursday,17:00,Acute,Android,10,13,no,no,no,no,no,,4,,,,no,
+C200356,P200988,2025-09-25,Thursday,17:00,Young animal,Android,3,11,no,no,no,no,yes,3,,,,,no,
+C200357,P200518,2025-09-25,Thursday,19:00,Acute,Android,3,14,no,no,no,no,no,,,,,,no,
+C200358,P200655,2025-09-25,Thursday,21:00,Acute,iOS,13,16,no,no,no,no,no,,,,,,no,
+C200359,P200426,2025-09-26,Friday,09:00,Acute,iOS,9,12,no,no,no,no,no,,,,,,no,
+C200360,P200149,2025-09-26,Friday,16:00,Unclear,Web,3,12,no,no,no,no,no,,,,,,no,
+C200361,P200165,2025-09-26,Friday,18:00,Acute,Web,7,10,no,no,no,no,yes,2,5,Beim zweiten Mal lief es noch runder. Genau so.,The second time went even more smoothly. Exactly like that.,Context present (positive),no,
+C200362,P200199,2025-09-26,Friday,18:00,Acute,Web,7,15,no,no,no,no,no,,5,,,,no,
+C200363,P200628,2025-09-26,Friday,21:00,Acute,Web,3,13,no,no,no,no,yes,1,,,,,no,
+C200364,P201091,2025-09-26,Friday,21:00,Acute,Android,10,18,no,no,no,no,yes,3,,,,,no,
+C200365,P200701,2025-09-26,Friday,22:00,Acute,Android,10,11,no,no,no,no,no,,,,,,yes,94
+C200366,P200683,2025-09-26,Friday,23:00,Acute,Android,4,10,yes,yes,no,no,no,,,,,,no,
+C200367,P200781,2025-09-27,Saturday,11:00,Acute,Web,5,27,no,no,no,no,no,,4,War okay. Passt.,It was okay. Fine.,Neutral,no,
+C200368,P200833,2025-09-27,Saturday,12:00,Acute,Web,6,17,no,no,no,yes,yes,3,,,,,yes,78
+C200369,P200723,2025-09-27,Saturday,14:00,Acute,Web,14,15,no,no,yes,no,no,,,,,,no,
+C200370,P200168,2025-09-27,Saturday,15:00,Young animal,iOS,5,12,no,no,no,yes,yes,2,,,,,no,
+C200371,P200597,2025-09-27,Saturday,18:00,Chronic,Web,12,20,no,no,yes,no,yes,4,,,,,yes,70
+C200372,P200318,2025-09-27,Saturday,19:00,Unclear,iOS,8,8,no,no,no,no,yes,5,5,,,,no,
+C200373,P200511,2025-09-27,Saturday,19:00,Acute,Android,15,12,no,no,no,no,no,,4,,,,no,
+C200374,P200666,2025-09-27,Saturday,19:00,Acute,Web,11,11,no,no,no,no,yes,4,,,,,no,
+C200375,P201090,2025-09-27,Saturday,19:00,Acute,Android,8,13,no,no,no,yes,no,,4,Die Tierärztin hatte die Vorgeschichte nicht. Ärgerlich mit einem kranken Tier.,The vet didn't have the history. Annoying with a sick animal.,Context lost (re-telling),no,
+C200376,P200592,2025-09-27,Saturday,21:00,Acute,iOS,8,17,no,no,no,yes,no,,,,,,no,
+C200377,P200197,2025-09-27,Saturday,22:00,Chronic,Web,19,16,no,no,no,no,yes,4,,,,,no,
+C200378,P200490,2025-09-27,Saturday,22:00,Acute,Android,10,7,no,no,no,no,no,,,,,,no,
+C200379,P201149,2025-09-28,Sunday,08:00,Chronic,iOS,8,13,no,no,no,yes,yes,3,5,,,,yes,73
+C200380,P200282,2025-09-28,Sunday,10:00,Young animal,Android,4,13,no,no,no,no,yes,3,5,,,,yes,77
+C200381,P200905,2025-09-28,Sunday,10:00,Acute,Web,3,16,no,no,no,no,yes,2,,,,,no,
+C200382,P200439,2025-09-28,Sunday,15:00,Acute,Android,5,9,no,no,no,no,no,,,,,,no,
+C200383,P200580,2025-09-28,Sunday,16:00,Young animal,iOS,11,11,yes,yes,no,no,no,,,,,,no,
+C200384,P200817,2025-09-28,Sunday,17:00,Young animal,Web,2,17,no,no,no,no,no,,5,,,,no,
+C200385,P200066,2025-09-28,Sunday,19:00,Acute,Android,26,11,no,no,no,yes,no,,2,,,,no,
+C200386,P200661,2025-09-28,Sunday,19:00,Acute,iOS,16,13,no,no,no,no,yes,4,4,,,,no,
+C200387,P201045,2025-09-29,Monday,09:00,Acute,Web,5,17,yes,yes,no,no,no,,2,"Abbruch nach fünf Minuten, danach eine andere Tierärztin. Schade, die Beratung selbst war gut.","Dropped after five minutes, then a different vet. A pity, the advice itself was good.",Video/audio,no,
+C200388,P200192,2025-09-29,Monday,12:00,Chronic,Web,3,13,no,no,no,no,no,,5,,,,yes,46
+C200389,P200543,2025-09-29,Monday,12:00,Chronic,Android,11,14,yes,no,no,no,yes,3,3,"Das Bild war so ruckelig, dass nichts zu erkennen war. Beim nächsten Mal gehe ich wieder in die Praxis.",The video was so choppy you couldn't see anything. Next time I'll go back to the clinic.,Video/audio,no,
+C200390,P200630,2025-09-29,Monday,15:00,Acute,iOS,5,13,no,no,no,no,no,,,,,,no,
+C200391,P200237,2025-09-29,Monday,16:00,Acute,Android,5,13,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Klare Empfehlung.,The vet knew the history. Clear recommendation.,Context present (positive),no,
+C200392,P200806,2025-09-29,Monday,18:00,Acute,iOS,3,11,yes,no,no,no,no,,4,,,,no,
+C200393,P200175,2025-09-29,Monday,20:00,Acute,iOS,6,19,no,no,no,no,no,,4,,,,no,
+C200394,P200037,2025-09-30,Tuesday,08:00,Acute,Android,9,7,no,no,no,no,no,,5,,,,no,
+C200395,P200848,2025-09-30,Tuesday,09:00,Young animal,Web,3,10,no,no,no,no,no,,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Daran gibt es nichts auszusetzen.,Two in the morning and within ten minutes I knew what was going on. Nothing to fault.,Positive (other),yes,28
+C200396,P200158,2025-09-30,Tuesday,18:00,Young animal,iOS,5,15,no,no,no,no,yes,3,5,,,,no,
+C200397,P200401,2025-10-01,Wednesday,10:00,Acute,iOS,7,13,no,no,no,no,no,,4,Hat seinen Zweck erfüllt. Nichts zu meckern.,It served its purpose. Nothing to complain about.,Neutral,no,
+C200398,P201195,2025-10-01,Wednesday,10:00,Chronic,Android,9,8,no,no,yes,no,no,,,,,,yes,26
+C200399,P200689,2025-10-01,Wednesday,12:00,Acute,Web,4,16,no,no,no,no,yes,3,,,,,no,
+C200400,P200265,2025-10-01,Wednesday,14:00,Acute,Android,4,8,no,no,yes,no,no,,3,,,,no,
+C200401,P200267,2025-10-01,Wednesday,17:00,Young animal,Web,5,14,no,no,no,no,no,,5,,,,no,
+C200402,P200578,2025-10-01,Wednesday,18:00,Chronic,Web,7,12,no,no,no,no,no,,,,,,yes,21
+C200403,P200671,2025-10-01,Wednesday,18:00,Acute,iOS,9,18,no,no,no,no,yes,1,5,In fünfzehn Minuten dran und alles lag vor. So stelle ich mir das vor.,Seen within fifteen minutes and everything was on hand. That's how I imagine it should be.,Context present (positive),no,
+C200404,P200378,2025-10-01,Wednesday,19:00,Young animal,iOS,11,9,no,no,no,yes,no,,,,,,yes,27
+C200405,P200660,2025-10-01,Wednesday,20:00,Young animal,Android,12,12,yes,yes,no,no,no,,,,,,no,
+C200406,P200989,2025-10-01,Wednesday,21:00,Acute,Android,6,17,no,no,no,no,no,,4,Ging in Ordnung.,It was fine.,Neutral,yes,134
+C200407,P201039,2025-10-01,Wednesday,21:00,Acute,iOS,5,12,no,no,no,no,no,,,,,,no,
+C200408,P200034,2025-10-02,Thursday,08:00,Acute,Web,10,12,no,no,no,no,yes,3,4,,,,no,
+C200409,P200897,2025-10-02,Thursday,12:00,Young animal,Web,5,25,yes,yes,no,no,no,,,,,,no,
+C200410,P200296,2025-10-02,Thursday,15:00,Young animal,Web,5,13,no,no,no,no,yes,4,,,,,no,
+C200411,P200611,2025-10-02,Thursday,16:00,Acute,iOS,11,9,no,no,no,no,yes,5,,,,,no,
+C200412,P200782,2025-10-02,Thursday,21:00,Chronic,Android,5,11,no,no,no,no,yes,2,5,,,,yes,25
+C200413,P201097,2025-10-03,Friday,08:00,Acute,iOS,9,18,no,no,no,no,no,,4,Hat seinen Zweck erfüllt. Nichts zu meckern.,It served its purpose. Nothing to complain about.,Neutral,no,
+C200414,P201131,2025-10-03,Friday,10:00,Acute,Web,3,11,no,no,no,no,no,,5,,,,no,
+C200415,P201015,2025-10-03,Friday,11:00,Young animal,iOS,10,10,no,no,no,no,no,,5,,,,yes,51
+C200416,P200956,2025-10-03,Friday,13:00,Acute,Web,5,18,no,no,no,yes,no,,5,,,,no,
+C200417,P201104,2025-10-03,Friday,17:00,Young animal,Web,9,11,no,no,no,yes,no,,4,"Es gibt eine Akte, gelesen hat sie offenbar niemand.","There's a file, but apparently nobody read it.",Context lost (re-telling),no,
+C200418,P200890,2025-10-03,Friday,18:00,Acute,Android,5,13,yes,yes,no,no,no,,2,,,,no,
+C200419,P201128,2025-10-03,Friday,20:00,Chronic,Android,12,12,no,no,no,no,no,,,,,,no,
+C200420,P200617,2025-10-03,Friday,23:00,Young animal,iOS,9,13,no,no,no,no,no,,,,,,yes,14
+C200421,P200411,2025-10-04,Saturday,09:00,Chronic,Android,9,8,no,no,no,no,no,,,,,,yes,18
+C200422,P200855,2025-10-04,Saturday,10:00,Young animal,Android,5,15,no,no,no,no,no,,4,Erwartbar.,As expected.,Neutral,no,
+C200423,P200760,2025-10-04,Saturday,17:00,Young animal,iOS,10,15,no,no,no,no,yes,3,,,,,yes,32
+C200424,P200877,2025-10-04,Saturday,19:00,Chronic,Android,12,14,no,no,yes,no,yes,3,3,Die Vorbefunde konnte ich nicht anhängen. Ärgerlich mit einem kranken Tier.,I couldn't attach the previous findings. Annoying with a sick animal.,Upload,no,
+C200425,P200076,2025-10-04,Saturday,21:00,Young animal,Android,14,12,no,no,no,no,no,,3,,,,yes,100
+C200426,P200471,2025-10-04,Saturday,21:00,Unclear,iOS,5,20,no,no,no,no,no,,,,,,no,
+C200427,P200447,2025-10-04,Saturday,23:00,Chronic,Web,13,16,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Genau so.,The vet knew the history. Exactly like that.,Context present (positive),yes,36
+C200428,P200293,2025-10-05,Sunday,10:00,Acute,Android,4,12,no,no,no,no,yes,3,4,"Solide, keine Beschwerden. Nichts zu meckern.","Solid, no complaints. Nothing to complain about.",Neutral,no,
+C200429,P200356,2025-10-05,Sunday,12:00,Chronic,iOS,6,12,no,no,no,no,no,,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Danke dafür.,Two in the morning and within ten minutes I knew what was going on. Thanks for that.,Positive (other),yes,24
+C200430,P201125,2025-10-05,Sunday,12:00,Acute,Web,7,19,no,no,no,no,yes,4,5,,,,no,
+C200431,P200824,2025-10-05,Sunday,16:00,Acute,Android,5,9,no,no,no,no,yes,2,4,,,,no,
+C200432,P200200,2025-10-05,Sunday,17:00,Acute,Web,24,8,no,no,no,no,no,,4,"Warten mit einem kranken Tier ist genau das, was ich vermeiden wollte. Ärgerlich mit einem kranken Tier.",Waiting with a sick animal is exactly what I wanted to avoid. Annoying with a sick animal.,Waiting,no,
+C200433,P200089,2025-10-05,Sunday,18:00,Chronic,iOS,12,19,no,no,no,no,no,,,,,,yes,41
+C200434,P200123,2025-10-05,Sunday,18:00,Acute,Android,15,9,no,no,no,no,no,,4,,,,no,
+C200435,P200993,2025-10-05,Sunday,18:00,Acute,iOS,57,16,no,no,no,yes,no,,1,"Die Wartezeit war doppelt so lang wie angezeigt. Schade, die Beratung selbst war gut.","The wait was twice as long as shown. A pity, the advice itself was good.",Waiting,no,
+C200436,P200357,2025-10-05,Sunday,21:00,Acute,Web,14,20,no,no,no,no,yes,3,,,,,no,
+C200437,P200927,2025-10-05,Sunday,21:00,Young animal,Android,27,15,no,no,no,no,no,,3,,,,no,
+C200438,P200639,2025-10-06,Monday,08:00,Chronic,Web,11,8,no,no,yes,yes,yes,4,,,,,no,
+C200439,P200011,2025-10-06,Monday,10:00,Acute,Web,10,11,no,no,no,no,no,,4,,,,no,
+C200440,P200568,2025-10-06,Monday,10:00,Acute,iOS,6,16,no,no,yes,no,yes,2,,,,,yes,29
+C200441,P200922,2025-10-06,Monday,12:00,Acute,Web,4,12,yes,yes,no,no,no,,,,,,no,
+C200442,P200095,2025-10-06,Monday,17:00,Young animal,Android,12,7,no,no,no,no,yes,1,,,,,no,
+C200443,P200498,2025-10-06,Monday,22:00,Acute,Android,8,14,no,no,no,no,yes,3,,,,,no,
+C200444,P201163,2025-10-07,Tuesday,11:00,Acute,Android,4,16,no,no,yes,no,no,,,,,,no,
+C200445,P200930,2025-10-07,Tuesday,14:00,Chronic,Web,3,13,no,no,no,no,no,,5,"Ruhig erklärt, nichts überstürzt.","Explained calmly, nothing rushed.",Positive (other),no,
+C200446,P200646,2025-10-07,Tuesday,20:00,Chronic,Web,5,9,no,no,no,no,yes,3,5,In fünfzehn Minuten dran und alles lag vor. Gerne wieder.,Seen within fifteen minutes and everything was on hand. Happy to come back.,Context present (positive),yes,26
+C200447,P200179,2025-10-08,Wednesday,08:00,Acute,iOS,8,15,yes,yes,no,no,yes,4,2,,,,no,
+C200448,P200375,2025-10-08,Wednesday,10:00,Chronic,iOS,5,10,no,no,no,no,no,,5,"Schnell, freundlich, klare Ansage. Danke dafür.","Fast, friendly, clear advice. Thanks for that.",Positive (other),yes,24
+C200449,P200406,2025-10-08,Wednesday,12:00,Acute,iOS,2,9,no,no,no,no,yes,3,,,,,yes,70
+C200450,P200188,2025-10-08,Wednesday,17:00,Chronic,iOS,4,13,no,no,no,no,yes,3,4,,,,yes,37
+C200451,P200403,2025-10-08,Wednesday,19:00,Acute,Web,4,9,yes,yes,no,no,no,,,,,,no,
+C200452,P201016,2025-10-08,Wednesday,20:00,Acute,Android,12,12,no,no,no,no,no,,4,,,,no,
+C200453,P200762,2025-10-08,Wednesday,21:00,Chronic,Web,5,8,no,no,no,no,yes,2,,,,,yes,20
+C200454,P201068,2025-10-08,Wednesday,23:00,Acute,Web,6,15,no,no,no,no,yes,3,,,,,no,
+C200455,P201101,2025-10-09,Thursday,08:00,Young animal,Android,8,8,no,no,no,no,no,,5,,,,no,
+C200456,P200566,2025-10-09,Thursday,09:00,Acute,iOS,3,12,no,no,no,no,yes,3,,,,,no,
+C200457,P201156,2025-10-09,Thursday,10:00,Chronic,iOS,18,27,no,no,no,no,no,,,,,,yes,7
+C200458,P200593,2025-10-09,Thursday,14:00,Acute,Web,4,13,no,no,yes,no,no,,,,,,no,
+C200459,P200465,2025-10-09,Thursday,17:00,Chronic,Android,11,12,no,no,no,yes,no,,3,,,,no,
+C200460,P201018,2025-10-09,Thursday,19:00,Young animal,Android,6,19,no,no,no,no,no,,5,,,,no,
+C200461,P200615,2025-10-10,Friday,08:00,Young animal,Android,10,9,no,no,yes,yes,yes,1,3,,,,no,
+C200462,P200647,2025-10-10,Friday,08:00,Young animal,Android,7,16,no,no,yes,yes,no,,,,,,no,
+C200463,P200915,2025-10-10,Friday,11:00,Acute,Web,6,16,no,no,no,no,no,,5,,,,no,
+C200464,P201151,2025-10-10,Friday,13:00,Acute,iOS,5,11,no,no,no,no,no,,,,,,no,
+C200465,P200773,2025-10-10,Friday,16:00,Acute,Web,7,10,no,no,yes,no,no,,4,"Der Upload ist jedes Mal fehlgeschlagen. Schade, die Beratung selbst war gut.","The upload failed every time. A pity, the advice itself was good.",Upload,no,
+C200466,P200794,2025-10-10,Friday,18:00,Acute,Android,10,20,yes,no,no,no,no,,4,"Audio hat gestottert, ich musste zweimal nachfragen. Das war der Punkt, an dem ich abgehakt habe.","Audio stuttered, I had to ask twice. That was the point where I gave up on it.",Video/audio,no,
+C200467,P200814,2025-10-10,Friday,18:00,Acute,Android,4,20,no,no,no,no,no,,5,,,,no,
+C200468,P200484,2025-10-10,Friday,19:00,Young animal,iOS,11,13,no,no,yes,yes,no,,,,,,no,
+C200469,P200827,2025-10-10,Friday,20:00,Acute,Web,6,12,no,no,no,yes,no,,,,,,no,
+C200470,P200937,2025-10-10,Friday,20:00,Acute,iOS,6,24,no,no,no,yes,yes,2,,,,,no,
+C200471,P201035,2025-10-10,Friday,20:00,Acute,iOS,13,28,no,no,no,no,no,,5,,,,no,
+C200472,P201173,2025-10-10,Friday,21:00,Acute,iOS,7,8,no,no,no,no,yes,1,5,,,,yes,99
+C200473,P200604,2025-10-11,Saturday,08:00,Acute,Web,12,27,no,no,no,no,yes,5,,,,,no,
+C200474,P200337,2025-10-11,Saturday,09:00,Acute,Web,6,11,no,no,no,no,yes,2,5,"Ruhig erklärt, nichts überstürzt. Gerne wieder.","Explained calmly, nothing rushed. Happy to come back.",Positive (other),no,
+C200475,P200215,2025-10-11,Saturday,10:00,Young animal,iOS,5,16,no,no,no,no,yes,3,4,"Solide, keine Beschwerden. Passt.","Solid, no complaints. Fine.",Neutral,yes,69
+C200476,P200880,2025-10-11,Saturday,18:00,Chronic,Web,10,9,no,no,no,no,no,,,,,,no,
+C200477,P200153,2025-10-11,Saturday,19:00,Acute,Android,17,12,no,no,no,no,no,,,,,,no,
+C200478,P201071,2025-10-11,Saturday,19:00,Acute,Android,9,7,no,no,no,no,no,,,,,,no,
+C200479,P201103,2025-10-11,Saturday,22:00,Acute,Web,10,13,no,no,yes,no,no,,3,"Dokumente vom Vortierarzt wurden nicht angenommen. Schade, die Beratung selbst war gut.","Documents from the previous vet weren't accepted. A pity, the advice itself was good.",Upload,no,
+C200480,P200980,2025-10-12,Sunday,08:00,Acute,iOS,14,10,no,no,no,yes,no,,,,,,no,
+C200481,P201059,2025-10-12,Sunday,08:00,Young animal,Web,2,18,no,no,no,yes,no,,,,,,no,
+C200482,P200809,2025-10-12,Sunday,16:00,Acute,iOS,14,15,no,no,no,no,no,,,,,,no,
+C200483,P200497,2025-10-12,Sunday,18:00,Acute,iOS,20,9,no,no,no,no,no,,,,,,no,
+C200484,P200144,2025-10-12,Sunday,21:00,Acute,Android,17,11,no,no,no,no,no,,,,,,no,
+C200485,P200711,2025-10-12,Sunday,21:00,Young animal,iOS,25,14,no,no,yes,no,no,,3,Das Foto von der Wunde ließ sich nicht hochladen. Beim nächsten Mal gehe ich wieder in die Praxis.,The photo of the wound wouldn't upload. Next time I'll go back to the clinic.,Upload,no,
+C200486,P200308,2025-10-12,Sunday,22:00,Acute,Android,14,15,no,no,no,no,yes,6,4,,,,no,
+C200487,P200517,2025-10-12,Sunday,22:00,Unclear,Android,11,9,no,no,no,no,no,,4,"Solide, keine Beschwerden.","Solid, no complaints.",Neutral,no,
+C200488,P200485,2025-10-12,Sunday,23:00,Acute,Web,23,12,no,no,no,no,no,,5,,,,no,
+C200489,P200595,2025-10-13,Monday,07:00,Young animal,Web,2,11,no,no,no,no,no,,,,,,no,
+C200490,P200797,2025-10-13,Monday,13:00,Acute,iOS,4,11,no,no,no,no,no,,,,,,no,
+C200491,P200331,2025-10-13,Monday,16:00,Young animal,Android,13,19,no,no,no,no,no,,4,,,,yes,57
+C200492,P200487,2025-10-13,Monday,22:00,Chronic,Web,10,14,yes,yes,no,no,no,,,,,,no,
+C200493,P200496,2025-10-13,Monday,23:00,Acute,iOS,9,11,no,no,no,yes,no,,,,,,no,
+C200494,P201180,2025-10-14,Tuesday,07:00,Acute,iOS,3,18,no,no,no,no,no,,,,,,no,
+C200495,P200505,2025-10-14,Tuesday,08:00,Acute,Android,4,16,no,no,no,yes,no,,,,,,no,
+C200496,P201142,2025-10-14,Tuesday,08:00,Acute,Android,5,10,no,no,no,yes,no,,,,,,no,
+C200497,P200457,2025-10-14,Tuesday,09:00,Acute,iOS,6,12,no,no,no,no,no,,,,,,no,
+C200498,P200483,2025-10-14,Tuesday,09:00,Young animal,iOS,3,15,no,no,no,yes,no,,,,,,no,
+C200499,P200891,2025-10-14,Tuesday,09:00,Young animal,Web,3,18,no,no,no,no,no,,,,,,no,
+C200500,P200286,2025-10-14,Tuesday,18:00,Acute,Android,11,13,no,no,no,yes,yes,2,,,,,no,
+C200501,P201166,2025-10-14,Tuesday,19:00,Acute,iOS,4,12,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Genau so.,The vet knew the history. Exactly like that.,Context present (positive),yes,68
+C200502,P200858,2025-10-14,Tuesday,20:00,Acute,Web,6,12,no,no,no,yes,no,,4,"Die halbe Zeit ging fürs Erzählen drauf. Das war der Punkt, an dem ich abgehakt habe.",Half the time went on telling the story. That was the point where I gave up on it.,Context lost (re-telling),no,
+C200503,P200870,2025-10-14,Tuesday,21:00,Acute,Web,6,9,no,no,no,no,no,,5,In fünfzehn Minuten dran und alles lag vor. Gerne wieder.,Seen within fifteen minutes and everything was on hand. Happy to come back.,Context present (positive),yes,165
+C200504,P201148,2025-10-15,Wednesday,15:00,Young animal,iOS,5,15,no,no,yes,no,no,,,,,,no,
+C200505,P200541,2025-10-15,Wednesday,18:00,Acute,Web,4,11,no,no,no,no,no,,,,,,no,
+C200506,P200435,2025-10-15,Wednesday,21:00,Acute,iOS,3,13,no,no,no,no,no,,5,,,,yes,81
+C200507,P200445,2025-10-16,Thursday,09:00,Young animal,iOS,5,11,no,no,no,yes,yes,4,4,,,,no,
+C200508,P200058,2025-10-16,Thursday,10:00,Acute,Android,3,14,no,no,no,no,no,,4,,,,no,
+C200509,P201156,2025-10-16,Thursday,14:00,Chronic,iOS,3,20,no,no,no,no,yes,10,,,,,no,
+C200510,P200414,2025-10-16,Thursday,15:00,Young animal,Web,3,18,no,no,no,yes,no,,,,,,no,
+C200511,P200695,2025-10-16,Thursday,17:00,Acute,Android,4,10,no,no,no,no,yes,3,,,,,no,
+C200512,P200713,2025-10-16,Thursday,17:00,Young animal,iOS,8,12,no,no,no,no,no,,4,,,,no,
+C200513,P200081,2025-10-16,Thursday,19:00,Acute,iOS,8,11,no,no,no,no,yes,3,5,Die Tierärztin kannte die Vorgeschichte. Genau so.,The vet knew the history. Exactly like that.,Context present (positive),no,
+C200514,P200361,2025-10-16,Thursday,19:00,Chronic,iOS,3,6,no,no,no,yes,yes,2,,,,,no,
+C200515,P200012,2025-10-16,Thursday,20:00,Chronic,iOS,7,13,no,no,yes,no,yes,5,,,,,no,
+C200516,P200195,2025-10-16,Thursday,20:00,Young animal,Android,10,12,no,no,no,yes,no,,,,,,yes,76
+C200517,P200362,2025-10-16,Thursday,22:00,Chronic,Web,8,8,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch. Gerne wieder.,More convenient than a clinic visit. Happy to come back.,Positive (other),no,
+C200518,P200852,2025-10-17,Friday,09:00,Acute,Web,6,14,no,no,no,yes,no,,,,,,no,
+C200519,P200363,2025-10-17,Friday,10:00,Acute,iOS,5,20,no,no,no,yes,no,,4,,,,no,
+C200520,P200384,2025-10-17,Friday,10:00,Chronic,Android,11,23,no,no,no,no,no,,,,,,yes,8
+C200521,P200617,2025-10-17,Friday,11:00,Young animal,iOS,9,14,no,no,no,no,yes,7,3,Das Medikament kam über eine Woche später. Ärgerlich mit einem kranken Tier.,The medication arrived more than a week later. Annoying with a sick animal.,Delivery,no,
+C200522,P200997,2025-10-17,Friday,11:00,Acute,Android,4,12,no,no,no,yes,yes,2,,,,,no,
+C200523,P200551,2025-10-17,Friday,17:00,Chronic,iOS,4,8,no,no,no,no,yes,2,5,"Ruhig erklärt, nichts überstürzt. Daran gibt es nichts auszusetzen.","Explained calmly, nothing rushed. Nothing to fault.",Positive (other),yes,12
+C200524,P200581,2025-10-17,Friday,18:00,Acute,Web,11,13,no,no,no,no,no,,,,,,yes,95
+C200525,P200051,2025-10-17,Friday,19:00,Acute,Android,4,15,no,no,no,no,no,,,,,,yes,123
+C200526,P200276,2025-10-17,Friday,19:00,Chronic,Web,9,14,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch. So stelle ich mir das vor.,More convenient than a clinic visit. That's how I imagine it should be.,Positive (other),no,
+C200527,P200416,2025-10-17,Friday,19:00,Acute,iOS,2,9,no,no,yes,no,yes,5,,,,,no,
+C200528,P200821,2025-10-17,Friday,19:00,Acute,Android,10,16,no,no,no,no,no,,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid.,Two in the morning and within ten minutes I knew what was going on.,Positive (other),no,
+C200529,P200061,2025-10-18,Saturday,12:00,Acute,Android,6,15,yes,yes,no,no,no,,,,,,no,
+C200530,P200299,2025-10-18,Saturday,12:00,Acute,Web,6,10,no,no,yes,no,no,,,,,,no,
+C200531,P200788,2025-10-18,Saturday,14:00,Young animal,iOS,2,15,yes,no,no,no,no,,,,,,no,
+C200532,P200772,2025-10-18,Saturday,19:00,Acute,Android,10,13,no,no,no,no,yes,4,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig.","I had photos and previous findings ready, it went very quickly.",Context present (positive),no,
+C200533,P200284,2025-10-18,Saturday,20:00,Acute,iOS,10,24,no,no,no,no,no,,5,,,,no,
+C200534,P200244,2025-10-18,Saturday,23:00,Chronic,iOS,6,9,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder. Danke dafür.,The second time went even more smoothly. Thanks for that.,Context present (positive),no,
+C200535,P200442,2025-10-19,Sunday,09:00,Young animal,Android,9,12,no,no,no,no,yes,3,5,,,,no,
+C200536,P200778,2025-10-19,Sunday,09:00,Acute,Web,9,16,no,no,yes,no,no,,,,,,no,
+C200537,P200921,2025-10-19,Sunday,09:00,Young animal,Android,9,20,no,no,no,no,yes,5,4,,,,no,
+C200538,P200050,2025-10-19,Sunday,11:00,Acute,Android,12,10,no,no,no,no,yes,3,4,,,,no,
+C200539,P200306,2025-10-19,Sunday,11:00,Unclear,iOS,13,17,no,no,no,no,yes,12,2,,,,no,
+C200540,P200007,2025-10-19,Sunday,18:00,Acute,Android,21,10,no,no,no,no,no,,,,,,no,
+C200541,P200751,2025-10-19,Sunday,20:00,Young animal,Web,23,14,no,no,no,no,no,,4,,,,yes,6
+C200542,P200945,2025-10-19,Sunday,22:00,Chronic,Web,25,15,no,no,no,no,no,,4,,,,no,
+C200543,P200344,2025-10-20,Monday,07:00,Acute,Web,3,20,no,no,no,no,no,,,,,,no,
+C200544,P200854,2025-10-20,Monday,11:00,Acute,Android,4,27,no,no,no,yes,no,,,,,,no,
+C200545,P200916,2025-10-20,Monday,12:00,Acute,Android,2,10,yes,yes,no,no,no,,,,,,no,
+C200546,P201146,2025-10-20,Monday,12:00,Acute,iOS,7,13,no,no,no,no,no,,4,Ging in Ordnung. Nichts zu meckern.,It was fine. Nothing to complain about.,Neutral,no,
+C200547,P201121,2025-10-20,Monday,13:00,Acute,iOS,4,13,no,no,no,no,no,,,,,,no,
+C200548,P200836,2025-10-20,Monday,14:00,Young animal,iOS,3,20,no,no,no,no,yes,2,,,,,yes,3
+C200549,P200323,2025-10-20,Monday,18:00,Acute,Android,9,14,no,no,no,no,no,,,,,,no,
+C200550,P200575,2025-10-20,Monday,20:00,Young animal,Android,7,7,no,no,no,no,no,,4,,,,no,
+C200551,P200887,2025-10-20,Monday,20:00,Acute,iOS,4,11,no,no,no,no,yes,2,,,,,yes,110
+C200552,P200093,2025-10-20,Monday,21:00,Chronic,iOS,6,29,yes,no,no,no,yes,1,3,,,,no,
+C200553,P200520,2025-10-20,Monday,21:00,Chronic,Web,11,10,no,no,no,no,yes,3,5,,,,no,
+C200554,P200387,2025-10-21,Tuesday,10:00,Acute,iOS,4,13,no,no,no,no,yes,5,,,,,no,
+C200555,P200434,2025-10-21,Tuesday,10:00,Young animal,Android,4,18,yes,no,no,no,yes,3,5,,,,no,
+C200556,P200589,2025-10-21,Tuesday,10:00,Young animal,iOS,12,12,no,no,no,yes,yes,5,,,,,no,
+C200557,P201025,2025-10-21,Tuesday,13:00,Acute,Web,9,11,no,no,no,yes,no,,4,,,,no,
+C200558,P200808,2025-10-21,Tuesday,17:00,Young animal,Web,6,15,no,no,no,no,yes,3,4,"Solide, keine Beschwerden. Nichts zu meckern.","Solid, no complaints. Nothing to complain about.",Neutral,no,
+C200559,P200006,2025-10-21,Tuesday,18:00,Acute,Web,5,10,yes,no,no,no,yes,5,,,,,no,
+C200560,P200801,2025-10-21,Tuesday,21:00,Acute,Android,7,7,no,no,yes,no,yes,3,,,,,no,
+C200561,P201098,2025-10-21,Tuesday,21:00,Acute,Android,7,14,no,no,no,no,yes,4,5,"Schnell, freundlich, klare Ansage. Klare Empfehlung.","Fast, friendly, clear advice. Clear recommendation.",Positive (other),yes,159
+C200562,P200578,2025-10-22,Wednesday,08:00,Chronic,Web,8,9,no,no,no,yes,no,,,,,,no,
+C200563,P200018,2025-10-22,Wednesday,15:00,Acute,Web,15,9,no,no,no,no,yes,13,4,,,,no,
+C200564,P200285,2025-10-22,Wednesday,17:00,Young animal,Web,8,10,no,no,yes,no,yes,2,4,Die Vorbefunde konnte ich nicht anhängen. So macht das keinen Sinn.,I couldn't attach the previous findings. This way it makes no sense.,Upload,no,
+C200565,P200436,2025-10-22,Wednesday,17:00,Chronic,iOS,4,12,no,no,no,yes,no,,,,,,yes,19
+C200566,P200558,2025-10-22,Wednesday,17:00,Acute,iOS,11,10,no,no,no,no,no,,5,,,,no,
+C200567,P201168,2025-10-22,Wednesday,19:00,Young animal,iOS,6,15,no,no,no,no,yes,2,,,,,no,
+C200568,P200322,2025-10-22,Wednesday,20:00,Acute,Android,16,9,no,no,no,yes,no,,,,,,no,
+C200569,P200411,2025-10-22,Wednesday,20:00,Chronic,Android,4,10,no,no,no,no,yes,10,4,,,,yes,44
+C200570,P200205,2025-10-22,Wednesday,22:00,Acute,iOS,7,11,no,no,no,no,no,,4,Erwartbar. Passt.,As expected. Fine.,Neutral,no,
+C200571,P200799,2025-10-23,Thursday,09:00,Acute,Web,6,16,no,no,no,no,no,,,,,,no,
+C200572,P200836,2025-10-23,Thursday,10:00,Young animal,iOS,13,13,no,no,no,no,yes,5,5,,,,no,
+C200573,P200770,2025-10-23,Thursday,12:00,Chronic,iOS,7,12,no,no,no,no,no,,5,Die Kontrolle war unkompliziert wie beim letzten Mal. So stelle ich mir das vor.,The check-up was as easy as last time. That's how I imagine it should be.,Context present (positive),yes,23
+C200574,P200294,2025-10-23,Thursday,21:00,Acute,Android,5,12,no,no,no,no,yes,3,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. So stelle ich mir das vor.","I had photos and previous findings ready, it went very quickly. That's how I imagine it should be.",Context present (positive),no,
+C200575,P200804,2025-10-23,Thursday,23:00,Acute,iOS,9,18,no,no,no,no,no,,4,,,,yes,61
+C200576,P200650,2025-10-24,Friday,08:00,Acute,Android,4,13,no,no,no,no,no,,,,,,yes,43
+C200577,P200526,2025-10-24,Friday,10:00,Acute,iOS,9,16,no,no,no,no,no,,5,,,,no,
+C200578,P200718,2025-10-24,Friday,14:00,Acute,Web,2,24,no,no,no,yes,yes,8,,,,,no,
+C200579,P200920,2025-10-24,Friday,15:00,Acute,iOS,2,12,no,no,no,yes,no,,,,,,no,
+C200580,P201141,2025-10-24,Friday,17:00,Acute,iOS,10,10,no,no,no,no,no,,4,Ging in Ordnung. Passt.,It was fine. Fine.,Neutral,no,
+C200581,P200754,2025-10-24,Friday,20:00,Young animal,iOS,29,8,no,no,no,no,no,,4,,,,no,
+C200582,P200613,2025-10-25,Saturday,12:00,Acute,Android,12,13,no,no,no,yes,no,,,,,,no,
+C200583,P200751,2025-10-25,Saturday,12:00,Young animal,Web,6,13,no,no,no,yes,no,,4,,,,no,
+C200584,P200998,2025-10-25,Saturday,15:00,Unclear,Android,5,11,no,no,no,no,no,,5,,,,no,
+C200585,P200384,2025-10-25,Saturday,17:00,Chronic,Android,5,11,no,no,no,no,no,,5,"Kein Warten, keine Technikprobleme, direkt geholfen. So stelle ich mir das vor.","No waiting, no technical problems, helped right away. That's how I imagine it should be.",Video/audio,no,
+C200586,P200533,2025-10-25,Saturday,18:00,Chronic,iOS,12,13,yes,yes,yes,no,no,,,,,,no,
+C200587,P200531,2025-10-25,Saturday,20:00,Young animal,Android,9,13,no,no,no,no,no,,,,,,yes,39
+C200588,P200588,2025-10-25,Saturday,21:00,Chronic,iOS,15,10,no,no,no,no,no,,,,,,yes,16
+C200589,P200752,2025-10-25,Saturday,23:00,Acute,Android,10,11,no,no,no,no,yes,4,,,,,no,
+C200590,P200136,2025-10-26,Sunday,10:00,Unclear,Android,6,8,no,no,no,yes,no,,,,,,no,
+C200591,P200525,2025-10-26,Sunday,10:00,Acute,iOS,7,14,no,no,no,no,no,,5,,,,no,
+C200592,P200570,2025-10-26,Sunday,11:00,Acute,iOS,4,9,no,no,no,yes,yes,3,,,,,no,
+C200593,P200480,2025-10-26,Sunday,12:00,Acute,Android,6,6,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. So stelle ich mir das vor.,The vet knew the history. That's how I imagine it should be.,Context present (positive),no,
+C200594,P201085,2025-10-26,Sunday,12:00,Acute,Web,10,17,no,no,no,no,no,,,,,,yes,46
+C200595,P200041,2025-10-26,Sunday,15:00,Acute,Web,5,16,no,no,no,no,no,,,,,,yes,43
+C200596,P200707,2025-10-26,Sunday,15:00,Chronic,Android,17,11,yes,no,no,no,yes,2,3,,,,yes,12
+C200597,P200339,2025-10-26,Sunday,18:00,Young animal,Web,39,12,no,no,no,no,yes,3,,,,,no,
+C200598,P200782,2025-10-27,Monday,09:00,Chronic,Android,4,12,no,no,no,no,yes,8,,,,,yes,53
+C200599,P200063,2025-10-27,Monday,11:00,Acute,Web,8,21,no,no,no,no,no,,,,,,no,
+C200600,P200658,2025-10-27,Monday,11:00,Acute,iOS,3,12,no,no,no,no,yes,4,,,,,no,
+C200601,P200990,2025-10-27,Monday,14:00,Young animal,Web,7,12,no,no,no,no,yes,6,,,,,no,
+C200602,P200657,2025-10-27,Monday,15:00,Acute,Web,10,10,no,no,yes,no,yes,3,,,,,no,
+C200603,P200458,2025-10-27,Monday,18:00,Acute,Web,9,12,no,no,no,no,no,,4,,,,no,
+C200604,P201049,2025-10-27,Monday,18:00,Acute,Web,7,13,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Genau so.","I had photos and previous findings ready, it went very quickly. Exactly like that.",Context present (positive),no,
+C200605,P200610,2025-10-27,Monday,19:00,Unclear,iOS,6,14,no,no,no,no,no,,,,,,no,
+C200606,P201195,2025-10-27,Monday,20:00,Chronic,Android,8,13,no,no,no,no,no,,5,,,,yes,3
+C200607,P200673,2025-10-27,Monday,21:00,Chronic,Web,6,9,no,no,no,no,no,,,,,,no,
+C200608,P200391,2025-10-27,Monday,22:00,Acute,iOS,6,8,no,no,no,yes,yes,5,,,,,no,
+C200609,P201096,2025-10-27,Monday,23:00,Chronic,Android,9,12,no,no,no,yes,no,,,,,,yes,3
+C200610,P200913,2025-10-28,Tuesday,13:00,Acute,Web,4,12,no,no,no,yes,no,,5,,,,no,
+C200611,P201008,2025-10-28,Tuesday,16:00,Acute,Web,4,12,no,no,no,yes,no,,5,Dieselben Fragen wie beim letzten Mal. Beim nächsten Mal gehe ich wieder in die Praxis.,The same questions as last time. Next time I'll go back to the clinic.,Context lost (re-telling),no,
+C200612,P200378,2025-10-28,Tuesday,17:00,Young animal,iOS,4,14,no,no,no,no,no,,5,,,,yes,8
+C200613,P200706,2025-10-28,Tuesday,17:00,Young animal,iOS,4,19,no,no,no,no,yes,1,5,,,,no,
+C200614,P200762,2025-10-28,Tuesday,17:00,Chronic,Web,4,16,no,no,no,no,no,,,,,,no,
+C200615,P200848,2025-10-28,Tuesday,18:00,Young animal,Web,9,12,no,no,no,no,no,,,,,,no,
+C200616,P200551,2025-10-29,Wednesday,09:00,Chronic,iOS,4,16,no,no,no,no,yes,8,,,,,no,
+C200617,P200356,2025-10-29,Wednesday,11:00,Chronic,iOS,11,15,no,no,no,no,yes,4,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. Gerne wieder.","Everything was already on file, we got straight to the point. Happy to come back.",Context present (positive),yes,3
+C200618,P200450,2025-10-29,Wednesday,12:00,Young animal,Android,7,10,yes,no,no,no,no,,3,Die Verbindung war die ganze Zeit instabil. Ärgerlich mit einem kranken Tier.,The connection was unstable the whole time. Annoying with a sick animal.,Video/audio,no,
+C200619,P200648,2025-10-29,Wednesday,12:00,Acute,Android,4,8,no,no,no,no,no,,,,,,no,
+C200620,P201089,2025-10-29,Wednesday,17:00,Acute,iOS,2,9,no,no,no,yes,yes,8,,,,,no,
+C200621,P200138,2025-10-30,Thursday,08:00,Unclear,iOS,4,16,yes,no,no,yes,yes,3,,,,,no,
+C200622,P200562,2025-10-30,Thursday,09:00,Young animal,iOS,7,10,no,no,no,no,yes,5,,,,,no,
+C200623,P201195,2025-10-30,Thursday,15:00,Chronic,Android,7,11,no,no,no,yes,no,,3,,,,no,
+C200624,P201096,2025-10-30,Thursday,19:00,Chronic,Android,12,8,no,no,no,no,yes,6,3,,,,no,
+C200625,P200415,2025-10-30,Thursday,21:00,Acute,iOS,3,7,yes,no,no,no,yes,4,,,,,no,
+C200626,P201048,2025-10-31,Friday,07:00,Acute,Android,7,13,yes,no,no,no,no,,,,,,no,
+C200627,P200832,2025-10-31,Friday,10:00,Young animal,Android,4,10,no,no,no,no,no,,4,,,,yes,84
+C200628,P200185,2025-10-31,Friday,11:00,Chronic,Android,9,15,no,no,no,yes,yes,3,4,,,,no,
+C200629,P201113,2025-10-31,Friday,11:00,Acute,iOS,10,21,no,no,no,no,no,,,,,,no,
+C200630,P200838,2025-10-31,Friday,16:00,Chronic,Android,6,12,no,no,no,yes,yes,3,4,Die halbe Zeit ging fürs Erzählen drauf. Beim nächsten Mal gehe ich wieder in die Praxis.,Half the time went on telling the story. Next time I'll go back to the clinic.,Context lost (re-telling),yes,38
+C200631,P200812,2025-10-31,Friday,21:00,Acute,Web,9,11,no,no,no,no,yes,7,4,,,,no,
+C200632,P200747,2025-10-31,Friday,22:00,Acute,iOS,4,16,no,no,no,yes,no,,2,Die halbe Zeit ging fürs Erzählen drauf. Bitte nachbessern.,Half the time went on telling the story. Please improve this.,Context lost (re-telling),no,
+C200633,P200748,2025-10-31,Friday,22:00,Chronic,iOS,7,15,yes,no,no,no,no,,,,,,no,
+C200634,P200523,2025-11-01,Saturday,11:00,Acute,iOS,8,8,no,no,no,no,no,,4,,,,no,
+C200635,P200449,2025-11-01,Saturday,16:00,Acute,iOS,6,10,no,no,no,no,yes,2,4,Hat seinen Zweck erfüllt.,It served its purpose.,Neutral,no,
+C200636,P200386,2025-11-01,Saturday,18:00,Young animal,Android,14,7,no,no,no,no,no,,4,,,,no,
+C200637,P200375,2025-11-01,Saturday,19:00,Chronic,iOS,10,16,no,no,no,no,yes,4,5,,,,yes,48
+C200638,P200489,2025-11-01,Saturday,19:00,Young animal,Android,23,11,no,no,no,no,no,,4,,,,no,
+C200639,P201067,2025-11-01,Saturday,21:00,Young animal,iOS,13,14,no,no,no,no,no,,,,,,no,
+C200640,P200478,2025-11-01,Saturday,22:00,Acute,iOS,11,10,no,no,no,no,no,,5,"Schnell, freundlich, klare Ansage. So stelle ich mir das vor.","Fast, friendly, clear advice. That's how I imagine it should be.",Positive (other),no,
+C200641,P200356,2025-11-01,Saturday,23:00,Chronic,iOS,8,17,no,no,no,no,yes,3,5,"Kein Warten, keine Technikprobleme, direkt geholfen. Klare Empfehlung.","No waiting, no technical problems, helped right away. Clear recommendation.",Video/audio,yes,20
+C200642,P200529,2025-11-01,Saturday,23:00,Acute,Android,16,8,no,no,no,no,no,,,,,,no,
+C200643,P200646,2025-11-02,Sunday,08:00,Chronic,Web,11,16,no,no,no,no,no,,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Gerne wieder.,The check-up was as easy as last time. Happy to come back.,Context present (positive),no,
+C200644,P200620,2025-11-02,Sunday,09:00,Young animal,iOS,3,14,no,no,no,no,no,,4,,,,no,
+C200645,P201081,2025-11-02,Sunday,09:00,Young animal,iOS,3,19,no,no,no,no,yes,4,,,,,no,
+C200646,P200606,2025-11-02,Sunday,13:00,Young animal,Web,5,8,no,no,no,no,yes,11,4,,,,no,
+C200647,P201065,2025-11-02,Sunday,15:00,Acute,Web,15,17,no,no,no,no,no,,4,,,,no,
+C200648,P200229,2025-11-02,Sunday,18:00,Acute,Web,10,21,no,no,no,no,yes,4,,,,,no,
+C200649,P200289,2025-11-02,Sunday,20:00,Young animal,iOS,8,11,no,no,no,yes,no,,,,,,no,
+C200650,P200231,2025-11-02,Sunday,22:00,Young animal,iOS,15,19,no,no,no,no,yes,4,,,,,no,
+C200651,P200640,2025-11-03,Monday,09:00,Acute,Web,5,16,no,no,no,no,no,,,,,,no,
+C200652,P201138,2025-11-03,Monday,09:00,Young animal,iOS,5,8,no,no,no,yes,no,,4,,,,yes,46
+C200653,P200737,2025-11-03,Monday,10:00,Acute,iOS,5,9,no,no,no,no,yes,3,,,,,no,
+C200654,P200974,2025-11-03,Monday,11:00,Acute,Web,3,11,no,no,no,yes,no,,5,Dieselben Fragen wie beim letzten Mal — für den Preis ärgerlich.,The same questions as last time — annoying for the price.,Context lost (re-telling),no,
+C200655,P200476,2025-11-03,Monday,17:00,Young animal,iOS,8,10,no,no,no,no,no,,,,,,yes,64
+C200656,P200926,2025-11-03,Monday,17:00,Acute,Web,8,20,yes,yes,no,no,no,,,,,,no,
+C200657,P200928,2025-11-03,Monday,17:00,Acute,iOS,5,21,no,no,no,yes,yes,3,4,,,,no,
+C200658,P200494,2025-11-03,Monday,18:00,Young animal,iOS,6,10,no,no,no,no,yes,2,,,,,no,
+C200659,P200502,2025-11-03,Monday,19:00,Acute,iOS,5,9,no,no,no,no,no,,,,,,no,
+C200660,P200623,2025-11-03,Monday,19:00,Acute,Android,6,11,no,no,no,no,no,,,,,,no,
+C200661,P201129,2025-11-03,Monday,21:00,Chronic,Android,13,11,no,no,no,no,yes,9,4,,,,no,
+C200662,P200837,2025-11-03,Monday,23:00,Young animal,iOS,10,20,no,no,no,no,yes,2,4,,,,no,
+C200663,P200733,2025-11-04,Tuesday,09:00,Unclear,iOS,8,20,no,no,yes,no,no,,,,,,yes,25
+C200664,P201186,2025-11-04,Tuesday,10:00,Young animal,iOS,7,12,no,no,no,yes,no,,,,,,yes,29
+C200665,P200162,2025-11-04,Tuesday,11:00,Acute,iOS,10,17,yes,yes,no,no,no,,,,,,no,
+C200666,P200568,2025-11-04,Tuesday,14:00,Acute,iOS,13,20,no,no,no,no,yes,7,4,"Das Rezept war schnell da, das Paket nicht. Bitte nachbessern.","The prescription came fast, the package didn't. Please improve this.",Delivery,no,
+C200667,P200250,2025-11-04,Tuesday,15:00,Acute,Android,9,11,no,no,no,no,no,,5,,,,no,
+C200668,P200532,2025-11-04,Tuesday,15:00,Young animal,Web,4,12,no,no,yes,no,no,,4,Die Vorbefunde konnte ich nicht anhängen. So macht das keinen Sinn.,I couldn't attach the previous findings. This way it makes no sense.,Upload,no,
+C200669,P200152,2025-11-04,Tuesday,19:00,Chronic,Android,3,11,no,no,no,yes,yes,4,5,,,,no,
+C200670,P200732,2025-11-05,Wednesday,10:00,Young animal,Android,8,9,no,no,no,no,yes,5,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Daran gibt es nichts auszusetzen.,The check-up was as easy as last time. Nothing to fault.,Context present (positive),no,
+C200671,P200114,2025-11-05,Wednesday,12:00,Acute,iOS,12,7,no,no,no,no,no,,5,"Kein Warten, keine Technikprobleme, direkt geholfen. Gerne wieder.","No waiting, no technical problems, helped right away. Happy to come back.",Video/audio,no,
+C200672,P200607,2025-11-05,Wednesday,12:00,Acute,Android,9,8,no,no,no,no,no,,,,,,yes,71
+C200673,P200760,2025-11-05,Wednesday,12:00,Young animal,iOS,18,15,no,no,no,no,no,,5,,,,yes,18
+C200674,P200546,2025-11-05,Wednesday,14:00,Chronic,Web,10,12,yes,no,no,no,no,,,,,,no,
+C200675,P201050,2025-11-05,Wednesday,18:00,Acute,Android,3,16,no,no,no,no,yes,3,5,In fünfzehn Minuten dran und alles lag vor. Genau so.,Seen within fifteen minutes and everything was on hand. Exactly like that.,Context present (positive),no,
+C200676,P200028,2025-11-05,Wednesday,19:00,Unclear,iOS,12,18,no,no,no,no,no,,,,,,no,
+C200677,P200378,2025-11-05,Wednesday,20:00,Young animal,iOS,4,20,no,no,no,no,no,,,,,,no,
+C200678,P200353,2025-11-06,Thursday,07:00,Acute,iOS,5,8,no,no,no,no,yes,2,,,,,yes,34
+C200679,P200935,2025-11-06,Thursday,10:00,Acute,Android,6,9,no,no,no,no,yes,2,5,,,,no,
+C200680,P200678,2025-11-06,Thursday,11:00,Acute,iOS,5,7,no,no,no,no,yes,3,4,Hat seinen Zweck erfüllt. Passt.,It served its purpose. Fine.,Neutral,yes,75
+C200681,P201137,2025-11-06,Thursday,11:00,Acute,Android,14,10,yes,yes,yes,no,no,,,,,,no,
+C200682,P200112,2025-11-06,Thursday,14:00,Acute,iOS,7,9,no,no,no,no,yes,6,4,,,,no,
+C200683,P200766,2025-11-06,Thursday,14:00,Acute,Android,3,14,no,no,no,no,no,,,,,,yes,122
+C200684,P200934,2025-11-06,Thursday,14:00,Chronic,iOS,6,15,no,no,yes,yes,no,,3,"Bilder hochladen ging nicht. Das war der Punkt, an dem ich abgehakt habe.",Uploading pictures didn't work. That was the point where I gave up on it.,Upload,no,
+C200685,P200176,2025-11-06,Thursday,16:00,Acute,Web,8,25,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder. So stelle ich mir das vor.,The second time went even more smoothly. That's how I imagine it should be.,Context present (positive),no,
+C200686,P200377,2025-11-06,Thursday,16:00,Young animal,Android,6,10,no,no,no,no,yes,4,4,Erwartbar. Mehr aber auch nicht.,As expected. But no more than that.,Neutral,yes,28
+C200687,P200929,2025-11-06,Thursday,17:00,Young animal,Android,8,16,no,no,yes,no,no,,3,,,,no,
+C200688,P200268,2025-11-06,Thursday,20:00,Young animal,iOS,7,19,no,no,yes,no,yes,4,3,,,,no,
+C200689,P200475,2025-11-06,Thursday,21:00,Acute,Android,10,8,no,no,no,no,yes,2,,,,,no,
+C200690,P200430,2025-11-07,Friday,08:00,Acute,Android,5,14,no,no,no,yes,yes,2,4,"Ich musste Gewicht, Alter und Vorerkrankungen nochmal durchgeben — für den Preis ärgerlich.","I had to give weight, age and previous conditions again — annoying for the price.",Context lost (re-telling),yes,22
+C200691,P200707,2025-11-07,Friday,09:00,Chronic,Android,9,11,no,no,no,no,no,,,,,,yes,31
+C200692,P201158,2025-11-07,Friday,10:00,Acute,iOS,18,9,no,no,yes,no,no,,,,,,no,
+C200693,P200437,2025-11-07,Friday,11:00,Young animal,Android,6,15,no,no,no,no,yes,4,,,,,no,
+C200694,P200273,2025-11-07,Friday,12:00,Acute,Web,7,9,no,no,no,no,no,,4,,,,no,
+C200695,P200433,2025-11-07,Friday,12:00,Acute,iOS,8,9,no,no,no,no,yes,1,5,"Schnell, freundlich, klare Ansage. Gerne wieder.","Fast, friendly, clear advice. Happy to come back.",Positive (other),no,
+C200696,P201181,2025-11-07,Friday,15:00,Acute,Web,8,14,no,no,no,yes,no,,5,,,,no,
+C200697,P200729,2025-11-07,Friday,17:00,Acute,Web,8,9,no,no,no,no,yes,5,4,,,,no,
+C200698,P200298,2025-11-07,Friday,18:00,Unclear,Web,5,15,no,no,no,yes,no,,,,,,no,
+C200699,P200947,2025-11-07,Friday,19:00,Chronic,Web,7,12,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Klare Empfehlung.","I had photos and previous findings ready, it went very quickly. Clear recommendation.",Context present (positive),yes,22
+C200700,P200727,2025-11-07,Friday,20:00,Chronic,Web,7,16,no,no,no,no,no,,,,,,no,
+C200701,P200075,2025-11-07,Friday,22:00,Chronic,Web,8,10,no,no,no,no,no,,,,,,no,
+C200702,P201196,2025-11-07,Friday,22:00,Young animal,iOS,9,12,no,no,no,yes,yes,2,,,,,no,
+C200703,P200910,2025-11-08,Saturday,13:00,Young animal,Web,7,15,no,no,no,no,no,,,,,,no,
+C200704,P200094,2025-11-08,Saturday,15:00,Acute,Android,5,16,no,no,no,no,no,,4,,,,no,
+C200705,P200399,2025-11-08,Saturday,15:00,Young animal,Android,4,10,no,no,no,yes,no,,,,,,no,
+C200706,P200972,2025-11-08,Saturday,16:00,Acute,iOS,6,11,no,no,no,no,yes,2,4,,,,yes,67
+C200707,P201108,2025-11-08,Saturday,17:00,Acute,iOS,4,9,no,no,no,yes,yes,7,,,,,no,
+C200708,P201053,2025-11-08,Saturday,21:00,Chronic,iOS,18,24,no,no,no,no,yes,6,4,,,,no,
+C200709,P200549,2025-11-08,Saturday,23:00,Acute,Android,7,19,no,no,no,yes,no,,5,"Die halbe Zeit ging fürs Erzählen drauf. Das war der Punkt, an dem ich abgehakt habe.",Half the time went on telling the story. That was the point where I gave up on it.,Context lost (re-telling),yes,134
+C200710,P200626,2025-11-09,Sunday,09:00,Acute,Android,4,16,no,no,no,no,yes,2,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Danke dafür.","I had photos and previous findings ready, it went very quickly. Thanks for that.",Context present (positive),yes,28
+C200711,P200038,2025-11-09,Sunday,11:00,Acute,iOS,6,13,no,no,no,no,no,,,,,,no,
+C200712,P200349,2025-11-09,Sunday,13:00,Young animal,Android,8,9,yes,no,no,no,no,,,,,,no,
+C200713,P200621,2025-11-09,Sunday,13:00,Acute,Web,3,17,no,no,no,yes,no,,5,,,,no,
+C200714,P200048,2025-11-09,Sunday,14:00,Acute,iOS,4,11,no,no,no,no,yes,6,,,,,no,
+C200715,P200057,2025-11-09,Sunday,20:00,Young animal,iOS,19,11,no,no,no,yes,no,,,,,,no,
+C200716,P200447,2025-11-09,Sunday,20:00,Chronic,Web,37,16,yes,no,no,no,no,,,,,,no,
+C200717,P200133,2025-11-09,Sunday,21:00,Young animal,Android,33,11,no,no,no,no,yes,3,,,,,no,
+C200718,P200907,2025-11-09,Sunday,21:00,Young animal,Web,27,18,no,no,no,no,no,,4,"Über zwanzig Minuten gewartet, angekündigt waren wenige. Ärgerlich mit einem kranken Tier.","Waited over twenty minutes, only a few were announced. Annoying with a sick animal.",Waiting,no,
+C200719,P200456,2025-11-10,Monday,08:00,Young animal,iOS,9,14,no,no,no,no,no,,4,,,,no,
+C200720,P200201,2025-11-10,Monday,11:00,Acute,iOS,9,11,no,no,no,yes,no,,4,,,,no,
+C200721,P200853,2025-11-10,Monday,11:00,Young animal,Web,6,26,yes,yes,no,no,yes,2,,,,,no,
+C200722,P200436,2025-11-10,Monday,12:00,Chronic,iOS,4,18,no,no,no,no,no,,,,,,no,
+C200723,P200588,2025-11-10,Monday,13:00,Chronic,iOS,4,21,no,no,yes,yes,no,,,,,,no,
+C200724,P200380,2025-11-10,Monday,14:00,Acute,iOS,7,10,no,no,no,no,no,,,,,,yes,72
+C200725,P200883,2025-11-10,Monday,18:00,Acute,Web,15,23,no,no,no,no,yes,2,,,,,no,
+C200726,P200116,2025-11-10,Monday,19:00,Acute,iOS,10,22,yes,no,no,no,yes,4,,,,,no,
+C200727,P200314,2025-11-10,Monday,19:00,Acute,iOS,2,12,no,no,yes,no,no,,,,,,no,
+C200728,P201139,2025-11-10,Monday,19:00,Acute,iOS,6,7,no,no,no,no,yes,2,,,,,no,
+C200729,P200717,2025-11-11,Tuesday,10:00,Young animal,iOS,7,17,no,no,no,yes,yes,4,3,,,,yes,3
+C200730,P201046,2025-11-11,Tuesday,15:00,Acute,iOS,10,14,no,no,yes,no,no,,4,,,,no,
+C200731,P200868,2025-11-11,Tuesday,16:00,Acute,Android,7,8,no,no,no,yes,yes,3,,,,,no,
+C200732,P200999,2025-11-11,Tuesday,18:00,Young animal,Web,8,10,no,no,no,yes,yes,4,,,,,no,
+C200733,P200992,2025-11-11,Tuesday,19:00,Acute,Android,5,6,no,no,no,yes,no,,4,,,,no,
+C200734,P200909,2025-11-11,Tuesday,20:00,Acute,iOS,2,12,yes,yes,no,no,no,,1,,,,no,
+C200735,P200960,2025-11-11,Tuesday,20:00,Acute,iOS,5,9,no,no,no,no,no,,4,,,,no,
+C200736,P200440,2025-11-12,Wednesday,07:00,Acute,Android,3,13,no,no,no,no,no,,4,,,,no,
+C200737,P201176,2025-11-12,Wednesday,11:00,Young animal,iOS,6,16,yes,no,no,yes,no,,,,,,no,
+C200738,P200634,2025-11-12,Wednesday,13:00,Young animal,Android,17,11,no,no,no,no,yes,6,,,,,no,
+C200739,P200140,2025-11-12,Wednesday,15:00,Acute,Web,3,9,no,no,no,no,yes,3,,,,,no,
+C200740,P200346,2025-11-12,Wednesday,16:00,Acute,Web,5,12,yes,no,no,no,yes,6,3,,,,no,
+C200741,P200802,2025-11-12,Wednesday,18:00,Acute,iOS,4,9,no,no,no,no,no,,,,,,yes,57
+C200742,P200385,2025-11-12,Wednesday,19:00,Unclear,iOS,3,12,no,no,no,no,no,,,,,,no,
+C200743,P200903,2025-11-12,Wednesday,22:00,Acute,Android,6,12,no,no,no,no,no,,5,,,,no,
+C200744,P200767,2025-11-13,Thursday,07:00,Acute,Android,5,24,no,no,no,no,yes,3,,,,,no,
+C200745,P200329,2025-11-13,Thursday,10:00,Acute,Web,15,13,no,no,no,no,no,,4,,,,no,
+C200746,P200559,2025-11-13,Thursday,10:00,Acute,iOS,7,16,no,no,no,no,no,,,,,,yes,3
+C200747,P200614,2025-11-13,Thursday,11:00,Chronic,Web,9,9,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder. Danke dafür.,The second time went even more smoothly. Thanks for that.,Context present (positive),yes,11
+C200748,P200895,2025-11-13,Thursday,15:00,Young animal,Android,8,23,no,no,no,no,no,,,,,,no,
+C200749,P200746,2025-11-13,Thursday,17:00,Acute,Android,2,9,no,no,no,no,yes,4,,,,,no,
+C200750,P200366,2025-11-13,Thursday,21:00,Unclear,iOS,7,10,no,no,no,no,yes,2,,,,,yes,34
+C200751,P200509,2025-11-13,Thursday,21:00,Young animal,iOS,3,10,no,no,no,no,no,,,,,,yes,3
+C200752,P200192,2025-11-14,Friday,09:00,Chronic,Web,4,17,no,no,no,yes,no,,4,,,,yes,8
+C200753,P200791,2025-11-14,Friday,10:00,Acute,iOS,17,12,no,no,no,no,yes,2,,,,,no,
+C200754,P200292,2025-11-14,Friday,11:00,Acute,Android,10,18,no,no,no,no,yes,3,5,,,,no,
+C200755,P201153,2025-11-14,Friday,11:00,Unclear,iOS,15,16,no,no,no,no,no,,4,,,,no,
+C200756,P200467,2025-11-14,Friday,13:00,Acute,Web,4,17,no,no,no,no,yes,4,5,"Schnell, freundlich, klare Ansage. Genau so.","Fast, friendly, clear advice. Exactly like that.",Positive (other),no,
+C200757,P200056,2025-11-14,Friday,15:00,Chronic,iOS,4,16,no,no,no,no,no,,,,,,yes,27
+C200758,P200871,2025-11-14,Friday,15:00,Acute,iOS,5,13,no,no,no,no,no,,,,,,no,
+C200759,P200717,2025-11-14,Friday,16:00,Young animal,iOS,3,16,no,no,no,no,no,,,,,,yes,38
+C200760,P200243,2025-11-14,Friday,17:00,Acute,iOS,12,13,no,no,no,no,no,,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Genau so.,Two in the morning and within ten minutes I knew what was going on. Exactly like that.,Positive (other),no,
+C200761,P200188,2025-11-14,Friday,21:00,Chronic,iOS,4,8,no,no,no,no,yes,3,4,,,,no,
+C200762,P200500,2025-11-15,Saturday,08:00,Acute,Web,10,18,no,no,no,no,no,,,,,,no,
+C200763,P200092,2025-11-15,Saturday,10:00,Acute,iOS,7,13,no,no,no,no,yes,3,,,,,no,
+C200764,P200089,2025-11-15,Saturday,14:00,Chronic,iOS,13,8,yes,yes,no,no,no,,,,,,no,
+C200765,P200770,2025-11-15,Saturday,14:00,Chronic,iOS,4,12,no,no,no,no,no,,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. Klare Empfehlung.","Everything was already on file, we got straight to the point. Clear recommendation.",Context present (positive),yes,3
+C200766,P201174,2025-11-15,Saturday,18:00,Acute,Web,11,11,no,no,no,yes,yes,13,,,,,no,
+C200767,P200260,2025-11-15,Saturday,19:00,Acute,Android,12,18,no,no,no,yes,no,,4,Die halbe Zeit ging fürs Erzählen drauf — für den Preis ärgerlich.,Half the time went on telling the story — annoying for the price.,Context lost (re-telling),no,
+C200768,P200468,2025-11-15,Saturday,21:00,Young animal,iOS,9,14,no,no,no,yes,no,,,,,,no,
+C200769,P200600,2025-11-15,Saturday,22:00,Acute,Web,6,20,no,no,no,no,no,,,,,,no,
+C200770,P200559,2025-11-16,Sunday,10:00,Acute,iOS,7,14,no,no,no,no,no,,4,War okay. Mehr aber auch nicht.,It was okay. But no more than that.,Neutral,yes,35
+C200771,P201038,2025-11-16,Sunday,20:00,Acute,iOS,15,10,no,no,no,no,no,,5,,,,no,
+C200772,P200509,2025-11-16,Sunday,21:00,Young animal,iOS,11,14,no,no,no,no,no,,,,,,yes,47
+C200773,P200978,2025-11-16,Sunday,22:00,Young animal,Android,12,24,no,no,yes,no,no,,3,Dokumente vom Vortierarzt wurden nicht angenommen. Beim nächsten Mal gehe ich wieder in die Praxis.,Documents from the previous vet weren't accepted. Next time I'll go back to the clinic.,Upload,yes,55
+C200774,P200101,2025-11-17,Monday,08:00,Acute,Web,14,13,no,no,no,no,no,,,,,,no,
+C200775,P200577,2025-11-17,Monday,11:00,Young animal,iOS,22,18,no,no,no,no,yes,11,3,"Das Rezept war schnell da, das Paket nicht.","The prescription came fast, the package didn't.",Delivery,yes,37
+C200776,P201003,2025-11-17,Monday,11:00,Acute,Android,5,10,no,no,yes,no,no,,,,,,no,
+C200777,P200208,2025-11-17,Monday,20:00,Acute,iOS,4,13,no,no,no,yes,yes,2,4,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Schade, die Beratung selbst war gut.","There's a file, but apparently nobody read it. A pity, the advice itself was good.",Context lost (re-telling),no,
+C200778,P200275,2025-11-17,Monday,23:00,Acute,iOS,10,12,no,no,no,no,yes,9,4,Die Lieferung war viel zu langsam. Bitte nachbessern.,Delivery was far too slow. Please improve this.,Delivery,no,
+C200779,P200110,2025-11-18,Tuesday,07:00,Unclear,Android,4,25,no,no,no,no,no,,4,Hat geholfen. Nichts zu meckern.,It helped. Nothing to complain about.,Neutral,no,
+C200780,P200656,2025-11-18,Tuesday,08:00,Acute,iOS,8,13,no,no,no,no,no,,,,,,no,
+C200781,P201118,2025-11-18,Tuesday,08:00,Acute,iOS,9,14,no,no,no,no,yes,10,,,,,no,
+C200782,P200438,2025-11-18,Tuesday,11:00,Acute,Android,7,17,no,no,no,no,yes,5,5,,,,no,
+C200783,P200770,2025-11-18,Tuesday,13:00,Chronic,iOS,12,9,no,no,no,yes,no,,,,,,yes,39
+C200784,P201066,2025-11-18,Tuesday,15:00,Young animal,iOS,10,12,no,no,no,no,yes,2,5,,,,no,
+C200785,P200084,2025-11-18,Tuesday,18:00,Young animal,iOS,5,12,no,no,no,yes,no,,,,,,no,
+C200786,P200519,2025-11-18,Tuesday,18:00,Chronic,iOS,9,16,no,no,yes,no,yes,4,,,,,no,
+C200787,P200886,2025-11-18,Tuesday,18:00,Acute,Android,5,9,no,no,no,no,yes,3,,,,,no,
+C200788,P200035,2025-11-19,Wednesday,10:00,Acute,iOS,12,7,no,no,no,no,no,,4,Ging in Ordnung. Mehr aber auch nicht.,It was fine. But no more than that.,Neutral,yes,54
+C200789,P200716,2025-11-19,Wednesday,11:00,Chronic,Android,11,11,no,no,no,no,no,,4,,,,no,
+C200790,P200734,2025-11-19,Wednesday,11:00,Chronic,Android,30,11,no,no,no,no,no,,4,,,,no,
+C200791,P201110,2025-11-19,Wednesday,12:00,Acute,Android,12,13,no,no,no,no,no,,3,"Die Praxis um die Ecke ist nicht teurer und untersucht wenigstens. Das war der Punkt, an dem ich abgehakt habe.",The clinic round the corner isn't more expensive and at least examines the animal. That was the point where I gave up on it.,Price / clinic comparison,no,
+C200792,P200224,2025-11-19,Wednesday,14:00,Chronic,Android,15,18,no,no,no,no,yes,3,,,,,yes,43
+C200793,P201130,2025-11-19,Wednesday,16:00,Acute,Android,7,11,no,no,no,no,no,,4,,,,yes,99
+C200794,P201188,2025-11-19,Wednesday,16:00,Acute,Android,8,13,no,no,no,no,no,,4,,,,no,
+C200795,P200753,2025-11-19,Wednesday,17:00,Acute,iOS,7,13,no,no,no,no,no,,4,Erwartbar. Mehr aber auch nicht.,As expected. But no more than that.,Neutral,no,
+C200796,P200792,2025-11-19,Wednesday,19:00,Acute,Android,7,12,no,no,no,no,yes,5,,,,,yes,76
+C200797,P201000,2025-11-20,Thursday,08:00,Acute,Android,6,11,no,no,no,no,no,,,,,,yes,159
+C200798,P201114,2025-11-20,Thursday,08:00,Acute,iOS,14,22,no,no,no,no,no,,4,,,,no,
+C200799,P200044,2025-11-20,Thursday,11:00,Acute,Web,7,17,no,no,no,no,yes,10,,,,,no,
+C200800,P201102,2025-11-20,Thursday,13:00,Acute,Android,6,12,no,no,no,yes,yes,3,4,Wieder bei null angefangen mit den Daten meines Tieres. Beim nächsten Mal gehe ich wieder in die Praxis.,Started from zero again with my pet's data. Next time I'll go back to the clinic.,Context lost (re-telling),no,
+C200801,P200936,2025-11-20,Thursday,14:00,Acute,Android,6,11,no,no,no,no,yes,3,,,,,no,
+C200802,P201093,2025-11-20,Thursday,15:00,Acute,Web,5,14,no,no,yes,no,yes,2,,,,,no,
+C200803,P201126,2025-11-20,Thursday,15:00,Unclear,Web,3,13,no,no,no,no,yes,3,,,,,no,
+C200804,P200033,2025-11-20,Thursday,17:00,Young animal,iOS,16,8,no,no,no,no,no,,,,,,no,
+C200805,P201161,2025-11-20,Thursday,20:00,Chronic,iOS,3,5,no,no,no,no,no,,4,,,,no,
+C200806,P201005,2025-11-21,Friday,07:00,Acute,Android,11,15,no,no,no,no,no,,,,,,no,
+C200807,P201165,2025-11-21,Friday,08:00,Young animal,Android,7,11,yes,no,no,no,no,,,,,,no,
+C200808,P200256,2025-11-21,Friday,09:00,Acute,Android,5,14,no,no,no,no,no,,,,,,no,
+C200809,P200097,2025-11-21,Friday,10:00,Young animal,iOS,6,8,yes,yes,no,no,no,,,,,,no,
+C200810,P200330,2025-11-21,Friday,11:00,Acute,Web,3,11,yes,no,no,yes,no,,,,,,no,
+C200811,P200567,2025-11-21,Friday,12:00,Acute,iOS,3,11,no,no,no,yes,no,,,,,,no,
+C200812,P200874,2025-11-21,Friday,12:00,Acute,Android,14,16,no,no,no,yes,yes,4,,,,,no,
+C200813,P200312,2025-11-21,Friday,14:00,Chronic,iOS,10,10,no,no,no,no,no,,4,"Ganz nett, aber nichts Besonderes. Passt.","Quite nice, but nothing special. Fine.",Neutral,yes,26
+C200814,P200504,2025-11-21,Friday,16:00,Acute,iOS,4,17,no,no,no,yes,no,,3,Ich habe alles nochmal von vorne erklärt — für den Preis ärgerlich.,I explained everything again from the start — annoying for the price.,Context lost (re-telling),no,
+C200815,P200952,2025-11-21,Friday,16:00,Acute,iOS,5,16,no,no,no,no,no,,4,,,,no,
+C200816,P200143,2025-11-21,Friday,17:00,Acute,Android,9,10,no,no,no,no,no,,4,,,,no,
+C200817,P200856,2025-11-21,Friday,18:00,Chronic,iOS,6,11,no,no,no,no,yes,3,,,,,yes,63
+C200818,P200771,2025-11-21,Friday,19:00,Acute,iOS,19,11,no,no,no,no,yes,3,,,,,no,
+C200819,P200664,2025-11-21,Friday,20:00,Young animal,Android,10,16,no,no,no,no,no,,4,Hat geholfen.,It helped.,Neutral,yes,73
+C200820,P200356,2025-11-21,Friday,21:00,Chronic,iOS,10,16,no,no,no,no,no,,,,,,yes,70
+C200821,P200192,2025-11-22,Saturday,12:00,Chronic,Web,24,16,no,no,no,no,yes,12,,,,,no,
+C200822,P200047,2025-11-22,Saturday,13:00,Acute,Android,6,8,no,no,no,yes,yes,6,,,,,no,
+C200823,P200686,2025-11-22,Saturday,13:00,Acute,iOS,3,16,no,no,no,yes,yes,7,,,,,no,
+C200824,P200421,2025-11-22,Saturday,14:00,Acute,iOS,3,9,no,no,no,no,no,,5,,,,yes,48
+C200825,P200866,2025-11-22,Saturday,17:00,Young animal,iOS,5,10,no,no,no,no,yes,3,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. Klare Empfehlung.","Everything was already on file, we got straight to the point. Clear recommendation.",Context present (positive),no,
+C200826,P200482,2025-11-22,Saturday,20:00,Young animal,Android,8,9,no,no,no,no,no,,5,"Kein Warten, keine Technikprobleme, direkt geholfen. So stelle ich mir das vor.","No waiting, no technical problems, helped right away. That's how I imagine it should be.",Video/audio,no,
+C200827,P200925,2025-11-22,Saturday,22:00,Acute,iOS,14,13,no,no,no,no,yes,4,,,,,no,
+C200828,P200760,2025-11-23,Sunday,08:00,Young animal,iOS,10,9,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch. Genau so.,More convenient than a clinic visit. Exactly like that.,Positive (other),yes,121
+C200829,P200325,2025-11-23,Sunday,20:00,Acute,iOS,23,12,no,no,no,yes,yes,10,,,,,no,
+C200830,P201015,2025-11-23,Sunday,21:00,Young animal,iOS,10,19,no,no,no,yes,no,,5,,,,yes,55
+C200831,P201150,2025-11-23,Sunday,21:00,Acute,iOS,30,23,no,no,no,yes,no,,,,,,no,
+C200832,P200730,2025-11-24,Monday,07:00,Acute,iOS,5,12,no,no,no,no,no,,,,,,no,
+C200833,P201030,2025-11-24,Monday,07:00,Acute,iOS,6,14,no,no,no,no,no,,,,,,no,
+C200834,P201127,2025-11-24,Monday,10:00,Acute,Android,8,7,no,no,no,no,no,,,,,,no,
+C200835,P201060,2025-11-24,Monday,12:00,Acute,Android,12,12,no,no,no,no,yes,10,,,,,no,
+C200836,P201177,2025-11-24,Monday,13:00,Young animal,Web,8,6,no,no,no,no,yes,3,5,,,,no,
+C200837,P200398,2025-11-24,Monday,16:00,Acute,Android,8,21,no,no,no,no,no,,,,,,no,
+C200838,P200757,2025-11-24,Monday,18:00,Acute,iOS,2,22,no,no,yes,no,no,,,,,,no,
+C200839,P200672,2025-11-24,Monday,19:00,Chronic,iOS,4,14,no,no,no,no,no,,,,,,no,
+C200840,P200851,2025-11-24,Monday,19:00,Acute,iOS,4,14,no,no,no,no,no,,5,,,,no,
+C200841,P200882,2025-11-24,Monday,19:00,Chronic,Web,3,11,no,no,no,no,no,,4,,,,no,
+C200842,P200828,2025-11-24,Monday,20:00,Young animal,iOS,5,10,no,no,no,no,no,,5,"Ruhig erklärt, nichts überstürzt. So stelle ich mir das vor.","Explained calmly, nothing rushed. That's how I imagine it should be.",Positive (other),no,
+C200843,P201076,2025-11-24,Monday,20:00,Young animal,iOS,9,12,no,no,no,yes,yes,5,3,Die Tierärztin hatte die Vorgeschichte nicht — für den Preis ärgerlich.,The vet didn't have the history — annoying for the price.,Context lost (re-telling),no,
+C200844,P200614,2025-11-24,Monday,22:00,Chronic,Web,9,17,no,no,no,no,no,,,,,,no,
+C200845,P200190,2025-11-25,Tuesday,07:00,Acute,iOS,4,26,no,no,no,no,no,,,,,,no,
+C200846,P200864,2025-11-25,Tuesday,09:00,Acute,Web,3,11,no,no,no,no,no,,5,,,,no,
+C200847,P200865,2025-11-25,Tuesday,09:00,Unclear,Web,9,14,no,no,no,no,no,,,,,,no,
+C200848,P200412,2025-11-25,Tuesday,10:00,Young animal,Web,5,11,no,no,no,no,no,,,,,,no,
+C200849,P200603,2025-11-25,Tuesday,10:00,Unclear,iOS,3,13,no,no,no,no,no,,5,,,,no,
+C200850,P200177,2025-11-25,Tuesday,13:00,Acute,iOS,3,8,no,no,no,no,yes,7,4,"Das Rezept war schnell da, das Paket nicht. Das war der Punkt, an dem ich abgehakt habe.","The prescription came fast, the package didn't. That was the point where I gave up on it.",Delivery,no,
+C200851,P200579,2025-11-25,Tuesday,19:00,Young animal,Web,11,14,no,no,no,yes,no,,,,,,no,
+C200852,P200019,2025-11-25,Tuesday,20:00,Acute,Web,10,17,no,no,no,no,no,,5,In fünfzehn Minuten dran und alles lag vor. Gerne wieder.,Seen within fifteen minutes and everything was on hand. Happy to come back.,Context present (positive),no,
+C200853,P200769,2025-11-26,Wednesday,13:00,Young animal,Android,7,27,no,no,no,no,yes,3,3,,,,yes,35
+C200854,P200906,2025-11-26,Wednesday,18:00,Acute,iOS,8,10,no,no,no,no,yes,9,,,,,yes,48
+C200855,P200663,2025-11-26,Wednesday,19:00,Acute,Web,9,14,no,no,no,yes,no,,,,,,yes,14
+C200856,P200649,2025-11-26,Wednesday,20:00,Young animal,iOS,11,11,no,no,no,yes,no,,,,,,no,
+C200857,P200722,2025-11-26,Wednesday,21:00,Acute,Web,8,12,no,no,no,no,no,,,,,,yes,48
+C200858,P201056,2025-11-26,Wednesday,21:00,Young animal,Web,11,15,no,no,no,yes,no,,5,,,,yes,137
+C200859,P200899,2025-11-26,Wednesday,22:00,Acute,Android,3,14,no,no,no,no,no,,4,,,,no,
+C200860,P200036,2025-11-27,Thursday,09:00,Young animal,Web,5,19,no,no,no,yes,yes,1,5,"Dieselben Fragen wie beim letzten Mal. Das war der Punkt, an dem ich abgehakt habe.",The same questions as last time. That was the point where I gave up on it.,Context lost (re-telling),no,
+C200861,P200336,2025-11-27,Thursday,12:00,Acute,Android,10,23,no,no,no,no,no,,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Genau so.,The check-up was as easy as last time. Exactly like that.,Context present (positive),no,
+C200862,P200320,2025-11-27,Thursday,15:00,Chronic,iOS,15,15,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Gerne wieder.,The vet knew the history. Happy to come back.,Context present (positive),yes,36
+C200863,P200795,2025-11-27,Thursday,17:00,Acute,Web,15,14,no,no,no,no,no,,5,,,,no,
+C200864,P200679,2025-11-27,Thursday,19:00,Acute,iOS,13,13,no,no,no,no,no,,,,,,no,
+C200865,P201092,2025-11-27,Thursday,21:00,Acute,Web,3,11,no,no,no,yes,no,,,,,,no,
+C200866,P201107,2025-11-28,Friday,09:00,Young animal,iOS,8,11,no,no,no,no,no,,,,,,no,
+C200867,P200245,2025-11-28,Friday,12:00,Acute,Android,11,20,no,no,yes,yes,no,,4,"Fehlermeldung beim Hochladen, ohne Erklärung. Bitte nachbessern.","Error message when uploading, no explanation. Please improve this.",Upload,no,
+C200868,P200953,2025-11-28,Friday,14:00,Acute,Web,3,14,yes,no,no,no,no,,,,,,no,
+C200869,P200495,2025-11-28,Friday,15:00,Chronic,Android,9,10,no,no,no,no,no,,,,,,no,
+C200870,P200709,2025-11-28,Friday,20:00,Unclear,iOS,6,9,no,no,no,no,no,,4,,,,no,
+C200871,P200908,2025-11-28,Friday,20:00,Acute,Android,11,12,no,no,no,no,yes,6,4,,,,no,
+C200872,P201115,2025-11-28,Friday,20:00,Acute,Android,14,12,no,no,no,no,yes,2,4,"Solide, keine Beschwerden. Passt.","Solid, no complaints. Fine.",Neutral,no,
+C200873,P200818,2025-11-28,Friday,22:00,Acute,Web,13,14,no,no,no,no,no,,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. Genau so.","Everything was already on file, we got straight to the point. Exactly like that.",Context present (positive),no,
+C200874,P201037,2025-11-29,Saturday,09:00,Chronic,Android,8,15,no,no,no,yes,no,,4,,,,no,
+C200875,P200733,2025-11-29,Saturday,10:00,Unclear,iOS,4,21,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder. Daran gibt es nichts auszusetzen.,The second time went even more smoothly. Nothing to fault.,Context present (positive),no,
+C200876,P200947,2025-11-29,Saturday,10:00,Chronic,Web,6,16,no,no,no,no,yes,6,4,,,,no,
+C200877,P200249,2025-11-29,Saturday,11:00,Acute,Android,7,23,no,no,no,no,yes,3,,,,,yes,73
+C200878,P200560,2025-11-29,Saturday,12:00,Young animal,iOS,8,16,no,no,yes,no,yes,4,,,,,no,
+C200879,P200430,2025-11-29,Saturday,13:00,Acute,Android,11,10,no,no,no,no,yes,5,5,Bequemer als ein Praxisbesuch. So stelle ich mir das vor.,More convenient than a clinic visit. That's how I imagine it should be.,Positive (other),no,
+C200880,P200618,2025-11-29,Saturday,18:00,Acute,Android,23,12,no,no,no,no,no,,,,,,no,
+C200881,P200326,2025-11-29,Saturday,20:00,Acute,Android,21,7,no,no,no,no,yes,3,4,,,,no,
+C200882,P200166,2025-11-29,Saturday,22:00,Acute,iOS,13,20,no,no,no,yes,no,,3,,,,no,
+C200883,P200270,2025-11-29,Saturday,22:00,Acute,iOS,18,12,no,no,no,no,no,,,,,,no,
+C200884,P200106,2025-11-29,Saturday,23:00,Acute,Web,16,10,no,no,no,no,no,,,,,,no,
+C200885,P200951,2025-11-29,Saturday,23:00,Acute,Android,12,7,yes,no,no,no,no,,,,,,no,
+C200886,P201079,2025-11-30,Sunday,12:00,Acute,iOS,8,17,no,no,no,yes,yes,4,,,,,no,
+C200887,P200879,2025-11-30,Sunday,17:00,Acute,Web,6,11,no,no,no,no,yes,4,,,,,no,
+C200888,P200961,2025-11-30,Sunday,21:00,Young animal,Web,28,12,no,no,no,no,no,,3,,,,no,
+C200889,P201087,2025-12-01,Monday,09:00,Young animal,Web,6,17,no,no,no,yes,no,,5,,,,yes,20
+C200890,P200100,2025-12-01,Monday,10:00,Acute,iOS,10,11,no,no,no,no,no,,,,,,no,
+C200891,P200776,2025-12-01,Monday,14:00,Young animal,Android,8,11,no,no,yes,yes,no,,,,,,no,
+C200892,P200598,2025-12-01,Monday,17:00,Acute,Web,7,11,no,no,no,no,yes,2,4,Ging in Ordnung. Passt.,It was fine. Fine.,Neutral,no,
+C200893,P200390,2025-12-01,Monday,19:00,Acute,Web,17,12,no,no,no,no,yes,4,,,,,no,
+C200894,P201140,2025-12-01,Monday,23:00,Young animal,Android,5,10,no,no,no,no,no,,,,,,no,
+C200895,P201099,2025-12-02,Tuesday,12:00,Acute,Android,6,13,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Gerne wieder.","I had photos and previous findings ready, it went very quickly. Happy to come back.",Context present (positive),no,
+C200896,P201160,2025-12-02,Tuesday,12:00,Acute,iOS,3,10,yes,yes,no,yes,no,,,,,,no,
+C200897,P200462,2025-12-02,Tuesday,13:00,Acute,Android,5,10,no,no,no,no,no,,4,,,,yes,167
+C200898,P200492,2025-12-02,Tuesday,16:00,Acute,Android,8,16,no,no,no,no,yes,2,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Genau so.,Two in the morning and within ten minutes I knew what was going on. Exactly like that.,Positive (other),yes,60
+C200899,P200261,2025-12-02,Tuesday,20:00,Acute,Android,10,12,no,no,no,yes,no,,,,,,no,
+C200900,P201172,2025-12-02,Tuesday,20:00,Acute,Android,3,16,no,no,no,no,no,,,,,,no,
+C200901,P200309,2025-12-02,Tuesday,21:00,Acute,Web,11,15,no,no,no,no,yes,5,5,,,,yes,46
+C200902,P200008,2025-12-02,Tuesday,22:00,Young animal,Android,17,12,no,no,no,no,no,,,,,,no,
+C200903,P200557,2025-12-03,Wednesday,09:00,Acute,Web,9,17,no,no,no,no,yes,4,4,Hat geholfen. Nichts zu meckern.,It helped. Nothing to complain about.,Neutral,no,
+C200904,P200933,2025-12-03,Wednesday,09:00,Acute,Android,8,21,no,no,no,yes,no,,,,,,yes,42
+C200905,P200183,2025-12-03,Wednesday,12:00,Acute,iOS,4,8,no,no,no,no,no,,,,,,no,
+C200906,P201186,2025-12-03,Wednesday,12:00,Young animal,iOS,8,10,no,no,no,no,no,,5,"Ruhig erklärt, nichts überstürzt. So stelle ich mir das vor.","Explained calmly, nothing rushed. That's how I imagine it should be.",Positive (other),yes,82
+C200907,P200531,2025-12-03,Wednesday,15:00,Young animal,Android,9,19,no,no,no,no,yes,3,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig.","I had photos and previous findings ready, it went very quickly.",Context present (positive),no,
+C200908,P200305,2025-12-03,Wednesday,16:00,Acute,Android,6,21,no,no,no,no,no,,3,War okay. Passt.,It was okay. Fine.,Neutral,no,
+C200909,P200173,2025-12-03,Wednesday,19:00,Acute,iOS,15,12,no,no,no,yes,yes,4,,,,,no,
+C200910,P200469,2025-12-03,Wednesday,21:00,Unclear,Web,6,11,no,no,yes,no,yes,3,3,"Fehlermeldung beim Hochladen, ohne Erklärung. So macht das keinen Sinn.","Error message when uploading, no explanation. This way it makes no sense.",Upload,no,
+C200911,P200675,2025-12-04,Thursday,08:00,Acute,Web,3,14,yes,no,no,no,yes,3,,,,,yes,96
+C200912,P200667,2025-12-04,Thursday,09:00,Acute,iOS,9,8,no,no,no,no,no,,,,,,no,
+C200913,P201164,2025-12-04,Thursday,11:00,Young animal,iOS,22,20,no,no,no,no,yes,12,3,Sendungsverfolgung fehlt komplett. Bitte nachbessern.,Shipment tracking is missing entirely. Please improve this.,Delivery,no,
+C200914,P200301,2025-12-04,Thursday,12:00,Young animal,iOS,5,16,no,no,no,no,no,,,,,,yes,16
+C200915,P200377,2025-12-04,Thursday,12:00,Young animal,Android,4,11,no,no,no,no,no,,,,,,no,
+C200916,P200242,2025-12-04,Thursday,15:00,Acute,iOS,14,15,no,no,no,yes,no,,4,Die halbe Zeit ging fürs Erzählen drauf. Ärgerlich mit einem kranken Tier.,Half the time went on telling the story. Annoying with a sick animal.,Context lost (re-telling),yes,115
+C200917,P200425,2025-12-04,Thursday,20:00,Unclear,Web,5,13,no,no,no,no,yes,6,3,Die Lieferung war viel zu langsam — für den Preis ärgerlich.,Delivery was far too slow — annoying for the price.,Delivery,no,
+C200918,P200768,2025-12-04,Thursday,20:00,Acute,iOS,5,12,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Danke dafür.","I had photos and previous findings ready, it went very quickly. Thanks for that.",Context present (positive),no,
+C200919,P200548,2025-12-05,Friday,11:00,Acute,Android,5,17,no,no,no,no,yes,4,5,,,,no,
+C200920,P201063,2025-12-05,Friday,11:00,Acute,iOS,6,10,no,no,no,no,no,,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. Klare Empfehlung.","Everything was already on file, we got straight to the point. Clear recommendation.",Context present (positive),yes,127
+C200921,P201179,2025-12-05,Friday,12:00,Acute,Web,7,14,no,no,no,no,yes,6,,,,,no,
+C200922,P200030,2025-12-05,Friday,16:00,Unclear,Android,4,17,no,no,no,yes,no,,,,,,no,
+C200923,P200042,2025-12-05,Friday,19:00,Acute,iOS,9,15,yes,yes,no,no,no,,,,,,no,
+C200924,P200233,2025-12-05,Friday,19:00,Acute,Android,6,10,no,no,no,yes,no,,,,,,no,
+C200925,P200411,2025-12-05,Friday,19:00,Chronic,Android,4,13,no,no,no,no,yes,4,5,,,,yes,122
+C200926,P200424,2025-12-05,Friday,20:00,Young animal,iOS,8,11,no,no,no,no,no,,,,,,yes,48
+C200927,P200310,2025-12-05,Friday,21:00,Acute,Android,5,14,no,no,no,no,no,,,,,,no,
+C200928,P200650,2025-12-06,Saturday,13:00,Acute,Android,11,15,no,no,no,no,yes,5,,,,,no,
+C200929,P200849,2025-12-06,Saturday,13:00,Young animal,Web,10,11,no,no,no,yes,yes,3,,,,,no,
+C200930,P200539,2025-12-06,Saturday,18:00,Acute,Android,6,11,no,no,no,no,yes,4,,,,,no,
+C200931,P200087,2025-12-06,Saturday,19:00,Young animal,Android,11,13,no,no,no,no,yes,3,,,,,no,
+C200932,P200128,2025-12-06,Saturday,20:00,Acute,Web,7,13,no,no,yes,no,no,,,,,,no,
+C200933,P200459,2025-12-06,Saturday,20:00,Acute,Web,10,10,no,no,no,no,yes,6,5,,,,yes,87
+C200934,P200597,2025-12-06,Saturday,22:00,Chronic,Web,9,16,no,no,no,no,no,,4,,,,no,
+C200935,P200726,2025-12-07,Sunday,09:00,Young animal,iOS,3,18,no,no,yes,no,yes,3,,,,,no,
+C200936,P200409,2025-12-07,Sunday,11:00,Chronic,iOS,7,16,no,no,no,yes,no,,,,,,no,
+C200937,P200626,2025-12-07,Sunday,13:00,Acute,Android,10,14,no,no,yes,yes,no,,2,,,,no,
+C200938,P200304,2025-12-07,Sunday,14:00,Unclear,iOS,3,16,yes,no,no,no,no,,3,Die Tierärztin konnte die Stelle gar nicht sehen. Beim nächsten Mal gehe ich wieder in die Praxis.,The vet couldn't even see the spot. Next time I'll go back to the clinic.,Upload,no,
+C200939,P200542,2025-12-07,Sunday,18:00,Chronic,iOS,20,9,no,no,yes,no,yes,4,,,,,no,
+C200940,P200400,2025-12-07,Sunday,22:00,Acute,Android,26,15,no,no,no,no,yes,3,3,"Über zwanzig Minuten gewartet, angekündigt waren wenige. Ärgerlich mit einem kranken Tier.","Waited over twenty minutes, only a few were announced. Annoying with a sick animal.",Waiting,no,
+C200941,P200151,2025-12-07,Sunday,23:00,Acute,iOS,12,10,no,no,no,no,no,,,,,,no,
+C200942,P200872,2025-12-07,Sunday,23:00,Acute,Android,33,8,no,no,no,no,no,,3,,,,yes,70
+C200943,P200707,2025-12-08,Monday,07:00,Chronic,Android,5,23,no,no,no,no,no,,,,,,yes,20
+C200944,P200041,2025-12-08,Monday,08:00,Acute,Web,4,18,no,no,no,yes,yes,2,5,,,,no,
+C200945,P200170,2025-12-08,Monday,08:00,Acute,iOS,3,15,no,no,no,no,no,,,,,,no,
+C200946,P200119,2025-12-08,Monday,10:00,Acute,Web,7,8,yes,no,no,no,yes,1,3,,,,no,
+C200947,P200556,2025-12-08,Monday,10:00,Acute,iOS,3,17,no,no,no,no,no,,4,,,,no,
+C200948,P200838,2025-12-08,Monday,10:00,Chronic,Android,9,9,no,no,no,no,no,,5,,,,no,
+C200949,P201064,2025-12-08,Monday,12:00,Chronic,Web,10,18,no,no,no,no,yes,6,,,,,no,
+C200950,P200159,2025-12-08,Monday,19:00,Acute,Android,8,22,no,no,no,no,no,,,,,,no,
+C200951,P200594,2025-12-09,Tuesday,10:00,Acute,Web,6,14,no,no,no,no,no,,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Gerne wieder.","I had photos and previous findings ready, it went very quickly. Happy to come back.",Context present (positive),yes,29
+C200952,P200126,2025-12-09,Tuesday,11:00,Acute,Android,3,9,no,no,no,no,no,,,,,,no,
+C200953,P200631,2025-12-09,Tuesday,12:00,Acute,Web,10,13,no,no,no,no,no,,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Klare Empfehlung.,The check-up was as easy as last time. Clear recommendation.,Context present (positive),no,
+C200954,P200212,2025-12-09,Tuesday,14:00,Young animal,Web,5,8,no,no,no,yes,no,,,,,,yes,26
+C200955,P200417,2025-12-09,Tuesday,14:00,Chronic,iOS,4,11,no,no,no,no,yes,5,,,,,yes,12
+C200956,P200893,2025-12-09,Tuesday,16:00,Unclear,Android,3,13,no,no,no,no,yes,2,,,,,no,
+C200957,P200146,2025-12-09,Tuesday,17:00,Acute,iOS,2,16,no,no,no,yes,yes,4,4,Die Tierärztin hatte die Vorgeschichte nicht.,The vet didn't have the history.,Context lost (re-telling),yes,131
+C200958,P200331,2025-12-09,Tuesday,17:00,Young animal,Android,3,20,no,no,no,no,yes,6,,,,,no,
+C200959,P200085,2025-12-10,Wednesday,07:00,Acute,iOS,6,12,no,no,no,no,yes,4,,,,,yes,127
+C200960,P200561,2025-12-10,Wednesday,07:00,Acute,iOS,10,14,no,no,no,no,no,,5,,,,yes,75
+C200961,P201149,2025-12-10,Wednesday,09:00,Chronic,iOS,7,10,no,no,no,yes,no,,,,,,no,
+C200962,P200317,2025-12-10,Wednesday,10:00,Acute,iOS,9,13,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder. Daran gibt es nichts auszusetzen.,The second time went even more smoothly. Nothing to fault.,Context present (positive),no,
+C200963,P200388,2025-12-10,Wednesday,10:00,Acute,Android,13,15,no,no,no,no,no,,5,,,,yes,11
+C200964,P200624,2025-12-10,Wednesday,15:00,Young animal,Android,3,25,no,no,no,yes,no,,4,,,,no,
+C200965,P200931,2025-12-10,Wednesday,17:00,Young animal,Android,6,15,no,no,no,no,no,,5,,,,yes,24
+C200966,P200353,2025-12-10,Wednesday,18:00,Acute,iOS,16,18,no,no,no,no,yes,2,,,,,no,
+C200967,P200602,2025-12-10,Wednesday,18:00,Young animal,Android,6,15,no,no,no,no,no,,4,,,,no,
+C200968,P200950,2025-12-10,Wednesday,18:00,Acute,Android,10,20,no,no,no,no,no,,5,,,,no,
+C200969,P200455,2025-12-10,Wednesday,19:00,Acute,iOS,13,12,no,no,no,yes,no,,,,,,no,
+C200970,P200014,2025-12-10,Wednesday,21:00,Acute,Web,8,14,yes,yes,no,yes,no,,,,,,no,
+C200971,P200663,2025-12-10,Wednesday,22:00,Acute,Web,10,8,no,no,no,yes,no,,5,"Ich musste Gewicht, Alter und Vorerkrankungen nochmal durchgeben — für den Preis ärgerlich.","I had to give weight, age and previous conditions again — annoying for the price.",Context lost (re-telling),yes,39
+C200972,P200538,2025-12-11,Thursday,11:00,Chronic,iOS,7,9,no,no,no,no,no,,,,,,yes,6
+C200973,P200510,2025-12-11,Thursday,13:00,Acute,iOS,3,7,no,no,no,yes,yes,3,,,,,no,
+C200974,P200056,2025-12-11,Thursday,16:00,Chronic,iOS,7,24,no,no,no,yes,yes,2,4,"Ich habe alles nochmal von vorne erklärt. Schade, die Beratung selbst war gut.","I explained everything again from the start. A pity, the advice itself was good.",Context lost (re-telling),yes,15
+C200975,P200691,2025-12-11,Thursday,16:00,Acute,Android,4,13,no,no,no,no,yes,2,5,,,,no,
+C200976,P200508,2025-12-11,Thursday,19:00,Acute,iOS,6,11,yes,no,no,no,no,,,,,,no,
+C200977,P200681,2025-12-11,Thursday,19:00,Acute,Android,6,28,no,no,no,no,no,,,,,,no,
+C200978,P200892,2025-12-11,Thursday,20:00,Acute,Web,2,9,no,no,no,no,yes,3,5,Bequemer als ein Praxisbesuch. So stelle ich mir das vor.,More convenient than a clinic visit. That's how I imagine it should be.,Positive (other),no,
+C200979,P201080,2025-12-11,Thursday,20:00,Acute,iOS,6,17,no,no,no,no,no,,,,,,no,
+C200980,P201085,2025-12-11,Thursday,20:00,Acute,Web,13,14,no,no,no,no,no,,,,,,no,
+C200981,P200996,2025-12-11,Thursday,21:00,Unclear,iOS,12,11,no,no,no,yes,yes,9,4,"Das Rezept war schnell da, das Paket nicht. Bitte nachbessern.","The prescription came fast, the package didn't. Please improve this.",Delivery,yes,55
+C200982,P200111,2025-12-11,Thursday,23:00,Chronic,Android,10,19,no,no,yes,no,no,,,,,,no,
+C200983,P200540,2025-12-12,Friday,09:00,Acute,Web,6,16,no,no,no,no,no,,4,,,,no,
+C200984,P200371,2025-12-12,Friday,10:00,Young animal,Web,6,9,no,no,no,no,yes,5,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Genau so.,The check-up was as easy as last time. Exactly like that.,Context present (positive),no,
+C200985,P200744,2025-12-12,Friday,18:00,Chronic,iOS,6,9,no,no,no,no,yes,8,3,Sendungsverfolgung fehlt komplett.,Shipment tracking is missing entirely.,Delivery,no,
+C200986,P200565,2025-12-12,Friday,19:00,Young animal,iOS,9,13,no,no,no,yes,no,,4,Die Tierärztin hatte die Vorgeschichte nicht — für den Preis ärgerlich.,The vet didn't have the history — annoying for the price.,Context lost (re-telling),yes,6
+C200987,P200704,2025-12-12,Friday,22:00,Acute,iOS,7,9,no,no,no,no,yes,8,,,,,no,
+C200988,P201020,2025-12-13,Saturday,08:00,Chronic,Web,10,15,no,no,no,no,no,,5,Beim zweiten Mal lief es noch runder. Daran gibt es nichts auszusetzen.,The second time went even more smoothly. Nothing to fault.,Context present (positive),yes,48
+C200989,P200461,2025-12-13,Saturday,09:00,Young animal,Android,6,16,no,no,no,no,no,,5,,,,yes,156
+C200990,P200682,2025-12-13,Saturday,16:00,Young animal,iOS,4,18,no,no,no,no,no,,5,,,,no,
+C200991,P200402,2025-12-13,Saturday,17:00,Young animal,iOS,10,12,no,no,no,no,yes,3,4,"Ganz nett, aber nichts Besonderes. Passt.","Quite nice, but nothing special. Fine.",Neutral,yes,59
+C200992,P200431,2025-12-13,Saturday,17:00,Young animal,Android,3,11,no,no,no,no,no,,,,,,no,
+C200993,P200130,2025-12-13,Saturday,19:00,Acute,Android,3,18,no,no,no,no,no,,,,,,no,
+C200994,P200241,2025-12-13,Saturday,20:00,Acute,Android,13,25,yes,yes,no,yes,no,,,,,,no,
+C200995,P200786,2025-12-13,Saturday,20:00,Acute,iOS,5,17,no,no,no,no,no,,,,,,no,
+C200996,P200235,2025-12-13,Saturday,22:00,Young animal,Android,18,15,no,no,no,yes,no,,,,,,no,
+C200997,P201077,2025-12-14,Sunday,09:00,Chronic,iOS,5,13,no,no,no,no,yes,4,5,,,,yes,87
+C200998,P200282,2025-12-14,Sunday,10:00,Young animal,Android,4,8,no,no,no,no,yes,3,5,,,,no,
+C200999,P201117,2025-12-14,Sunday,11:00,Acute,iOS,14,9,no,no,no,no,no,,4,,,,no,
+C201000,P200633,2025-12-14,Sunday,14:00,Acute,Web,5,16,no,no,no,no,yes,5,,,,,yes,36
+C201001,P200973,2025-12-14,Sunday,17:00,Acute,Web,5,11,no,no,no,no,no,,,,,,no,
+C201002,P200096,2025-12-14,Sunday,19:00,Young animal,Web,17,9,no,no,no,no,yes,4,4,,,,yes,45
+C201003,P200833,2025-12-14,Sunday,19:00,Acute,Web,21,11,no,no,no,yes,no,,,,,,yes,91
+C201004,P200932,2025-12-14,Sunday,19:00,Acute,iOS,23,10,no,no,no,no,no,,5,,,,no,
+C201005,P200968,2025-12-14,Sunday,22:00,Acute,iOS,28,7,no,no,no,no,yes,3,,,,,no,
+C201006,P200954,2025-12-15,Monday,12:00,Acute,Android,5,10,no,no,no,no,yes,2,,,,,no,
+C201007,P200826,2025-12-15,Monday,15:00,Young animal,Web,7,18,no,no,no,yes,no,,4,,,,no,
+C201008,P201013,2025-12-15,Monday,20:00,Acute,Web,7,15,no,no,no,no,no,,,,,,no,
+C201009,P200796,2025-12-15,Monday,21:00,Acute,Web,7,13,no,no,no,no,no,,,,,,no,
+C201010,P200867,2025-12-15,Monday,22:00,Young animal,Android,3,11,no,no,no,no,yes,2,,,,,no,
+C201011,P200258,2025-12-16,Tuesday,10:00,Acute,iOS,7,10,no,no,no,no,no,,5,,,,yes,16
+C201012,P200698,2025-12-16,Tuesday,10:00,Acute,Web,9,7,no,no,no,no,no,,,,,,no,
+C201013,P201193,2025-12-16,Tuesday,12:00,Chronic,Web,13,18,no,no,no,no,no,,,,,,no,
+C201014,P200527,2025-12-16,Tuesday,14:00,Young animal,iOS,7,11,no,no,no,no,yes,8,,,,,no,
+C201015,P200813,2025-12-16,Tuesday,17:00,Acute,Android,4,14,no,no,no,no,yes,1,3,39 Euro sind für die kurze Zeit zu viel — für den Preis ärgerlich.,39 euros is too much for such a short time — annoying for the price.,Price / clinic comparison,no,
+C201016,P200677,2025-12-16,Tuesday,19:00,Chronic,Android,5,16,no,no,no,no,no,,5,,,,yes,51
+C201017,P200186,2025-12-16,Tuesday,21:00,Acute,Android,2,14,yes,yes,no,no,yes,3,,,,,no,
+C201018,P200236,2025-12-16,Tuesday,21:00,Acute,iOS,4,10,no,no,no,no,no,,,,,,no,
+C201019,P200352,2025-12-16,Tuesday,21:00,Acute,iOS,5,12,yes,yes,no,no,no,,1,,,,no,
+C201020,P200758,2025-12-16,Tuesday,21:00,Acute,Android,12,22,no,no,no,no,no,,,,,,no,
+C201021,P200269,2025-12-16,Tuesday,23:00,Acute,iOS,2,11,yes,no,no,no,no,,,,,,no,
+C201022,P200406,2025-12-17,Wednesday,07:00,Acute,iOS,4,14,no,no,no,no,no,,5,"Alles war schon hinterlegt, wir waren sofort beim Thema.","Everything was already on file, we got straight to the point.",Context present (positive),no,
+C201023,P200963,2025-12-17,Wednesday,10:00,Acute,iOS,10,9,no,no,no,no,no,,5,,,,no,
+C201024,P200959,2025-12-17,Wednesday,11:00,Young animal,iOS,6,18,no,no,no,no,no,,,,,,no,
+C201025,P200507,2025-12-17,Wednesday,12:00,Acute,iOS,6,18,yes,yes,no,yes,yes,1,,,,,no,
+C201026,P200366,2025-12-17,Wednesday,16:00,Unclear,iOS,5,12,no,no,yes,no,yes,3,,,,,no,
+C201027,P200538,2025-12-17,Wednesday,17:00,Chronic,iOS,7,10,no,no,no,no,no,,5,,,,yes,64
+C201028,P200756,2025-12-17,Wednesday,19:00,Acute,Android,6,9,no,no,no,no,no,,5,,,,yes,54
+C201029,P200312,2025-12-17,Wednesday,22:00,Chronic,iOS,5,11,no,no,no,no,yes,5,5,,,,yes,3
+C201030,P200171,2025-12-18,Thursday,16:00,Acute,iOS,12,16,no,no,no,yes,no,,,,,,no,
+C201031,P200847,2025-12-18,Thursday,16:00,Acute,Android,11,15,no,no,no,no,yes,4,,,,,no,
+C201032,P200565,2025-12-18,Thursday,18:00,Young animal,iOS,9,8,no,no,no,no,yes,4,5,Beim zweiten Mal lief es noch runder. So stelle ich mir das vor.,The second time went even more smoothly. That's how I imagine it should be.,Context present (positive),no,
+C201033,P200962,2025-12-18,Thursday,18:00,Acute,Web,4,14,no,no,no,no,no,,,,,,no,
+C201034,P200642,2025-12-18,Thursday,19:00,Young animal,Android,3,8,no,no,no,no,no,,,,,,no,
+C201035,P200180,2025-12-19,Friday,08:00,Young animal,iOS,12,9,no,no,no,yes,no,,4,,,,no,
+C201036,P201027,2025-12-19,Friday,09:00,Chronic,iOS,14,13,no,no,no,yes,no,,5,Die halbe Zeit ging fürs Erzählen drauf.,Half the time went on telling the story.,Context lost (re-telling),no,
+C201037,P200782,2025-12-19,Friday,10:00,Chronic,Android,14,16,no,no,no,no,no,,,,,,no,
+C201038,P200167,2025-12-19,Friday,11:00,Unclear,Android,10,8,no,no,no,yes,no,,3,,,,no,
+C201039,P200375,2025-12-19,Friday,13:00,Chronic,iOS,5,11,no,no,no,yes,no,,3,Wieder bei null angefangen mit den Daten meines Tieres — für den Preis ärgerlich.,Started from zero again with my pet's data — annoying for the price.,Context lost (re-telling),no,
+C201040,P200333,2025-12-19,Friday,15:00,Acute,iOS,5,18,no,no,no,no,yes,5,5,,,,no,
+C201041,P201138,2025-12-19,Friday,17:00,Young animal,iOS,2,17,no,no,no,no,no,,4,,,,yes,18
+C201042,P200174,2025-12-19,Friday,18:00,Chronic,iOS,7,6,no,no,no,no,no,,,,,,no,
+C201043,P200215,2025-12-19,Friday,19:00,Young animal,iOS,15,18,no,no,no,no,yes,4,,,,,yes,147
+C201044,P200601,2025-12-20,Saturday,08:00,Acute,iOS,6,15,no,no,no,no,no,,5,,,,no,
+C201045,P200321,2025-12-20,Saturday,12:00,Acute,Android,11,5,yes,no,yes,no,yes,2,,,,,no,
+C201046,P201002,2025-12-20,Saturday,12:00,Acute,Android,4,15,no,no,no,no,no,,4,,,,yes,33
+C201047,P200189,2025-12-20,Saturday,14:00,Acute,iOS,6,15,no,no,no,no,yes,2,5,,,,no,
+C201048,P200301,2025-12-20,Saturday,14:00,Young animal,iOS,4,18,yes,no,no,no,no,,4,"Das Bild war so ruckelig, dass nichts zu erkennen war. So macht das keinen Sinn.",The video was so choppy you couldn't see anything. This way it makes no sense.,Video/audio,yes,25
+C201049,P200120,2025-12-20,Saturday,19:00,Chronic,iOS,12,14,no,no,yes,no,no,,,,,,yes,69
+C201050,P200238,2025-12-20,Saturday,19:00,Acute,Web,14,13,yes,no,no,no,no,,,,,,no,
+C201051,P201041,2025-12-20,Saturday,19:00,Young animal,Web,20,15,no,no,no,no,yes,3,5,"Warten mit einem kranken Tier ist genau das, was ich vermeiden wollte.",Waiting with a sick animal is exactly what I wanted to avoid.,Waiting,no,
+C201052,P200312,2025-12-20,Saturday,20:00,Chronic,iOS,11,13,no,no,no,no,yes,3,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Danke dafür.,The check-up was as easy as last time. Thanks for that.,Context present (positive),no,
+C201053,P201155,2025-12-20,Saturday,23:00,Young animal,Android,6,10,no,no,no,yes,no,,4,"Ich musste Gewicht, Alter und Vorerkrankungen nochmal durchgeben. So macht das keinen Sinn.","I had to give weight, age and previous conditions again. This way it makes no sense.",Context lost (re-telling),no,
+C201054,P201182,2025-12-20,Saturday,23:00,Chronic,iOS,24,13,no,no,no,no,yes,4,,,,,no,
+C201055,P200464,2025-12-21,Sunday,11:00,Young animal,iOS,2,29,no,no,no,yes,yes,3,5,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Beim nächsten Mal gehe ich wieder in die Praxis.","There's a file, but apparently nobody read it. Next time I'll go back to the clinic.",Context lost (re-telling),no,
+C201056,P200486,2025-12-21,Sunday,11:00,Acute,Android,13,11,no,no,no,no,no,,,,,,yes,34
+C201057,P200559,2025-12-21,Sunday,11:00,Acute,iOS,5,7,no,no,no,no,yes,2,5,,,,no,
+C201058,P200919,2025-12-21,Sunday,12:00,Acute,Web,11,18,no,no,no,no,yes,5,,,,,no,
+C201059,P201087,2025-12-21,Sunday,13:00,Young animal,Web,16,16,no,no,no,no,yes,3,4,"Die angezeigte Wartezeit stimmt nicht. Das war der Punkt, an dem ich abgehakt habe.",The displayed wait time is wrong. That was the point where I gave up on it.,Waiting,no,
+C201060,P200002,2025-12-21,Sunday,16:00,Acute,Android,5,8,no,no,no,no,yes,2,5,"Schnell, freundlich, klare Ansage. Daran gibt es nichts auszusetzen.","Fast, friendly, clear advice. Nothing to fault.",Positive (other),no,
+C201061,P200388,2025-12-21,Sunday,16:00,Acute,Android,12,10,no,no,no,yes,no,,4,,,,no,
+C201062,P200417,2025-12-21,Sunday,17:00,Chronic,iOS,4,9,no,no,no,yes,no,,,,,,yes,3
+C201063,P200731,2025-12-21,Sunday,20:00,Chronic,iOS,21,22,no,no,no,no,yes,5,,,,,yes,52
+C201064,P200750,2025-12-21,Sunday,20:00,Young animal,Android,13,9,no,no,no,no,no,,4,,,,no,
+C201065,P201072,2025-12-21,Sunday,20:00,Acute,iOS,23,10,no,no,no,no,no,,,,,,yes,160
+C201066,P201166,2025-12-21,Sunday,22:00,Acute,iOS,28,6,no,no,no,yes,no,,3,Ewig in der Warteschlange gehangen.,Stuck in the queue forever.,Waiting,no,
+C201067,P200364,2025-12-22,Monday,07:00,Acute,Android,4,13,yes,no,no,no,no,,3,,,,no,
+C201068,P201051,2025-12-22,Monday,08:00,Acute,Web,11,13,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch. Gerne wieder.,More convenient than a clinic visit. Happy to come back.,Positive (other),no,
+C201069,P200343,2025-12-22,Monday,12:00,Young animal,Android,8,13,no,no,no,no,yes,8,4,"Keine Info zum Versand, tagelang nichts gehört. Bitte nachbessern.","No shipping info, heard nothing for days. Please improve this.",Delivery,no,
+C201070,P200885,2025-12-22,Monday,12:00,Acute,Android,7,10,yes,no,no,yes,yes,3,,,,,no,
+C201071,P200717,2025-12-22,Monday,14:00,Young animal,iOS,5,17,no,no,no,no,no,,,,,,no,
+C201072,P200302,2025-12-22,Monday,15:00,Acute,iOS,7,15,no,no,no,no,no,,,,,,no,
+C201073,P200878,2025-12-22,Monday,18:00,Acute,iOS,4,16,no,no,yes,yes,no,,,,,,no,
+C201074,P201187,2025-12-22,Monday,18:00,Unclear,Android,5,10,no,no,no,no,yes,3,5,,,,no,
+C201075,P200147,2025-12-22,Monday,21:00,Young animal,Android,15,9,no,no,no,no,yes,3,4,Hat seinen Zweck erfüllt. Nichts zu meckern.,It served its purpose. Nothing to complain about.,Neutral,no,
+C201076,P200822,2025-12-22,Monday,22:00,Chronic,iOS,11,18,no,no,no,yes,no,,4,,,,yes,93
+C201077,P200221,2025-12-23,Tuesday,07:00,Acute,iOS,12,19,no,no,no,no,no,,,,,,no,
+C201078,P200214,2025-12-23,Tuesday,08:00,Acute,iOS,11,16,no,no,no,no,yes,3,,,,,yes,58
+C201079,P200373,2025-12-23,Tuesday,09:00,Unclear,Android,8,12,no,no,no,yes,no,,,,,,no,
+C201080,P200857,2025-12-23,Tuesday,17:00,Young animal,Android,2,19,no,no,no,no,yes,2,,,,,no,
+C201081,P200392,2025-12-23,Tuesday,20:00,Acute,iOS,6,6,no,no,no,no,no,,,,,,no,
+C201082,P200804,2025-12-23,Tuesday,21:00,Acute,iOS,4,10,no,no,no,yes,no,,5,Die halbe Zeit ging fürs Erzählen drauf. Beim nächsten Mal gehe ich wieder in die Praxis.,Half the time went on telling the story. Next time I'll go back to the clinic.,Context lost (re-telling),no,
+C201083,P200474,2025-12-23,Tuesday,22:00,Acute,Android,5,17,no,no,no,no,no,,5,,,,no,
+C201084,P200873,2025-12-23,Tuesday,23:00,Young animal,Android,2,13,no,no,no,no,no,,,,,,no,
+C201085,P200139,2025-12-24,Wednesday,07:00,Chronic,iOS,5,9,no,no,no,no,no,,,,,,yes,20
+C201086,P200577,2025-12-24,Wednesday,09:00,Young animal,iOS,2,12,no,no,no,no,no,,5,,,,no,
+C201087,P200198,2025-12-24,Wednesday,10:00,Acute,iOS,3,21,no,no,no,no,no,,4,,,,no,
+C201088,P200645,2025-12-24,Wednesday,10:00,Acute,Android,16,14,no,no,no,yes,yes,4,,,,,no,
+C201089,P200417,2025-12-24,Wednesday,12:00,Chronic,iOS,5,10,no,no,no,no,yes,6,3,,,,no,
+C201090,P200234,2025-12-24,Wednesday,13:00,Young animal,iOS,17,16,no,no,no,no,no,,4,,,,yes,55
+C201091,P200463,2025-12-24,Wednesday,13:00,Young animal,iOS,4,14,no,no,no,no,no,,,,,,yes,13
+C201092,P201190,2025-12-24,Wednesday,16:00,Acute,Android,9,6,no,no,no,no,no,,4,,,,no,
+C201093,P200491,2025-12-24,Wednesday,21:00,Chronic,iOS,8,9,no,no,no,no,yes,7,3,,,,no,
+C201094,P200422,2025-12-25,Thursday,08:00,Acute,Android,9,11,no,no,no,no,yes,3,4,Hat seinen Zweck erfüllt. Mehr aber auch nicht.,It served its purpose. But no more than that.,Neutral,yes,31
+C201095,P200944,2025-12-25,Thursday,08:00,Young animal,Web,4,15,no,no,no,no,no,,,,,,no,
+C201096,P200763,2025-12-25,Thursday,12:00,Acute,iOS,8,17,no,no,no,no,no,,5,,,,yes,55
+C201097,P200045,2025-12-25,Thursday,14:00,Young animal,Web,5,16,yes,yes,yes,no,yes,1,,,,,no,
+C201098,P200104,2025-12-25,Thursday,17:00,Young animal,iOS,9,19,no,no,no,no,no,,5,,,,no,
+C201099,P200202,2025-12-25,Thursday,19:00,Chronic,Web,9,11,no,no,no,no,yes,2,5,"Schnell, freundlich, klare Ansage. Daran gibt es nichts auszusetzen.","Fast, friendly, clear advice. Nothing to fault.",Positive (other),yes,48
+C201100,P201082,2025-12-26,Friday,08:00,Chronic,Android,7,18,no,no,no,no,no,,5,,,,yes,19
+C201101,P200056,2025-12-26,Friday,09:00,Chronic,iOS,10,14,no,no,no,no,no,,,,,,yes,27
+C201102,P201010,2025-12-26,Friday,10:00,Acute,Android,5,13,no,no,no,yes,no,,4,"Wieder bei null angefangen mit den Daten meines Tieres. Das war der Punkt, an dem ich abgehakt habe.",Started from zero again with my pet's data. That was the point where I gave up on it.,Context lost (re-telling),no,
+C201103,P200676,2025-12-26,Friday,12:00,Young animal,Web,2,13,yes,no,no,yes,no,,2,,,,no,
+C201104,P200327,2025-12-26,Friday,15:00,Acute,Web,2,13,yes,no,no,yes,no,,,,,,no,
+C201105,P200359,2025-12-26,Friday,17:00,Acute,iOS,9,17,no,no,no,no,yes,3,4,Hat geholfen. Mehr aber auch nicht.,It helped. But no more than that.,Neutral,no,
+C201106,P200798,2025-12-26,Friday,18:00,Acute,Web,5,20,no,no,no,no,yes,3,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig.","I had photos and previous findings ready, it went very quickly.",Context present (positive),no,
+C201107,P200940,2025-12-26,Friday,19:00,Acute,Web,5,13,no,no,no,yes,yes,5,4,Dieselben Fragen wie beim letzten Mal — für den Preis ärgerlich.,The same questions as last time — annoying for the price.,Context lost (re-telling),no,
+C201108,P200300,2025-12-26,Friday,20:00,Acute,Android,3,14,yes,no,no,no,yes,3,,,,,no,
+C201109,P200427,2025-12-26,Friday,20:00,Acute,Android,6,11,no,no,no,no,no,,4,,,,no,
+C201110,P200991,2025-12-27,Saturday,09:00,Acute,iOS,10,12,no,no,yes,no,no,,,,,,yes,115
+C201111,P200216,2025-12-27,Saturday,11:00,Acute,Web,5,15,no,no,no,no,no,,5,,,,no,
+C201112,P200077,2025-12-27,Saturday,14:00,Chronic,iOS,5,14,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte.,The vet knew the history.,Context present (positive),no,
+C201113,P200738,2025-12-27,Saturday,15:00,Acute,Android,5,15,no,no,no,yes,yes,12,,,,,no,
+C201114,P200770,2025-12-27,Saturday,15:00,Chronic,iOS,5,17,no,no,no,no,yes,4,,,,,yes,33
+C201115,P200067,2025-12-27,Saturday,18:00,Chronic,Android,12,16,no,no,no,no,no,,4,,,,yes,17
+C201116,P200966,2025-12-27,Saturday,18:00,Acute,iOS,18,9,no,no,yes,no,no,,,,,,no,
+C201117,P201143,2025-12-27,Saturday,19:00,Young animal,iOS,6,15,no,no,no,no,yes,2,,,,,yes,36
+C201118,P201189,2025-12-27,Saturday,20:00,Acute,iOS,12,9,no,no,no,no,no,,,,,,no,
+C201119,P201022,2025-12-28,Sunday,15:00,Young animal,Android,6,12,no,no,no,no,no,,,,,,no,
+C201120,P200288,2025-12-28,Sunday,21:00,Acute,Android,20,14,yes,no,no,no,no,,3,,,,no,
+C201121,P200742,2025-12-28,Sunday,22:00,Acute,Android,17,10,no,no,no,no,no,,,,,,no,
+C201122,P200707,2025-12-28,Sunday,23:00,Chronic,Android,19,14,yes,yes,no,no,yes,3,,,,,no,
+C201123,P200785,2025-12-29,Monday,08:00,Acute,iOS,3,20,no,no,no,no,no,,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Daran gibt es nichts auszusetzen.,Two in the morning and within ten minutes I knew what was going on. Nothing to fault.,Positive (other),no,
+C201124,P200699,2025-12-29,Monday,09:00,Acute,iOS,7,19,no,no,no,yes,yes,6,3,"Das Rezept war schnell da, das Paket nicht. Schade, die Beratung selbst war gut.","The prescription came fast, the package didn't. A pity, the advice itself was good.",Delivery,no,
+C201125,P200701,2025-12-29,Monday,11:00,Acute,Android,6,8,no,no,no,yes,no,,5,,,,no,
+C201126,P200071,2025-12-29,Monday,12:00,Young animal,iOS,3,20,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch. Klare Empfehlung.,More convenient than a clinic visit. Clear recommendation.,Positive (other),yes,27
+C201127,P200493,2025-12-29,Monday,15:00,Acute,Android,9,9,no,no,no,yes,no,,5,,,,no,
+C201128,P200206,2025-12-29,Monday,18:00,Young animal,iOS,3,21,no,no,no,no,yes,4,,,,,yes,122
+C201129,P200103,2025-12-29,Monday,21:00,Acute,Web,8,23,no,no,no,no,yes,5,5,"Ruhig erklärt, nichts überstürzt. Danke dafür.","Explained calmly, nothing rushed. Thanks for that.",Positive (other),yes,25
+C201130,P200524,2025-12-29,Monday,21:00,Unclear,iOS,11,9,no,no,no,no,no,,,,,,no,
+C201131,P201088,2025-12-29,Monday,23:00,Acute,Web,6,15,no,no,no,no,yes,4,5,"Schnell, freundlich, klare Ansage. Danke dafür.","Fast, friendly, clear advice. Thanks for that.",Positive (other),no,
+C201132,P200121,2025-12-30,Tuesday,09:00,Chronic,Web,6,10,no,no,no,no,no,,5,,,,yes,14
+C201133,P200918,2025-12-30,Tuesday,09:00,Acute,Web,3,13,no,no,no,no,yes,2,,,,,no,
+C201134,P201122,2025-12-30,Tuesday,09:00,Young animal,iOS,8,10,no,no,no,no,yes,7,,,,,no,
+C201135,P200501,2025-12-30,Tuesday,16:00,Acute,iOS,13,12,no,no,yes,no,no,,,,,,yes,31
+C201136,P200332,2025-12-30,Tuesday,17:00,Young animal,iOS,6,13,no,no,no,yes,yes,6,,,,,yes,44
+C201137,P201199,2025-12-30,Tuesday,18:00,Acute,iOS,7,11,no,no,no,yes,yes,2,3,,,,no,
+C201138,P201052,2025-12-30,Tuesday,22:00,Acute,iOS,6,13,no,no,no,no,yes,4,,,,,no,
+C201139,P200875,2025-12-31,Wednesday,10:00,Young animal,Web,4,8,no,no,yes,no,no,,4,,,,no,
+C201140,P200001,2025-12-31,Wednesday,11:00,Acute,Android,3,9,no,no,no,no,no,,5,Die Kontrolle war unkompliziert wie beim letzten Mal. Danke dafür.,The check-up was as easy as last time. Thanks for that.,Context present (positive),no,
+C201141,P200191,2025-12-31,Wednesday,13:00,Acute,Android,10,15,no,no,no,no,yes,3,,,,,no,
+C201142,P201200,2025-12-31,Wednesday,13:00,Chronic,iOS,7,11,no,no,no,no,yes,5,4,"Ganz nett, aber nichts Besonderes.","Quite nice, but nothing special.",Neutral,no,
+C201143,P200740,2025-12-31,Wednesday,15:00,Chronic,iOS,2,11,no,no,no,no,yes,3,4,,,,yes,47
+C201144,P200218,2025-12-31,Wednesday,16:00,Acute,Android,5,7,no,no,no,yes,no,,4,Die halbe Zeit ging fürs Erzählen drauf — für den Preis ärgerlich.,Half the time went on telling the story — annoying for the price.,Context lost (re-telling),no,
+C201145,P201198,2025-12-31,Wednesday,16:00,Young animal,Android,7,16,no,no,no,no,no,,,,,,yes,47
+C201146,P200195,2025-12-31,Wednesday,18:00,Young animal,Android,11,12,no,no,no,no,yes,4,5,,,,yes,44
+C201147,P201192,2025-12-31,Wednesday,18:00,Chronic,iOS,3,12,no,no,no,no,no,,5,,,,yes,10
+C201148,P200769,2025-12-31,Wednesday,21:00,Young animal,Android,5,6,yes,yes,no,no,no,,2,,,,no,
+C201149,P200115,2025-12-31,Wednesday,22:00,Acute,iOS,10,8,no,no,yes,no,no,,,,,,no,
+C201150,P200700,2025-12-31,Wednesday,22:00,Young animal,Web,5,10,no,no,yes,yes,no,,,,,,no,
+C201151,P200488,2026-01-01,Thursday,14:00,Chronic,Web,6,19,no,no,no,no,yes,3,,,,,yes,117
+C201152,P200246,2026-01-01,Thursday,17:00,Acute,iOS,6,21,yes,yes,no,no,no,,,,,,no,
+C201153,P200324,2026-01-01,Thursday,18:00,Chronic,Android,12,13,yes,yes,no,no,no,,,,,,no,
+C201154,P200224,2026-01-01,Thursday,22:00,Chronic,Android,6,13,no,no,no,yes,no,,,,,,yes,39
+C201155,P200258,2026-01-01,Thursday,23:00,Acute,iOS,6,13,no,no,no,no,yes,4,4,,,,no,
+C201156,P200196,2026-01-02,Friday,09:00,Acute,Web,8,9,no,no,no,no,no,,5,,,,yes,79
+C201157,P200156,2026-01-02,Friday,10:00,Young animal,Android,10,15,no,no,no,no,no,,4,War okay. Passt.,It was okay. Fine.,Neutral,yes,46
+C201158,P200360,2026-01-02,Friday,11:00,Acute,iOS,7,11,no,no,no,no,yes,6,,,,,no,
+C201159,P200069,2026-01-02,Friday,13:00,Acute,Web,3,17,no,no,no,yes,no,,,,,,no,
+C201160,P200320,2026-01-02,Friday,15:00,Chronic,iOS,2,11,no,no,no,yes,no,,4,Die halbe Zeit ging fürs Erzählen drauf. Ärgerlich mit einem kranken Tier.,Half the time went on telling the story. Annoying with a sick animal.,Context lost (re-telling),no,
+C201161,P200509,2026-01-02,Friday,15:00,Young animal,iOS,20,12,no,no,no,yes,yes,2,,,,,no,
+C201162,P200355,2026-01-02,Friday,16:00,Acute,Android,4,15,yes,yes,no,no,no,,,,,,yes,50
+C201163,P200694,2026-01-02,Friday,16:00,Acute,Web,2,13,no,no,no,no,yes,2,,,,,yes,29
+C201164,P201062,2026-01-02,Friday,16:00,Acute,iOS,7,18,no,no,no,no,no,,5,,,,yes,33
+C201165,P200031,2026-01-03,Saturday,08:00,Chronic,Web,10,10,no,no,no,no,yes,2,,,,,yes,14
+C201166,P200481,2026-01-03,Saturday,10:00,Young animal,Android,5,9,no,no,no,no,no,,,,,,no,
+C201167,P200931,2026-01-03,Saturday,18:00,Young animal,Android,12,13,yes,no,no,no,yes,3,3,"Audio hat gestottert, ich musste zweimal nachfragen — für den Preis ärgerlich.","Audio stuttered, I had to ask twice — annoying for the price.",Video/audio,yes,77
+C201168,P200784,2026-01-03,Saturday,19:00,Acute,iOS,12,18,no,no,no,yes,yes,2,,,,,no,
+C201169,P200054,2026-01-03,Saturday,20:00,Acute,Android,11,7,yes,no,no,no,no,,3,,,,no,
+C201170,P200219,2026-01-03,Saturday,20:00,Acute,iOS,12,16,no,no,no,no,no,,,,,,no,
+C201171,P200291,2026-01-03,Saturday,21:00,Acute,Web,8,14,no,no,no,no,no,,4,,,,no,
+C201172,P200395,2026-01-03,Saturday,21:00,Young animal,iOS,11,21,no,no,no,no,yes,14,,,,,no,
+C201173,P200669,2026-01-03,Saturday,21:00,Acute,iOS,10,15,yes,yes,no,no,no,,,,,,no,
+C201174,P200860,2026-01-03,Saturday,21:00,Acute,iOS,7,10,yes,yes,no,no,yes,6,1,"Abbruch nach fünf Minuten, danach eine andere Tierärztin. Das war der Punkt, an dem ich abgehakt habe.","Dropped after five minutes, then a different vet. That was the point where I gave up on it.",Video/audio,no,
+C201175,P200420,2026-01-04,Sunday,14:00,Young animal,Web,6,12,no,no,yes,yes,yes,4,3,"Die Vorbefunde konnte ich nicht anhängen. Schade, die Beratung selbst war gut.","I couldn't attach the previous findings. A pity, the advice itself was good.",Upload,no,
+C201176,P200435,2026-01-04,Sunday,20:00,Acute,iOS,18,11,no,no,no,no,no,,,,,,no,
+C201177,P200745,2026-01-04,Sunday,20:00,Chronic,iOS,24,8,no,no,no,no,yes,5,5,Ewig in der Warteschlange gehangen. Beim nächsten Mal gehe ich wieder in die Praxis.,Stuck in the queue forever. Next time I'll go back to the clinic.,Waiting,yes,20
+C201178,P200212,2026-01-04,Sunday,22:00,Young animal,Web,25,16,no,no,no,no,no,,,,,,no,
+C201179,P200979,2026-01-05,Monday,08:00,Chronic,Web,4,15,no,no,no,no,no,,4,,,,yes,8
+C201180,P200971,2026-01-05,Monday,12:00,Acute,Android,9,11,yes,yes,no,yes,no,,2,"Verbindung mehrfach weg, wir mussten komplett neu starten — für den Preis ärgerlich.","Connection dropped several times, we had to restart completely — annoying for the price.",Video/audio,no,
+C201181,P201191,2026-01-05,Monday,12:00,Young animal,Web,5,20,no,no,no,no,no,,5,,,,no,
+C201182,P201105,2026-01-05,Monday,15:00,Acute,iOS,5,15,no,no,no,no,no,,5,,,,no,
+C201183,P200544,2026-01-05,Monday,16:00,Acute,Web,3,10,no,no,no,no,yes,5,5,,,,no,
+C201184,P200787,2026-01-05,Monday,21:00,Chronic,Web,9,14,no,no,no,no,no,,5,,,,no,
+C201185,P200274,2026-01-06,Tuesday,10:00,Young animal,iOS,4,8,no,no,no,no,yes,10,3,,,,no,
+C201186,P200463,2026-01-06,Tuesday,15:00,Young animal,iOS,4,10,no,no,no,no,yes,4,4,,,,no,
+C201187,P201138,2026-01-06,Tuesday,18:00,Young animal,iOS,7,6,no,no,no,no,yes,3,,,,,no,
+C201188,P200476,2026-01-06,Tuesday,19:00,Young animal,iOS,8,10,no,no,no,no,yes,2,5,,,,no,
+C201189,P200825,2026-01-06,Tuesday,19:00,Chronic,iOS,5,15,no,no,no,no,no,,,,,,yes,56
+C201190,P200790,2026-01-06,Tuesday,20:00,Chronic,iOS,6,10,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte.,The vet knew the history.,Context present (positive),yes,23
+C201191,P201185,2026-01-06,Tuesday,22:00,Acute,iOS,6,15,no,no,yes,no,no,,,,,,no,
+C201192,P200460,2026-01-07,Wednesday,08:00,Acute,iOS,4,19,no,no,no,no,no,,5,,,,yes,129
+C201193,P200586,2026-01-07,Wednesday,08:00,Acute,Android,8,19,yes,yes,yes,yes,no,,1,,,,no,
+C201194,P201070,2026-01-07,Wednesday,09:00,Young animal,Android,7,15,no,no,no,no,yes,9,,,,,no,
+C201195,P200135,2026-01-07,Wednesday,15:00,Acute,iOS,7,10,no,no,no,no,yes,6,3,Sendungsverfolgung fehlt komplett. So macht das keinen Sinn.,Shipment tracking is missing entirely. This way it makes no sense.,Delivery,no,
+C201196,P200594,2026-01-07,Wednesday,16:00,Acute,Web,3,11,no,no,no,yes,no,,4,,,,no,
+C201197,P200451,2026-01-07,Wednesday,18:00,Acute,Android,5,20,no,no,no,no,no,,,,,,no,
+C201198,P200815,2026-01-07,Wednesday,19:00,Young animal,iOS,8,7,no,no,no,no,no,,5,,,,no,
+C201199,P200802,2026-01-08,Thursday,14:00,Acute,iOS,8,15,yes,no,no,no,yes,2,,,,,no,
+C201200,P200970,2026-01-08,Thursday,16:00,Acute,iOS,13,10,no,no,yes,no,no,,3,Bilder hochladen ging nicht. So macht das keinen Sinn.,Uploading pictures didn't work. This way it makes no sense.,Upload,no,
+C201201,P200780,2026-01-08,Thursday,18:00,Young animal,Web,3,8,no,no,yes,no,no,,,,,,yes,63
+C201202,P200843,2026-01-08,Thursday,18:00,Acute,iOS,10,23,no,no,no,no,no,,,,,,yes,53
+C201203,P200627,2026-01-08,Thursday,19:00,Young animal,Android,5,11,no,no,no,yes,no,,,,,,yes,24
+C201204,P200839,2026-01-08,Thursday,19:00,Young animal,Web,12,14,no,no,no,no,no,,,,,,no,
+C201205,P200132,2026-01-08,Thursday,20:00,Chronic,iOS,5,18,no,no,no,no,no,,,,,,no,
+C201206,P201120,2026-01-08,Thursday,21:00,Acute,Android,5,15,no,no,no,no,no,,5,,,,no,
+C201207,P201132,2026-01-09,Friday,07:00,Young animal,iOS,4,14,no,no,no,yes,yes,2,,,,,no,
+C201208,P200358,2026-01-09,Friday,08:00,Acute,Web,3,8,no,no,no,no,no,,,,,,no,
+C201209,P200421,2026-01-09,Friday,09:00,Acute,iOS,7,10,no,no,no,no,no,,,,,,no,
+C201210,P200984,2026-01-09,Friday,09:00,Acute,iOS,8,6,no,no,no,no,yes,3,,,,,no,
+C201211,P200948,2026-01-09,Friday,11:00,Acute,iOS,7,12,no,no,no,yes,no,,,,,,no,
+C201212,P200901,2026-01-09,Friday,14:00,Acute,Web,6,6,no,no,no,no,no,,4,,,,no,
+C201213,P200279,2026-01-09,Friday,15:00,Young animal,iOS,4,9,no,no,no,yes,yes,7,,,,,no,
+C201214,P200059,2026-01-09,Friday,16:00,Chronic,iOS,3,8,yes,no,no,no,no,,,,,,no,
+C201215,P201042,2026-01-09,Friday,16:00,Acute,iOS,7,12,no,no,no,no,no,,5,,,,no,
+C201216,P200783,2026-01-09,Friday,19:00,Acute,iOS,11,8,no,no,yes,no,no,,4,Dokumente vom Vortierarzt wurden nicht angenommen. Bitte nachbessern.,Documents from the previous vet weren't accepted. Please improve this.,Upload,no,
+C201217,P201192,2026-01-10,Saturday,10:00,Chronic,iOS,5,17,no,no,no,no,yes,4,,,,,yes,101
+C201218,P200584,2026-01-10,Saturday,18:00,Chronic,Web,8,7,no,no,yes,no,yes,6,,,,,no,
+C201219,P200876,2026-01-10,Saturday,18:00,Acute,Web,13,12,no,no,no,no,yes,4,,,,,no,
+C201220,P200040,2026-01-10,Saturday,19:00,Acute,Android,12,10,no,no,no,yes,no,,4,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Ärgerlich mit einem kranken Tier.","There's a file, but apparently nobody read it. Annoying with a sick animal.",Context lost (re-telling),yes,44
+C201221,P200834,2026-01-10,Saturday,19:00,Acute,Android,16,13,no,no,no,no,no,,,,,,no,
+C201222,P201055,2026-01-10,Saturday,19:00,Acute,Web,8,16,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Gerne wieder.,The vet knew the history. Happy to come back.,Context present (positive),no,
+C201223,P200702,2026-01-10,Saturday,20:00,Young animal,Android,23,8,no,no,no,no,no,,,,,,no,
+C201224,P200338,2026-01-10,Saturday,21:00,Acute,Web,9,10,yes,yes,no,yes,yes,3,,,,,no,
+C201225,P200978,2026-01-10,Saturday,21:00,Young animal,Android,12,19,no,no,no,yes,yes,2,4,"Ich musste Gewicht, Alter und Vorerkrankungen nochmal durchgeben. So macht das keinen Sinn.","I had to give weight, age and previous conditions again. This way it makes no sense.",Context lost (re-telling),no,
+C201226,P200994,2026-01-10,Saturday,23:00,Acute,Android,13,6,yes,no,yes,no,no,,,,,,no,
+C201227,P201169,2026-01-11,Sunday,10:00,Acute,Android,16,14,no,no,no,no,no,,4,"Warten mit einem kranken Tier ist genau das, was ich vermeiden wollte.",Waiting with a sick animal is exactly what I wanted to avoid.,Waiting,no,
+C201228,P200178,2026-01-11,Sunday,13:00,Acute,Android,8,10,no,no,no,no,no,,4,"Ganz nett, aber nichts Besonderes. Passt.","Quite nice, but nothing special. Fine.",Neutral,no,
+C201229,P200454,2026-01-11,Sunday,15:00,Acute,Web,8,6,no,no,no,no,yes,4,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. Danke dafür.","Everything was already on file, we got straight to the point. Thanks for that.",Context present (positive),no,
+C201230,P200859,2026-01-11,Sunday,19:00,Acute,Web,24,11,no,no,no,no,no,,4,,,,no,
+C201231,P201194,2026-01-11,Sunday,19:00,Young animal,iOS,30,18,no,no,no,no,no,,,,,,no,
+C201232,P200629,2026-01-11,Sunday,21:00,Acute,Android,11,9,no,no,yes,no,no,,,,,,no,
+C201233,P200764,2026-01-11,Sunday,21:00,Acute,Web,15,11,no,no,no,no,yes,6,,,,,no,
+C201234,P200297,2026-01-11,Sunday,22:00,Young animal,Android,12,12,no,no,no,no,no,,4,,,,no,
+C201235,P200448,2026-01-11,Sunday,23:00,Unclear,iOS,20,6,no,no,no,no,no,,,,,,no,
+C201236,P201112,2026-01-12,Monday,09:00,Chronic,Web,8,14,no,no,no,no,yes,3,,,,,no,
+C201237,P200025,2026-01-12,Monday,12:00,Acute,iOS,12,9,no,no,no,no,yes,5,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. So stelle ich mir das vor.","Everything was already on file, we got straight to the point. That's how I imagine it should be.",Context present (positive),no,
+C201238,P200076,2026-01-12,Monday,13:00,Young animal,Android,5,16,no,no,no,no,no,,5,"Kein Warten, keine Technikprobleme, direkt geholfen. So stelle ich mir das vor.","No waiting, no technical problems, helped right away. That's how I imagine it should be.",Video/audio,no,
+C201239,P200605,2026-01-12,Monday,15:00,Acute,Android,14,12,no,no,no,no,no,,5,,,,no,
+C201240,P200889,2026-01-12,Monday,15:00,Acute,Android,7,19,no,no,no,no,yes,2,5,Bequemer als ein Praxisbesuch. Klare Empfehlung.,More convenient than a clinic visit. Clear recommendation.,Positive (other),no,
+C201241,P200977,2026-01-12,Monday,16:00,Acute,Web,9,10,no,no,no,no,no,,,,,,yes,37
+C201242,P200035,2026-01-12,Monday,17:00,Acute,iOS,2,13,no,no,no,yes,yes,2,,,,,no,
+C201243,P200979,2026-01-13,Tuesday,07:00,Chronic,Web,8,9,no,no,no,no,yes,4,4,Erwartbar. Mehr aber auch nicht.,As expected. But no more than that.,Neutral,no,
+C201244,P200139,2026-01-13,Tuesday,08:00,Chronic,iOS,8,9,no,no,no,no,no,,4,,,,yes,46
+C201245,P200080,2026-01-13,Tuesday,12:00,Acute,Web,11,21,no,no,no,no,no,,,,,,no,
+C201246,P200340,2026-01-13,Tuesday,12:00,Young animal,iOS,4,13,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Gerne wieder.,The vet knew the history. Happy to come back.,Context present (positive),no,
+C201247,P201078,2026-01-13,Tuesday,12:00,Acute,iOS,4,8,no,no,no,no,no,,5,,,,yes,163
+C201248,P200121,2026-01-13,Tuesday,14:00,Chronic,Web,7,12,no,no,no,no,no,,4,,,,no,
+C201249,P200277,2026-01-13,Tuesday,16:00,Acute,Web,8,8,no,no,no,no,no,,,,,,no,
+C201250,P200722,2026-01-13,Tuesday,19:00,Acute,Web,15,14,no,no,no,no,yes,2,,,,,no,
+C201251,P201033,2026-01-13,Tuesday,19:00,Young animal,iOS,3,12,no,no,no,yes,yes,8,4,"Keine Info zum Versand, tagelang nichts gehört. Bitte nachbessern.","No shipping info, heard nothing for days. Please improve this.",Delivery,no,
+C201252,P200906,2026-01-13,Tuesday,21:00,Acute,iOS,5,11,no,no,no,yes,yes,7,,,,,no,
+C201253,P200067,2026-01-13,Tuesday,22:00,Chronic,Android,3,16,no,no,no,no,yes,3,,,,,no,
+C201254,P200572,2026-01-14,Wednesday,09:00,Acute,Android,3,11,yes,no,no,yes,no,,,,,,no,
+C201255,P200710,2026-01-14,Wednesday,09:00,Acute,Web,5,12,no,no,no,yes,yes,10,3,,,,no,
+C201256,P200972,2026-01-14,Wednesday,09:00,Acute,iOS,5,12,no,no,no,no,no,,,,,,no,
+C201257,P201014,2026-01-14,Wednesday,10:00,Chronic,iOS,8,13,no,no,yes,no,yes,2,3,Dokumente vom Vortierarzt wurden nicht angenommen.,Documents from the previous vet weren't accepted.,Upload,no,
+C201258,P200933,2026-01-14,Wednesday,18:00,Acute,Android,15,15,no,no,no,no,yes,7,,,,,no,
+C201259,P201184,2026-01-14,Wednesday,18:00,Chronic,iOS,14,19,no,no,no,no,yes,2,,,,,no,
+C201260,P200124,2026-01-14,Wednesday,19:00,Unclear,iOS,4,10,no,no,no,no,no,,,,,,no,
+C201261,P200301,2026-01-14,Wednesday,19:00,Young animal,iOS,4,11,no,no,no,yes,yes,2,,,,,no,
+C201262,P200473,2026-01-14,Wednesday,19:00,Acute,Android,7,7,no,no,no,no,no,,,,,,no,
+C201263,P200503,2026-01-14,Wednesday,19:00,Young animal,Android,6,16,no,no,no,no,yes,12,,,,,no,
+C201264,P200204,2026-01-14,Wednesday,20:00,Acute,Android,12,13,no,no,no,no,no,,,,,,no,
+C201265,P201084,2026-01-14,Wednesday,20:00,Acute,Android,2,12,no,no,no,no,no,,,,,,no,
+C201266,P200894,2026-01-14,Wednesday,22:00,Acute,iOS,10,14,no,no,no,yes,no,,,,,,no,
+C201267,P200863,2026-01-14,Wednesday,23:00,Acute,iOS,10,12,no,no,no,no,yes,2,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Gerne wieder.","I had photos and previous findings ready, it went very quickly. Happy to come back.",Context present (positive),yes,175
+C201268,P201082,2026-01-14,Wednesday,23:00,Chronic,Android,12,16,no,no,no,no,no,,,,,,yes,57
+C201269,P200914,2026-01-15,Thursday,09:00,Acute,iOS,8,18,no,no,no,no,yes,2,,,,,no,
+C201270,P200607,2026-01-15,Thursday,11:00,Acute,Android,4,10,no,no,no,no,no,,3,,,,yes,54
+C201271,P200638,2026-01-15,Thursday,11:00,Chronic,Android,5,13,no,no,no,no,no,,5,"Alles war schon hinterlegt, wir waren sofort beim Thema. Daran gibt es nichts auszusetzen.","Everything was already on file, we got straight to the point. Nothing to fault.",Context present (positive),yes,176
+C201272,P200259,2026-01-15,Thursday,12:00,Acute,iOS,3,12,no,no,no,no,no,,,,,,no,
+C201273,P200805,2026-01-15,Thursday,12:00,Chronic,Android,6,15,no,no,no,no,yes,2,5,,,,yes,38
+C201274,P200820,2026-01-15,Thursday,12:00,Young animal,Android,8,20,no,no,yes,no,no,,,,,,no,
+C201275,P201197,2026-01-15,Thursday,14:00,Acute,iOS,8,13,no,no,no,no,no,,,,,,no,
+C201276,P200381,2026-01-15,Thursday,15:00,Acute,Web,5,10,no,no,no,no,yes,4,4,War okay. Nichts zu meckern.,It was okay. Nothing to complain about.,Neutral,no,
+C201277,P200881,2026-01-16,Friday,09:00,Young animal,Web,8,8,no,no,no,no,yes,4,,,,,yes,103
+C201278,P200278,2026-01-16,Friday,13:00,Unclear,Android,8,11,no,no,no,yes,no,,4,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Beim nächsten Mal gehe ich wieder in die Praxis.","There's a file, but apparently nobody read it. Next time I'll go back to the clinic.",Context lost (re-telling),yes,64
+C201279,P200252,2026-01-16,Friday,17:00,Acute,Android,6,15,no,no,yes,no,no,,,,,,no,
+C201280,P200957,2026-01-16,Friday,17:00,Young animal,iOS,6,7,no,no,no,no,yes,4,,,,,yes,64
+C201281,P200316,2026-01-16,Friday,18:00,Acute,iOS,3,9,no,no,no,no,yes,12,4,,,,no,
+C201282,P200419,2026-01-16,Friday,22:00,Chronic,Web,2,11,no,no,no,no,no,,5,,,,no,
+C201283,P200240,2026-01-17,Saturday,13:00,Acute,iOS,5,19,no,no,no,no,no,,,,,,no,
+C201284,P201173,2026-01-17,Saturday,13:00,Acute,iOS,2,13,no,no,no,no,no,,5,,,,yes,168
+C201285,P200965,2026-01-17,Saturday,16:00,Acute,Android,7,10,no,no,no,no,no,,,,,,no,
+C201286,P201015,2026-01-17,Saturday,17:00,Young animal,iOS,6,14,no,no,no,no,no,,,,,,no,
+C201287,P200020,2026-01-17,Saturday,20:00,Young animal,Android,16,15,no,no,no,no,yes,5,,,,,yes,4
+C201288,P200031,2026-01-17,Saturday,22:00,Chronic,Web,17,11,no,no,no,no,yes,4,,,,,yes,57
+C201289,P200309,2026-01-17,Saturday,23:00,Acute,Web,14,10,no,no,no,no,yes,3,,,,,no,
+C201290,P200591,2026-01-18,Sunday,10:00,Acute,Web,10,14,no,no,no,no,no,,,,,,no,
+C201291,P200049,2026-01-18,Sunday,14:00,Acute,iOS,7,16,no,no,yes,no,no,,,,,,no,
+C201292,P200869,2026-01-18,Sunday,14:00,Acute,Web,4,13,no,no,no,yes,yes,3,4,,,,yes,64
+C201293,P200663,2026-01-18,Sunday,16:00,Acute,Web,4,16,no,no,no,no,yes,1,4,"Ganz nett, aber nichts Besonderes. Nichts zu meckern.","Quite nice, but nothing special. Nothing to complain about.",Neutral,no,
+C201294,P200365,2026-01-18,Sunday,18:00,Young animal,Android,34,14,no,no,no,no,no,,,,,,no,
+C201295,P200574,2026-01-18,Sunday,19:00,Unclear,Android,24,8,no,no,no,no,no,,4,,,,no,
+C201296,P200625,2026-01-18,Sunday,23:00,Acute,Android,16,27,no,no,no,no,no,,5,"Die Wartezeit war doppelt so lang wie angezeigt. Das war der Punkt, an dem ich abgehakt habe.",The wait was twice as long as shown. That was the point where I gave up on it.,Waiting,no,
+C201297,P200342,2026-01-19,Monday,09:00,Acute,Android,7,9,no,no,no,yes,no,,3,Dieselben Fragen wie beim letzten Mal.,The same questions as last time.,Context lost (re-telling),no,
+C201298,P200389,2026-01-19,Monday,10:00,Young animal,iOS,21,9,no,no,no,no,yes,4,3,,,,no,
+C201299,P200619,2026-01-19,Monday,13:00,Acute,Web,4,16,no,no,no,no,no,,4,,,,no,
+C201300,P200662,2026-01-19,Monday,14:00,Acute,Web,17,17,no,no,no,no,yes,3,5,,,,no,
+C201301,P201017,2026-01-19,Monday,14:00,Acute,iOS,12,8,no,no,no,no,no,,5,Bequemer als ein Praxisbesuch.,More convenient than a clinic visit.,Positive (other),no,
+C201302,P200068,2026-01-19,Monday,17:00,Acute,iOS,6,10,no,no,no,no,no,,,,,,no,
+C201303,P200633,2026-01-19,Monday,18:00,Acute,Web,8,24,no,no,no,no,no,,,,,,no,
+C201304,P200169,2026-01-19,Monday,19:00,Acute,Android,10,8,no,no,no,no,no,,3,,,,no,
+C201305,P200184,2026-01-20,Tuesday,09:00,Chronic,Android,10,11,no,no,no,no,no,,,,,,yes,45
+C201306,P200964,2026-01-20,Tuesday,10:00,Acute,Android,5,13,no,no,no,no,no,,,,,,no,
+C201307,P200995,2026-01-20,Tuesday,12:00,Acute,Android,4,12,no,no,no,no,no,,,,,,no,
+C201308,P200975,2026-01-20,Tuesday,16:00,Acute,Android,6,12,no,no,yes,no,yes,5,,,,,no,
+C201309,P200145,2026-01-20,Tuesday,17:00,Young animal,iOS,9,11,no,no,yes,no,no,,4,,,,yes,80
+C201310,P201135,2026-01-20,Tuesday,20:00,Acute,iOS,4,14,yes,no,no,yes,yes,3,,,,,no,
+C201311,P200678,2026-01-20,Tuesday,21:00,Acute,iOS,4,17,no,no,no,yes,yes,3,,,,,no,
+C201312,P200581,2026-01-20,Tuesday,23:00,Acute,Web,9,14,no,no,no,no,no,,4,,,,no,
+C201313,P200016,2026-01-21,Wednesday,09:00,Acute,iOS,5,12,no,no,no,no,yes,5,4,,,,no,
+C201314,P200154,2026-01-21,Wednesday,09:00,Acute,Web,12,12,yes,yes,no,no,no,,,,,,no,
+C201315,P200380,2026-01-21,Wednesday,09:00,Acute,iOS,8,13,no,no,no,no,yes,6,,,,,no,
+C201316,P200020,2026-01-21,Wednesday,11:00,Young animal,Android,4,19,yes,yes,no,no,yes,5,,,,,no,
+C201317,P201006,2026-01-21,Wednesday,11:00,Chronic,iOS,6,15,no,no,no,no,no,,5,In fünfzehn Minuten dran und alles lag vor. Genau so.,Seen within fifteen minutes and everything was on hand. Exactly like that.,Context present (positive),yes,18
+C201318,P201023,2026-01-21,Wednesday,14:00,Chronic,iOS,4,21,no,no,no,no,no,,,,,,yes,19
+C201319,P200052,2026-01-21,Wednesday,16:00,Young animal,Web,9,12,no,no,no,no,yes,3,5,,,,yes,39
+C201320,P200230,2026-01-21,Wednesday,17:00,Young animal,Web,12,10,no,no,no,no,yes,3,4,,,,no,
+C201321,P200569,2026-01-21,Wednesday,18:00,Acute,Web,11,6,yes,yes,no,no,no,,,,,,no,
+C201322,P200209,2026-01-21,Wednesday,19:00,Acute,Web,6,9,no,no,no,no,yes,7,,,,,no,
+C201323,P200774,2026-01-21,Wednesday,19:00,Acute,iOS,10,16,no,no,no,yes,yes,3,,,,,no,
+C201324,P200946,2026-01-21,Wednesday,19:00,Young animal,iOS,3,10,no,no,no,no,no,,5,,,,no,
+C201325,P200160,2026-01-21,Wednesday,20:00,Acute,iOS,2,18,no,no,no,no,yes,2,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig. Danke dafür.","I had photos and previous findings ready, it went very quickly. Thanks for that.",Context present (positive),no,
+C201326,P201162,2026-01-21,Wednesday,20:00,Chronic,Web,3,11,no,no,no,no,yes,5,,,,,yes,30
+C201327,P200393,2026-01-21,Wednesday,21:00,Young animal,Android,7,11,no,no,no,no,no,,5,,,,no,
+C201328,P200687,2026-01-21,Wednesday,22:00,Acute,iOS,5,8,no,no,no,no,no,,,,,,no,
+C201329,P200118,2026-01-22,Thursday,09:00,Young animal,Web,3,13,no,no,no,no,yes,2,,,,,yes,59
+C201330,P200424,2026-01-22,Thursday,11:00,Young animal,iOS,6,9,yes,no,no,no,no,,4,"Halbe Konsultation ging für Technik drauf. Schade, die Beratung selbst war gut.","Half the consultation went on technical problems. A pity, the advice itself was good.",Video/audio,no,
+C201331,P200009,2026-01-22,Thursday,12:00,Young animal,iOS,10,13,no,no,no,no,yes,4,,,,,no,
+C201332,P200056,2026-01-22,Thursday,15:00,Chronic,iOS,6,26,no,no,yes,no,yes,6,3,,,,no,
+C201333,P201043,2026-01-22,Thursday,15:00,Acute,Web,3,13,no,no,no,yes,yes,3,,,,,no,
+C201334,P200441,2026-01-22,Thursday,16:00,Acute,Web,7,13,no,no,no,no,yes,7,,,,,no,
+C201335,P201002,2026-01-22,Thursday,16:00,Acute,Android,8,18,no,no,no,no,yes,2,,,,,no,
+C201336,P200728,2026-01-22,Thursday,17:00,Acute,Android,10,11,yes,yes,no,no,yes,4,1,Die Konsultation ist mittendrin abgebrochen. Bitte nachbessern.,The consultation dropped in the middle. Please improve this.,Video/audio,no,
+C201337,P201159,2026-01-22,Thursday,17:00,Young animal,Web,15,9,yes,no,no,no,no,,,,,,no,
+C201338,P201123,2026-01-22,Thursday,18:00,Chronic,Android,13,17,no,no,no,yes,yes,3,4,"Es gibt eine Akte, gelesen hat sie offenbar niemand. Bitte nachbessern.","There's a file, but apparently nobody read it. Please improve this.",Context lost (re-telling),no,
+C201339,P201147,2026-01-22,Thursday,18:00,Acute,iOS,7,22,no,no,no,no,no,,,,,,no,
+C201340,P200264,2026-01-22,Thursday,21:00,Acute,Web,10,15,yes,yes,no,yes,no,,,,,,yes,44
+C201341,P200550,2026-01-22,Thursday,23:00,Young animal,Web,4,13,no,no,no,no,yes,5,5,,,,no,
+C201342,P200653,2026-01-23,Friday,08:00,Young animal,iOS,9,23,no,no,no,yes,no,,4,,,,no,
+C201343,P200832,2026-01-23,Friday,08:00,Young animal,Android,3,22,no,no,no,yes,yes,4,5,Dieselben Fragen wie beim letzten Mal.,The same questions as last time.,Context lost (re-telling),yes,80
+C201344,P200735,2026-01-23,Friday,11:00,Acute,iOS,6,11,no,no,no,no,no,,5,,,,no,
+C201345,P200856,2026-01-23,Friday,12:00,Chronic,iOS,5,23,no,no,no,no,yes,3,4,,,,yes,30
+C201346,P200043,2026-01-23,Friday,13:00,Young animal,Web,5,20,yes,yes,yes,no,no,,,,,,no,
+C201347,P200590,2026-01-23,Friday,13:00,Young animal,Web,3,11,no,no,no,yes,yes,4,,,,,no,
+C201348,P200099,2026-01-23,Friday,15:00,Acute,iOS,3,12,no,no,no,no,no,,5,,,,no,
+C201349,P201124,2026-01-23,Friday,18:00,Acute,iOS,2,24,no,no,no,no,yes,6,3,,,,no,
+C201350,P200103,2026-01-23,Friday,20:00,Acute,Web,9,23,no,no,no,no,yes,3,,,,,no,
+C201351,P200668,2026-01-24,Saturday,10:00,Acute,iOS,5,11,no,no,no,yes,no,,3,,,,no,
+C201352,P200749,2026-01-24,Saturday,11:00,Young animal,iOS,4,9,no,no,no,no,yes,7,,,,,no,
+C201353,P200745,2026-01-24,Saturday,14:00,Chronic,iOS,6,13,no,no,no,no,yes,2,5,"Ich hatte Fotos und Vorbefund bereit, ging sehr zügig.","I had photos and previous findings ready, it went very quickly.",Context present (positive),yes,6
+C201354,P200187,2026-01-24,Saturday,16:00,Acute,Web,11,9,no,no,yes,no,no,,4,"Das Foto von der Wunde ließ sich nicht hochladen. Das war der Punkt, an dem ich abgehakt habe.",The photo of the wound wouldn't upload. That was the point where I gave up on it.,Upload,no,
+C201355,P200486,2026-01-24,Saturday,17:00,Acute,Android,7,9,no,no,yes,no,no,,,,,,no,
+C201356,P200211,2026-01-24,Saturday,20:00,Chronic,iOS,24,16,no,no,yes,no,no,,,,,,no,
+C201357,P200917,2026-01-24,Saturday,20:00,Acute,iOS,17,16,no,no,no,no,no,,,,,,no,
+C201358,P200939,2026-01-24,Saturday,22:00,Acute,iOS,21,17,yes,no,no,no,no,,,,,,no,
+C201359,P200981,2026-01-24,Saturday,22:00,Acute,Android,7,11,no,no,no,no,no,,,,,,no,
+C201360,P200616,2026-01-24,Saturday,23:00,Acute,iOS,15,9,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Daran gibt es nichts auszusetzen.,The vet knew the history. Nothing to fault.,Context present (positive),yes,125
+C201361,P200422,2026-01-25,Sunday,11:00,Acute,Android,3,12,no,no,no,yes,no,,,,,,no,
+C201362,P200071,2026-01-25,Sunday,13:00,Young animal,iOS,9,18,no,no,no,no,yes,1,,,,,no,
+C201363,P200690,2026-01-25,Sunday,13:00,Unclear,Android,7,10,no,no,no,no,yes,2,,,,,no,
+C201364,P200829,2026-01-25,Sunday,13:00,Acute,Android,2,9,no,no,no,no,no,,5,"Kein Warten, keine Technikprobleme, direkt geholfen. Genau so.","No waiting, no technical problems, helped right away. Exactly like that.",Video/audio,no,
+C201365,P200382,2026-01-25,Sunday,14:00,Young animal,iOS,4,21,no,no,no,no,yes,6,,,,,no,
+C201366,P200334,2026-01-25,Sunday,16:00,Acute,Android,5,16,no,no,no,yes,no,,,,,,no,
+C201367,P200453,2026-01-25,Sunday,16:00,Chronic,Web,2,9,no,no,no,no,no,,4,"Solide, keine Beschwerden. Mehr aber auch nicht.","Solid, no complaints. But no more than that.",Neutral,yes,64
+C201368,P200535,2026-01-25,Sunday,21:00,Young animal,Android,14,19,yes,no,no,no,yes,5,,,,,no,
+C201369,P201175,2026-01-25,Sunday,23:00,Acute,Web,7,10,no,no,no,yes,yes,4,4,,,,no,
+C201370,P200674,2026-01-26,Monday,09:00,Acute,iOS,14,14,no,no,no,no,yes,3,,,,,yes,144
+C201371,P201044,2026-01-26,Monday,17:00,Acute,iOS,9,15,no,no,no,no,no,,5,,,,no,
+C201372,P200376,2026-01-26,Monday,19:00,Young animal,Android,6,11,yes,no,no,yes,no,,,,,,no,
+C201373,P200777,2026-01-26,Monday,19:00,Acute,iOS,3,7,no,no,no,no,no,,4,"Ganz nett, aber nichts Besonderes. Passt.","Quite nice, but nothing special. Fine.",Neutral,no,
+C201374,P200725,2026-01-27,Tuesday,09:00,Acute,iOS,6,10,no,no,no,yes,yes,4,5,,,,yes,70
+C201375,P200900,2026-01-27,Tuesday,09:00,Acute,iOS,10,17,no,no,no,yes,yes,4,4,"Es gibt eine Akte, gelesen hat sie offenbar niemand. So macht das keinen Sinn.","There's a file, but apparently nobody read it. This way it makes no sense.",Context lost (re-telling),no,
+C201376,P200514,2026-01-27,Tuesday,11:00,Acute,iOS,19,20,yes,no,no,no,no,,,,,,no,
+C201377,P200515,2026-01-27,Tuesday,12:00,Acute,Android,5,19,no,no,no,no,no,,4,"Solide, keine Beschwerden. Nichts zu meckern.","Solid, no complaints. Nothing to complain about.",Neutral,no,
+C201378,P200644,2026-01-27,Tuesday,15:00,Acute,iOS,3,22,no,no,no,no,no,,4,,,,no,
+C201379,P200938,2026-01-27,Tuesday,18:00,Acute,Web,3,7,no,no,no,no,no,,,,,,yes,122
+C201380,P200670,2026-01-27,Tuesday,20:00,Acute,iOS,3,12,no,no,no,no,no,,,,,,no,
+C201381,P200976,2026-01-28,Wednesday,07:00,Acute,Android,6,14,no,no,no,no,no,,,,,,no,
+C201382,P200374,2026-01-28,Wednesday,08:00,Chronic,Android,15,9,no,no,no,no,no,,5,Die Tierärztin kannte die Vorgeschichte. Danke dafür.,The vet knew the history. Thanks for that.,Context present (positive),yes,12
+C201383,P201026,2026-01-28,Wednesday,08:00,Acute,iOS,11,13,no,no,no,no,no,,4,,,,no,
+C201384,P200319,2026-01-28,Wednesday,09:00,Acute,iOS,4,8,no,no,no,no,no,,4,Hat geholfen. Passt.,It helped. Fine.,Neutral,no,
+C201385,P200023,2026-01-28,Wednesday,11:00,Acute,Android,8,11,no,no,no,no,yes,2,,,,,no,
+C201386,P200232,2026-01-28,Wednesday,12:00,Acute,iOS,6,17,yes,yes,no,no,yes,3,,,,,no,
+C201387,P200609,2026-01-28,Wednesday,15:00,Chronic,Android,7,13,no,no,no,no,no,,5,,,,no,
+C201388,P200096,2026-01-28,Wednesday,18:00,Young animal,Web,2,18,no,no,no,no,no,,5,,,,no,
+C201389,P200287,2026-01-28,Wednesday,19:00,Chronic,iOS,6,20,no,no,no,yes,yes,2,,,,,yes,28
+C201390,P200902,2026-01-28,Wednesday,20:00,Young animal,Web,3,16,no,no,no,no,no,,,,,,no,
+C201391,P200596,2026-01-28,Wednesday,21:00,Young animal,Android,18,10,no,no,yes,no,yes,6,,,,,no,
+C201392,P201095,2026-01-28,Wednesday,21:00,Acute,Web,6,13,no,no,no,no,no,,,,,,no,
+C201393,P200770,2026-01-29,Thursday,08:00,Chronic,iOS,5,10,no,no,no,no,yes,3,,,,,yes,37
+C201394,P200692,2026-01-29,Thursday,09:00,Acute,iOS,5,18,no,no,no,no,yes,4,5,,,,yes,157
+C201395,P201057,2026-01-29,Thursday,10:00,Acute,iOS,13,6,no,no,no,no,no,,5,,,,no,
+C201396,P200073,2026-01-29,Thursday,11:00,Acute,Web,4,11,no,no,no,no,no,,,,,,no,
+C201397,P201047,2026-01-29,Thursday,14:00,Acute,Web,2,12,no,no,no,no,no,,5,"Ruhig erklärt, nichts überstürzt. Danke dafür.","Explained calmly, nothing rushed. Thanks for that.",Positive (other),no,
+C201398,P200528,2026-01-29,Thursday,16:00,Acute,Android,14,11,no,no,no,no,yes,2,5,Nachts um zwei und in zehn Minuten wusste ich Bescheid. Daran gibt es nichts auszusetzen.,Two in the morning and within ten minutes I knew what was going on. Nothing to fault.,Positive (other),yes,83
+C201399,P200790,2026-01-29,Thursday,16:00,Chronic,iOS,6,10,no,no,no,yes,yes,3,4,Die halbe Zeit ging fürs Erzählen drauf — für den Preis ärgerlich.,Half the time went on telling the story — annoying for the price.,Context lost (re-telling),no,
+C201400,P200225,2026-01-29,Thursday,20:00,Chronic,Android,6,23,no,no,no,no,no,,5,,,,yes,7
+C201401,P200501,2026-01-30,Friday,08:00,Acute,iOS,5,15,no,no,yes,no,no,,4,"Die Vorbefunde konnte ich nicht anhängen. Das war der Punkt, an dem ich abgehakt habe.",I couldn't attach the previous findings. That was the point where I gave up on it.,Upload,yes,62
+C201402,P200688,2026-01-30,Friday,11:00,Chronic,iOS,3,14,no,no,no,no,no,,,,,,no,
+C201403,P200356,2026-01-30,Friday,13:00,Chronic,iOS,3,18,no,no,no,no,no,,,,,,yes,32
+C201404,P200745,2026-01-30,Friday,14:00,Chronic,iOS,11,8,yes,yes,no,yes,yes,4,,,,,no,
+C201405,P200083,2026-01-30,Friday,15:00,Acute,Android,3,14,no,no,no,no,yes,1,,,,,no,
+C201406,P201020,2026-01-30,Friday,16:00,Chronic,Web,7,13,no,no,no,yes,no,,4,,,,no,
+C201407,P200172,2026-01-30,Friday,19:00,Acute,Android,6,7,no,no,no,no,yes,2,,,,,no,
+C201408,P200654,2026-01-30,Friday,19:00,Young animal,Web,15,13,no,no,no,yes,no,,,,,,no,
+C201409,P200347,2026-01-31,Saturday,13:00,Acute,Android,5,11,no,no,no,no,yes,4,,,,,yes,109
+C201410,P200053,2026-01-31,Saturday,16:00,Acute,Android,8,17,no,no,no,no,no,,,,,,no,
+C201411,P200492,2026-01-31,Saturday,16:00,Acute,Android,4,7,no,no,no,no,yes,8,3,"Sendungsverfolgung fehlt komplett. Das war der Punkt, an dem ich abgehakt habe.",Shipment tracking is missing entirely. That was the point where I gave up on it.,Delivery,no,
+C201412,P200694,2026-01-31,Saturday,22:00,Acute,Web,6,14,no,no,no,no,no,,5,,,,no,
+C201413,P200129,2026-01-31,Saturday,23:00,Chronic,iOS,9,17,no,no,no,yes,yes,2,5,Ich habe alles nochmal von vorne erklärt — für den Preis ärgerlich.,I explained everything again from the start — annoying for the price.,Context lost (re-telling),no,

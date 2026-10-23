@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>D1 Service recovery — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .d1-banner { position: absolute; left: 12px; right: 12px; top: 12px; display: flex; align-items: center; gap: var(--space-2); padding: 8px 12px; border-radius: var(--radius-md); background: var(--warning-tint); color: var(--warning); border: var(--stroke-sticker) solid var(--warning); font-weight: 800; font-size: 13px; }
+  .d1-price { display: flex; justify-content: space-between; align-items: baseline; }
+  .d1-strike { text-decoration: line-through; color: var(--ink-muted); font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+/* What went wrong decides the offer. Tech failure = the visit itself failed, so the re-consult is free.
+   Re-telling only = the advice was fine but we wasted Anna's time, so a partial credit. */
+const ISSUES = {
+  av: { label: 'Video failed', log: 'Video froze 3 times · call restarted once · 6 min lost', offer: 'free', why: 'Your video kept freezing and the call had to restart.' },
+  retell: { label: 'Had to re-tell', log: 'Owner answered “No” to “Did the vet already know Bella?” · photos uploaded but not opened', offer: 'part', why: 'You had to explain Bella’s history again, even though you’d already sent it.' },
+  both: { label: 'Both', log: 'Video restarted once + owner had to re-tell history', offer: 'free', why: 'Your video kept freezing, and you had to explain Bella’s history again.' }
+};
+const SLOTS = ['Today 18:30', 'Today 19:10', 'Tomorrow 08:40'];
+
+function offerOf(s) { return ISSUES[s.issue || 'av'].offer; }
+
+function Call(api) {
+  return (
+    <Phone dark>
+      <div className="vstack" style={{ flex: 1, padding: 16, background: 'var(--berry)', color: 'var(--on-berry)' }}>
+        <div className="video" style={{ flex: 1, minHeight: 420, position: 'relative' }}>
+          <div className="d1-banner"><Icon name="wifi" size={18} /><span>Reconnecting… video paused</span></div>
+          <div className="vstack center" style={{ color: 'var(--ink)' }}>
+            <VetAv initials={vet.initials} lg />
+            <p className="h-head">{vet.name}</p>
+            <p className="small muted">Picture frozen for 40 seconds</p>
+          </div>
+          <div className="video__pip small" style={{ color: 'var(--ink)' }}>You</div>
+        </div>
+        <p className="small center" style={{ opacity: .9 }}>Bella · itchy skin, scratching at night · 14:32</p>
+        <Button block size="lg" variant="secondary" onClick={api.next}>End call</Button>
+      </div>
+    </Phone>
+  );
+}
+
+function OpsLog(api) {
+  const issue = api.state.issue;
+  const it = ISSUES[issue];
+  return (
+    <Desk title="Consult quality · automatic recovery">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Consultation #48213</p>
+            <dl className="kv">
+              <dt>Owner</dt><dd>Anna · first consult</dd>
+              <dt>Pet</dt><dd>Bella (dog, 4 years)</dd>
+              <dt>Vet</dt><dd>{vet.name}</dd>
+              <dt>Paid</dt><dd>{data.price}</dd>
+            </dl>
+          </div>
+          <div className="card card--warn">
+            <div className="hstack"><Icon name="alert" /><p className="h-head">Flagged after the call</p></div>
+            <p className="small">{it.log}</p>
+          </div>
+          <p className="label">Try another signal</p>
+          <div className="chips" role="group" aria-label="What went wrong">
+            {Object.keys(ISSUES).map(k => <Chip key={k} selected={issue === k} onClick={() => api.set({ issue: k })}>{ISSUES[k].label}</Chip>)}
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack"><span className="ic-badge bg-sky"><Icon name="sparkle" /></span>
+              <div className="grow"><p className="h-head">Recovery sent automatically</p><p className="small muted">No complaint needed. Rule: {it.offer === 'free' ? 'tech failure → free re-consult' : 're-telling only → €20 off'}</p></div></div>
+            <hr className="divider" />
+            <Row icon="chat" title="Apology in app + push" sub="Sent 20 min after the call" right={<Badge tone="success">Sent</Badge>} />
+            <Row icon="gift" title={it.offer === 'free' ? 'Free re-consult credit' : '€20 re-consult credit'} sub="Valid 30 days · same vet first" right={<Badge tone="success">Added</Badge>} />
+            <Row icon="file" title="Notes and photos pinned" sub="Next vet sees them before joining" right={<Badge tone="success">Done</Badge>} />
+            <Button block onClick={api.next}>Preview what Anna sees</Button>
+          </div>
+          <p className="small muted">Cost cap: one credit per owner per 90 days. Ops can see every credit issued here.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Lock(api) {
+  const free = offerOf(api.state) === 'free';
+  return (
+    <Phone dark>
+      <LockScreen date="Thursday 12 March" time="14:58" hint="Tap the notification">
+        <Push title="Sorry your consult didn’t go smoothly" text={free ? `Your next consult for ${pet.name} is on us. Tap to see what happened.` : `We’ve added €20 off your next consult for ${pet.name}.`} onClick={api.next} />
+        <Push when="25 min ago" title="Your care summary is ready" text="Home care steps and what to watch for." />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Apology(api) {
+  const s = api.state;
+  const it = ISSUES[s.issue];
+  const free = it.offer === 'free';
+  return (
+    <Phone cta={<React.Fragment>
+      <Button block size="lg" icon="video" onClick={() => api.go('book')}>Book my re-consult</Button>
+      <Button block variant="ghost" onClick={() => { api.set({ saved: true }); api.go('done'); }}>Keep the credit for later</Button>
+    </React.Fragment>}>
+      <AppBar title="About your consult" onBack={api.back} />
+      <Scroll>
+        <div className="vstack">
+          <p className="h-title">We’re sorry, Anna</p>
+          <p className="lead">{it.why} That’s not the visit you paid for.</p>
+        </div>
+        <div className={`card ${free ? 'card--success' : 'card--sunny'}`}>
+          <div className="hstack"><span className={`ic-badge ${free ? 'bg-mint' : 'bg-sunny'}`}><Icon name="gift" /></span>
+            <div className="grow"><p className="h-head">{free ? 'Your next consult is free' : '€20 off your next consult'}</p>
+              <p className="small">{free ? `Worth ${data.price}. ` : 'You pay €19 instead of €39. '}Use it within 30 days, for {pet.name} or any of your pets.</p></div></div>
+        </div>
+        <Section title="What we’ve changed">
+          <div className="card card--flat">
+            {(s.issue !== 'retell') && <Row icon="wifi" title="Connection check before you join" sub="If video struggles, we switch to audio instead of dropping you" right={null} />}
+            <Row icon="file" title={`${pet.name}’s notes and photos are pinned`} sub="The vet sees them before the call starts — no need to repeat yourself" right={null} />
+            <Row icon="user" title={`${vet.name} first`} sub="She already knows Bella. If she’s busy, the next vet gets the same notes." right={null} />
+          </div>
+        </Section>
+        <p className="small muted">Prefer your money back? <a href="#" onClick={e => { e.preventDefault(); api.toast('Refund request sent — 3–5 working days'); }}>Request a refund</a> instead.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Book(api) {
+  const s = api.state;
+  const free = offerOf(s) === 'free';
+  return (
+    <Phone cta={<Button block size="lg" icon="check" disabled={!s.slot} onClick={() => { api.set({ saved: false }); api.next(); }}>{free ? 'Book for €0' : 'Book for €19'}</Button>}>
+      <AppBar title="Re-consult" onBack={api.back} />
+      <Scroll>
+        <div className="card card--lift">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name}</p><p className="small muted">{vet.specialty}</p></div><Badge tone="online">Online</Badge></div>
+          <hr className="divider" />
+          <p className="label">Already attached</p>
+          <Row icon="file" title="Thursday’s consult notes" sub="Itchy skin · suspected allergy" right={<Icon name="check" size={20} />} />
+          <Row icon="image" title="3 photos you sent" sub="Belly and paws, 12 March" right={<Icon name="check" size={20} />} />
+        </div>
+        <Section title="Pick a time">
+          <div className="chips">{SLOTS.map(t => <button key={t} className={`slot ${s.slot === t ? 'is-on' : ''}`} aria-pressed={s.slot === t} onClick={() => api.set({ slot: t })}>{t}</button>)}</div>
+        </Section>
+        <div className="card card--sunken">
+          <div className="d1-price"><span className="small">Video consult, 15 min</span><span className="d1-strike">{data.price}</span></div>
+          <div className="d1-price"><span className="small">Service credit</span><span className="small t-success">{free ? '− €39' : '− €20'}</span></div>
+          <hr className="divider" />
+          <div className="d1-price"><span className="h-head">You pay</span><span className="h-head">{free ? '€0' : '€19'}</span></div>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Done(api) {
+  const s = api.state;
+  const free = offerOf(s) === 'free';
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to home</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name={s.saved ? 'gift' : 'check'} size={40} /></span>
+          <p className="h-display">{s.saved ? 'Credit saved' : 'You’re booked'}</p>
+          <p className="lead">{s.saved
+            ? `Your ${free ? 'free consult' : '€20 credit'} is waiting in your account until 11 April. It applies automatically at checkout.`
+            : `${s.slot || 'Today 18:30'} with ${vet.name}. She’ll open Bella’s notes and photos before she joins.`}</p>
+        </div>
+        {s.saved
+          ? <div className="card card--sunny"><Row icon="bell" title="We’ll remind you" sub="A week before the credit runs out" right={null} /></div>
+          : <div className="card card--sky"><Row icon="wifi" title="Quick connection check first" sub="We’ll test video 2 min before the call" right={null} /></div>}
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'D1', group: 'Fix friction', title: 'Service recovery after a bad visit',
+    persona: 'Owners whose call went wrong', impact: 'Med', effort: 'S', when: 'Q1 quick win (month 1)',
+    story: 'As an owner whose call went wrong, I want PetDoc to make it right, so that I give it another chance.',
+    why: 'Visits with a tech issue plus re-telling return at only 3.2%, against 24.6% after a smooth visit. A/V issues alone drop the rating from 4.35 to 2.63, and re-telling is silent churn that ratings don’t show.',
+    measure: ['Return within 180 days after a flagged visit: 3.2% → 10%+', 'Credit redemption rate within 30 days', 'Cost per recovered owner vs ~€10 margin per consult (guardrail)', 'Rating of the re-consult'],
+    notes: ['Triggered by call logs and the “vet already knew my pet” answer, not by complaints', 'A credit, not a subscription or cash: free for tech failure, €20 off for re-telling only; refund stays one tap away', 'Calm, plain apology that names what went wrong and what changed; no puns']
+  },
+  initialState: { issue: 'av' },
+  screens: [
+    { id: 'call', label: 'Video keeps freezing', who: 'Owner', render: Call, caption: 'The call that goes wrong: video freezes and restarts.' },
+    { id: 'ops', label: 'Flag → auto recovery', who: 'Ops', render: OpsLog, caption: 'PetDoc spots the failure from logs and the survey, then sends the right offer. Try “Had to re-tell”.' },
+    { id: 'lock', label: 'Apology notification', who: 'Owner', render: Lock, caption: '20 minutes later, before Anna writes a bad review or just leaves.' },
+    { id: 'apology', label: 'Apology + credit', who: 'Owner', render: Apology, caption: 'The decision point: does a credit bring Anna back? Try “Keep the credit for later” too.' },
+    { id: 'book', label: 'Re-consult, credit applied', who: 'Owner', render: Book },
+    { id: 'done', label: 'Booked or saved', who: 'Owner', render: Done }
+  ]
+});
+</script>
+</body>
+</html>

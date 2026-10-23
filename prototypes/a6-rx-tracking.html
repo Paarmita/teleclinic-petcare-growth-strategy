@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A6 Rx tracking and dose reminders — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .a6-dot-done { background: var(--mint); color: var(--on-brand); display: grid; place-items: center; }
+  .a6-dot-now { background: var(--brand); }
+  .a6-dot-late { background: var(--warning-tint); }
+  .a6-doses { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .a6-dose { aspect-ratio: 1; border-radius: 10px; border: var(--stroke-sticker) solid var(--line-strong); background: var(--surface-raised); display: grid; place-items: center; }
+  .a6-dose.is-done { background: var(--mint-tint); border-color: var(--ink); }
+  .a6-dose.is-next { background: var(--brand-tint); border-color: var(--ink); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, Sheet, data } = window.Proto;
+const { pet, vet } = data;
+
+const MED = { name: 'Apoquel 16 mg', dose: '½ tablet', freq: 'twice a day', days: 7, total: 14 };
+
+function Track(api) {
+  const delayed = api.state.delayed;
+  const steps = [
+    { t: 'Prescription sent', s: 'Mon 10 Feb, 14:41 · Dr. Weber', st: 'done' },
+    { t: 'Packed at Tierapotheke Hamburg', s: 'Mon 10 Feb, 17:20', st: 'done' },
+    { t: delayed ? 'Delayed in transit' : 'With DHL', s: delayed ? 'Hub backlog · DHL says Thu 13 Feb' : 'Tue 11 Feb, 06:05 · Berlin hub', st: delayed ? 'late' : 'now' },
+    { t: 'Delivered', s: delayed ? 'Expected Thu 13 Feb' : 'Expected Wed 12 Feb, 10:00–14:00', st: 'todo' }
+  ];
+  return (
+    <Phone nav="consults" cta={<Button block size="lg" icon="bell" onClick={api.next}>Set dose reminders</Button>}>
+      <AppBar title="Bella’s prescription" onBack={null} />
+      <Scroll nav>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-sky"><Icon name="pill" /></span><div className="grow"><p className="h-head">{MED.name}</p><p className="small muted">{MED.dose} {MED.freq} · {MED.days} days · {vet.name}</p></div></div>
+          <hr className="divider" />
+          {delayed
+            ? <div className="hstack"><Icon name="alert" /><p className="label grow">Delayed · now Thursday</p><Badge tone="busy">Late</Badge></div>
+            : <div className="hstack"><Icon name="truck" /><p className="label grow">Arrives tomorrow</p><Badge tone="online">On time</Badge></div>}
+        </div>
+        <ol className="tl" aria-label="Delivery progress">
+          {steps.map((x, i) => (
+            <li key={i}>
+              <span className={`tl__dot ${x.st === 'done' ? 'a6-dot-done' : x.st === 'now' ? 'a6-dot-now' : x.st === 'late' ? 'a6-dot-late' : ''}`}>{x.st === 'done' && <Icon name="check" size={12} />}</span>
+              <p className="label">{x.t}</p><p className="small muted">{x.s}</p>
+            </li>
+          ))}
+        </ol>
+        {delayed && (
+          <div className="card card--warn">
+            <p className="small"><b>Bella’s itch won’t wait two more days.</b> Dr. Weber can send the prescription to a pharmacy near you instead.</p>
+            <Button block variant="secondary" size="sm" onClick={() => api.set({ sheet: true })}>Pick up nearby instead</Button>
+          </div>
+        )}
+        <div className="hstack"><p className="grow small muted">Prototype: simulate a delay</p>
+          <button className="toggle-sw" role="switch" aria-checked={!!delayed} aria-label="Simulate a delay" onClick={() => api.set(s => ({ delayed: !s.delayed }))} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Reminders(api) {
+  const { times, sheet } = api.state;
+  const all = ['07:00', '08:00', '12:00', '19:00', '20:00'];
+  const toggle = t => api.set(s => ({ times: s.times.includes(t) ? s.times.filter(x => x !== t) : [...s.times, t].sort() }));
+  const ok = times.length === 2;
+  return (
+    <Phone cta={<Button block size="lg" disabled={!ok} onClick={() => { api.toast('Reminders on from first dose'); setTimeout(api.next, 900); }}>Turn on reminders</Button>}>
+      <AppBar title="Dose reminders" onBack={api.back} />
+      <Scroll>
+        <div className="hstack"><PetAvatar name={pet.name} species="dog" size={48} /><div><p className="h-title">When does Bella eat?</p><p className="small muted">{MED.name} works best with food, {MED.freq}.</p></div></div>
+        <Section title="Pick 2 times">
+          <div className="chips">{all.map(t => <button key={t} className={`slot ${times.includes(t) ? 'is-on' : ''}`} aria-pressed={times.includes(t)} onClick={() => toggle(t)}>{t}</button>)}</div>
+          <p className={`small ${ok ? 'muted' : 't-warn'}`}>{ok ? `${times[0]} and ${times[1]}, for ${MED.days} days` : `Please pick 2 times — you’ve picked ${times.length}`}</p>
+        </Section>
+        <div className="card">
+          <Row icon="truck" title="Start when it arrives" sub="Your first reminder comes after delivery" right={<button className="toggle-sw" role="switch" aria-checked={!!api.state.startOnDelivery} aria-label="Start when it arrives" onClick={() => api.set(s => ({ startOnDelivery: !s.startOnDelivery }))} />} />
+          <Row icon="users" title="Remind Max too" sub="Shares reminders with someone at home" right={<button className="toggle-sw" role="switch" aria-checked={!!api.state.partner} aria-label="Remind Max too" onClick={() => api.set(s => ({ partner: !s.partner }))} />} />
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Lock(api) {
+  const t = api.state.times[1] || '19:00';
+  return (
+    <Phone dark>
+      <LockScreen date="Friday 14 February" time={t} hint="Tap the notification">
+        <Push title={`Time for Bella’s ${MED.name}`} text={`${MED.dose} with dinner. Dose 6 of ${MED.total}.`} onClick={api.next} />
+        <Push when="Wed" title="Delivered" text="Bella’s prescription is at your door." />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Course(api) {
+  const given = api.state.given;
+  const done = 5 + (given ? 1 : 0);
+  return (
+    <Phone nav="pets" cta={given
+      ? <Button block size="lg" variant="secondary" onClick={api.reset}>Done</Button>
+      : <Button block size="lg" icon="check" onClick={() => api.set({ given: true })}>Mark dose 6 as given</Button>}>
+      <AppBar title="Bella’s course" onBack={api.back} />
+      <Scroll nav>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-sky"><Icon name="pill" /></span><div className="grow"><p className="h-head">{MED.name}</p><p className="small muted">{MED.dose} at {api.state.times.join(' and ')}</p></div><p className="h-head">{done}/{MED.total}</p></div>
+          <div className="bar" aria-hidden="true"><i style={{ width: `${(done / MED.total) * 100}%` }} /></div>
+          <div className="a6-doses" aria-label={`${done} of ${MED.total} doses given`}>
+            {Array.from({ length: MED.total }).map((_, i) => (
+              <span key={i} className={`a6-dose ${i < done ? 'is-done' : i === done ? 'is-next' : ''}`}>{i < done ? <Icon name="check" size={14} /> : <span className="small">{i + 1}</span>}</span>
+            ))}
+          </div>
+        </div>
+        {given
+          ? <div className="card card--mint pop"><div className="hstack"><Icon name="paw" /><p className="small"><b>Logged — good job, Anna.</b> 8 to go. Bella’s on track to finish on Tuesday.</p></div></div>
+          : <Button block variant="ghost" icon="clock" onClick={() => api.toast('We’ll remind you again in 30 min')}>Remind me in 30 min</Button>}
+        <div className="card card--sunken"><p className="small">Missed a dose? Give it when you remember, unless the next one is due within 4 hours. Not sure? Message Dr. Weber.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function TrackPhone(api) {
+  const el = Track(api);
+  return React.cloneElement(el, {
+    sheet: (
+      <Sheet open={!!api.state.sheet} onClose={() => api.set({ sheet: false })} label="Pick up nearby">
+        <p className="h-title">Pick up nearby</p>
+        <p className="small muted">Dr. Weber sends an e-prescription. The DHL parcel is cancelled and refunded (€4.90).</p>
+        <div className="card">
+          <Row icon="pill" title="Apotheke am Kollwitzplatz" sub="0.6 km · in stock · open until 20:00" onClick={() => { api.set({ sheet: false, delayed: false }); api.toast('Ready to collect from 17:00 today'); }} />
+          <Row icon="pill" title="Linden-Apotheke" sub="1.3 km · order by 15:00 for today" onClick={() => { api.set({ sheet: false, delayed: false }); api.toast('Ready to collect from 18:30 today'); }} />
+        </div>
+        <Button block variant="ghost" onClick={() => api.set({ sheet: false })}>Keep waiting for DHL</Button>
+      </Sheet>
+    )
+  });
+}
+
+mount({
+  idea: {
+    code: 'A6', group: 'Follow up', title: 'Rx delivery tracking + dose reminders',
+    persona: 'Owners with a prescription', impact: 'Med ~+0.5pp', effort: 'S–M', when: 'Q1 · month 3 (test)',
+    story: 'As an owner whose pet got a prescription, I want to track delivery and get dose reminders, so that treatment starts on time and I finish the course.',
+    why: '28% of prescriptions take 5 days or more to arrive, and each extra delivery day lowers the odds of return (OR 0.85). Owners with delivery ≤ 4 days return at 25.6% vs. 16.5%.',
+    measure: ['Share of Rx owners who open tracking', 'Delivery ≥ 5 days: switch-to-pharmacy rate', 'Doses logged / doses prescribed (course completion)', 'Rx owners’ 30-day return vs. holdout'],
+    notes: ['A delay is shown plainly with icon + word and a concrete alternative, not an apology', 'Reminders tie to meal times and can start on delivery, so dose 1 is never missed', 'Delivery speed itself is owned by another mission (D4); we make it visible and recoverable']
+  },
+  initialState: { delayed: false, sheet: false, times: ['08:00', '19:00'], startOnDelivery: true, partner: false, given: false },
+  screens: [
+    { id: 'track', label: 'Track the delivery', who: 'Owner', render: TrackPhone, caption: 'Flip “simulate a delay” to see the recovery option: pick up at a pharmacy nearby.' },
+    { id: 'remind', label: 'Set dose reminders', who: 'Owner', render: Reminders },
+    { id: 'lock', label: 'Dose reminder', who: 'Owner', render: Lock },
+    { id: 'course', label: 'Log dose, see progress', who: 'Owner', render: Course, caption: 'Does making the course visible get owners to finish it?' }
+  ]
+});
+</script>
+</body>
+</html>

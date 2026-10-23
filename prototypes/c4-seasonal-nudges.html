@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C4 Seasonal prevention nudges — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .sn-cal { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; }
+  .sn-cal span { height: 14px; border-radius: 4px; background: var(--surface-sunken); }
+  .sn-cal span.is-on { background: var(--brand); border: 1.5px solid var(--ink); }
+  .sn-mo { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; font-size: 11px; font-weight: 800; color: var(--ink-muted); text-align: center; }
+  .sn-pick { display: flex; align-items: center; gap: var(--space-3); width: 100%; padding: 10px 12px; border-radius: var(--radius-md); border: var(--stroke-sticker) solid var(--line-strong); background: var(--surface-raised); cursor: pointer; text-align: left; }
+  .sn-pick.is-on { border-color: var(--ink); background: var(--brand-tint); box-shadow: 0 2px 0 0 var(--ink); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet, owner } = data;
+
+// One entry per seasonal campaign. Each answer leads to 'ok', 'consult' or 'urgent'.
+const TOPICS = {
+  ticks: {
+    name: 'Tick season', icon: 'tick', months: [2, 3, 4, 5, 6, 7, 8, 9], send: 'Mon 2 Mar, 18:00', reach: '31,400 dog and cat owners', lockDate: 'Monday 2 March',
+    push: ['Tick season starts this month', 'Warm days wake ticks up early. 2 minutes to check Bella is protected.'],
+    head: 'Ticks are back', lead: 'From March, ticks in German parks and gardens can pass on diseases like Lyme and anaplasmosis.',
+    steps: ['Check Bella’s coat after every walk, especially ears, armpits and between toes', 'Keep tick protection going until October', 'Remove ticks with a tick card or tweezers, close to the skin'],
+    q: 'Is Bella protected this year?',
+    opts: [{ id: 'yes', t: 'Yes, up to date', s: 'Spot-on, collar or tablet', out: 'ok' }, { id: 'no', t: 'Not yet', s: 'Or not sure what to use', out: 'consult' }, { id: 'found', t: 'I found a tick', s: 'Or a red bump after one', out: 'consult' }],
+    consult: 'Tick protection advice', consultSub: 'Which product fits Bella’s weight and lifestyle'
+  },
+  heat: {
+    name: 'Summer heat', icon: 'sun', months: [5, 6, 7], send: 'Mon 22 Jun, 08:00', reach: '29,800 dog owners', lockDate: 'Monday 22 June',
+    push: ['32 °C forecast this week', 'Hot pavements and parked cars are the big risks. Plan Bella’s walks for the cool hours.'],
+    head: 'Keeping Bella cool', lead: 'Dogs can’t sweat like we do. Labradors and heavier dogs overheat faster.',
+    steps: ['Walk before 9:00 and after 20:00. If the pavement is too hot for your hand, it’s too hot for paws', 'Never leave Bella in the car, not even for 5 minutes', 'Shade and fresh water everywhere she rests'],
+    q: 'How does Bella cope with heat?',
+    opts: [{ id: 'fine', t: 'She’s fine', s: 'Slows down but OK', out: 'ok' }, { id: 'pant', t: 'Pants a lot', s: 'Struggles on walks', out: 'consult' }, { id: 'now', t: 'Collapsed or very weak now', s: 'Heavy panting, drooling, wobbly', out: 'urgent' }],
+    consult: 'Heat and exercise check', consultSub: 'A plan for Bella’s walks, weight and cooling'
+  },
+  fireworks: {
+    name: 'New Year fireworks', icon: 'sparkle', months: [11], send: 'Mon 14 Dec, 19:00', reach: '33,100 dog and cat owners', lockDate: 'Monday 14 December',
+    push: ['Silvester is in 17 days', 'If fireworks scare Bella, now is the time to plan. Calming help works best started early.'],
+    head: 'A calm Silvester', lead: 'Many dogs are scared of fireworks. Starting 2–3 weeks early gives you the most options.',
+    steps: ['Set up a quiet den in an inner room, curtains closed', 'Walk Bella before dark on 31 Dec, on a lead', 'Play firework sounds quietly now, with treats, to get her used to them'],
+    q: 'How did Bella cope last year?',
+    opts: [{ id: 'fine', t: 'She was fine', s: 'Barely noticed', out: 'ok' }, { id: 'nervous', t: 'A bit nervous', s: 'Hid or followed me around', out: 'consult' }, { id: 'panic', t: 'Very scared', s: 'Shaking, panting, tried to escape', out: 'consult' }],
+    consult: 'Firework anxiety plan', consultSub: 'Calming options, and medication if Bella needs it'
+  },
+  foods: {
+    name: 'Easter and Christmas foods', icon: 'bowl', months: [3, 11], send: 'Tue 15 Dec, 18:00', reach: '33,100 dog and cat owners', lockDate: 'Tuesday 15 December',
+    push: ['Christmas treats that are toxic for dogs', 'Chocolate, raisins and Stollen top the list. Here’s what to keep out of reach.'],
+    head: 'Festive foods to watch', lead: 'Calls about chocolate and raisins peak around Easter and Christmas.',
+    steps: ['Chocolate, raisins and grapes, Stollen and Lebkuchen: keep them up high', 'Xylitol (birch sugar) in sweets and gum is dangerous even in small amounts', 'Cooked bones from the roast can splinter, so bin them outside'],
+    q: 'Has Bella eaten any of these?',
+    opts: [{ id: 'no', t: 'No, just reading ahead', s: 'Good to know', out: 'ok' }, { id: 'unsure', t: 'Not sure', s: 'Something’s missing from the table', out: 'consult' }, { id: 'yes', t: 'Yes, in the last few hours', s: 'Chocolate, raisins or xylitol', out: 'urgent' }],
+    consult: 'Quick check: did Bella eat something?', consultSub: 'A vet tells you if you need to go in'
+  }
+};
+const ORDER = ['ticks', 'heat', 'fireworks', 'foods'];
+const MON = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+const SLOTS = ['Today 19:00', 'Today 19:40', 'Tomorrow 08:30'];
+
+function Ops(api) {
+  const k = api.state.topic, T = TOPICS[k];
+  return (
+    <Desk title="PetDoc ops · Seasonal nudges" right={<span className="small">Prevention calendar 2027</span>}>
+      <div className="desk__grid">
+        <div className="vstack">
+          <p className="label">Campaigns</p>
+          {ORDER.map(id => {
+            const t = TOPICS[id];
+            return (
+              <button key={id} className={`sn-pick ${k === id ? 'is-on' : ''}`} aria-pressed={k === id} onClick={() => api.set({ topic: id, answer: null, slot: null, booked: false })}>
+                <span className="ic-badge bg-sunny" style={{ width: 40, height: 40, borderRadius: 12 }}><Icon name={t.icon} size={20} /></span>
+                <span className="grow"><span className="label" style={{ display: 'block' }}>{t.name}</span><span className="small muted">{t.send}</span></span>
+              </button>
+            );
+          })}
+          <div className="sn-mo" aria-hidden="true">{MON.map((m, i) => <span key={i}>{m}</span>)}</div>
+          <div className="sn-cal" aria-label={`${T.name} runs ${T.months.length} months`}>{MON.map((m, i) => <span key={i} className={T.months.includes(i) ? 'is-on' : ''} />)}</div>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <p className="label">Preview · {T.name}</p>
+            <Push title={T.push[0]} text={T.push[1]} />
+            <dl className="kv"><dt>Audience</dt><dd>{T.reach}</dd><dt>Personalised</dt><dd>Pet name, species, region weather</dd><dt>Cap</dt><dd>Max 1 seasonal push per owner per month</dd><dt>Sends</dt><dd>{T.send}</dd></dl>
+            <Button block icon="check" onClick={() => { api.toast(`${T.name} scheduled`); setTimeout(api.next, 900); }}>Schedule campaign</Button>
+          </div>
+          <p className="small muted">Copy reviewed by Vet Experience. Owners can turn seasonal tips off per topic.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Lock(api) {
+  const T = TOPICS[api.state.topic];
+  return (
+    <Phone dark>
+      <LockScreen date={T.lockDate} time={T.send.split(', ')[1]} hint="Tap the notification">
+        <Push title={T.push[0]} text={T.push[1]} onClick={api.next} />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Nudge(api) {
+  const T = TOPICS[api.state.topic];
+  const ans = api.state.answer;
+  const opt = T.opts.find(o => o.id === ans);
+  const goNext = () => api.go(opt.out === 'ok' ? 'ok' : opt.out === 'urgent' ? 'urgent' : 'consult');
+  return (
+    <Phone cta={<Button block size="lg" disabled={!ans} onClick={goNext}>Continue</Button>}>
+      <AppBar title={T.name} onBack={api.back} />
+      <Scroll>
+        <div className="hstack">
+          <span className="ic-badge bg-sunny"><Icon name={T.icon} /></span>
+          <p className="h-title grow">{T.head}</p>
+        </div>
+        <p className="lead">{T.lead}</p>
+        <div className="card card--lift">
+          <p className="label">3 things to do for {pet.name}</p>
+          {T.steps.map((s, i) => <div key={i} className="hstack" style={{ alignItems: 'flex-start' }}><span className="choice__dot bg-mint-t" style={{ width: 28, height: 28 }}><span className="small">{i + 1}</span></span><p className="small grow">{s}</p></div>)}
+        </div>
+        <p className="h-head">{T.q}</p>
+        <div className="vstack" role="radiogroup" aria-label={T.q}>
+          {T.opts.map(o => (
+            <button key={o.id} role="radio" aria-checked={ans === o.id} className={`choice ${ans === o.id ? 'is-on' : ''}`} onClick={() => api.set({ answer: o.id })}>
+              <span className={`choice__dot ${o.out === 'ok' ? 'bg-mint' : o.out === 'urgent' ? 'bg-danger-t' : 'bg-sunny'}`}><Icon name={ans === o.id ? 'check' : o.out === 'urgent' ? 'alert' : 'paw'} size={20} /></span>
+              <span>{o.t}<span className="choice__sub">{o.s}</span></span>
+            </button>
+          ))}
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Consult(api) {
+  const T = TOPICS[api.state.topic];
+  const slot = api.state.slot;
+  return (
+    <Phone cta={<Button block size="lg" icon="video" disabled={!slot} onClick={() => { api.set({ booked: true }); api.go('ok'); }}>Book video consult</Button>}>
+      <AppBar title="Talk it through" onBack={() => api.go('nudge')} />
+      <Scroll>
+        <div className="card card--sunny">
+          <p className="h-head">{T.consult}</p>
+          <p className="small">{T.consultSub}. 15 minutes by video, before it becomes a problem.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="label">{vet.name}</p><p className="small muted">Saw Bella in March</p></div><Badge tone="online">Online</Badge></div>
+          <hr className="divider" />
+          <Row icon="file" title="Bella’s profile" sub={`${pet.breed} · ${pet.weight} · ${pet.age}`} right={<Icon name="check" size={20} />} />
+          <Row icon="chat" title={`Your answer: ${(T.opts.find(o => o.id === api.state.answer) || T.opts[1]).t}`} sub={T.name} right={<Icon name="check" size={20} />} />
+        </div>
+        <div className="chips">{SLOTS.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+        <div className="hstack"><p className="grow small muted">Video consult, 15 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Urgent(api) {
+  const T = TOPICS[api.state.topic];
+  return (
+    <Phone cta={<><Button block size="lg" variant="danger" icon="alert" onClick={() => api.toast('Opens the phone dialler')}>Call emergency clinic</Button><Button block variant="secondary" icon="video" onClick={() => api.go('consult')}>Talk to a vet by video now</Button></>}>
+      <AppBar title={T.name} onBack={() => api.go('nudge')} />
+      <Scroll>
+        <div className="card card--danger">
+          <div className="hstack"><Icon name="alert" /><p className="h-head grow">This sounds urgent</p></div>
+          <p className="small">{api.state.topic === 'heat' ? 'Heatstroke can become life-threatening quickly. Move Bella into the shade, wet her with cool (not ice-cold) water and call your nearest emergency clinic now.' : 'Chocolate, raisins and xylitol can be dangerous even in small amounts. Call your nearest emergency clinic now. Don’t try to make Bella sick yourself.'}</p>
+        </div>
+        <Row icon="phone" title="Nearest emergency clinic" sub="Tierärztlicher Notdienst · open 24 hours · 2.4 km" right={<Badge tone="online">Open</Badge>} />
+        <p className="small muted">Have ready: what Bella ate or did, how much, and when.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Ok(api) {
+  const T = TOPICS[api.state.topic];
+  const on = api.state.keep !== false;
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Done</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name={api.state.booked ? 'check' : 'shield'} size={40} /></span>
+          <p className="h-display">{api.state.booked ? 'You’re booked' : 'Bella’s all set'}</p>
+          <p className="lead">{api.state.booked ? `${api.state.slot || SLOTS[0]} with ${vet.name}. Prevention beats a late-night emergency every time.` : `One step ahead of ${T.name.toLowerCase()}. We saved this to Bella’s profile.`}</p>
+        </div>
+        <div className="card card--lift">
+          <div className="row">
+            <span className="row__ic"><Icon name="bell" size={22} /></span>
+            <span className="row__main"><span className="row__t" style={{ display: 'block' }}>Seasonal tips for Bella</span><span className="row__s" style={{ display: 'block' }}>Ticks, heat, fireworks, festive foods</span></span>
+            <button className="toggle-sw" role="switch" aria-checked={on} aria-label="Seasonal tips" onClick={() => api.set({ keep: !on })} />
+          </div>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'C4', group: 'Plan ahead', title: 'Seasonal prevention nudges',
+    persona: 'All owners', impact: 'Low–Med', effort: 'S', when: 'Q2 (month 5) quick win',
+    story: 'As an owner, I want a heads-up before seasonal risks, so that I can prevent problems instead of reacting.',
+    why: 'Acute owners only come back for a new episode (~70 days later). Predictable seasonal risks give a reason to open PetDoc before something goes wrong, at low cost.',
+    measure: ['Nudge open rate per campaign', 'Prevention consults booked from a nudge', 'Share of owners opening the app without a consult', 'Notification opt-outs (guardrail)'],
+    notes: ['Ops schedules from a yearly calendar; one seasonal push per owner per month at most', 'Every nudge ends with one question that routes: all good, talk to a vet, or urgent', 'Urgent answers skip booking and go straight to the emergency clinic and poison line']
+  },
+  initialState: { topic: 'fireworks' },
+  screens: [
+    { id: 'ops', label: 'Ops schedules campaign', who: 'Ops', render: Ops, caption: 'Pick a campaign: the rest of the flow follows it.' },
+    { id: 'lock', label: 'Seasonal push', who: 'Owner', render: Lock },
+    { id: 'nudge', label: 'Tips + one question', who: 'Owner', render: Nudge, caption: 'The test: does a heads-up lead to prevention? Each answer routes differently.' },
+    { id: 'consult', label: 'Prevention consult', who: 'Owner', render: Consult },
+    { id: 'ok', label: 'All set / booked', who: 'Owner', render: Ok, caption: 'Both the “all good” and the booked answers end here, with a per-topic opt-out.' },
+    { id: 'urgent', label: 'Urgent branch', who: 'Owner', render: Urgent, caption: 'Heat or toxic foods: try the urgent answer.' }
+  ]
+});
+</script>
+</body>
+</html>

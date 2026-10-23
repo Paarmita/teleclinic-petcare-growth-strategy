@@ -1,0 +1,139 @@
+/* Snoutly — design tokens (light is default; set data-theme="dark" on <html> for dark) */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;600;700;800&display=swap');
+
+:root, [data-theme="light"] {
+  --surface: #fff7ec;
+  --surface-raised: #ffffff;
+  --surface-sunken: #fbead6;
+  --ink: #2b2033;
+  --ink-muted: #67596f;
+  --line: #eedfcc;
+  --line-strong: #8c7b93;
+  --brand: #ff8a3d;
+  --brand-ink: #b0440b;
+  --brand-tint: #ffe3cc;
+  --on-brand: #2b2033;
+  --bubblegum: #ff8fb8;
+  --bubblegum-tint: #ffe0ec;
+  --mint: #4fd1a8;
+  --mint-tint: #d4f6ea;
+  --sky: #79c2ff;
+  --sky-tint: #d9eeff;
+  --sunny: #ffcf3a;
+  --sunny-tint: #fff1bf;
+  --berry: #3d2457;
+  --on-berry: #fff7ec;
+  --success: #0a6f7a;
+  --success-tint: #d3f1f2;
+  --warning: #7f5300;
+  --warning-tint: #fff1bf;
+  --danger: #b3261e;
+  --danger-tint: #ffe1dc;
+  --focus: #2b2033;
+  --shadow-sticker: 0 4px 0 0 #2b2033;
+  --shadow-sticker-pressed: 0 1px 0 0 #2b2033;
+  --shadow-float: 0 12px 32px rgba(43,32,51,0.16);
+}
+
+[data-theme="dark"] {
+  --surface: #1c1722;
+  --surface-raised: #282130;
+  --surface-sunken: #140f19;
+  --ink: #fbf2e6;
+  --ink-muted: #c4b6cc;
+  --line: #3b3244;
+  --line-strong: #8e7f99;
+  --brand: #ff9d5c;
+  --brand-ink: #ffb27f;
+  --brand-tint: #4a2c1a;
+  --on-brand: #1c1722;
+  --bubblegum: #ff9cc2;
+  --bubblegum-tint: #4a2235;
+  --mint: #5ddcb4;
+  --mint-tint: #173d33;
+  --sky: #8ccbff;
+  --sky-tint: #1a3350;
+  --sunny: #ffd55a;
+  --sunny-tint: #45391a;
+  --berry: #b892f0;
+  --on-berry: #1c1722;
+  --success: #5fd4dc;
+  --success-tint: #123c40;
+  --warning: #ffcf5c;
+  --warning-tint: #45391a;
+  --danger: #ff8a7a;
+  --danger-tint: #4a1d18;
+  --focus: #ffd55a;
+  --shadow-sticker: 0 4px 0 0 #000000;
+  --shadow-sticker-pressed: 0 1px 0 0 #000000;
+  --shadow-float: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #1c1722;
+    --surface-raised: #282130;
+    --surface-sunken: #140f19;
+    --ink: #fbf2e6;
+    --ink-muted: #c4b6cc;
+    --line: #3b3244;
+    --line-strong: #8e7f99;
+    --brand: #ff9d5c;
+    --brand-ink: #ffb27f;
+    --brand-tint: #4a2c1a;
+    --on-brand: #1c1722;
+    --bubblegum: #ff9cc2;
+    --bubblegum-tint: #4a2235;
+    --mint: #5ddcb4;
+    --mint-tint: #173d33;
+    --sky: #8ccbff;
+    --sky-tint: #1a3350;
+    --sunny: #ffd55a;
+    --sunny-tint: #45391a;
+    --berry: #b892f0;
+    --on-berry: #1c1722;
+    --success: #5fd4dc;
+    --success-tint: #123c40;
+    --warning: #ffcf5c;
+    --warning-tint: #45391a;
+    --danger: #ff8a7a;
+    --danger-tint: #4a1d18;
+    --focus: #ffd55a;
+    --shadow-sticker: 0 4px 0 0 #000000;
+    --shadow-sticker-pressed: 0 1px 0 0 #000000;
+    --shadow-float: 0 12px 32px rgba(0,0,0,0.5);
+  }
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --stroke-sticker: 2px;
+  --stroke-focus: 3px;
+  --tap-target: 48px;
+  --nav-height: 68px;
+  --screen-min: 360px;
+  --font-display: "Fredoka", "Baloo 2", ui-rounded, system-ui, sans-serif;
+  --font-body: "Nunito", ui-rounded, system-ui, sans-serif;
+}
+
+/* Type styles */
+.display-xl { font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.5px; }
+.display { font-family: var(--font-display); font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.3px; }
+.title { font-family: var(--font-display); font-size: 24px; line-height: 30px; font-weight: 600; }
+.heading { font-family: var(--font-display); font-size: 19px; line-height: 24px; font-weight: 600; }
+.body-lg { font-family: var(--font-body); font-size: 17px; line-height: 26px; font-weight: 500; }
+.body { font-family: var(--font-body); font-size: 15px; line-height: 22px; font-weight: 500; }
+.label { font-family: var(--font-body); font-size: 14px; line-height: 18px; font-weight: 800; letter-spacing: 0.2px; }
+.caption { font-family: var(--font-body); font-size: 12px; line-height: 16px; font-weight: 700; }

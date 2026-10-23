@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C2 Milestone content by age — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .ms-age { display: flex; gap: var(--space-2); overflow-x: auto; padding-bottom: 4px; }
+  .ms-age span { flex: none; min-width: 64px; padding: 8px 10px; border-radius: var(--radius-md); border: var(--stroke-sticker) solid var(--line); background: var(--surface-raised); text-align: center; font-weight: 800; font-size: 13px; color: var(--ink-muted); }
+  .ms-age span.is-past { border-color: var(--line-strong); color: var(--ink); background: var(--mint-tint); }
+  .ms-age span.is-now { border-color: var(--ink); color: var(--ink); background: var(--brand-tint); box-shadow: 0 2px 0 0 var(--ink); }
+  .ms-tip { display: flex; gap: var(--space-3); align-items: flex-start; }
+  .ms-tip p { flex: 1; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar, ChatBubble } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, Sheet, data } = window.Proto;
+const { kitten, vet } = data;
+
+const TOPICS = {
+  growth: { label: 'Growth', icon: 'scale', head: 'About 100 g a week', tips: [
+    'At 12 weeks most British Shorthair kittens weigh 1.3–1.7 kg. Steady weekly gain matters more than the exact number.',
+    'Baby teeth are all in. Adult teeth start pushing through from about 14 weeks, so some chewing is normal.'] },
+  diet: { label: 'Diet', icon: 'bowl', head: '3–4 small meals a day', tips: [
+    'Stay on kitten food until about 12 months. It has the extra protein and calcium Milo needs.',
+    'Fresh water in a wide bowl, away from the food. Cow’s milk often upsets kitten tummies, so skip it.'] },
+  behaviour: { label: 'Behaviour', icon: 'heart', head: 'Peak socialisation window', tips: [
+    'Until about 14 weeks Milo learns what is “normal”. Gentle new sounds, people and handling now mean a calmer adult cat.',
+    'Rough play and pouncing on feet is normal. Redirect to a wand toy rather than hands.'] },
+  training: { label: 'Training', icon: 'star', head: 'Carrier and handling practice', tips: [
+    'Leave the carrier open with a blanket inside so it becomes a den, not a vet trip.',
+    'Touch paws, ears and mouth for a few seconds a day, then a treat. Makes claw trims and vet checks easier.'] }
+};
+const TASKS = ['Leave the carrier open for a week', 'Touch paws and ears daily', 'Try one new sound (hoover, doorbell)', 'Weigh Milo on Sunday'];
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Thursday 5 November" time="08:15" hint="Tap the notification">
+        <Push title="Milo is 12 weeks today" text="What changes this week: teeth, meals and the best time to get him used to the carrier." onClick={api.next} />
+        <Push when="Yesterday" title="Milo’s care summary is ready" text="Kitten check with Dr. Lena Weber, 1.6 kg" />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Home(api) {
+  const ages = ['8 wk', '10 wk', '12 wk', '14 wk', '16 wk', '5 mo', '6 mo'];
+  return (
+    <Phone nav="home">
+      <Scroll nav>
+        <div className="hstack" style={{ paddingTop: 12 }}>
+          <PetAvatar name={kitten.name} species="cat" size={56} />
+          <div className="grow"><p className="small muted">Good morning, Anna</p><p className="h-title">Milo · 12 weeks</p></div>
+        </div>
+        <div className="ms-age" aria-label="Milo’s age milestones">
+          {ages.map((a, i) => <span key={a} className={i < 2 ? 'is-past' : i === 2 ? 'is-now' : ''} aria-current={i === 2 ? 'step' : undefined}>{a}</span>)}
+        </div>
+        <button className="card card--tap card--brand" onClick={api.next}>
+          <div className="hstack"><span className="ic-badge bg-brand"><Icon name="sparkle" /></span><Badge tone="fun">New this week</Badge></div>
+          <p className="h-head">This week for Milo</p>
+          <p className="small">Teeth, meals and the carrier. 4 short tips, about 2 minutes.</p>
+          <div className="hstack"><span className="label t-brand grow">Read Milo’s week</span><Icon name="chevron" /></div>
+        </button>
+        <Section title="From Milo’s care plan">
+          <div className="card card--lift">
+            <Row icon="video" title="Kitten check" sub="Done · Wed 4 Nov" right={<Badge tone="success">Done</Badge>} />
+            <Row icon="syringe" title="3rd RCP vaccine + rabies" sub="Around 3 Dec · local clinic" right={<Badge tone="neutral">Next</Badge>} />
+          </div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Week(api) {
+  const t = api.state.topic;
+  const tp = TOPICS[t];
+  const vote = api.state.vote;
+  return (
+    <Phone cta={<Button block size="lg" onClick={api.next}>See this week’s practice</Button>}>
+      <AppBar title="Milo at 12 weeks" onBack={api.back} />
+      <Scroll>
+        <div className="chips" role="tablist" aria-label="Topics">
+          {Object.keys(TOPICS).map(k => <Chip key={k} selected={t === k} onClick={() => api.set({ topic: k })}>{TOPICS[k].label}</Chip>)}
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-sunny"><Icon name={tp.icon} /></span><p className="h-head grow">{tp.head}</p></div>
+          {tp.tips.map((x, i) => <div key={i} className="ms-tip"><Icon name="paw" size={18} /><p className="small">{x}</p></div>)}
+          <hr className="divider" />
+          <div className="hstack"><VetAv initials={vet.initials} /><p className="small muted grow">Checked by {vet.name}, who made Milo’s plan</p></div>
+        </div>
+        <div className="card card--sunken">
+          <p className="label">Was this useful?</p>
+          <div className="chips">
+            <Chip selected={vote === 'yes'} onClick={() => api.set({ vote: 'yes' })}>Yes</Chip>
+            <Chip selected={vote === 'no'} onClick={() => api.set({ vote: 'no' })}>Not really</Chip>
+          </div>
+          {vote && <p className="small">{vote === 'yes' ? 'Thanks. We’ll keep tips like this coming.' : 'Thanks. Tell us what you’d rather read about in Profile → Feedback.'}</p>}
+        </div>
+        <Row icon="chat" title="Something here worries you?" sub="Ask a vet about Milo" onClick={() => api.go('ask')} />
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Practice(api) {
+  const done = api.state.tasks;
+  const all = done.length === TASKS.length;
+  return (
+    <Phone cta={<>
+      <Button block size="lg" icon="check" onClick={() => api.go('saved')}>{all ? 'Finish the week' : 'Save my progress'}</Button>
+      <Button block variant="ghost" onClick={() => api.go('ask')}>Ask a vet instead</Button>
+    </>}>
+      <AppBar title="This week’s practice" onBack={api.back} />
+      <Scroll>
+        <p className="lead">Small things, a few minutes a day. Tick them off as you go.</p>
+        <div className="card card--lift">
+          {TASKS.map(x => {
+            const on = done.includes(x);
+            return (
+              <div key={x} className="row">
+                <span className={`row__ic ${on ? 'bg-mint-t' : ''}`}><Icon name={on ? 'check' : 'paw'} size={20} /></span>
+                <span className="row__main"><span className="row__t" style={{ display: 'block' }}>{x}</span></span>
+                <button className="toggle-sw" role="switch" aria-checked={on} aria-label={x} onClick={() => api.set(s => ({ tasks: on ? s.tasks.filter(y => y !== x) : [...s.tasks, x] }))} />
+              </div>
+            );
+          })}
+        </div>
+        <div className="hstack"><p className="label grow">{done.length} of {TASKS.length} done</p></div>
+        <div className="bar"><i style={{ width: `${(done.length / TASKS.length) * 100}%` }} /></div>
+        <div className="card card--sky"><div className="hstack"><Icon name="scale" /><p className="small grow">Sunday’s weigh-in goes into Milo’s growth chart, so you can see if he’s on track.</p></div></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Ask(api) {
+  const q = api.state.q;
+  const qs = ['He bites hands a lot', 'Not eating all his meals', 'Scared of the carrier', 'Something else'];
+  return (
+    <Phone cta={<Button block size="lg" icon="chat" disabled={!q} onClick={() => { api.toast('Question sent to Dr. Weber'); setTimeout(() => api.go('saved'), 1000); }}>Start chat with Dr. Weber</Button>}>
+      <AppBar title="Ask a vet" onBack={() => api.go('week')} />
+      <Scroll>
+        <p className="h-title">What’s on your mind?</p>
+        <div className="chips">{qs.map(x => <Chip key={x} selected={q === x} onClick={() => api.set({ q: x })}>{x}</Chip>)}</div>
+        <div className="card card--sunken">
+          <p className="label">Dr. Weber will see</p>
+          <Row icon="sparkle" title={`You were reading: ${TOPICS[api.state.topic].label}, 12 weeks`} sub="So she knows the context" right={<Icon name="check" size={20} />} />
+          <Row icon="file" title="Milo’s care plan and kitten check" sub="Wed 4 Nov · 1.6 kg" right={<Icon name="check" size={20} />} />
+        </div>
+        <div className="hstack"><p className="grow small muted">Chat consult, reply within 15 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Saved(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to home</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-sunny pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="star" size={40} /></span>
+          <p className="h-display">Good week, Milo</p>
+          <p className="lead">{api.state.tasks.length} of {TASKS.length} practice steps done. Treats are on you.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><Icon name="calendar" /><div className="grow"><p className="label">Next up: 14 weeks</p><p className="small muted">Adult teeth, first play with toys on their own, and the 16-week vaccine</p></div></div>
+        </div>
+        <p className="small muted center">We’ll send the next one on Thursday 19 November.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'C2', group: 'Plan ahead', title: 'Milestone content by age',
+    persona: 'New pet parent (Young animal)', impact: 'Low–Med', effort: 'S–M', when: 'Q3 (month 8)',
+    story: 'As a new pet parent, I want timely tips for my pet’s current age, so that I feel confident I’m doing it right.',
+    why: 'Young-animal owners already return more (25.7% vs 14.3% acute) but median 45 days apart. Weekly age content gives a reason to open the app between care-plan steps.',
+    measure: ['Weekly milestone open rate', 'Share of young-animal owners opening the app without a consult', '“Ask a vet” from milestone content → consult', 'Notification opt-outs (guardrail)'],
+    notes: ['Content keyed to the pet’s age from the profile, one push per milestone, not per week', 'Every tip is vet-checked and names the vet who made the plan', 'Each milestone ends in a tiny practice list and a soft “ask a vet” exit with context attached']
+  },
+  initialState: { topic: 'behaviour', tasks: ['Leave the carrier open for a week'] },
+  screens: [
+    { id: 'lock', label: 'Milestone push', who: 'Owner', render: Lock, caption: 'Milo turns 12 weeks: one push, about what changes now.' },
+    { id: 'home', label: 'Home: this week', who: 'Owner', render: Home },
+    { id: 'week', label: 'Tips by topic', who: 'Owner', render: Week, caption: 'Switch topics: growth, diet, behaviour, training.' },
+    { id: 'practice', label: 'Practice list', who: 'Owner', render: Practice, caption: 'The test: do owners act on it, and come back next milestone?' },
+    { id: 'ask', label: 'Ask a vet (branch)', who: 'Owner', render: Ask, caption: 'Content that raises a worry hands over to a vet, with context.' },
+    { id: 'saved', label: 'Week done', who: 'Owner', render: Saved }
+  ]
+});
+</script>
+</body>
+</html>

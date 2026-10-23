@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A4 Free async follow-up — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .a4-photo { width: 100%; height: 150px; border-radius: var(--radius-md); border: var(--stroke-sticker) solid var(--ink); background: var(--brand-tint); display: grid; place-items: center; color: var(--ink-muted); }
+  .a4-thread { background: var(--surface-sunken); border-radius: var(--radius-lg); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar, ChatBubble, TextField, TypingDots } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const TOPICS = ['Is this normal?', 'Medication question', 'Food and diet', 'Wound or skin'];
+const DEFAULT_Q = 'The red patch on her belly looks smaller but a bit darker today. Is that normal or should we book a re-check?';
+
+function Consults(api) {
+  return (
+    <Phone nav="consults">
+      <Scroll nav>
+        <p className="h-title">Consults</p>
+        <div className="card card--lift">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">Itchy skin · {pet.name}</p><p className="small muted">{vet.name} · Tue 3 June</p></div><Badge tone="success">Done</Badge></div>
+          <hr className="divider" />
+          <div className="card card--mint">
+            <div className="hstack"><Icon name="chat" /><div className="grow"><p className="label">Free follow-up question</p><p className="small">One photo and one question for Dr. Weber, included in your consult.</p></div></div>
+            <div className="hstack"><Icon name="clock" size={18} /><p className="small"><b>Open for 52 more hours</b> · until Fri 18:00</p></div>
+          </div>
+          <Button block icon="chat" onClick={api.next}>Ask Dr. Weber a question</Button>
+        </div>
+        <p className="small muted center">Something urgent? Don’t wait for a reply — start a new consult or call an emergency clinic.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Compose(api) {
+  const { topic, photo, q } = api.state;
+  return (
+    <Phone cta={<Button block size="lg" icon="send" disabled={!q || !topic} onClick={api.next}>Send to Dr. Weber</Button>}>
+      <AppBar title="Follow-up question" onBack={api.back} />
+      <Scroll>
+        <Section title="What’s it about?">
+          <div className="chips">{TOPICS.map(t => <Chip key={t} selected={topic === t} onClick={() => api.set({ topic: t })}>{t}</Chip>)}</div>
+        </Section>
+        {photo ? (
+          <div className="a4-photo"><div className="vstack center"><Icon name="image" size={32} /><span className="small">belly_day3.jpg</span></div></div>
+        ) : (
+          <button className="card card--tap card--sunken" onClick={() => api.set({ photo: true })} style={{ width: '100%' }}>
+            <div className="hstack"><span className="ic-badge bg-sky"><Icon name="camera" /></span><div className="grow" style={{ textAlign: 'left' }}><p className="label">Add one photo</p><p className="small muted">Good light, close up, same spot as last time</p></div></div>
+          </button>
+        )}
+        <TextField label="Your question" multiline value={q} onChange={e => api.set({ q: e.target.value })} hint="One question, please. For anything bigger we’ll suggest a re-check." />
+        <p className="small muted">Dr. Weber usually replies within 4 hours (08:00–20:00).</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Waiting(api) {
+  const { photo, q } = api.state;
+  return (
+    <Phone cta={<Button block size="lg" variant="secondary" onClick={api.next}>See Dr. Weber’s side</Button>}>
+      <AppBar title={vet.name} onBack={api.back} />
+      <Scroll>
+        <div className="a4-thread">
+          <ChatBubble from="system">Follow-up to your consult on Tue 3 June</ChatBubble>
+          {photo && <div className="a4-photo" style={{ height: 120, alignSelf: 'flex-end', width: '70%' }}><Icon name="image" size={28} /></div>}
+          <ChatBubble from="owner" time="Thu 10:12">{q}</ChatBubble>
+          <ChatBubble from="vet" author={vet.name}><TypingDots /></ChatBubble>
+        </div>
+        <div className="card card--sky"><Row icon="bell" title="We’ll let you know when she replies" sub="Usually within 4 hours" right={null} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetTriage(api) {
+  const { photo, q, reply } = api.state;
+  const opts = [
+    { id: 'ok', t: 'Reassure', s: 'Healing as expected, carry on', c: 'bg-mint', ic: 'check' },
+    { id: 'recheck', t: 'Suggest a re-check', s: 'Needs a proper look on video', c: 'bg-sunny', ic: 'video' }
+  ];
+  return (
+    <Desk title="Follow-up inbox · 3 open · avg reply 2 h 40 min">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <div className="hstack"><PetAvatar name={pet.name} species="dog" size={40} /><div className="grow"><p className="h-head">Bella · Anna</p><p className="small muted">Your consult 3 June · hotspot, belly · chlorhexidine wash</p></div><Badge tone="waiting">2 h left in SLA</Badge></div>
+            {photo && <div className="a4-photo" style={{ height: 110 }}><Icon name="image" size={28} /></div>}
+            <p className="small">“{q}”</p>
+          </div>
+          <p className="small muted">Free follow-ups are capped at one per consult. Target: under 3 min of vet time.</p>
+        </div>
+        <div className="card card--lift">
+          <p className="label">Your answer</p>
+          <div className="vstack" role="radiogroup" aria-label="Reply type">
+            {opts.map(o => (
+              <button key={o.id} role="radio" aria-checked={reply === o.id} className={`choice ${reply === o.id ? 'is-on' : ''}`} onClick={() => api.set({ reply: o.id })}>
+                <span className={`choice__dot ${o.c}`}><Icon name={reply === o.id ? 'check' : o.ic} size={20} /></span>
+                <span>{o.t}<span className="choice__sub">{o.s}</span></span>
+              </button>
+            ))}
+          </div>
+          <Button block icon="send" disabled={!reply} onClick={() => { api.toast('Reply sent to Anna'); setTimeout(api.next, 900); }}>Send reply</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Reply(api) {
+  const ok = api.state.reply !== 'recheck';
+  return (
+    <Phone cta={ok
+      ? <Button block size="lg" variant="secondary" onClick={api.reset}>Done</Button>
+      : <Button block size="lg" icon="video" onClick={() => api.toast('Re-check booked · today 18:30')}>Book re-check · {data.price}</Button>}>
+      <AppBar title={vet.name} onBack={() => api.go('vet')} />
+      <Scroll>
+        <div className="a4-thread">
+          <ChatBubble from="owner" time="Thu 10:12">{api.state.q}</ChatBubble>
+          {ok ? (
+            <ChatBubble from="vet" author={vet.name} time="Thu 12:48">That looks like normal healing — the darker colour is the skin settling down. Keep washing twice a day until Sunday. If it gets wet or smelly again, book a re-check.</ChatBubble>
+          ) : (
+            <ChatBubble from="vet" author={vet.name} time="Thu 12:48">Thanks for the photo. The edge looks a little raised, so I’d like to see it properly on video today. I’ve kept today’s slots open for Bella.</ChatBubble>
+          )}
+        </div>
+        {ok ? (
+          <div className="card card--mint"><div className="hstack"><Icon name="paw" /><p className="small"><b>Good news, Anna.</b> This follow-up is now closed. Rate the answer?</p></div>
+            <div className="chips">{['Helpful', 'Not quite'].map(r => <Chip key={r} selected={api.state.rate === r} onClick={() => api.set({ rate: r })}>{r}</Chip>)}</div>
+          </div>
+        ) : (
+          <div className="card card--warn"><div className="hstack"><Icon name="clock" /><p className="small"><b>Re-check suggested.</b> Same vet, your photo and question are attached.</p></div></div>
+        )}
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'A4', group: 'Follow up', title: 'Free short async follow-up',
+    persona: 'Worried one-timer (Acute)', impact: 'Med–High (test)', effort: 'M–L', when: 'Q3 · months 8–9, if Q1 gate shows reassurance demand',
+    story: 'As a worried one-timer, I want to send a quick photo/question after the call, so that I can get reassurance without paying for a full consultation.',
+    why: 'Only 2.2% of acute owners return within 30 days. If day-3 check-in owners answer but don’t book, the need is reassurance rather than a paid re-check — this tests that, against the risk of cannibalising re-checks and the ~€10/consult margin.',
+    measure: ['Follow-up question use within the 72 h window', 'Share of replies that convert to a paid re-check', 'Acute 30-day return vs. holdout (target 6%)', 'Vet minutes per follow-up and margin per consult (guardrail ~€10)'],
+    notes: ['Free but bounded: one photo, one question, 72 h, same vet', 'Vet replies with a structured choice (reassure / re-check) so we can measure conversion, plus free text', 'Urgency copy on every screen: async is never the route for emergencies']
+  },
+  initialState: { topic: 'Wound or skin', photo: true, q: DEFAULT_Q, reply: null },
+  screens: [
+    { id: 'consults', label: 'Follow-up window open', who: 'Owner', render: Consults, caption: 'Day 2 after a hotspot consult: the free question sits on the finished consult.' },
+    { id: 'compose', label: 'Photo + one question', who: 'Owner', render: Compose },
+    { id: 'wait', label: 'Waiting for reply', who: 'Owner', render: Waiting },
+    { id: 'vet', label: 'Vet answers', who: 'Vet', render: VetTriage, caption: 'The test: how often does a free question end in reassurance vs. a paid re-check? Pick either.' },
+    { id: 'reply', label: 'Reassured or re-check', who: 'Owner', render: Reply }
+  ]
+});
+</script>
+</body>
+</html>

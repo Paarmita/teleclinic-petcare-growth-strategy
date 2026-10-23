@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>E2 Multi-pet onboarding — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .e2-pets { display: flex; gap: var(--space-3); justify-content: center; align-items: flex-end; padding: var(--space-4) 0; }
+  .e2-slot { width: 64px; height: 64px; border-radius: 22px; border: var(--stroke-sticker) dashed var(--line-strong); display: grid; place-items: center; color: var(--ink-muted); }
+  .e2-pick { display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 72px; padding: 10px 16px; border-radius: var(--radius-lg); border: var(--stroke-sticker) solid var(--ink); background: var(--surface-raised); box-shadow: var(--shadow-sticker); cursor: pointer; text-align: left; }
+  .e2-pick.is-on { background: var(--brand-tint); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar, TextField } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet, vet2 } = data;
+
+const SPECIES = [['dog', 'Dog'], ['cat', 'Cat'], ['rabbit', 'Rabbit'], ['bird', 'Bird'], ['other', 'Other']];
+const AGES = ['Under 1 year', '1–7 years', '8 years or older'];
+
+/* Age-based "what's next" so each new pet gets a reason to come back (ties in with C1 care plans) */
+function hintFor(p) {
+  if (p.age === 'Under 1 year') return { t: `${p.name}’s first vaccines are due`, s: 'Set up a care plan: vaccines, deworming and check-ups by age', ic: 'syringe', c: 'card--sky' };
+  if (p.age === '8 years or older') return { t: `Senior check for ${p.name}`, s: 'Older pets benefit from a check every 6 months', ic: 'heart', c: 'card--gum' };
+  return { t: `Yearly check for ${p.name}`, s: 'We’ll remind you once a year', ic: 'calendar', c: 'card--mint' };
+}
+
+function Prompt(api) {
+  return (
+    <Phone cta={<React.Fragment>
+      <Button block size="lg" icon="plus" onClick={api.next}>Add another pet</Button>
+      <Button block variant="ghost" onClick={() => api.go('pets')}>Just Bella for now</Button>
+    </React.Fragment>}>
+      <AppBar title="Bella’s profile" onBack={api.back} />
+      <Scroll>
+        <div className="card card--success" role="status"><div className="hstack"><Icon name="check" /><p className="small"><b>Bella’s profile is saved.</b> Her consult notes are in it.</p></div></div>
+        <div className="vstack center">
+          <div className="e2-pets">
+            <PetAvatar name={pet.name} species="dog" size={80} />
+            <span className="e2-slot"><Icon name="plus" /></span>
+            <span className="e2-slot"><Icon name="plus" /></span>
+          </div>
+          <p className="h-title">Anyone else at home?</p>
+          <p className="lead">Add your other pets now. It takes 20 seconds each, and any vet can help them straight away.</p>
+        </div>
+        <div className="card card--sunken"><p className="small">Pets in the same home often share things — fleas, food, a worm treatment schedule. Vets see the whole household.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Add(api) {
+  const s = api.state;
+  const name = (s.draftName || '').trim();
+  const ok = name && s.draftSpecies && s.draftAge;
+  return (
+    <Phone cta={<Button block size="lg" icon="check" disabled={!ok} onClick={() => {
+      api.set(st => ({ pets: [...(st.pets || []), { name, species: st.draftSpecies, age: st.draftAge }], draftName: '', draftSpecies: null, draftAge: null }));
+      api.toast(`${name} added`);
+      api.go('pets');
+    }}>{name ? `Add ${name}` : 'Add pet'}</Button>}>
+      <AppBar title="Add a pet" onBack={api.back} />
+      <Scroll>
+        <div className="vstack center">
+          <PetAvatar name={name || '?'} species={s.draftSpecies || 'other'} size={72} />
+        </div>
+        <Section title="What kind of pet?">
+          <div className="chips" role="group" aria-label="Species">
+            {SPECIES.map(([id, l]) => <Chip key={id} selected={s.draftSpecies === id} onClick={() => api.set({ draftSpecies: id })}>{l}</Chip>)}
+          </div>
+        </Section>
+        <TextField label="Name" value={s.draftName || ''} onChange={e => api.set({ draftName: e.target.value })} hint="You can add a photo later" />
+        <Section title="How old?">
+          <div className="chips" role="group" aria-label="Age">
+            {AGES.map(a => <Chip key={a} selected={s.draftAge === a} onClick={() => api.set({ draftAge: a })}>{a}</Chip>)}
+          </div>
+        </Section>
+        <p className="small muted">That’s all we need. Breed, weight and history fill in after the first consult.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Pets(api) {
+  const pets = api.state.pets || [];
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" onClick={api.next}>Done</Button>}>
+      <AppBar title="My pets" />
+      <Scroll nav>
+        <Section title={`Your pets (${pets.length + 1})`} action="Add another" onAction={() => { api.set({ draftName: pets.length ? 'Oskar' : 'Milo', draftSpecies: 'cat', draftAge: pets.length ? '8 years or older' : 'Under 1 year' }); api.go('add'); }}>
+          <div className="card card--lift">
+            <Row icon={<PetAvatar name={pet.name} species="dog" size={40} />} iconClass="" title={pet.name} sub={`${pet.breed} · ${pet.age}`} right={<Badge tone="success">Complete</Badge>} />
+            {pets.map((p, i) => <Row key={i} icon={<PetAvatar name={p.name} species={p.species} size={40} />} title={p.name} sub={`${SPECIES.find(x => x[0] === p.species)[1]} · ${p.age}`} right={<Badge tone="neutral">New</Badge>} />)}
+          </div>
+        </Section>
+        {pets.map((p, i) => { const h = hintFor(p); return (
+          <div key={i} className={`card ${h.c}`}>
+            <div className="hstack"><span className="ic-badge bg-brand"><Icon name={h.ic} /></span><div className="grow"><p className="h-head">{h.t}</p><p className="small">{h.s}</p></div></div>
+            <Button size="sm" variant="secondary" onClick={() => api.toast(`Care plan started for ${p.name}`)}>Set it up</Button>
+          </div>
+        ); })}
+        {!pets.length && <div className="card card--sunken"><p className="small">Got another pet later? Add them any time from here.</p></div>}
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Who(api) {
+  const pets = [{ name: pet.name, species: 'dog', age: pet.age }].concat(api.state.pets || []);
+  const sel = api.state.who || (pets[1] ? pets[1].name : pet.name);
+  return (
+    <Phone cta={<Button block size="lg" icon="video" onClick={api.next}>Continue with {sel}</Button>}>
+      <AppBar title="Start a consult" onBack={api.back} />
+      <Scroll>
+        <div className="vstack"><p className="small muted">Three weeks later</p><p className="h-title">Who needs a vet today?</p></div>
+        <div className="vstack" role="radiogroup" aria-label="Choose a pet">
+          {pets.map(p => (
+            <button key={p.name} role="radio" aria-checked={sel === p.name} className={`e2-pick ${sel === p.name ? 'is-on' : ''}`} onClick={() => api.set({ who: p.name })}>
+              <PetAvatar name={p.name} species={p.species} size={48} />
+              <span className="grow"><span className="row__t" style={{ display: 'block' }}>{p.name}</span><span className="row__s" style={{ display: 'block' }}>{p.age}</span></span>
+              {sel === p.name && <Icon name="check" />}
+            </button>
+          ))}
+        </div>
+        {pets.length === 1 && <p className="small muted">Only Bella so far. <a href="#" onClick={e => { e.preventDefault(); api.go('add'); }}>Add another pet</a></p>}
+        <p className="small muted">Same account, same payment, same saved vets — for every pet.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetView(api) {
+  const pets = api.state.pets || [];
+  const who = api.state.who || (pets[0] ? pets[0].name : pet.name);
+  const p = who === pet.name ? { name: pet.name, species: 'dog', age: pet.age } : (pets.find(x => x.name === who) || pets[0]);
+  const others = [{ name: pet.name, species: 'dog', age: pet.age, note: 'Itchy skin 12 March · Apoquel · allergy suspected' }].concat(pets.map(x => ({ ...x, note: 'No consults yet' }))).filter(x => x.name !== p.name);
+  return (
+    <Desk title={`Next: ${p.name} · joins in 1 min`}>
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack"><PetAvatar name={p.name} species={p.species} size={56} /><div className="grow"><p className="h-head">{p.name}</p><p className="small muted">{p.age} · {p.name === pet.name ? 'second consult' : 'first consult'}</p></div></div>
+            <p className="label">Owner’s note</p>
+            <p className="small">Scratching ears and neck a lot since the weekend.</p>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--sky">
+            <div className="hstack"><Icon name="users" /><p className="h-head">Same household</p></div>
+            {others.map(o => <Row key={o.name} icon={<PetAvatar name={o.name} species={o.species} size={40} />} title={o.name} sub={o.note} right={null} />)}
+          </div>
+          <div className="card card--sunny"><div className="hstack"><Icon name="tick" /><p className="small"><b>Worth asking:</b> two itchy pets in one home — check for fleas and treat both.</p></div></div>
+          <Button block icon="video" onClick={() => { api.toast('Joining consult'); setTimeout(api.reset, 1400); }}>Join consult</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+mount({
+  idea: {
+    code: 'E2', group: 'Lifecycle', title: 'Multi-pet onboarding',
+    persona: 'Owners with more than one pet', impact: 'Low–Med', effort: 'S', when: 'Q2 quick win (months 5–6)',
+    story: 'As an owner with more than one pet, I want all my pets in one account, so that I can use PetDoc for any of them.',
+    why: 'Every extra pet is another chance to come back without a new acquisition cost. Today an owner’s second pet is invisible until they book, so their next problem may go to a local clinic instead.',
+    measure: ['Share of owners who add a second pet (target 20%)', 'Consults for a second pet within 180 days', 'Owner-level 180-day return: multi-pet vs single-pet', 'Care-plan setup for added young pets'],
+    notes: ['Ask right after the first profile is saved, when the owner is already in “set up” mode', 'Only three questions: species, name, age; everything else fills in after a consult', 'Each added pet gets an age-based next step (care plan, yearly or senior check), and vets see the household']
+  },
+  initialState: { draftName: 'Milo', draftSpecies: 'cat', draftAge: 'Under 1 year' },
+  screens: [
+    { id: 'prompt', label: '“Anyone else at home?”', who: 'Owner', render: Prompt, caption: 'Right after Bella’s profile is saved.' },
+    { id: 'add', label: 'Add a pet in 20 seconds', who: 'Owner', render: Add, caption: 'Three quick answers. Change the name, species or age to try other pets.' },
+    { id: 'pets', label: 'My pets + next steps', who: 'Owner', render: Pets, caption: 'The decision point: each new pet gets its own reason to come back. Use “Add another” for a third.' },
+    { id: 'who', label: 'Who needs a vet?', who: 'Owner', render: Who },
+    { id: 'vet', label: 'Vet sees the household', who: 'Vet', render: VetView }
+  ]
+});
+</script>
+</body>
+</html>

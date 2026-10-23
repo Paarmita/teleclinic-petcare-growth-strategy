@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>D2 Connection check — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .d2-sim { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); border: var(--stroke-sticker) dashed var(--line-strong); }
+  .d2-sim .label { color: var(--ink-muted); }
+  .d2-signal { display: flex; align-items: flex-end; gap: 4px; height: 28px; }
+  .d2-signal i { width: 8px; border-radius: 3px; border: var(--stroke-sticker) solid var(--ink); background: var(--surface-sunken); }
+  .d2-signal i.on { background: var(--mint); }
+  .d2-signal.weak i.on { background: var(--sunny); }
+  .d2-audio { flex: 1; min-height: 360px; border-radius: var(--radius-lg); border: var(--stroke-sticker) solid var(--ink); background: var(--bubblegum-tint); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); color: var(--ink); }
+  .d2-wave { display: flex; gap: 5px; align-items: center; height: 40px; }
+  .d2-wave i { width: 6px; border-radius: 3px; background: var(--ink); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+function Signal({ bars, weak }) {
+  return <span className={`d2-signal ${weak ? 'weak' : ''}`} aria-hidden="true">{[10, 16, 22, 28].map((hgt, i) => <i key={i} className={i < bars ? 'on' : ''} style={{ height: hgt }} />)}</span>;
+}
+
+function Sim({ children }) {
+  return <div className="d2-sim"><span className="label">Prototype:</span>{children}</div>;
+}
+
+function Check(api) {
+  const net = api.state.net;
+  const weak = net === 'weak';
+  return (
+    <Phone cta={<Button block size="lg" icon={weak ? 'chat' : 'video'} onClick={() => api.go(weak ? 'weak' : 'call')}>{weak ? 'See your options' : 'Join video call'}</Button>}>
+      <AppBar title="Waiting room" onBack={api.back} />
+      <Scroll>
+        <div className="card card--sky">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name} joins in 2 min</p><p className="small">Bella · itchy skin · video consult</p></div></div>
+        </div>
+        <Section title="Quick check while you wait">
+          <div className="card card--flat">
+            <Row icon="camera" title="Camera" sub="Front camera works" right={<Badge tone="success">Ready</Badge>} />
+            <Row icon="mic" title="Microphone" sub="We can hear you" right={<Badge tone="success">Ready</Badge>} />
+            <Row icon="wifi" title="Connection" sub={weak ? '0.6 Mbit/s · video may freeze' : '14 Mbit/s on Wi-Fi'} right={<span className="hstack" style={{ gap: 8 }}><Signal bars={weak ? 1 : 4} weak={weak} /><Badge tone={weak ? 'waiting' : 'success'}>{weak ? 'Weak' : 'Good'}</Badge></span>} />
+          </div>
+        </Section>
+        <p className="small muted">This takes about 5 seconds and runs every time, so problems show up before the vet joins, not during the call.</p>
+        <Sim>
+          <Chip selected={!weak} onClick={() => api.set({ net: 'good' })}>Good Wi-Fi</Chip>
+          <Chip selected={weak} onClick={() => api.set({ net: 'weak' })}>Weak signal</Chip>
+        </Sim>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Weak(api) {
+  const mode = api.state.mode;
+  const opts = [
+    { id: 'audio', t: 'Audio call in the app', s: 'Works on a weak signal. You can still send photos.', c: 'bg-gum', ic: 'mic' },
+    { id: 'phone', t: 'Dr. Weber calls your phone', s: 'Normal phone line to +49 151 ••• 2280. No internet needed.', c: 'bg-sky', ic: 'phone' },
+    { id: 'video', t: 'Try video anyway', s: 'We’ll switch to audio by itself if it freezes.', c: 'bg-sunny', ic: 'video' }
+  ];
+  return (
+    <Phone cta={<Button block size="lg" disabled={!mode} onClick={() => api.go(mode === 'video' ? 'call' : mode === 'phone' ? 'vet' : 'audio')}>Continue</Button>}>
+      <AppBar title="Your connection" onBack={api.back} />
+      <Scroll>
+        <div className="card card--warn">
+          <div className="hstack"><Icon name="wifi" /><p className="h-head">Your signal is weak right now</p></div>
+          <p className="small">Video will probably freeze. Audio works well for most skin and tummy questions, and the price stays the same.</p>
+        </div>
+        <div className="vstack" role="radiogroup" aria-label="How to talk to the vet">
+          {opts.map(o => (
+            <button key={o.id} role="radio" aria-checked={mode === o.id} className={`choice ${mode === o.id ? 'is-on' : ''}`} onClick={() => api.set({ mode: o.id })}>
+              <span className={`choice__dot ${o.c}`}><Icon name={mode === o.id ? 'check' : o.ic} size={20} /></span>
+              <span>{o.t}<span className="choice__sub">{o.s}</span></span>
+            </button>
+          ))}
+        </div>
+        <p className="small muted">Tip: moving closer to your router often helps. We’ll re-test before the vet joins.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Call(api) {
+  return (
+    <Phone dark>
+      <div className="vstack" style={{ flex: 1, padding: 16, background: 'var(--berry)', color: 'var(--on-berry)' }}>
+        <div className="video" style={{ flex: 1, minHeight: 400 }}>
+          <div className="vstack center" style={{ color: 'var(--ink)' }}><VetAv initials={vet.initials} lg /><p className="h-head">{vet.name}</p><p className="small">04:12</p></div>
+          <div className="video__pip small" style={{ color: 'var(--ink)' }}>You</div>
+        </div>
+        <div className="hstack" style={{ justifyContent: 'center' }}><Signal bars={api.state.net === 'weak' ? 1 : 4} weak={api.state.net === 'weak'} /><span className="small">Connection {api.state.net === 'weak' ? 'weak' : 'good'}</span></div>
+        <Sim><Button size="sm" variant="secondary" onClick={() => api.go('audio')}>Simulate video dropping</Button></Sim>
+      </div>
+    </Phone>
+  );
+}
+
+function Audio(api) {
+  return (
+    <Phone>
+      <AppBar title="Consult with Dr. Weber" right={<Badge tone="success">Connected</Badge>} />
+      <Scroll>
+        <div className="card card--sunny" role="status">
+          <div className="hstack"><Icon name="mic" /><p className="small"><b>We switched you to audio</b> because video kept freezing. You’re still talking to {vet.name} — nothing was lost.</p></div>
+        </div>
+        <div className="d2-audio">
+          <VetAv initials={vet.initials} lg />
+          <p className="h-head">{vet.name}</p>
+          <span className="d2-wave" aria-hidden="true">{[14, 28, 20, 36, 18, 30, 12].map((hh, i) => <i key={i} style={{ height: hh }} />)}</span>
+          <p className="small">06:48 · audio</p>
+        </div>
+        <div className="hstack">
+          <Button variant="secondary" size="sm" icon="video" onClick={() => api.toast('Testing video — we’ll switch back when it’s stable')}>Try video again</Button>
+          <Button variant="secondary" size="sm" icon="plus" onClick={() => api.toast('Photo sent to Dr. Weber')}>Send a photo</Button>
+        </div>
+        <Sim><Button size="sm" variant="ghost" onClick={() => { api.set({ mode: 'phone' }); api.go('vet'); }}>Simulate internet gone</Button></Sim>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetSide(api) {
+  const phone = api.state.mode === 'phone';
+  return (
+    <Desk title="Consultation · Bella (dog) · 14:32">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="video" style={{ background: 'var(--bubblegum-tint)' }}>
+            <div className="vstack center"><Icon name={phone ? 'phone' : 'mic'} size={40} /><p className="h-head">{phone ? 'Anna has no internet' : 'Anna is on audio'}</p><p className="small muted">{phone ? 'Call her phone to carry on' : 'Switched automatically at 04:31'}</p></div>
+          </div>
+          <div className="card card--flat">
+            <p className="label">Your notes so far</p>
+            <p className="small">Itching mainly at night, belly and paws. No new food. Started 10 days ago.</p>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack"><span className="ic-badge bg-sky"><Icon name="phone" /></span>
+              <div className="grow"><p className="h-head">Keep the consult going</p><p className="small muted">The consult stays open. Your notes and Anna’s photos stay on screen.</p></div></div>
+            <dl className="kv"><dt>Mobile</dt><dd>+49 151 ••• 2280 (verified)</dd><dt>Connection</dt><dd>{phone ? 'Lost at 06:52' : 'Weak · 0.6 Mbit/s'}</dd></dl>
+            <Button block icon="check" onClick={() => { api.toast('Calling Anna’s phone through PetDoc'); setTimeout(api.next, 900); }}>Call Anna’s phone</Button>
+            <Button block variant="ghost" size="sm" onClick={api.next}>Wait 60 s for her to reconnect</Button>
+          </div>
+          <p className="small muted">Phone calls go through PetDoc, so the vet’s own number stays private and the call is logged on the consult.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Done(api) {
+  return (
+    <Phone nav="consults" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Done</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 40 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">Consult complete</p>
+          <p className="lead">Bumpy line, but {vet.name} got through everything. Your care summary is ready.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={44} /><div className="grow"><p className="h-head">Itchy skin · 12 March</p><p className="small muted">Video → audio → phone · 14 min</p></div><Badge tone="success">Complete</Badge></div>
+        </div>
+        <div className="card card--sunken"><p className="small">Because the line dropped, we’ve flagged this consult. If anything felt rushed, you’ll get a free follow-up (see D1).</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'D2', group: 'Fix friction', title: 'Connection check + audio fallback',
+    persona: 'All owners', impact: 'Med ~+1.4pp', effort: 'M–L', when: 'Other mission — advocate',
+    story: 'As an owner, I want the app to test my connection and switch to audio if video fails, so that the consultation isn’t lost.',
+    why: '9% of visits have a video/audio issue; those owners return at 5.6% vs 22.7%, and their rating drops from 4.35 to 2.63. All 54 restarted consults had an A/V issue.',
+    measure: ['Video/audio issue rate: 9% → < 4%', 'Consults restarted or abandoned', 'Return after an A/V issue: 5.6% → closer to 22.7%', 'Share of consults finished on audio or phone'],
+    notes: ['The check runs in the waiting room, so it costs the owner no extra time', 'Fallback is automatic and announced in one calm line: video → in-app audio → PetDoc-bridged phone call', 'Same price whatever the channel; the consult never restarts from zero']
+  },
+  initialState: { net: 'weak' },
+  screens: [
+    { id: 'check', label: 'Pre-call check', who: 'Owner', render: Check, caption: 'In the waiting room, PetDoc tests camera, mic and connection. Switch the signal to see both paths.' },
+    { id: 'weak', label: 'Weak signal → choose', who: 'Owner', render: Weak, caption: 'The decision point: offer audio or a phone call before the call breaks.' },
+    { id: 'call', label: 'Video call', who: 'Owner', render: Call },
+    { id: 'audio', label: 'Auto switch to audio', who: 'Owner', render: Audio, caption: 'Video freezes, so the app moves to audio by itself — the consult carries on.' },
+    { id: 'vet', label: 'Vet calls owner’s phone', who: 'Vet', render: VetSide, caption: 'If the internet goes completely, the vet calls the owner’s phone with one click.' },
+    { id: 'done', label: 'Consult complete', who: 'Owner', render: Done }
+  ]
+});
+</script>
+</body>
+</html>

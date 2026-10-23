@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B6 Refill reminders — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .b6-q { display: flex; align-items: center; gap: var(--space-3); min-height: 56px; }
+  .b6-q + .b6-q { border-top: var(--stroke-sticker) dashed var(--line); }
+  .b6-q .chips { flex: none; }
+  .b6-step { display: flex; align-items: center; gap: var(--space-3); }
+  .b6-step button { width: 48px; height: 48px; border-radius: 50%; border: var(--stroke-sticker) solid var(--ink); background: var(--surface-raised); cursor: pointer; font-weight: 800; font-size: 20px; }
+  .b6-step b { font-family: var(--font-display); font-size: 32px; min-width: 48px; text-align: center; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, data } = window.Proto;
+const { senior, vet } = data;
+
+const QS = [
+  { id: 'eat', t: 'Eating as usual?', good: 'Yes' },
+  { id: 'vomit', t: 'Any vomiting this month?', good: 'No' },
+  { id: 'drink', t: 'Drinking more than usual?', good: 'No' }
+];
+const SLOTS = ['Today 19:20', 'Tomorrow 08:30', 'Tomorrow 12:10'];
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Monday 26 October" time="08:05" hint="Tap the notification">
+        <Push title="Oskar’s benazepril runs out in about 5 days" text="Tap to refill. A short review with Dr. Weber renews the prescription." onClick={api.next} />
+        <Push when="yesterday" title="Dose reminder" text="Oskar · benazepril ½ tablet with breakfast" />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Med(api) {
+  const ch = api.state.choice;
+  const opts = [
+    { id: 'review', t: 'Refill with a short review', s: `10 min video with ${vet.name} · prescription renewed`, c: 'bg-brand', ic: 'video' },
+    { id: 'have', t: 'I still have some at home', s: 'Update the count, we’ll ask again later', c: 'bg-sky', ic: 'pill' },
+    { id: 'changed', t: 'Dose was changed by another vet', s: 'Tell us so Oskar’s record stays right', c: 'bg-sunny', ic: 'edit' }
+  ];
+  return (
+    <Phone cta={<Button block size="lg" disabled={!ch} onClick={() => api.go(ch === 'review' ? 'review' : 'snooze')}>Continue</Button>}>
+      <AppBar title="Medication" onBack={api.back} />
+      <Scroll>
+        <div className="hstack"><PetAvatar name={senior.name} species="cat" size={56} /><div className="grow"><p className="h-head">Benazepril 2.5 mg</p><p className="small muted">{senior.name} · ½ tablet once daily · since 6 August</p></div></div>
+        <div className="card card--warn">
+          <div className="hstack"><Icon name="clock" /><p className="h-head grow">About 5 days left</p><Badge tone="waiting">Refill soon</Badge></div>
+          <div className="bar" aria-label="About 10 of 56 half-tablets left"><i style={{ width: '18%', background: 'var(--sunny)' }} /></div>
+          <p className="small">Based on 28 tablets delivered on 2 October. Last review: 2 October with {vet.name}.</p>
+        </div>
+        <div className="vstack" role="radiogroup" aria-label="What would you like to do">
+          {opts.map(o => (
+            <button key={o.id} role="radio" aria-checked={ch === o.id} className={`choice ${ch === o.id ? 'is-on' : ''}`} onClick={() => api.set({ choice: o.id })}>
+              <span className={`choice__dot ${o.c}`}><Icon name={ch === o.id ? 'check' : o.ic} size={20} /></span>
+              <span>{o.t}<span className="choice__sub">{o.s}</span></span>
+            </button>
+          ))}
+        </div>
+        <p className="small muted">In Germany a vet must review Oskar before a new prescription. Stopping kidney medication suddenly is not advised.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Review(api) {
+  const ans = api.state.ans || {};
+  const slot = api.state.slot;
+  const flagged = QS.filter(q => ans[q.id] && ans[q.id] !== q.good);
+  const done = QS.every(q => ans[q.id]);
+  return (
+    <Phone cta={<Button block size="lg" icon="video" disabled={!done || !slot} onClick={api.next}>Book review for {data.price}</Button>}>
+      <AppBar title="Refill review" onBack={() => api.go('med')} />
+      <Scroll>
+        <p className="h-title">Three quick questions</p>
+        <div className="card card--lift">
+          {QS.map(q => (
+            <div key={q.id} className="b6-q">
+              <p className="grow" style={{ fontWeight: 700 }}>{q.t}</p>
+              <div className="chips">{['Yes', 'No'].map(a => <Chip key={a} selected={ans[q.id] === a} onClick={() => api.set(s => ({ ans: Object.assign({}, s.ans, { [q.id]: a }) }))}>{a}</Chip>)}</div>
+            </div>
+          ))}
+        </div>
+        {flagged.length > 0 && (
+          <div className="card card--warn">
+            <div className="hstack"><Icon name="alert" /><p className="small grow"><b>Worth a closer look.</b> We’ll tell Dr. Weber and suggest the earliest time. If Oskar stops eating completely or is very weak, call your nearest emergency clinic.</p></div>
+          </div>
+        )}
+        <Section title={flagged.length ? 'Earliest times' : 'Pick a time'}>
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name}</p><p className="small muted">Prescribed Oskar’s benazepril</p></div><Badge tone="online">Online</Badge></div>
+          <div className="chips">{(flagged.length ? SLOTS.slice(0, 2) : SLOTS).map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+        </Section>
+        <div className="card card--sunken"><p className="small">Oskar’s bloods, meds and your answers go to Dr. Weber with the booking. Medication cost is charged separately by the pharmacy.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Booked(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to home</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 40 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">No gap in Oskar’s meds</p>
+          <p className="lead">Review {api.state.slot || 'today 19:20'} with {vet.name}.</p>
+        </div>
+        <div className="card card--lift">
+          <ul className="tl">
+            <li><span className="tl__dot bg-mint" /><p className="small"><b>Review booked</b> · answers shared</p></li>
+            <li><span className="tl__dot" /><p className="small"><b>Prescription renewed</b> · after the call</p></li>
+            <li><span className="tl__dot" /><p className="small"><b>Delivered</b> · 1–2 working days, before he runs out</p></li>
+          </ul>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Snooze(api) {
+  const n = api.state.count;
+  const changed = api.state.choice === 'changed';
+  const days = Math.round(n / 2);
+  return (
+    <Phone cta={<Button block size="lg" onClick={() => { api.toast(changed ? 'Saved. Dr. Weber will see the change' : `We’ll remind you in ${Math.max(days - 5, 1)} days`); setTimeout(api.reset, 1400); }}>Save</Button>}>
+      <AppBar title={changed ? 'Dose changed' : 'Update the count'} onBack={() => api.go('med')} />
+      <Scroll>
+        {changed ? (
+          <React.Fragment>
+            <p className="h-title">What’s the new dose?</p>
+            <div className="chips">
+              {['1 tablet daily', '½ tablet twice daily', 'Stopped', 'Something else'].map(d => <Chip key={d} selected={api.state.dose === d} onClick={() => api.set({ dose: d })}>{d}</Chip>)}
+            </div>
+            <div className="card card--sky"><p className="small">We’ll update Oskar’s profile and adjust reminders. Every PetDoc vet will see who changed it and when.</p></div>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <p className="h-title">How many half-tablets are left?</p>
+            <div className="b6-step">
+              <button aria-label="Fewer" onClick={() => api.set({ count: Math.max(0, n - 1) })}>−</button>
+              <b aria-live="polite">{n}</b>
+              <button aria-label="More" onClick={() => api.set({ count: n + 1 })}>+</button>
+              <p className="small muted grow">That’s about {days} days</p>
+            </div>
+            <div className="card card--sunny"><div className="hstack"><Icon name="bell" /><p className="small grow">We’ll remind you again 5 days before Oskar runs out, so there’s time for a review and delivery.</p></div></div>
+          </React.Fragment>
+        )}
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'B6', group: 'Remember', title: 'Chronic medication refill reminders',
+    persona: 'Care manager (Chronic)', impact: 'Med (Chronic)', effort: 'S–M', when: 'Q3 (months 7–8)',
+    story: 'As a care manager, I want a reminder before meds run out with an option to book a review, so that my pet’s treatment never lapses.',
+    why: 'Chronic owners return every ~26 days and are the most loyal segment (51%). A refill is a natural, needed reason to come back, if it arrives before the pills run out.',
+    measure: ['Reminder → review booked', 'Share of chronic pets with a medication gap', 'Chronic 30-day return 33% → 35%', 'Reminder opt-outs'],
+    notes: ['Reminder fires 5 days out, enough for review plus 1–2 day delivery', 'Three yes/no questions turn the refill into a real check; worrying answers surface earlier slots', '“I still have some” and “dose changed” keep the count and the record accurate']
+  },
+  initialState: { count: 10 },
+  screens: [
+    { id: 'lock', label: 'Refill reminder', who: 'Owner', render: Lock, caption: 'Five days before Oskar’s kidney medication runs out.' },
+    { id: 'med', label: 'Refill options', who: 'Owner', render: Med, caption: 'The decision point: review, snooze, or correct the record.' },
+    { id: 'review', label: 'One-tap review', who: 'Owner', render: Review, caption: 'Answer “Yes” to vomiting to see the earlier-slot branch.' },
+    { id: 'booked', label: 'Booked, delivery timeline', who: 'Owner', render: Booked },
+    { id: 'snooze', label: 'Still have some / dose changed', who: 'Owner', render: Snooze }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A2 Post-visit care summary — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .a2-step { display: flex; align-items: flex-start; gap: var(--space-3); width: 100%; padding: 10px 0; background: none; border: 0; text-align: left; cursor: pointer; color: var(--ink); font: inherit; }
+  .a2-step + .a2-step { border-top: 2px dashed var(--line); }
+  .a2-box { flex: none; width: 28px; height: 28px; border-radius: 9px; border: var(--stroke-sticker) solid var(--ink); display: grid; place-items: center; background: var(--surface-raised); }
+  .a2-box.is-on { background: var(--mint); color: var(--on-brand); }
+  .a2-step.is-on .a2-step__t { text-decoration: line-through; color: var(--ink-muted); }
+  .a2-step__t { font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const STEPS = [
+  { id: 'fast', t: 'No food until 18:00 today', s: 'Water is fine — small amounts often' },
+  { id: 'diet', t: 'Bland diet for 3 days', s: 'Boiled chicken and rice, 4 small meals a day' },
+  { id: 'pro', t: 'Probiotic paste once a day', s: '5 ml with food, for 5 days' },
+  { id: 'walk', t: 'Short, calm walks only', s: 'Note when she poos and what it looks like' }
+];
+const FLAGS = [
+  { id: 'blood', t: 'Blood in vomit or stool', urgent: true },
+  { id: 'collapse', t: 'Very weak, wobbly or collapses', urgent: true },
+  { id: 'vomit', t: 'Vomits more than twice in a day', urgent: false },
+  { id: 'food', t: 'Won’t eat for 24 hours', urgent: false }
+];
+
+function VetWrite(api) {
+  const on = api.state.sections;
+  const toggle = k => api.set(s => ({ sections: { ...s.sections, [k]: !s.sections[k] } }));
+  const parts = [
+    { k: 'dx', t: 'What we found', s: 'Acute gastroenteritis, likely something she ate' },
+    { k: 'care', t: 'Home care steps', s: '4 steps from your notes' },
+    { k: 'flags', t: 'Red flags', s: '2 urgent, 2 re-check' },
+    { k: 'back', t: 'When to come back', s: 'Not better by day 3 → re-check' }
+  ];
+  return (
+    <Desk title="Consultation · Bella (dog) · wrap-up">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Your notes</p>
+            <p className="small">Vomited 3× since last night, ate something in the park. Alert, drinking, gums pink, belly soft. No blood. Plan: 12 h food pause, bland diet 3 d, probiotic 5 d.</p>
+          </div>
+          <p className="small muted">PetDoc drafts the summary from your notes. You check it, you own it.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-brand"><Icon name="file" /></span>
+            <div className="grow"><p className="h-head">Care summary for Anna</p><p className="small muted">Plain language, sent when you end the call</p></div></div>
+          {parts.map(p => (
+            <div key={p.k} className="hstack">
+              <div className="grow"><p className="label">{p.t}</p><p className="small muted">{p.s}</p></div>
+              <button className="toggle-sw" role="switch" aria-checked={!!on[p.k]} aria-label={p.t} onClick={() => toggle(p.k)} />
+            </div>
+          ))}
+          <Button block icon="send" onClick={() => { api.toast('Summary sent to Anna'); setTimeout(api.next, 900); }}>End call and send summary</Button>
+          <p className="small muted center">About 20 seconds to check. Edits are saved to Bella’s record.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Thursday 12 March" time="14:51" hint="Tap the notification">
+        <Push title="Bella’s care summary is ready" text={`What ${vet.name} found, what to do at home and what to watch for.`} onClick={api.next} />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Summary(api) {
+  const done = api.state.done;
+  const s = api.state.sections;
+  const tick = id => api.set(st => ({ done: st.done.includes(id) ? st.done.filter(x => x !== id) : [...st.done, id] }));
+  return (
+    <Phone cta={<Button block size="lg" variant="secondary" icon="alert" onClick={() => api.go('flag')}>I’m seeing a warning sign</Button>}>
+      <AppBar title="Care summary" onBack={api.back} right={<button className="ab__icon" aria-label="Share" onClick={() => api.toast('PDF ready to share')}><Icon name="upload" /></button>} />
+      <Scroll>
+        <div className="hstack">
+          <PetAvatar name={pet.name} species="dog" size={56} />
+          <div className="grow"><p className="h-title">Tummy upset</p><p className="small muted">{vet.name} · Thu 12 March, 14:32</p></div>
+        </div>
+        {s.dx && (
+          <div className="card card--sky">
+            <p className="label">What we found</p>
+            <p className="small">Bella has an upset stomach (acute gastroenteritis), most likely from something she ate in the park. She is alert and drinking, which is a good sign. Most dogs are better in 2–3 days.</p>
+          </div>
+        )}
+        {s.care && (
+          <Section title="What to do at home">
+            <div className="card">
+              <div className="hstack"><p className="grow small muted">{done.length} of {STEPS.length} done today</p></div>
+              <div className="bar" aria-hidden="true"><i style={{ width: `${(done.length / STEPS.length) * 100}%` }} /></div>
+              <div>
+                {STEPS.map(st => {
+                  const on = done.includes(st.id);
+                  return (
+                    <button key={st.id} className={`a2-step ${on ? 'is-on' : ''}`} role="checkbox" aria-checked={on} onClick={() => tick(st.id)}>
+                      <span className={`a2-box ${on ? 'is-on' : ''}`}>{on && <Icon name="check" size={16} />}</span>
+                      <span><span className="a2-step__t" style={{ display: 'block' }}>{st.t}</span><span className="small muted">{st.s}</span></span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </Section>
+        )}
+        {s.flags && (
+          <Section title="Watch for">
+            <div className="card card--danger">
+              <div className="hstack"><Icon name="alert" /><p className="label">Call an emergency clinic now if</p></div>
+              {FLAGS.filter(f => f.urgent).map(f => <p key={f.id} className="small">· {f.t}</p>)}
+            </div>
+            <div className="card card--warn">
+              <div className="hstack"><Icon name="clock" /><p className="label">Book a re-check if</p></div>
+              {FLAGS.filter(f => !f.urgent).map(f => <p key={f.id} className="small">· {f.t}</p>)}
+            </div>
+          </Section>
+        )}
+        {s.back && (
+          <div className="card card--sunken">
+            <Row icon="calendar" title="Not better by Sunday?" sub="Dr. Weber suggests a short re-check. We’ll ask you on day 3." right={null} />
+          </div>
+        )}
+        {done.length === STEPS.length && <p className="small center t-success"><b>All of today’s steps done — nice work, Anna.</b></p>}
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Flag(api) {
+  const pick = api.state.flag;
+  const f = FLAGS.find(x => x.id === pick);
+  return (
+    <Phone cta={<Button block size="lg" disabled={!pick} onClick={() => api.go(f && f.urgent ? 'urgent' : 'recheck')}>Continue</Button>}>
+      <AppBar title="Warning signs" onBack={() => api.go('summary')} />
+      <Scroll>
+        <p className="h-title">What are you seeing?</p>
+        <p className="small muted">From Bella’s care summary. Pick the closest one.</p>
+        <div className="vstack" role="radiogroup" aria-label="Warning sign">
+          {FLAGS.map(o => (
+            <button key={o.id} role="radio" aria-checked={pick === o.id} className={`choice ${pick === o.id ? 'is-on' : ''}`} onClick={() => api.set({ flag: o.id })}>
+              <span className={`choice__dot ${o.urgent ? 'bg-danger-t' : 'bg-warn-t'}`}><Icon name={pick === o.id ? 'check' : (o.urgent ? 'alert' : 'clock')} size={20} /></span>
+              <span>{o.t}<span className="choice__sub">{o.urgent ? 'Urgent' : 'Re-check soon'}</span></span>
+            </button>
+          ))}
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Urgent(api) {
+  return (
+    <Phone cta={<Button block size="lg" variant="danger" icon="alert" onClick={() => api.toast('Calling Tierklinik Berlin-Mitte')}>Call nearest emergency clinic</Button>}>
+      <AppBar title="Urgent" onBack={() => api.go('flag')} />
+      <Scroll>
+        <div className="card card--danger">
+          <div className="hstack"><Icon name="alert" /><p className="h-head">This sounds urgent</p></div>
+          <p className="small">Please call your nearest emergency clinic now. This needs a vet in person. Bring Bella’s care summary — it’s on your phone.</p>
+        </div>
+        <Section title="Open now near you">
+          <div className="card card--lift">
+            <Row icon="phone" title="Tierklinik Berlin-Mitte" sub="24 h · 2.1 km · 030 4567 120" right={<Badge tone="online">Open</Badge>} />
+            <Row icon="phone" title="Kleintierklinik Prenzlauer Berg" sub="24 h · 3.4 km · 030 4498 300" right={<Badge tone="online">Open</Badge>} />
+          </div>
+        </Section>
+        <Button block variant="ghost" icon="send" onClick={() => api.toast('Summary PDF shared')}>Share summary with the clinic</Button>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Recheck(api) {
+  return (
+    <Phone cta={<Button block size="lg" icon="video" onClick={() => { api.toast('Re-check booked for 18:30'); }}>Book re-check with Dr. Weber</Button>}>
+      <AppBar title="Re-check" onBack={() => api.go('flag')} />
+      <Scroll>
+        <div className="card card--warn">
+          <div className="hstack"><Icon name="clock" /><p className="h-head">Worth a re-check today</p></div>
+          <p className="small">This is on Dr. Weber’s “book a re-check” list. It isn’t an emergency, but she’d like to see Bella again.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name}</p><p className="small muted">Next free: today 18:30</p></div><Badge tone="online">Online</Badge></div>
+          <hr className="divider" />
+          <Row icon="file" title="Care summary attached" sub="She’ll see what you’ve already tried" right={<Icon name="check" size={20} />} />
+        </div>
+        <div className="hstack"><p className="grow small muted">Video re-check, 15 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'A2', group: 'Follow up', title: 'Post-visit care summary',
+    persona: 'Worried one-timer (Acute)', impact: 'Med ~+0.5pp', effort: 'S', when: 'Q1 · month 1 quick win',
+    story: 'As a worried one-timer, I want a written summary of what the vet said, so that I know what to watch for and when to book again.',
+    why: 'Acute owners are 61% of new users and only 2.2% return within 30 days. They leave the call with nothing written down, so there is no clear trigger to come back. The summary also sets up the day-3 check-in (A1).',
+    measure: ['Summary open rate within 24 h', 'Red-flag taps → re-check bookings', 'Re-check within 14 days (acute) 0.7% → 3% by end of Q1, with A1', 'Vet time to send (guardrail: under 30 s)'],
+    notes: ['Drafted from the vet’s own notes; the vet checks and sends — never auto-sent', 'Red flags split into “call a clinic now” and “book a re-check”, each with icon + word', 'Home-care steps are tickable so the summary stays useful for 3 days, not one read']
+  },
+  initialState: { sections: { dx: true, care: true, flags: true, back: true }, done: ['fast'], flag: null },
+  screens: [
+    { id: 'vet', label: 'Vet checks the summary', who: 'Vet', render: VetWrite, caption: 'End of the call: the summary is drafted from the vet’s notes. Toggle sections to see what Anna gets.' },
+    { id: 'lock', label: 'Summary arrives', who: 'Owner', render: Lock },
+    { id: 'summary', label: 'Read and tick off care', who: 'Owner', render: Summary, caption: 'Tick off the home-care steps. The bottom button tests the hypothesis: does a clear red-flag list lead to the right next step?' },
+    { id: 'flag', label: 'Pick a warning sign', who: 'Owner', render: Flag, caption: 'Try an urgent sign and a re-check sign — they branch differently.' },
+    { id: 'urgent', label: 'Urgent → emergency clinic', who: 'Owner', render: Urgent },
+    { id: 'recheck', label: 'Not urgent → re-check', who: 'Owner', render: Recheck }
+  ]
+});
+</script>
+</body>
+</html>

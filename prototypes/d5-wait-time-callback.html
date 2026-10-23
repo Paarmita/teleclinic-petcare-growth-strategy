@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>D5 Wait time + call-back — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .d5-big { font-family: var(--font-display); font-weight: 600; font-size: 44px; line-height: 1; }
+  .d5-queue { display: flex; gap: 6px; align-items: center; }
+  .d5-queue i { width: 22px; height: 22px; border-radius: 50%; border: var(--stroke-sticker) solid var(--ink); background: var(--surface-sunken); }
+  .d5-queue i.is-you { background: var(--brand); }
+  .d5-hours { display: flex; align-items: flex-end; gap: 8px; height: 140px; padding-top: var(--space-3); }
+  .d5-hours div { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: flex-end; height: 100%; }
+  .d5-hours span.b { width: 100%; border-radius: 8px 8px 0 0; border: var(--stroke-sticker) solid var(--ink); background: var(--sky-tint); }
+  .d5-hours span.b.is-hot { background: var(--sunny); }
+  .d5-hours small { font-size: 12px; font-weight: 700; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet2 } = data;
+
+const SLOTS = ['22:00', '22:15', '22:30', 'Tomorrow 07:30'];
+
+function Home(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" icon="video" onClick={api.next}>Talk to a vet now</Button>}>
+      <Scroll nav>
+        <div style={{ paddingTop: 16 }}><p className="small muted">Good evening, Anna</p><p className="h-display">What’s up with Bella?</p></div>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={52} /><div className="grow"><p className="h-head">Limping on her back leg</p><p className="small muted">Since this afternoon · still eating · {pet.name}, {pet.age}</p></div></div>
+        </div>
+        <div className="card card--warn">
+          <div className="hstack"><Icon name="clock" /><div className="grow"><p className="h-head">About 18 min wait right now</p><p className="small">Evenings are busy. Three vets are on until midnight.</p></div></div>
+          <hr className="divider" />
+          <p className="small">Rather not wait? You can book a call-back at a time that suits you — same price, {data.price}.</p>
+        </div>
+        <div className="card card--danger"><div className="hstack"><Icon name="alert" /><p className="small"><b>Can’t put any weight on the leg, or in a lot of pain?</b> Call your nearest emergency clinic now.</p></div></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Waiting(api) {
+  return (
+    <Phone cta={<React.Fragment>
+      <Button block size="lg" icon="calendar" onClick={() => { api.set({ mode: 'callback' }); api.go('slot'); }}>Get a call-back instead</Button>
+      <Button block variant="ghost" onClick={() => { api.set({ mode: 'wait' }); api.go('lock'); }}>Keep my place in the queue</Button>
+    </React.Fragment>}>
+      <AppBar title="Waiting room" onBack={api.back} />
+      <Scroll>
+        <div className="card card--lift center">
+          <p className="small muted">Your estimated wait</p>
+          <p className="d5-big">18 min</p>
+          <div className="d5-queue" aria-label="You are 5th in the queue">{[0, 1, 2, 3, 4].map(i => <i key={i} className={i === 4 ? 'is-you' : ''} />)}</div>
+          <p className="small"><b>You’re 5th.</b> We update this every minute and tell you if it changes.</p>
+        </div>
+        <div className="card card--sky">
+          <div className="hstack"><span className="ic-badge bg-sky"><Icon name="phone" /></span>
+            <div className="grow"><p className="h-head">Don’t want to watch the clock?</p><p className="small">Pick a time and a vet calls you. You can put the phone down and get on with your evening.</p></div></div>
+        </div>
+        <Section title="While you wait">
+          <div className="card card--flat">
+            <Row icon="camera" title="Add a short video of Bella walking" sub="Helps the vet see the limp" onClick={() => api.toast('Video added for the vet')} />
+            <Row icon="list" title="Check the leg gently" sub="Swelling, heat or a thorn between the pads?" onClick={() => api.toast('Tips opened')} />
+          </div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Slot(api) {
+  const s = api.state;
+  return (
+    <Phone cta={<Button block size="lg" icon="check" disabled={!s.slot} onClick={() => { api.toast(`Call-back booked for ${s.slot}`); setTimeout(api.next, 900); }}>{s.slot ? `Book call-back for ${s.slot}` : 'Pick a time'}</Button>}>
+      <AppBar title="Call-back" onBack={api.back} />
+      <Scroll>
+        <div className="vstack"><p className="h-title">When should we call?</p><p className="small muted">A vet calls within 5 minutes of the time you pick.</p></div>
+        <Section title="Tonight">
+          <div className="chips">{SLOTS.map(t => <button key={t} className={`slot ${s.slot === t ? 'is-on' : ''}`} aria-pressed={s.slot === t} onClick={() => api.set({ slot: t })}>{t}</button>)}</div>
+        </Section>
+        <Section title="How">
+          <div className="chips">
+            <Chip icon="video" selected={s.how !== 'phone'} onClick={() => api.set({ how: 'video' })}>Video in the app</Chip>
+            <Chip selected={s.how === 'phone'} onClick={() => api.set({ how: 'phone' })}>Phone call</Chip>
+          </div>
+        </Section>
+        <div className="card card--flat">
+          <div className="hstack"><VetAv initials={vet2.initials} /><div className="grow"><p className="h-head">{vet2.name}</p><p className="small muted">{vet2.specialty}</p></div><Badge tone="busy">On shift</Badge></div>
+          <p className="small">Your note and video go to him before the call.</p>
+        </div>
+        <div className="hstack"><p className="grow small muted">Call-back consult · pay only after the call</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Lock(api) {
+  const cb = api.state.mode !== 'wait';
+  return (
+    <Phone dark>
+      <LockScreen date="Thursday 12 March" time={cb ? '22:10' : '21:51'} hint="Tap the notification">
+        {cb
+          ? <Push title={`${vet2.name} calls you in 5 min`} text={`Your call-back for ${pet.name} at ${api.state.slot || '22:15'}. Have Bella nearby.`} onClick={api.next} />
+          : <Push title="You’re next" text={`${vet2.name} joins in about 2 min. Your wait was 11 min — shorter than we said.`} onClick={api.next} />}
+        <Push when="20 min ago" title={cb ? 'Call-back booked' : 'You’re in the queue'} text={cb ? 'We’ll remind you 5 minutes before.' : 'Estimated wait 18 min. We’ll tell you if it changes.'} />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Ops(api) {
+  const hours = [['16', 6], ['17', 7], ['18', 8], ['19', 11], ['20', 12], ['21', 18], ['22', 14], ['23', 9]];
+  return (
+    <Desk title="Ops · evening queue · Thu 12 March">
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Average wait by hour (min)</p><p className="small muted">Yellow bars: over 15 min, call-back offer on</p>
+            <div className="d5-hours">
+              {hours.map(([hh, m]) => <div key={hh}><small>{m}</small><span className={`b ${m > 15 ? 'is-hot' : ''}`} style={{ height: m / 22 * 100 }} /><small>{hh}:00</small></div>)}
+            </div>
+          </div>
+          <p className="small muted">Return drops once waits pass 15 min. Evening waits average 10–12 min vs 6–8 in the day.</p>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack"><span className="ic-badge bg-sunny"><Icon name="clock" /></span><div className="grow"><p className="h-head">Call-back offer is on</p><p className="small muted">Shown automatically when the estimate is over 15 min</p></div><Badge tone="waiting">Busy</Badge></div>
+            <hr className="divider" />
+            <Row icon="users" title="12 in queue · 3 vets on shift" sub="Estimate 18 min" right={null} />
+            <Row icon="phone" title="7 call-backs booked tonight" sub="22:00–23:30 · 1 tomorrow 07:30" right={null} />
+            <Row icon="chart" title="Left before seeing a vet" sub="Tonight 4% · last Thursday 11%" right={<Badge tone="success">Down</Badge>} />
+          </div>
+          <Button variant="secondary" onClick={api.reset}>Restart flow</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+mount({
+  idea: {
+    code: 'D5', group: 'Fix friction', title: 'Wait-time transparency + call-back',
+    persona: 'Evening owners', impact: 'Low', effort: 'S', when: 'Backlog — low priority',
+    story: 'As an owner waiting in the evening, I want to see the wait or get a call back, so that I don’t drop off.',
+    why: 'Wait time only hurts return above 15 minutes (OR 0.97 per minute, p = 0.06), but evening and late waits run 10–12 min vs 6–8 in the day — that’s when owners hit the threshold.',
+    measure: ['Waiting-room drop-off in the evening', 'Share of evening waits over 15 min', 'Call-back take-up and no-show rate', 'Accuracy of the wait estimate (±3 min)'],
+    notes: ['Show an honest estimate before the owner starts, not after they’re in the queue', 'The call-back offer appears only above 15 min, so it doesn’t cannibalise instant consults', 'Same price either way; the emergency line stays visible because limping can be urgent']
+  },
+  initialState: {},
+  screens: [
+    { id: 'home', label: 'Honest wait up front', who: 'Owner', render: Home, caption: '21:40 on a Thursday. Anna sees the real wait before she starts.' },
+    { id: 'wait', label: 'Queue: wait or call-back', who: 'Owner', render: Waiting, caption: 'The decision point: over 15 min, PetDoc offers a call-back. Try “Keep my place” too.' },
+    { id: 'slot', label: 'Pick a call-back time', who: 'Owner', render: Slot },
+    { id: 'lock', label: 'Reminder', who: 'Owner', render: Lock },
+    { id: 'ops', label: 'Ops: evening queue', who: 'Ops', render: Ops, caption: 'Ops sees when the offer switches on and whether drop-off falls.' }
+  ]
+});
+</script>
+</body>
+</html>

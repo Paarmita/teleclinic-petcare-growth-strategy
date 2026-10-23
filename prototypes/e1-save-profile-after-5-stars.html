@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>E1 Save profile after 5 stars — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .e1-stars { display: flex; justify-content: center; gap: var(--space-2); }
+  .e1-star { width: 56px; height: 56px; border-radius: 18px; border: var(--stroke-sticker) solid var(--ink); background: var(--surface-raised); color: var(--line-strong); display: grid; place-items: center; cursor: pointer; transition: transform 180ms cubic-bezier(.34,1.56,.64,1); }
+  .e1-star.is-on { background: var(--sunny-tint); color: var(--sunny); }
+  .e1-star:active { transform: scale(.92); }
+  .e1-star .sn-icon { stroke: var(--ink); stroke-width: 1.4px; }
+  .e1-field { display: flex; align-items: center; gap: var(--space-3); min-height: 52px; }
+  .e1-field + .e1-field { border-top: var(--stroke-sticker) dashed var(--line); }
+  .e1-src { font-size: 12px; font-weight: 700; color: var(--ink-muted); }
+  @media (prefers-reduced-motion: reduce) { .e1-star { transition: none; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar, VetCard } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const RATING_WORDS = ['', 'Poor', 'Not great', 'Okay', 'Good', 'Excellent'];
+
+function Rate(api) {
+  const r = api.state.stars || 0;
+  return (
+    <Phone cta={<Button block size="lg" disabled={!r} onClick={() => api.go(r === 5 ? 'save' : 'improve')}>Send rating</Button>}>
+      <AppBar title="Consult complete" />
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 24 }}>
+          <VetAv initials={vet.initials} lg />
+          <p className="h-title">How was your consult with {vet.name}?</p>
+          <p className="small muted">Bella · itchy skin · 14 min</p>
+        </div>
+        <div className="e1-stars" role="radiogroup" aria-label="Rating out of 5">
+          {[1, 2, 3, 4, 5].map(n => (
+            <button key={n} role="radio" aria-checked={r === n} aria-label={`${n} star${n > 1 ? 's' : ''}`} className={`e1-star ${n <= r ? 'is-on' : ''}`} onClick={() => api.set({ stars: n })}><Icon name="star" size={30} /></button>
+          ))}
+        </div>
+        <p className="h-head center">{r ? `${r} out of 5 · ${RATING_WORDS[r]}` : 'Tap a star'}</p>
+        <div className="card card--sunken"><p className="small">Your care summary with home care steps is ready in Consults.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Save(api) {
+  const s = api.state;
+  const fav = s.fav !== false;
+  const fields = [
+    ['Breed', pet.breed, 'From your booking'],
+    ['Age', pet.age, 'From your booking'],
+    ['Weight', pet.weight, 'Dr. Weber noted this today'],
+    ['Allergies', 'Suspected environmental allergy', 'From today’s consult']
+  ];
+  return (
+    <Phone cta={<React.Fragment>
+      <Button block size="lg" icon="check" onClick={api.next}>Save Bella’s profile</Button>
+      <Button block variant="ghost" onClick={() => { api.toast('No problem — you can do this from My pets'); setTimeout(() => api.go('later'), 900); }}>Not now</Button>
+    </React.Fragment>}>
+      <AppBar title="Thank you" onBack={api.back} />
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 8 }}>
+          <span className="ic-badge bg-sunny pop" style={{ width: 64, height: 64, borderRadius: 22 }}><Icon name="star" size={32} /></span>
+          <p className="h-title">Bella was in good paws</p>
+          <p className="small muted">Save her details now and next time takes about a minute.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={52} /><div className="grow"><p className="h-head">{pet.name}’s profile</p><p className="small muted">We filled this in from today. Just check it.</p></div><Badge tone="fun">{s.neutered ? '5 of 5 done' : '4 of 5 done'}</Badge></div>
+          <div className="bar" aria-hidden="true"><i style={{ width: s.neutered ? '100%' : '80%' }} /></div>
+          <div>
+            {fields.map(([k, v, src]) => (
+              <div key={k} className="e1-field"><div className="grow"><p className="row__t">{v}</p><p className="e1-src">{k} · {src}</p></div><Icon name="check" size={20} /></div>
+            ))}
+            <div className="e1-field"><div className="grow"><p className="row__t">Neutered?</p><p className="e1-src">Helps vets with dosing and advice</p></div></div>
+            <div className="chips">
+              {['Yes', 'No', 'Not sure'].map(o => <Chip key={o} selected={s.neutered === o} onClick={() => api.set({ neutered: o })}>{o}</Chip>)}
+            </div>
+          </div>
+        </div>
+        <div className="card card--gum" style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <VetAv initials={vet.initials} />
+          <div className="grow"><p className="row__t">Save {vet.name} as Bella’s vet</p><p className="row__s">See when she’s online and book her first</p></div>
+          <button className="toggle-sw" role="switch" aria-checked={fav} aria-label="Save as favourite vet" onClick={() => api.set({ fav: !fav })} />
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Saved(api) {
+  const s = api.state;
+  const fav = s.fav !== false;
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" variant="secondary" onClick={api.next}>See what changes next time</Button>}>
+      <Scroll nav>
+        <div className="vstack center" style={{ paddingTop: 32 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="paw" size={40} /></span>
+          <p className="h-display">Bella’s all set</p>
+          <p className="lead">Her profile is saved. Treats are on you.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={52} /><div className="grow"><p className="h-head">{pet.name}</p><p className="small muted">{pet.breed} · {pet.age} · {pet.weight}</p></div><Badge tone="success">Complete</Badge></div>
+          <hr className="divider" />
+          <Row icon="file" title="Itchy skin · 12 March" sub={`${vet.name} · allergy, Apoquel`} right={null} />
+          {fav && <Row icon="heart" title={`${vet.name}`} sub="Bella’s vet · online most weekdays" right={<Badge tone="online">Online</Badge>} />}
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function NextTime(api) {
+  const fav = api.state.fav !== false;
+  return (
+    <Phone nav="home" cta={<Button block size="lg" icon="video" onClick={() => { api.toast(fav ? 'Booking with Dr. Weber — Bella’s notes attached' : 'Finding a vet — Bella’s notes attached'); setTimeout(api.reset, 1600); }}>{fav ? 'Consult Dr. Weber' : 'Talk to a vet now'}</Button>}>
+      <Scroll nav>
+        <div style={{ paddingTop: 16 }}><p className="small muted">Six weeks later · Good morning, Anna</p><p className="h-display">What’s up with Bella?</p></div>
+        {fav && <VetCard name={vet.name} specialty={vet.specialty} rating="4.9" reviews={1240} price={data.price} status="online" mode="video" initials={vet.initials} nextSlot="Now" cta="Consult" onConsult={() => api.toast('Booking with Dr. Weber')} />}
+        <div className="card card--flat">
+          <p className="label">Already filled in for you</p>
+          <Row icon="paw" title="Pet details" sub="Bella · Labrador mix · 27.4 kg" right={<Icon name="check" size={20} />} />
+          <Row icon="file" title="Last consult" sub="Itchy skin · 12 March" right={<Icon name="check" size={20} />} />
+          <Row icon="chat" title="Only question left" sub="What’s new since last time?" right={null} />
+        </div>
+        <p className="small muted center">Booking time: about 1 minute instead of 4.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Improve(api) {
+  const picked = api.state.issues || [];
+  const toggle = t => api.set(s => { const cur = s.issues || []; return { issues: cur.includes(t) ? cur.filter(x => x !== t) : [...cur, t] }; });
+  return (
+    <Phone cta={<Button block size="lg" onClick={() => { api.toast('Thanks — this goes to our care team'); setTimeout(api.reset, 1600); }}>Send feedback</Button>}>
+      <AppBar title="Your feedback" onBack={() => api.go('rate')} />
+      <Scroll>
+        <div className="vstack"><p className="h-title">Thanks for telling us</p><p className="small muted">What could have been better? Pick any.</p></div>
+        <div className="chips">
+          {['Video or sound', 'Had to repeat myself', 'Waiting time', 'Advice wasn’t clear', 'Price', 'Something else'].map(t => <Chip key={t} selected={picked.includes(t)} onClick={() => toggle(t)}>{t}</Chip>)}
+        </div>
+        <div className="card card--sunken"><p className="small">We don’t ask you to save a profile here. Under 5 stars, we fix the visit first — a flagged tech or re-telling problem triggers service recovery (D1).</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Later(api) {
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" onClick={() => api.go('save')}>Finish Bella’s profile</Button>}>
+      <AppBar title="My pets" />
+      <Scroll nav>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={52} /><div className="grow"><p className="h-head">{pet.name}</p><p className="small muted">Profile 4 of 5 done</p></div><Badge tone="waiting">Almost there</Badge></div>
+          <div className="bar" aria-hidden="true"><i style={{ width: '80%' }} /></div>
+        </div>
+        <p className="small muted">We saved what we already know from today’s consult. One gentle reminder after 3 days, then we stop asking.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'E1', group: 'Lifecycle', title: 'Turn happy one-timers into profile owners',
+    persona: 'Satisfied one-timers', impact: 'Low–Med', effort: 'S', when: 'Q2 quick win (months 5–6)',
+    story: 'As a satisfied owner, I want to save my pet and vet easily, so that next time is faster.',
+    why: '68% of 5-star raters never come back: satisfaction isn’t a reason to return. The moment right after a 5★ rating is when owners are most willing to invest a minute.',
+    measure: ['Profile completion after a 5★ rating (target 50%)', 'Favourite vet saved', '180-day return of 5★ raters with vs without a saved profile', 'Time to book a second consult'],
+    notes: ['Only after 5★: under 5 stars we ask what went wrong instead', 'Pre-filled from the booking and the vet’s notes, so the owner only checks and adds one thing', 'Celebration copy here is fine — it’s a success moment, nothing medical is at stake']
+  },
+  initialState: { stars: 0 },
+  screens: [
+    { id: 'rate', label: 'Rate the consult', who: 'Owner', render: Rate, caption: 'The decision point: try 5 stars, then try 3 or 4.' },
+    { id: 'save', label: '5★ → save profile + vet', who: 'Owner', render: Save, caption: 'Profile pre-filled from today. Try “Not now” as well.' },
+    { id: 'saved', label: 'Profile saved', who: 'Owner', render: Saved },
+    { id: 'next', label: 'Next time: 1-minute booking', who: 'Owner', render: NextTime, caption: 'Six weeks later: the saved vet and profile make coming back easy.' },
+    { id: 'improve', label: 'Under 5★ → feedback', who: 'Owner', render: Improve, caption: 'The other branch: no profile ask, just listen.' },
+    { id: 'later', label: '“Not now” → gentle nudge', who: 'Owner', render: Later }
+  ]
+});
+</script>
+</body>
+</html>

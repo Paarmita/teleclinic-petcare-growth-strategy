@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PetDoc Idea Backlog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#f6f5f2; --raised:#ffffff; --sunken:#eeece7;
+  --ink:#16202e; --muted:#5a6475; --line:#e2e0da; --line-strong:#c9c6be;
+  --brand:#1f3a5f; --brand-tint:#e6ebf2;
+  --mint:#2f6f6a; --mint-tint:#e3efed;
+  --rust:#a65a4e; --rust-tint:#f4e9e6;
+  --gold:#8a6420; --gold-tint:#f4eedf;
+  --plum:#6b5b95; --plum-tint:#ece8f4;
+  --grey:#7d8697; --grey-tint:#eceef1;
+  --on-dark:#ffffff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --surface:#11161e; --raised:#18202b; --sunken:#0d1218;
+    --ink:#e8eaee; --muted:#9aa4b3; --line:#2a3442; --line-strong:#3c4858;
+    --brand:#8fb0d8; --brand-tint:#1d2b3d;
+    --mint:#7cc2b9; --mint-tint:#16302d;
+    --rust:#e09a8d; --rust-tint:#3a2420;
+    --gold:#d8b46a; --gold-tint:#352b17;
+    --plum:#b3a3df; --plum-tint:#2a2440;
+    --grey:#8b95a5; --grey-tint:#232b36;
+    --on-dark:#11161e;
+  }
+}
+:root[data-theme="dark"]{
+  --surface:#11161e; --raised:#18202b; --sunken:#0d1218;
+  --ink:#e8eaee; --muted:#9aa4b3; --line:#2a3442; --line-strong:#3c4858;
+  --brand:#8fb0d8; --brand-tint:#1d2b3d;
+  --mint:#7cc2b9; --mint-tint:#16302d;
+  --rust:#e09a8d; --rust-tint:#3a2420;
+  --gold:#d8b46a; --gold-tint:#352b17;
+  --plum:#b3a3df; --plum-tint:#2a2440;
+  --grey:#8b95a5; --grey-tint:#232b36;
+  --on-dark:#11161e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.page{max-width:1280px;margin:0 auto;padding:32px 32px 48px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:600 36px/1.12 "Source Serif 4",Georgia,serif;letter-spacing:-.01em;margin:6px 0 10px}
+h2{font:600 24px/1.2 "Source Serif 4",Georgia,serif;margin-bottom:6px}
+h3{font-size:14px;font-weight:600}
+.lede{color:var(--muted);max-width:68ch;font-size:15px}
+.muted{color:var(--muted)}
+b,strong{font-weight:600}
+section{margin-top:44px}
+.sec-head{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:baseline;margin-bottom:16px}
+.sec-head .num{font:600 13px Inter;color:var(--brand);letter-spacing:.06em}
+.sec-head p{grid-column:1/-1;color:var(--muted);max-width:75ch}
+.card{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+
+/* nav */
+nav.toc{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);margin:24px -32px 0;padding:10px 32px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.toc a{font-size:12.5px;font-weight:500;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:999px;white-space:nowrap}
+nav.toc a:hover{background:var(--sunken);color:var(--ink)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+.stat{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat .v{font:600 30px/1 "Source Serif 4",serif;font-variant-numeric:tabular-nums}
+.stat .l{font-size:12px;color:var(--muted);margin-top:6px}
+.stat.dark{background:var(--brand);border-color:var(--brand);color:var(--on-dark)}
+.stat.dark .l{color:var(--on-dark);opacity:.8}
+
+/* theme colours */
+.tA{--t:var(--rust);--tt:var(--rust-tint)}
+.tB{--t:var(--brand);--tt:var(--brand-tint)}
+.tC{--t:var(--mint);--tt:var(--mint-tint)}
+.tD{--t:var(--gold);--tt:var(--gold-tint)}
+.tE{--t:var(--plum);--tt:var(--plum-tint)}
+.qqw{--q:var(--mint);--qt:var(--mint-tint)}
+.qbb{--q:var(--brand);--qt:var(--brand-tint)}
+.qfi{--q:var(--gold);--qt:var(--gold-tint)}
+.qlt{--q:var(--grey);--qt:var(--grey-tint)}
+
+/* themes overview */
+.themes{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.theme{border-radius:12px;border:1px solid var(--line);background:var(--raised);padding:16px;border-top:4px solid var(--t);display:flex;flex-direction:column;gap:8px}
+.theme .letter{font:600 28px/1 "Source Serif 4",serif;color:var(--t)}
+.theme .who{font-size:12px;color:var(--muted)}
+.theme .ids{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto}
+.idchip{font:600 11px Inter;padding:2px 7px;border-radius:6px;background:var(--tt);color:var(--t);text-decoration:none;cursor:pointer;border:0}
+.idchip:hover{outline:1px solid var(--t)}
+
+/* personas */
+.personas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.persona{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.persona .role{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.persona .nums{display:flex;gap:16px}
+.persona .nums div{font:600 22px/1 "Source Serif 4",serif}
+.persona .nums small{display:block;font:500 11px Inter;color:var(--muted);margin-top:4px}
+.persona q{font:italic 500 14px/1.45 "Source Serif 4",serif;color:var(--ink)}
+.persona .ids{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto;padding-top:6px;border-top:1px solid var(--line)}
+.ring{height:6px;border-radius:3px;background:var(--sunken);overflow:hidden}
+.ring i{display:block;height:100%;background:var(--brand)}
+
+/* matrix */
+.matrix-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px}
+.matrix svg{width:100%;height:auto;display:block}
+.matrix .dot{cursor:pointer}
+.matrix .dot circle{transition:r .12s}
+.matrix .dot:hover circle,.matrix .dot.on circle{r:17}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--sunken)}
+.toggle button{font:500 12px Inter;border:0;background:none;color:var(--muted);padding:4px 12px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--raised);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 14px;font-size:12px;color:var(--muted);margin-top:10px}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.inspect{display:flex;flex-direction:column;gap:10px}
+.inspect .big{font:600 22px/1.2 "Source Serif 4",serif}
+.inspect .kv{display:grid;grid-template-columns:80px 1fr;gap:4px 10px;font-size:12.5px}
+.inspect .kv span:nth-child(odd){color:var(--muted)}
+.btn{font:600 12.5px Inter;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 12px;cursor:pointer;align-self:flex-start}
+.btn:hover{border-color:var(--line-strong)}
+
+/* ranking */
+.rank{display:grid;gap:5px}
+.rrow{display:grid;grid-template-columns:28px 40px minmax(0,230px) 1fr 44px 120px;gap:10px;align-items:center;font-size:12.5px;padding:3px 6px;border-radius:6px;cursor:pointer}
+.rrow:hover{background:var(--sunken)}
+.rrow .rk{color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.rrow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow .tr{height:14px;background:var(--sunken);border-radius:3px;overflow:hidden}
+.rrow .tr i{display:block;height:100%;background:var(--q);border-radius:3px}
+.rrow .sc{font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.qtag{font-size:11px;font-weight:600;color:var(--q);background:var(--qt);padding:2px 8px;border-radius:999px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* levers */
+.levers{display:grid;gap:8px}
+.lever{display:grid;grid-template-columns:210px 1fr 52px;gap:12px;align-items:center;font-size:13px}
+.lever .tr{height:18px;background:var(--sunken);border-radius:4px;overflow:hidden}
+.lever .tr i{display:block;height:100%;border-radius:4px}
+.lever .v{font-weight:600;font-variant-numeric:tabular-nums}
+.lever.sum{border-top:1px solid var(--line);padding-top:8px}
+.lever small{display:block;font-size:11px;color:var(--muted)}
+
+/* catalogue */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.filters .lab{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.chip{font:500 12.5px Inter;border:1px solid var(--line);background:var(--raised);color:var(--ink);border-radius:999px;padding:5px 11px;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.filters .sp{flex:1}
+.filters input{font:13px Inter;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--raised);color:var(--ink);min-width:200px}
+.count{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
+.idea{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;border-left:4px solid var(--t);scroll-margin-top:70px;transition:box-shadow .3s}
+.idea.flash{box-shadow:0 0 0 3px var(--t)}
+.idea.main{background:linear-gradient(var(--tt),var(--raised) 120px)}
+.idea .top{display:flex;gap:10px;align-items:flex-start}
+.idea .badge{font:600 15px/1 "Source Serif 4",serif;color:var(--on-dark);background:var(--t);border-radius:8px;min-width:38px;height:38px;display:grid;place-items:center;flex-shrink:0}
+.idea .ttl{font-weight:600;font-size:15px;line-height:1.3}
+.idea .thm{font-size:11.5px;color:var(--muted)}
+.idea .flag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--q);background:var(--qt);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.idea .story{font:italic 500 13.5px/1.45 "Source Serif 4",serif;color:var(--ink);padding-left:10px;border-left:2px solid var(--line)}
+.meters{display:grid;grid-template-columns:1fr 1fr 70px;gap:10px;align-items:end;background:var(--surface);border-radius:8px;padding:9px 11px}
+.meter .ml{font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pips{display:flex;gap:3px}
+.pip{width:100%;max-width:22px;height:8px;border-radius:2px;background:var(--sunken);border:1px solid var(--line)}
+.pip.f{background:var(--t);border-color:var(--t)}
+.pip.h{background:linear-gradient(90deg,var(--t) 50%,var(--sunken) 50%);border-color:var(--t)}
+.meter .mt{font-size:12px;margin-top:4px}
+.scorebox{text-align:right}
+.scorebox .v{font:600 22px/1 "Source Serif 4",serif;font-variant-numeric:tabular-nums}
+.scorebox .ml{margin-bottom:2px}
+.facts{display:grid;grid-template-columns:72px 1fr;gap:5px 10px;font-size:12.5px}
+.facts dt{color:var(--muted)}
+.facts dd{min-width:0}
+.facts .idchip{margin-right:3px}
+details{font-size:12.5px;border-top:1px solid var(--line);padding-top:8px}
+summary{cursor:pointer;font-weight:600;color:var(--brand);list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ "}
+details[open] summary::before{content:"− "}
+details ul{margin:8px 0 0 18px;display:grid;gap:4px}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+
+/* dependency */
+.dep svg{width:100%;height:auto;display:block;min-width:760px}
+.scrollx{overflow-x:auto}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:150px repeat(4,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--raised)}
+.tl > div{padding:10px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;min-height:52px}
+.tl > div:nth-child(5n){border-right:0}
+.tl .hd{background:var(--sunken);flex-direction:column;gap:2px}
+.tl .hd b{font-size:13px}
+.tl .hd span{font-size:11.5px;color:var(--muted)}
+.tl .hd .ns{font:600 18px/1 "Source Serif 4",serif;color:var(--ink);margin-top:4px}
+.tl .rl{font-size:12px;font-weight:600;align-items:center;color:var(--t);flex-wrap:nowrap;gap:8px}
+.tl .rl i{width:8px;height:8px;border-radius:50%;background:var(--t);flex-shrink:0}
+.tl .last > div{border-bottom:0}
+.tchip{font:500 11.5px Inter;padding:3px 8px;border-radius:6px;background:var(--tt);color:var(--ink);border:1px solid transparent;cursor:pointer;text-align:left}
+.tchip b{color:var(--t);margin-right:4px}
+.tchip.cond{border:1px dashed var(--t);background:transparent}
+.tchip:hover{border-color:var(--t)}
+
+/* phases */
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:16px}
+.phase{padding:14px;border:1px solid var(--line);border-right:0;background:var(--raised);position:relative}
+.phase:first-child{border-radius:12px 0 0 12px}
+.phase:last-child{border-right:1px solid var(--line);border-radius:0 12px 12px 0;background:var(--sunken)}
+.phase .ph{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}
+.phase h3{margin:3px 0 6px}
+.phase p{font-size:12px;color:var(--muted);margin-top:8px}
+.phase .ids{display:flex;flex-wrap:wrap;gap:4px}
+
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+
+@media (max-width:1100px){
+  .themes{grid-template-columns:repeat(3,1fr)}
+  .personas{grid-template-columns:repeat(2,1fr)}
+  .matrix-wrap{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .phases{grid-template-columns:1fr}
+  .phase,.phase:first-child,.phase:last-child{border-radius:0;border-right:1px solid var(--line);border-bottom:0}
+  .phase:first-child{border-radius:12px 12px 0 0}
+  .phase:last-child{border-radius:0 0 12px 12px;border-bottom:1px solid var(--line)}
+}
+@media (max-width:760px){
+  .page{padding:20px 16px 40px}
+  nav.toc{margin:20px -16px 0;padding:8px 16px}
+  h1{font-size:28px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .themes,.personas{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .rrow{grid-template-columns:22px 34px minmax(0,1fr) 40px}
+  .rrow .tr,.rrow .qtag{display:none}
+  .lever{grid-template-columns:120px 1fr 44px;font-size:12px}
+  .tl{grid-template-columns:1fr}
+  .tl > div{border-right:0}
+  .tl .hd.corner{display:none}
+  .filters input{min-width:0;width:100%}
+}
+@media print{
+  nav.toc,.filters{display:none}
+  body{background:#fff}
+  .idea,.card,.persona,.theme{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <div class="eyebrow">PetDoc · Patient Experience · Idea backlog</div>
+  <h1>Every idea, scored and sequenced</h1>
+  <p class="lede">The full list of ideas for raising the 180-day second-consultation rate from <b>21.2%</b> to <b>~25.9%</b>. For each idea: who it serves, the evidence behind it, its impact and effort, what it depends on, and when it ships.</p>
+  <div class="stats">
+    <div class="stat"><div class="v">27</div><div class="l">ideas in 5 themes (25 scored)</div></div>
+    <div class="stat"><div class="v">5</div><div class="l">quick wins to ship in weeks 1–4</div></div>
+    <div class="stat"><div class="v">5</div><div class="l">big bets, led by the day-3 check-in</div></div>
+    <div class="stat"><div class="v">3</div><div class="l">handed off to other missions (~+3pp combined)</div></div>
+    <div class="stat dark"><div class="v">B1</div><div class="l">thin pet profile: the critical path, 10 ideas read from it</div></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#themes">Themes</a><a href="#jobs">Jobs to be done</a><a href="#matrix">Impact × effort</a><a href="#ranking">Ranking</a><a href="#levers">Why not just fix friction</a><a href="#catalogue">All ideas</a><a href="#deps">Dependencies</a><a href="#timeline">Timeline</a>
+</nav>
+
+<section id="themes">
+  <div class="sec-head"><span class="num">01</span><h2>Five themes</h2><p>Ideas are grouped by the job they do in the retention loop. A–C are Patient Experience bets; most of D belongs to other missions.</p></div>
+  <div class="themes" id="themeCards"></div>
+</section>
+
+<section id="jobs">
+  <div class="sec-head"><span class="num">02</span><h2>Jobs to be done</h2><p>When [situation], I want to [motivation], so I can [outcome]. The bar shows each persona's 180-day return rate today.</p></div>
+  <div class="personas" id="personaCards"></div>
+</section>
+
+<section id="matrix">
+  <div class="sec-head"><span class="num">03</span><h2>Impact × effort</h2><p>Impact (1–5) is the lift on the north-star metric plus strategic value. Effort (1–5) is build size and cross-team load. Ideas above the dashed line score above 1.0. Click a dot to inspect it.</p></div>
+  <div class="matrix-wrap">
+    <div class="card matrix">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+        <h3>25 scored ideas</h3>
+        <div class="toggle" role="group" aria-label="Colour by"><button class="on" data-c="quad">Colour by quadrant</button><button data-c="theme">Colour by theme</button></div>
+      </div>
+      <svg id="scatter" viewBox="0 0 720 460" role="img" aria-label="Impact versus effort scatter of 25 ideas"></svg>
+      <div class="legend" id="scLegend"></div>
+    </div>
+    <div class="card inspect" id="inspect"></div>
+  </div>
+</section>
+
+<section id="ranking">
+  <div class="sec-head"><span class="num">04</span><h2>Priority ranking</h2><p>Priority = Impact ÷ Effort, then adjusted for dependencies. B1 ranks 14th on the ratio but is treated as the foundation, because five other ideas can't ship without it.</p></div>
+  <div class="card"><div class="rank" id="rankList"></div></div>
+</section>
+
+<section id="levers">
+  <div class="sec-head"><span class="num">05</span><h2>Why not just fix friction?</h2><p>Estimated lift on the overall 180-day return, in percentage points, segment-adjusted. Fixing every friction point is capped at +3.7pp. A modest structural shift in acute owners is worth the same.</p></div>
+  <div class="card"><div class="levers" id="leverList"></div></div>
+</section>
+
+<section id="catalogue">
+  <div class="sec-head"><span class="num">06</span><h2>All ideas in detail</h2><p>Filter by theme or quadrant, or search. Open “more” on a card to see acceptance criteria and risks.</p></div>
+  <div class="filters">
+    <span class="lab">Theme</span><span id="fTheme"></span>
+    <span class="lab" style="margin-left:8px">Quadrant</span><span id="fQuad"></span>
+    <span class="sp"></span>
+    <select id="sort" class="chip" aria-label="Sort"><option value="rank">Sort: priority</option><option value="id">Sort: ID</option><option value="impact">Sort: impact</option></select>
+    <input id="q" type="search" placeholder="Search ideas…" aria-label="Search ideas">
+  </div>
+  <div class="count" id="count"></div>
+  <div class="grid" id="ideaGrid"></div>
+</section>
+
+<section id="deps">
+  <div class="sec-head"><span class="num">07</span><h2>Dependency map</h2><p>The thin pet profile (B1) is the critical path: the check-in, the vet summary, re-booking, auto-attach and care plans all read from it. The care-plan engine (C1) is reused for senior plans and win-back.</p></div>
+  <div class="card dep"><div class="scrollx"><svg id="depMap" viewBox="0 0 980 440" role="img" aria-label="Dependency map between ideas"></svg></div></div>
+</section>
+
+<section id="timeline">
+  <div class="sec-head"><span class="num">08</span><h2>When each idea ships</h2><p>The 12-month roadmap by theme. Dashed chips only ship if an earlier exit gate says so. The north star lags by 180 days, so leading metrics drive each quarter's go / no-go.</p></div>
+  <div class="tl" id="tl"></div>
+  <div class="phases">
+    <div class="phase"><div class="ph">Weeks 1–4</div><h3>Now</h3><div class="ids" data-ids="B7 A2 D1 B5 B3"></div><p>Cheap; starts measuring hidden churn; small lift straight away.</p></div>
+    <div class="phase"><div class="ph">Weeks 3–10</div><h3>Quarter core</h3><div class="ids" data-ids="B1 B2 A1"></div><p>Main hypothesis: a follow-up moment turns acute one-timers into returners.</p></div>
+    <div class="phase"><div class="ph">Quarter end</div><h3>Test</h3><div class="ids" data-ids="C1 A6"></div><p>Care plan as a small A/B for young animals; Rx tracking.</p></div>
+    <div class="phase"><div class="ph">Next quarter</div><h3>Expand</h3><div class="ids" data-ids="A3 B6 C2 C6 A4"></div><p>Once the core loop is proven. A4 only if owners want reassurance.</p></div>
+    <div class="phase"><div class="ph">Always on</div><h3>Advocate</h3><div class="ids" data-ids="D2 D3 D4"></div><p>Other missions own these. We track and push.</p></div>
+  </div>
+</section>
+
+<footer>
+  Sources: petdoc_ideas_prioritisation.md, petdoc_retention_strategy.md, petdoc_12_month_roadmap.md, data_analysis_findings.md (1,413 consultations from 1,200 owners, Aug 2025 – Jan 2026). Impact estimates are directional; chronic (149 owners) has wide error margins. A7 and B4 aren't scored separately: A7 ships with A1, and B4 follows B1.
+</footer>
+</main>
+
+<script>
+const THEMES = {
+  A:{name:'Follow up', job:'Create a reason to return soon', who:'Worried one-timer · Acute 61%'},
+  B:{name:'Remember', job:'Make returning easy', who:'All owners · essential for Chronic'},
+  C:{name:'Plan ahead', job:'A reason to open the app between problems', who:'New pet parent · Young animal 22%'},
+  D:{name:'Fix friction', job:'Mostly owned by other missions: track and push', who:'All owners'},
+  E:{name:'Lifecycle', job:'Re-engage happy one-timers and households', who:'All owners'}
+};
+const QUADS = {
+  qw:{name:'Quick win', cls:'qqw'},
+  bb:{name:'Big bet', cls:'qbb'},
+  fi:{name:'Fill-in', cls:'qfi'},
+  lt:{name:'Later / hand off', cls:'qlt'}
+};
+
+const IDEAS = [
+ {id:'A1',t:'A',name:'Vet-set day-3 check-in',sub:'“How is Bella today?” better / same / worse → one-tap re-check with the same vet',
+  persona:'Worried one-timer',story:'As a worried one-timer, I want the app to check on my pet a few days after the call, so that I can get a re-check quickly if things aren’t improving.',
+  imp:5,eff:3,score:1.7,rank:5,quad:'bb',qlabel:'Big bet · main bet',impTxt:'High · ~+3pp',effTxt:'M',main:true,
+  why:'Acute owners are 61% of new users and return at 14.3%, only 2.2% within 30 days. Nothing happens after the call.',
+  metric:'Check-in response 40% · re-check within 14 days 0.7% → 4–5% · acute 30-day return 2.2% → 6%',
+  when:'Q1 A/B on acute → Q2 scale',owner:'Patient Experience + Vet Experience',deps:['B1','A2'],unlocks:['A7','A4'],
+  ac:['Vet sets or confirms a check-in date during the call (default by condition type)','Owner gets “How is [pet] today?” with better / same / worse','Same or worse → one-tap re-check with the same vet, history attached; fallback to next available vet within X hours','Better closes the case and saves it to the pet record'],
+  risk:'Owners respond but don’t book: they want reassurance, not a paid re-check → bring A4 forward. Guardrails: re-checks vets mark “not needed” < 15%, notification opt-outs.'},
+ {id:'A2',t:'A',name:'Post-visit care summary',sub:'Diagnosis, home-care steps, red-flag symptoms, when to come back',
+  persona:'Worried one-timer',story:'As a worried one-timer, I want a written summary of what the vet said, so that I know what to watch for and when to book again.',
+  imp:3,eff:1.5,score:2.0,rank:2,quad:'qw',qlabel:'Quick win',impTxt:'Med · ~+0.5pp',effTxt:'S',
+  why:'Owners leave the call with nothing in writing. The summary sets up the check-in by naming when to come back.',
+  metric:'Summary opened · red-flag re-bookings · enables A1',when:'Q1 · month 1',owner:'Patient Experience + Vet Experience',deps:[],unlocks:['A1']},
+ {id:'A3',t:'A',name:'Same-vet re-booking',sub:'“Book again with Dr. X”, history attached',
+  persona:'All owners',story:'As an owner, I want to see the same vet again, so that I don’t have to start from scratch with someone new.',
+  imp:3,eff:3,score:1.0,rank:15,quad:'bb',qlabel:'Big bet (small)',impTxt:'Med',effTxt:'M',
+  why:'“Context present” comments have the highest return of any theme (36%). Seeing the same vet is the simplest way to keep context.',
+  metric:'Share of returns with the same vet · re-telling rate',when:'Q2 · months 4–5',owner:'Patient Experience + Vet Experience (availability)',deps:['B1'],unlocks:[]},
+ {id:'A4',t:'A',name:'Free short async follow-up',sub:'48–72h text / photo question to the vet',
+  persona:'Worried one-timer',story:'As a worried one-timer, I want to send a quick photo or question after the call, so that I can get reassurance without paying for a full consultation.',
+  imp:3.5,eff:4,score:0.9,rank:18,quad:'lt',qlabel:'Test later',impTxt:'Med–High',effTxt:'M–L',cond:true,
+  why:'Tests the main risk to A1: owners may want reassurance rather than a re-check. It may cannibalise paid re-checks.',
+  metric:'Return lift without cutting paid re-checks or the ~€10 margin',when:'Q3 · only if the Q1 gate shows reassurance demand',owner:'Patient Experience + Vet Experience (capacity, cost)',deps:['A1'],unlocks:[]},
+ {id:'A5',t:'A',name:'Recovery tracker',sub:'Daily symptom / photo log for skin, wounds, GI, shared with the vet',
+  persona:'Worried one-timer',story:'As a worried one-timer, I want to log how my pet is doing day by day, so that the vet can see the trend at the re-check.',
+  imp:2,eff:3,score:0.7,rank:22,quad:'lt',qlabel:'Later',impTxt:'Low–Med',effTxt:'M',
+  why:'It makes re-checks richer, but the check-in already creates the return moment.',metric:'Logs per episode · re-check quality',when:'Q4 · months 10–11',owner:'Patient Experience',deps:['B1'],unlocks:[]},
+ {id:'A6',t:'A',name:'Rx delivery tracking + dose reminders',sub:'Where is my medication, and when is the next dose',
+  persona:'Owners with a prescription',story:'As an owner whose pet got a prescription, I want to track delivery and get dose reminders, so that treatment starts on time and I finish the course.',
+  imp:3,eff:2.5,score:1.2,rank:9,quad:'fi',qlabel:'Fill-in',impTxt:'Med · ~+0.5pp',effTxt:'S–M',
+  why:'Each extra delivery day cuts the odds of return (OR 0.85/day). 28% of prescriptions take 5+ days: 16.5% vs 25.6% return.',
+  metric:'Delivery-day complaints · course completion',when:'Q1 · month 3 (test)',owner:'Patient Experience + pharmacy partner',deps:[],unlocks:[]},
+ {id:'A7',t:'A',name:'Case closure → saved to pet record',sub:'“Better” closes the episode',
+  persona:'All owners',story:'As an owner, I want the episode saved to my pet’s record, so that next time PetDoc already knows what happened.',
+  imp:null,eff:null,score:null,rank:null,quad:'fi',qlabel:'Ships with A1',impTxt:'Low (feeds B1)',effTxt:'S',
+  why:'Each closed case adds to the pet record, so the record keeps getting more useful.',metric:'Episodes closed · records with history',when:'Q1 · with A1',owner:'Patient Experience',deps:['A1'],unlocks:['B1']},
+
+ {id:'B1',t:'B',name:'Living pet profile (thin first)',sub:'History, past consults, uploads, meds, allergies',
+  persona:'All owners',story:'As an owner, I want my pet’s information stored in one place, so that I never have to repeat it.',
+  imp:5,eff:4.5,score:1.1,rank:14,quad:'bb',qlabel:'Big bet · foundation',impTxt:'High · ~+1.4pp from re-telling',effTxt:'L',main:true,
+  why:'19% of visits involve re-telling. That cuts return by about a third (OR 0.54) and barely shows in ratings (4.35 → 3.90).',
+  metric:'Re-telling 17–19% → < 5% · “vet already knew my pet” ≥ 80%',when:'Q1 · months 1–3 (v2 health timeline in Q4)',owner:'Patient Experience (platform)',deps:[],unlocks:['B2','A1','A3','B4','C1','A5'],
+  ac:['Every consult, upload and prescription is saved to the profile automatically','Thin version first: consults + uploads + meds, not the full record'],
+  risk:'Re-telling falls but return doesn’t move → it was a symptom of a weaker vet experience, not the cause.'},
+ {id:'B2',t:'B',name:'Vet pre-call one-screen summary',sub:'Last 3 consults, active meds, latest uploads, owner’s “what’s new”',
+  persona:'PetDoc vet / Care manager',story:'As a PetDoc vet, I want a short summary of the pet before the call starts, so that I don’t ask for information the owner already gave.',
+  imp:4,eff:3,score:1.3,rank:7,quad:'bb',qlabel:'Big bet',impTxt:'High for Chronic',effTxt:'M',
+  why:'Chronic owners return at 54.5% normally, but only 34.6% when the vet asks for known info.',
+  metric:'Re-telling rate · consultation length unchanged · vet satisfaction',when:'Q1 · months 2–3',owner:'Vet Experience (co-design, sign-off)',deps:['B1','B3'],unlocks:[],
+  ac:['The vet sees a one-screen summary before joining','Consultation length stays the same'],
+  risk:'Vets don’t read it under time pressure → it has to fit the existing workflow.'},
+ {id:'B3',t:'B',name:'“Anything new since last time?” intake',sub:'Delta intake instead of starting from scratch',
+  persona:'Returning owner',story:'As a returning owner, I want to tell PetDoc only what has changed, so that booking takes seconds and the call starts with what matters.',
+  imp:3,eff:2,score:1.5,rank:6,quad:'qw',qlabel:'Quick win',impTxt:'Med',effTxt:'S–M',
+  why:'“Half the time went on telling the story — annoying for the price.”',metric:'Booking time · re-telling rate',when:'Q1 · months 1–2',owner:'Patient Experience',deps:[],unlocks:['B2']},
+ {id:'B4',t:'B',name:'Auto-attach history to every booking',sub:'Latest results and meds attached automatically',
+  persona:'Care manager',story:'As a care manager, I want my latest results and meds attached automatically, so that the vet is prepared without me uploading again.',
+  imp:null,eff:null,score:null,rank:null,quad:'fi',qlabel:'After B1',impTxt:'Med',effTxt:'S (after B1)',
+  why:'“There’s a file, but apparently nobody read it.” Uploads also fail 8% of the time.',metric:'Re-uploads per booking · re-telling rate',when:'Q3 · month 7',owner:'Patient Experience',deps:['B1'],unlocks:[]},
+ {id:'B5',t:'B',name:'Book next check at end of call',sub:'Recurring slot for chronic cases',
+  persona:'Care manager',story:'As a care manager, I want to book my next check-in before the call ends, so that I keep a regular cadence without having to remember.',
+  imp:3,eff:1.5,score:2.0,rank:4,quad:'qw',qlabel:'Quick win',impTxt:'Med',effTxt:'S',
+  why:'Chronic owners already return on a ~26-day cadence. Booking it in the call locks that in.',metric:'Chronic 30-day return 29.5% → 33%',when:'Q1 · months 1–2',owner:'Patient Experience + Vet Experience',deps:[],unlocks:[]},
+ {id:'B6',t:'B',name:'Chronic refill reminders + one-tap review',sub:'A nudge before meds run out',
+  persona:'Care manager',story:'As a care manager, I want a reminder before meds run out with an option to book a review, so that my pet’s treatment never lapses.',
+  imp:3,eff:2.5,score:1.2,rank:10,quad:'fi',qlabel:'Fill-in',impTxt:'Med (Chronic)',effTxt:'S–M',
+  why:'Refills are a natural, predictable return moment for 12% of owners.',metric:'Reminder → review booking',when:'Q3 · months 7–8',owner:'Patient Experience + pharmacy partner',deps:['B1'],unlocks:[]},
+ {id:'B7',t:'B',name:'“The vet already knew my pet” survey',sub:'One-tap question after every visit',
+  persona:'Product team',story:'As a product team, we want a one-tap post-visit question, so that we can see context loss that star ratings hide.',
+  imp:3,eff:1,score:3.0,rank:1,quad:'qw',qlabel:'Quick win · measurement',impTxt:'Measurement only',effTxt:'S',
+  why:'Ratings hide re-telling, and 54% of first visits have no rating. This makes the leading metric visible.',
+  metric:'Baseline in Q1 → 70% Q2 → 80% Q3 → 85% Q4',when:'Q1 · month 1',owner:'Patient Experience + Data',deps:[],unlocks:[]},
+
+ {id:'C1',t:'C',name:'Care plan at first visit',sub:'Vaccines, deworming, check-ups by species / age, with reminders + one-tap booking',
+  persona:'New pet parent',story:'As a new pet parent, I want a personalised care calendar, so that I don’t miss what my puppy or kitten needs.',
+  imp:4,eff:3,score:1.3,rank:8,quad:'bb',qlabel:'Big bet',impTxt:'High–Med · ~+1.3pp',effTxt:'M',main:true,
+  why:'Young-animal owners return at 25.7% and have a predictable care calendar. PetDoc only shows up when something is wrong.',
+  metric:'Plan setup ~50% · reminder → booking ~15% · 60-day return 15% → 21%',when:'Q2 · months 4–5 (A/B)',owner:'Patient Experience + Growth (sign-up flow)',deps:['B1'],unlocks:['C6','C5'],
+  ac:['The vet creates a plan from a species / age template in under 30 seconds','Owner gets reminders with one-tap booking of the right consultation type'],
+  risk:'Plans get set up, but reminders send owners to local clinics → position PetDoc as “plan & triage”, explore clinic partnerships.'},
+ {id:'C2',t:'C',name:'Milestone content',sub:'Growth, diet, behaviour, training by age',
+  persona:'New pet parent',story:'As a new pet parent, I want timely tips for my pet’s current age, so that I feel confident I’m doing it right.',
+  imp:2,eff:2.5,score:0.8,rank:20,quad:'fi',qlabel:'Fill-in',impTxt:'Low–Med',effTxt:'S–M',
+  why:'A reason to open the app between problems.',metric:'App opens without a consultation',when:'Q3 · month 8',owner:'Patient Experience + Growth',deps:['C1'],unlocks:[]},
+ {id:'C3',t:'C',name:'Weight / growth tracker',sub:'Log weight, see if growth is on track',
+  persona:'New pet parent',story:'As a new pet parent, I want to log my pet’s weight, so that I can see whether growth is on track and ask a vet if not.',
+  imp:1,eff:1.5,score:0.7,rank:24,quad:'lt',qlabel:'Low priority',impTxt:'Low',effTxt:'S',
+  why:'Nice engagement hook, small return effect.',metric:'Logs per pet · “off track” → booking',when:'Q2 · month 6',owner:'Patient Experience',deps:['B1'],unlocks:[]},
+ {id:'C4',t:'C',name:'Seasonal prevention nudges',sub:'Ticks, heat, fireworks, toxic foods',
+  persona:'All owners',story:'As an owner, I want a heads-up before seasonal risks, so that I can prevent problems instead of reacting.',
+  imp:2,eff:1.5,score:1.3,rank:12,quad:'fi',qlabel:'Fill-in',impTxt:'Low–Med',effTxt:'S',
+  why:'Cheap, relevant touchpoints for all owners, including acute one-timers.',metric:'Nudge → booking · opt-out rate',when:'Q2 · month 5',owner:'Patient Experience + Growth',deps:[],unlocks:[]},
+ {id:'C5',t:'C',name:'Annual wellness reminder',sub:'For one-time acute owners',
+  persona:'Worried one-timer',story:'As a one-time user, I want a reminder for a yearly check, so that I come back before something goes wrong.',
+  imp:2,eff:2,score:1.0,rank:16,quad:'fi',qlabel:'Fill-in',impTxt:'Low–Med',effTxt:'S',
+  why:'Acute returners already come back after ~70 days, so a yearly nudge adds little inside 180 days.',metric:'Reminder → booking',when:'Q4 · month 10',owner:'Patient Experience',deps:['C1'],unlocks:[]},
+ {id:'C6',t:'C',name:'Senior / chronic care plans',sub:'Reuse the C1 engine for ageing and long-term conditions',
+  persona:'Care manager / older pets',story:'As an owner of an older pet, I want a care plan for ageing, so that problems are caught early.',
+  imp:3,eff:3.5,score:0.9,rank:23,quad:'lt',qlabel:'Next quarter',impTxt:'Med (later)',effTxt:'M',
+  why:'Extends the plan engine once it is proven with young animals.',metric:'Chronic 30-day return → 35%',when:'Q3 · months 7–9',owner:'Patient Experience + Vet Experience',deps:['C1'],unlocks:[]},
+
+ {id:'D1',t:'D',name:'Service recovery after a bad visit',sub:'Auto apology + free or discounted re-consult when A/V failed or re-telling was flagged',
+  persona:'All owners',story:'As an owner whose call went wrong, I want PetDoc to make it right, so that I give it another chance.',
+  imp:3,eff:1.5,score:2.0,rank:3,quad:'qw',qlabel:'Quick win',impTxt:'Med',effTxt:'S',
+  why:'A technical issue plus re-telling drops return to 3.2%, versus 24.6% after a smooth visit.',metric:'Return after a flagged visit · margin impact',when:'Q1 · month 1',owner:'Patient Experience',deps:[],unlocks:[]},
+ {id:'D2',t:'D',name:'Connection check + audio fallback',sub:'Test before the call, switch to audio / phone if video fails',
+  persona:'All owners',story:'As an owner, I want the app to test my connection and switch to audio if video fails, so that the consultation isn’t lost.',
+  imp:3,eff:4,score:0.8,rank:17,quad:'lt',qlabel:'Other mission',impTxt:'Med · ~+1.4pp',effTxt:'M–L',other:true,
+  why:'A/V issues hit 9% of visits: 5.6% return vs 22.7% (OR 0.21), and the rating drops 4.35 → 2.63.',metric:'A/V issue rate 9% → down',when:'Always on · advocate',owner:'Other mission (track and push)',deps:[],unlocks:[]},
+ {id:'D3',t:'D',name:'Reliable uploads',sub:'Upload before the call, retry and background upload',
+  persona:'All owners',story:'As an owner, I want my photos and files to upload reliably before the call, so that the vet can see them.',
+  imp:2,eff:2.5,score:0.8,rank:19,quad:'lt',qlabel:'Other mission',impTxt:'Low–Med · ~+0.8pp',effTxt:'S–M',other:true,
+  why:'Uploads fail on 8% of visits: 15.2% return vs 21.7% (OR 0.49).',metric:'Upload failure rate 8% → down',when:'Always on · advocate',owner:'Other mission (track and push)',deps:[],unlocks:[]},
+ {id:'D4',t:'D',name:'Faster Rx delivery',sub:'≤ 4-day SLA, local pharmacy option',
+  persona:'Owners with a prescription',story:'As an owner, I want medication within a few days, so that treatment starts quickly.',
+  imp:3,eff:5,score:0.6,rank:25,quad:'lt',qlabel:'Other mission (ops)',impTxt:'Med · ~+0.9pp',effTxt:'L',other:true,
+  why:'Each extra delivery day: OR 0.85 on return. Fressnapf and Shop-Apotheke are stronger on logistics, so aim for parity.',metric:'Share of Rx ≥ 5 days: 28% → down',when:'Always on · partnerships in Q4',owner:'Ops + pharmacy partner',deps:[],unlocks:[]},
+ {id:'D5',t:'D',name:'Wait-time transparency + call-back',sub:'Show the wait or offer a call-back slot in evenings',
+  persona:'Evening users',story:'As an owner waiting in the evening, I want to see the wait or get a call back, so that I don’t drop off.',
+  imp:1,eff:1.5,score:0.7,rank:21,quad:'lt',qlabel:'Low priority',impTxt:'Low',effTxt:'S',
+  why:'Wait time only matters above 15 minutes (OR 0.97/min, p = 0.06). Evening waits run 10–12 min vs 6–8.',metric:'Drop-off while waiting',when:'Not scheduled',owner:'Patient Experience',deps:[],unlocks:[]},
+
+ {id:'E1',t:'E',name:'5★ → save profile / favourite vet',sub:'Turn happy one-timers into profile owners',
+  persona:'Satisfied one-timer',story:'As a satisfied owner, I want to save my pet and vet easily, so that next time is faster.',
+  imp:2,eff:1.5,score:1.3,rank:11,quad:'fi',qlabel:'Fill-in',impTxt:'Low–Med',effTxt:'S',
+  why:'68% of 5-star raters never come back. The moment after a great visit is the best time to ask.',metric:'Profiles completed after 5★ · return of 5★ raters',when:'Q2 · months 5–6',owner:'Patient Experience',deps:['B1'],unlocks:[]},
+ {id:'E2',t:'E',name:'Multi-pet onboarding',sub:'“Add your other pets”',
+  persona:'Multi-pet household',story:'As an owner with more than one pet, I want all my pets in one account, so that I can use PetDoc for any of them.',
+  imp:2,eff:1.5,score:1.3,rank:13,quad:'fi',qlabel:'Fill-in',impTxt:'Low–Med',effTxt:'S',
+  why:'Another pet means another reason to come back, at no extra acquisition cost.',metric:'Pets per account',when:'Q2 · months 5–6 (household v2 in Q4)',owner:'Patient Experience + Growth',deps:['B1'],unlocks:[]}
+];
+const byId = Object.fromEntries(IDEAS.map(i=>[i.id,i]));
+
+const PERSONAS = [
+  {role:'Primary target',name:'Worried one-timer',seg:'Acute',share:61,ret:14.3,col:'var(--rust)',
+   job:'When my pet is still unwell a few days after the call, I want to know whether this is normal and get the same vet to look again quickly.',ids:['A1','A2','A3','A4','A5','A7','C5']},
+  {role:'Secondary target',name:'New pet parent',seg:'Young animal',share:22,ret:25.7,col:'var(--mint)',
+   job:'When I’ve just got a puppy or kitten and don’t know what’s due when, I want someone to tell me what my pet needs and when.',ids:['C1','C2','C3','C4']},
+  {role:'Protect',name:'Care manager',seg:'Chronic',share:12,ret:51.0,col:'var(--brand)',
+   job:'When I’m managing a long-term condition, I want every vet to already know the history, meds and last results.',ids:['B1','B2','B3','B4','B5','B6','C6']},
+  {role:'Internal',name:'PetDoc vet',seg:'120 vets',share:null,ret:null,col:'var(--plum)',
+   job:'When a consultation starts, I want a one-screen view of the pet’s history and what’s new, without making the call longer.',ids:['B2','B1','A1']}
+];
+
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const chip = id => `<button class="idchip t${byId[id].t}" data-go="${id}" title="${esc(byId[id].name)}">${id}</button>`;
+
+/* themes */
+document.getElementById('themeCards').innerHTML = Object.entries(THEMES).map(([k,t])=>{
+  const ids = IDEAS.filter(i=>i.t===k).map(i=>i.id);
+  return `<div class="theme t${k}"><div class="letter">${k}</div><h3>${t.name}</h3><div>${t.job}</div><div class="who">${t.who} · ${ids.length} ideas</div><div class="ids">${ids.map(chip).join('')}</div></div>`;
+}).join('');
+
+/* personas */
+document.getElementById('personaCards').innerHTML = PERSONAS.map(p=>`
+  <div class="persona"><div class="role" style="color:${p.col}">${p.role}</div><h3>${p.name}</h3>
+  <div class="nums">${p.share!==null?`<div>${p.share}%<small>of new owners</small></div><div>${p.ret}%<small>return in 180d</small></div>`:`<div>120<small>vets on the platform</small></div>`}</div>
+  ${p.ret!==null?`<div class="ring" aria-hidden="true"><i style="width:${p.ret/0.6}%;background:${p.col}"></i></div>`:''}
+  <q>${p.job}</q><div class="ids">${p.ids.map(chip).join('')}</div></div>`).join('');
+
+/* scatter */
+let colourBy = 'quad', selected = 'A1';
+const QCOL = {qw:'var(--mint)',bb:'var(--brand)',fi:'var(--gold)',lt:'var(--grey)'};
+const TCOL = {A:'var(--rust)',B:'var(--brand)',C:'var(--mint)',D:'var(--gold)',E:'var(--plum)'};
+function drawScatter(){
+  const W=720,H=460,m={l:58,r:18,t:20,b:52};
+  const x=v=>m.l+(v-0.5)/5*(W-m.l-m.r), y=v=>H-m.b-(v-0.5)/5*(H-m.t-m.b);
+  let s='';
+  // corner zones
+  s+=`<rect x="${x(.5)}" y="${y(5.5)}" width="${x(2.75)-x(.5)}" height="${y(2.75)-y(5.5)}" fill="var(--mint-tint)" opacity=".55"/>`;
+  s+=`<rect x="${x(2.75)}" y="${y(5.5)}" width="${x(5.5)-x(2.75)}" height="${y(2.75)-y(5.5)}" fill="var(--brand-tint)" opacity=".55"/>`;
+  s+=`<rect x="${x(.5)}" y="${y(2.75)}" width="${x(2.75)-x(.5)}" height="${y(.5)-y(2.75)}" fill="var(--gold-tint)" opacity=".45"/>`;
+  s+=`<rect x="${x(2.75)}" y="${y(2.75)}" width="${x(5.5)-x(2.75)}" height="${y(.5)-y(2.75)}" fill="var(--grey-tint)" opacity=".6"/>`;
+  for(let i=1;i<=5;i++){
+    s+=`<line x1="${x(i)}" x2="${x(i)}" y1="${y(.5)}" y2="${y(5.5)}" stroke="var(--line)"/>`;
+    s+=`<line x1="${x(.5)}" x2="${x(5.5)}" y1="${y(i)}" y2="${y(i)}" stroke="var(--line)"/>`;
+    s+=`<text x="${x(i)}" y="${H-m.b+18}" text-anchor="middle" font-size="12" fill="var(--muted)">${i}</text>`;
+    s+=`<text x="${m.l-12}" y="${y(i)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${i}</text>`;
+  }
+  s+=`<line x1="${x(.5)}" y1="${y(.5)}" x2="${x(5.5)}" y2="${y(5.5)}" stroke="var(--line-strong)" stroke-dasharray="5 5"/>`;
+  s+=`<text x="${x(4.3)+8}" y="${y(4.3)+4}" text-anchor="start" font-size="11" fill="var(--muted)">score = 1.0</text>`;
+  const zl=(tx,ty,anchor,label)=>`<text x="${tx}" y="${ty}" text-anchor="${anchor}" font-size="11" font-weight="700" letter-spacing=".06em" fill="var(--muted)">${label}</text>`;
+  s+=zl(x(.5)+8,y(5.5)+16,'start','QUICK WINS · DO NOW');
+  s+=zl(x(5.5)-8,y(5.5)+16,'end','BIG BETS · PLAN & BUILD');
+  s+=zl(x(.5)+8,y(.5)-8,'start','FILL-INS');
+  s+=zl(x(5.5)-8,y(.5)-8,'end','AVOID / HAND OFF');
+  s+=`<text x="${(m.l+W-m.r)/2}" y="${H-8}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">Effort →</text>`;
+  s+=`<text transform="translate(16 ${(m.t+H-m.b)/2}) rotate(-90)" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">Impact →</text>`;
+  // group same coords
+  const groups={};
+  IDEAS.filter(i=>i.imp!==null).forEach(i=>{(groups[i.eff+'_'+i.imp]=groups[i.eff+'_'+i.imp]||[]).push(i)});
+  Object.values(groups).forEach(g=>g.forEach((i,k)=>{
+    const cx=x(i.eff)+(k-(g.length-1)/2)*30, cy=y(i.imp);
+    const fill=colourBy==='quad'?QCOL[i.quad]:TCOL[i.t];
+    s+=`<g class="dot${i.id===selected?' on':''}" data-id="${i.id}" tabindex="0" role="button" aria-label="${i.id} ${esc(i.name)}">
+      <title>${i.id} · ${esc(i.name)} · impact ${i.imp}, effort ${i.eff}, score ${i.score}</title>
+      <circle cx="${cx}" cy="${cy}" r="14" fill="${fill}" stroke="var(--raised)" stroke-width="2"/>
+      ${i.main?`<circle cx="${cx}" cy="${cy}" r="19" fill="none" stroke="${fill}" stroke-width="1.5" stroke-dasharray="3 3"/>`:''}
+      <text x="${cx}" y="${cy+4}" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--on-dark)" pointer-events="none">${i.id}</text></g>`;
+  }));
+  const svg=document.getElementById('scatter'); svg.innerHTML=s;
+  svg.querySelectorAll('.dot').forEach(d=>{
+    const pick=()=>{selected=d.dataset.id;drawScatter();inspect(selected)};
+    d.addEventListener('click',pick);
+    d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}});
+  });
+  document.getElementById('scLegend').innerHTML = colourBy==='quad'
+    ? Object.entries(QUADS).map(([k,q])=>`<span><i style="background:${QCOL[k]}"></i>${q.name}</span>`).join('')+'<span>◌ dashed ring = main bet / foundation</span>'
+    : Object.entries(THEMES).map(([k,t])=>`<span><i style="background:${TCOL[k]}"></i>${k} · ${t.name}</span>`).join('');
+}
+function inspect(id){
+  const i=byId[id];
+  document.getElementById('inspect').innerHTML=`
+    <div style="display:flex;gap:10px;align-items:center"><span class="idea t${i.t}" style="all:unset"><span style="font:600 15px 'Source Serif 4',serif;background:${TCOL[i.t]};color:var(--on-dark);border-radius:8px;width:38px;height:38px;display:grid;place-items:center">${i.id}</span></span><div class="eyebrow">${THEMES[i.t].name} · ${i.qlabel}</div></div>
+    <div class="big">${esc(i.name)}</div>
+    <div class="muted" style="font-size:13px">${esc(i.sub)}</div>
+    <div class="kv"><span>Impact</span><span>${i.imp??'—'} / 5 · ${esc(i.impTxt)}</span><span>Effort</span><span>${i.eff??'—'} / 5 · ${esc(i.effTxt)}</span><span>Score</span><span><b>${i.score??'—'}</b>${i.rank?` · rank ${i.rank} of 25`:''}</span><span>Ships</span><span>${esc(i.when)}</span><span>Owner</span><span>${esc(i.owner)}</span></div>
+    <div style="font-size:13px"><b>Why:</b> ${esc(i.why)}</div>
+    <button class="btn" data-go="${i.id}">Open full card ↓</button>`;
+}
+document.querySelectorAll('.toggle button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.toggle button').forEach(x=>x.classList.toggle('on',x===b));
+  colourBy=b.dataset.c; drawScatter();
+}));
+drawScatter(); inspect(selected);
+
+/* ranking */
+document.getElementById('rankList').innerHTML = IDEAS.filter(i=>i.rank).sort((a,b)=>a.rank-b.rank).map(i=>`
+  <div class="rrow ${QUADS[i.quad].cls}" data-go="${i.id}" role="button" tabindex="0">
+    <span class="rk">${i.rank}</span>${chip(i.id)}<span class="nm">${esc(i.name)}</span>
+    <span class="tr"><i style="width:${i.score/3*100}%"></i></span><span class="sc">${i.score.toFixed(1)}</span><span class="qtag">${esc(i.qlabel)}</span></div>`).join('');
+
+/* levers */
+const LEVERS=[
+  {n:'Re-telling fixed',ids:'B1 · B2 · B3',v:1.4,c:'var(--brand)'},
+  {n:'Video / audio fixed',ids:'D2 · other mission',v:1.4,c:'var(--gold)'},
+  {n:'Rx delivery ≤ 4 days',ids:'D4 · A6',v:0.9,c:'var(--gold)'},
+  {n:'Uploads fixed',ids:'D3 · other mission',v:0.8,c:'var(--gold)'},
+  {n:'All friction removed',ids:'ceiling',v:3.7,c:'var(--grey)',sum:true},
+  {n:'+6pp in Acute owners',ids:'A1 · A2 · A3',v:3.7,c:'var(--rust)',sum:true},
+  {n:'+9pp in Young animal',ids:'C1',v:2.0,c:'var(--mint)'}
+];
+document.getElementById('leverList').innerHTML = LEVERS.map(l=>`
+  <div class="lever${l.sum?' sum':''}"><span>${l.n}<small>${l.ids}</small></span><span class="tr"><i style="width:${l.v/4*100}%;background:${l.c}"></i></span><span class="v">+${l.v.toFixed(1)}</span></div>`).join('')
+  + `<p class="muted" style="font-size:12.5px;margin-top:8px">Each +1pp ≈ 28 extra second consultations a month (~€280 contribution), plus a cascade: 28% of second-visit owners make a third.</p>`;
+
+/* catalogue */
+let fTheme='all', fQuad='all';
+const mkChips=(el,opts,get,set)=>{
+  const node=document.getElementById(el);
+  const render=()=>{node.innerHTML=opts.map(([v,l])=>`<button class="chip${get()===v?' on':''}" data-v="${v}">${l}</button>`).join(' ');
+    node.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{set(b.dataset.v);render();renderGrid()}))};
+  render();
+};
+mkChips('fTheme',[['all','All'],...Object.entries(THEMES).map(([k,t])=>[k,`${k} · ${t.name}`])],()=>fTheme,v=>fTheme=v);
+mkChips('fQuad',[['all','All'],...Object.entries(QUADS).map(([k,q])=>[k,q.name])],()=>fQuad,v=>fQuad=v);
+document.getElementById('sort').addEventListener('change',renderGrid);
+document.getElementById('q').addEventListener('input',renderGrid);
+
+const pips=v=>{let h='';for(let k=1;k<=5;k++){h+=`<span class="pip ${v>=k?'f':v>=k-.5?'h':''}"></span>`}return `<div class="pips">${h}</div>`};
+function card(i){
+  const deps=i.deps.length?i.deps.map(chip).join(''):'<span class="muted">none</span>';
+  const unl=i.unlocks.length?i.unlocks.map(chip).join(''):'<span class="muted">—</span>';
+  return `<article class="idea t${i.t} ${QUADS[i.quad].cls}${i.main?' main':''}" id="idea-${i.id}">
+    <div class="top"><span class="badge">${i.id}</span><div><div class="ttl">${esc(i.name)}</div><div class="thm">${THEMES[i.t].name} · ${esc(i.persona)}</div></div><span class="flag">${esc(i.qlabel)}</span></div>
+    <div class="muted" style="font-size:13px">${esc(i.sub)}</div>
+    <div class="story">${esc(i.story)}</div>
+    <div class="meters">
+      <div class="meter"><div class="ml">Impact</div>${i.imp!==null?pips(i.imp):'<div class="muted" style="font-size:12px">not scored</div>'}<div class="mt">${esc(i.impTxt)}</div></div>
+      <div class="meter"><div class="ml">Effort</div>${i.eff!==null?pips(i.eff):'<div class="muted" style="font-size:12px">not scored</div>'}<div class="mt">${esc(i.effTxt)}</div></div>
+      <div class="scorebox"><div class="meter"><div class="ml">Score</div></div><div class="v">${i.score!==null?i.score.toFixed(1):'—'}</div><div class="muted" style="font-size:11px">${i.rank?'#'+i.rank:'bundled'}</div></div>
+    </div>
+    <dl class="facts">
+      <dt>Evidence</dt><dd>${esc(i.why)}</dd>
+      <dt>Measure</dt><dd>${esc(i.metric)}</dd>
+      <dt>Ships</dt><dd>${esc(i.when)}</dd>
+      <dt>Owner</dt><dd>${esc(i.owner)}</dd>
+      <dt>Needs</dt><dd>${deps}</dd>
+      <dt>Unlocks</dt><dd>${unl}</dd>
+    </dl>
+    ${(i.ac||i.risk)?`<details><summary>More: acceptance criteria &amp; risk</summary>${i.ac?`<ul>${i.ac.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`:''}${i.risk?`<p style="margin-top:8px"><b>Risk:</b> ${esc(i.risk)}</p>`:''}</details>`:''}
+  </article>`;
+}
+function renderGrid(){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  const sort=document.getElementById('sort').value;
+  let list=IDEAS.filter(i=>(fTheme==='all'||i.t===fTheme)&&(fQuad==='all'||i.quad===fQuad)&&(!q||[i.id,i.name,i.sub,i.story,i.why,i.persona].join(' ').toLowerCase().includes(q)));
+  list.sort(sort==='id'?(a,b)=>a.id.localeCompare(b.id):sort==='impact'?(a,b)=>(b.imp??0)-(a.imp??0)||(a.eff??9)-(b.eff??9):(a,b)=>(a.rank??99)-(b.rank??99)||a.id.localeCompare(b.id));
+  document.getElementById('count').textContent=`Showing ${list.length} of ${IDEAS.length} ideas`;
+  document.getElementById('ideaGrid').innerHTML=list.length?list.map(card).join(''):'<div class="empty">No ideas match these filters.</div>';
+}
+renderGrid();
+
+/* dependency map */
+(function(){
+  const N={
+    A2:[40,90],A7:[40,300],B3:[40,195],
+    B1:[300,195],
+    B2:[560,40],A1:[560,120],A3:[560,200],B4:[560,280],C1:[560,370],
+    A4:[820,90],C6:[820,330],C5:[820,410],WB:[820,250],TL:[820,170]
+  };
+  const extra={WB:{name:'Win-back for lapsed owners',t:'C'},TL:{name:'B1 v2 · health timeline',t:'B'}};
+  const w=150,h=50;
+  const E=[['A2','A1'],['B3','B2'],['A7','B1'],['B1','B2'],['B1','A1'],['B1','A3'],['B1','B4'],['B1','C1'],['A1','A4',true],['C1','C6'],['C1','C5'],['C1','WB'],['B1','TL'],['A1','A7']];
+  let s=`<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--line-strong)"/></marker></defs>`;
+  [['Feeds the record',40],['Foundation',300],['Builds on it · Q1–Q2',560],['Extends · Q3–Q4',820]].forEach(([l,x0])=>s+=`<text x="${x0}" y="14" font-size="11" font-weight="700" letter-spacing=".06em" fill="var(--muted)">${l.toUpperCase()}</text>`);
+  E.forEach(([a,b,dash])=>{
+    const [x1,y1]=N[a],[x2,y2]=N[b];
+    let p;
+    if(a==='A1'&&b==='A7'){ // back-edge, route below
+      p=`M${x1} ${y1+h/2+20} C ${x1-120} ${y1+120}, ${x2+w+60} ${y2+h/2}, ${x2+w} ${y2+h/2}`;
+    } else if(a==='A2'&&b==='A1'){
+      p=`M${x1+w} ${y1+h/2} C ${x1+w+120} ${y1-40}, ${x2-160} ${y2+h/2-40}, ${x2} ${y2+h/2}`;
+    } else {
+      const sx=x1+w, sy=y1+h/2+(x1===x2?0:0), ex=x2, ey=y2+h/2, mx=(sx+ex)/2;
+      p=`M${sx} ${sy} C ${mx} ${sy}, ${mx} ${ey}, ${ex} ${ey}`;
+    }
+    s+=`<path d="${p}" fill="none" stroke="var(--line-strong)" stroke-width="1.5" ${dash?'stroke-dasharray="5 4"':''} marker-end="url(#arr)"/>`;
+  });
+  Object.entries(N).forEach(([id,[x0,y0]])=>{
+    const i=byId[id]||extra[id], col=TCOL[i.t], big=id==='B1';
+    const hh=big?h+20:h, yy=big?y0-10:y0;
+    s+=`<g class="dnode" data-go="${byId[id]?id:''}" style="cursor:${byId[id]?'pointer':'default'}">
+      <rect x="${x0}" y="${yy}" width="${w}" height="${hh}" rx="9" fill="${big?col:'var(--raised)'}" stroke="${col}" stroke-width="${big?0:1.5}"/>
+      <text x="${x0+12}" y="${yy+20}" font-size="12" font-weight="700" fill="${big?'var(--on-dark)':col}">${byId[id]?id:'Q4'}</text>
+      <text x="${x0+12}" y="${yy+37}" font-size="11.5" fill="${big?'var(--on-dark)':'var(--ink)'}">${esc(i.name.length>22?i.name.slice(0,21)+'…':i.name)}</text>
+      ${big?`<text x="${x0+12}" y="${yy+56}" font-size="10.5" fill="var(--on-dark)" opacity=".85">critical path</text>`:''}
+    </g>`;
+  });
+  s+=`<text x="${N.A4[0]}" y="${N.A4[1]-8}" font-size="10.5" fill="var(--muted)">only if Q1 gate shows reassurance demand</text>`;
+  document.getElementById('depMap').innerHTML=s;
+})();
+
+/* timeline */
+(function(){
+  const Q=[['Q1 · months 1–3','Remember & follow up','23.5%'],['Q2 · months 4–6','Plan ahead','25.9%'],['Q3 · months 7–9','Deepen care','27.5%'],['Q4 · months 10–12','Everyday companion','29%']];
+  const ROWS={
+    A:[['A2','A1','A7','A6'],['A1+','A3'],['A4?'],['A5']],
+    B:[['B7','B5','B3','B1','B2'],[],['B4','B6'],['B1v2']],
+    C:[[],['C1','C4','C3'],['C6','C2'],['C5','WB']],
+    D:[['D1','D2~','D3~'],['D2~','D3~'],['D2~','D3~'],['D4']],
+    E:[[],['E1','E2'],[],['E2v2']]
+  };
+  const label={'A1+':['A1','Scale check-in'],'A4?':['A4','Async follow-up'],'B1v2':['B1','Health timeline v2'],'WB':['C','Win-back'],'D2~':['D2','advocate'],'D3~':['D3','advocate'],'E2v2':['E2','Household v2']};
+  let h=`<div class="hd corner"><b>Theme</b><span>North star at quarter end</span></div>`;
+  Q.forEach(q=>h+=`<div class="hd"><span>${q[0]}</span><b>${q[1]}</b><span class="ns">${q[2]}</span></div>`);
+  Object.entries(ROWS).forEach(([t,cells])=>{
+    h+=`<div class="rl t${t}"><i></i>${t} · ${THEMES[t].name}</div>`;
+    cells.forEach(c=>{
+      h+=`<div>${c.map(k=>{
+        const [id,txt]=label[k]||[k,byId[k].name];
+        const real=byId[id]?id:'';
+        const cond=k.endsWith('?');
+        return `<button class="tchip t${t}${cond?' cond':''}" ${real?`data-go="${real}"`:''} title="${esc(txt)}"><b>${id}</b>${esc(txt.length>24?txt.slice(0,23)+'…':txt)}</button>`;
+      }).join('')}</div>`;
+    });
+  });
+  document.getElementById('tl').innerHTML=h;
+  document.querySelectorAll('.phase .ids').forEach(el=>el.innerHTML=el.dataset.ids.split(' ').map(chip).join(''));
+})();
+
+/* jump to card */
+function go(id){
+  if(!byId[id]) return;
+  fTheme='all'; fQuad='all'; document.getElementById('q').value='';
+  mkChips('fTheme',[['all','All'],...Object.entries(THEMES).map(([k,t])=>[k,`${k} · ${t.name}`])],()=>fTheme,v=>fTheme=v);
+  mkChips('fQuad',[['all','All'],...Object.entries(QUADS).map(([k,q])=>[k,q.name])],()=>fQuad,v=>fQuad=v);
+  renderGrid();
+  const el=document.getElementById('idea-'+id);
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1600);
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-go]');
+  if(t&&t.dataset.go){ if(t.closest('.dot')) return; go(t.dataset.go) }
+});
+document.addEventListener('keydown',e=>{
+  const t=e.target.closest&&e.target.closest('.rrow[data-go]');
+  if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go(t.dataset.go)}
+});
+</script>
+</body>
+</html>

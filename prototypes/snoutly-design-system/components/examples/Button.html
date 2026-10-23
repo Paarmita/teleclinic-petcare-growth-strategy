@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../../tokens.css"><link rel="stylesheet" href="../bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="../bundle.js"></script><title>Button — Snoutly</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div',{className:'sn-stack'},
+ h('div',{className:'sn-row'},h(S.Button,{icon:'video'},'Start video consult'),h(S.Button,{variant:'secondary',icon:'calendar'},'Book later')),
+ h('div',{className:'sn-row'},h(S.Button,{variant:'ghost',icon:'back',size:'sm'},'Back'),h(S.Button,{size:'sm',iconRight:'send'},'Send'),h(S.Button,{variant:'danger',icon:'alert',size:'sm'},'Emergency help'),h(S.Button,{disabled:true,size:'sm'},'Disabled'))));
+</script>
+</body></html>

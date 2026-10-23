@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C3 Weight and growth tracker — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .gc { width: 100%; height: auto; display: block; }
+  .gc-band { fill: var(--mint-tint); stroke: var(--mint); stroke-width: 1.5; stroke-dasharray: 4 4; }
+  .gc-grid { stroke: var(--line); stroke-width: 1; }
+  .gc-axis { fill: var(--ink-muted); font-size: 11px; font-weight: 700; font-family: var(--font-body); }
+  .gc-line { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .gc-next { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 3 5; stroke-linecap: round; }
+  .gc-pt { fill: var(--surface-raised); stroke: var(--ink); stroke-width: 2; }
+  .gc-new { fill: var(--brand); stroke: var(--ink); stroke-width: 2.5; }
+  .gc-new.is-off { fill: var(--warning-tint); stroke: var(--warning); }
+  .gc-label { fill: var(--ink); font-size: 12px; font-weight: 800; font-family: var(--font-body); }
+  .gc-legend { display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: 12px; font-weight: 700; color: var(--ink-muted); }
+  .gc-legend i { display: inline-block; width: 14px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+  .gc-legend .lg-band { background: var(--mint-tint); border: 1.5px dashed var(--mint); }
+  .gc-legend .lg-pt { background: var(--brand); border: 2px solid var(--ink); border-radius: 50%; width: 10px; }
+  .wt-input { display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+  .wt-input input { width: 160px; font-family: var(--font-display); font-weight: 600; font-size: 48px; text-align: center; border: var(--stroke-sticker) solid var(--line-strong); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink); padding: 6px 8px; }
+  .wt-input input:focus { outline: var(--stroke-focus) solid var(--focus); outline-offset: 2px; border-color: var(--ink); }
+  .wt-input input[aria-invalid="true"] { border-color: var(--danger); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Row, VetAv, Section, Desk, data } = window.Proto;
+const { kitten, vet2 } = data;
+
+// Expected range for a British Shorthair kitten (kg), weeks 8–16
+const BAND = [[8, 0.8, 1.1], [10, 1.05, 1.4], [12, 1.3, 1.7], [14, 1.5, 2.0], [16, 1.8, 2.4]];
+const HISTORY = [[8, 1.0], [9, 1.1], [10, 1.2], [11, 1.3]];
+const SLOTS = ['Today 18:40', 'Today 19:20', 'Tomorrow 08:30'];
+
+const parseKg = v => { const n = parseFloat(String(v || '').replace(',', '.')); return isNaN(n) ? null : n; };
+const status = kg => kg < 1.3 ? 'low' : kg > 1.7 ? 'high' : 'ok';
+const fmt = kg => kg.toFixed(2).replace(/0$/, '');
+
+function Chart({ kg }) {
+  const sx = w => 40 + (w - 8) * 34;
+  const sy = k => 172 - (k - 0.8) * 97;
+  const band = BAND.map(b => `${sx(b[0])},${sy(b[2])}`).concat(BAND.slice().reverse().map(b => `${sx(b[0])},${sy(b[1])}`)).join(' ');
+  const pts = HISTORY.concat([[12, kg]]);
+  const off = status(kg) !== 'ok';
+  return (
+    <svg className="gc" viewBox="0 0 320 200" role="img" aria-label={`Milo’s weight from 8 to 12 weeks, latest ${fmt(kg)} kg, ${off ? 'outside' : 'inside'} the expected range`}>
+      {[1.0, 1.5, 2.0].map(k => <g key={k}><line className="gc-grid" x1="40" x2="312" y1={sy(k)} y2={sy(k)} /><text className="gc-axis" x="4" y={sy(k) + 4}>{k.toFixed(1)} kg</text></g>)}
+      <polygon className="gc-band" points={band} />
+      {[8, 10, 12, 14, 16].map(w => <text key={w} className="gc-axis" x={w === 16 ? 318 : sx(w)} textAnchor={w === 16 ? 'end' : 'middle'} y="194">{w} wk</text>)}
+      <polyline className="gc-line" points={pts.slice(0, -1).map(p => `${sx(p[0])},${sy(p[1])}`).join(' ')} />
+      <line className="gc-next" x1={sx(11)} y1={sy(1.3)} x2={sx(12)} y2={sy(kg)} />
+      {HISTORY.map(p => <circle key={p[0]} className="gc-pt" cx={sx(p[0])} cy={sy(p[1])} r="5" />)}
+      <circle className={`gc-new ${off ? 'is-off' : ''}`} cx={sx(12)} cy={sy(kg)} r="8" />
+      <text className="gc-label" x={sx(12) + 12} y={sy(kg) + 4}>{fmt(kg)} kg</text>
+    </svg>
+  );
+}
+
+function Log(api) {
+  const v = api.state.input;
+  const kg = parseKg(v);
+  const err = v && (kg === null || kg < 0.3 || kg > 10) ? 'Please enter Milo’s weight in kg, like 1.5' : null;
+  return (
+    <Phone cta={<Button block size="lg" icon="check" disabled={!kg || !!err} onClick={() => { api.set({ kg }); api.next(); }}>Save weight</Button>}>
+      <AppBar title="Log weight" onBack={null} />
+      <Scroll>
+        <div className="hstack">
+          <PetAvatar name={kitten.name} species="cat" size={56} />
+          <div className="grow"><p className="h-title">Milo · 12 weeks</p><p className="small muted">Last weigh-in: 1.3 kg a week ago</p></div>
+        </div>
+        <div className="card card--lift center">
+          <label className="label" htmlFor="kg">Today’s weight</label>
+          <div className="wt-input"><input id="kg" inputMode="decimal" value={v || ''} aria-invalid={!!err} aria-describedby="kg-help" onChange={e => api.set({ input: e.target.value })} placeholder="0.0" /><span className="h-title">kg</span></div>
+          {err ? <p id="kg-help" className="small t-danger hstack" style={{ justifyContent: 'center', gap: 6 }}><Icon name="alert" size={18} />{err}</p>
+            : <p id="kg-help" className="small muted">Weigh yourself, then holding Milo, and take the difference.</p>}
+        </div>
+        <div className="card card--sunken">
+          <p className="label">Prototype: try a scenario</p>
+          <div className="chips">
+            <Chip selected={v === '1.55'} onClick={() => api.set({ input: '1.55' })}>1.55 kg · on track</Chip>
+            <Chip selected={v === '1.15'} onClick={() => api.set({ input: '1.15' })}>1.15 kg · lost weight</Chip>
+          </div>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Curve(api) {
+  const kg = api.state.kg || 1.55;
+  const st = status(kg);
+  const off = st !== 'ok';
+  return (
+    <Phone cta={off
+      ? <><Button block size="lg" icon="video" onClick={() => api.go('ask')}>Ask a vet about Milo’s growth</Button><Button block variant="ghost" onClick={() => { api.toast('We’ll ask you to weigh Milo again in 3 days'); }}>Weigh again in 3 days</Button></>
+      : <Button block size="lg" onClick={() => api.go('ontrack')}>Done</Button>}>
+      <AppBar title="Milo’s growth" onBack={api.back} />
+      <Scroll>
+        <div className="hstack">
+          <div className="grow"><p className="small muted">Today, 12 weeks</p><p className="h-display">{fmt(kg)} kg</p></div>
+          {off ? <Badge tone="waiting">{st === 'low' ? 'Below range' : 'Above range'}</Badge> : <Badge tone="success">On track</Badge>}
+        </div>
+        <div className="card card--lift">
+          <Chart kg={kg} />
+          <div className="gc-legend"><span><i className="lg-band" />Expected for British Shorthair kittens</span><span><i className="lg-pt" />Today</span></div>
+        </div>
+        {off ? (
+          <div className="card card--warn">
+            <div className="hstack" style={{ alignItems: 'flex-start' }}><Icon name="alert" /><div className="grow">
+              <p className="label">{st === 'low' ? 'Milo is lighter than last week' : 'Milo is gaining faster than expected'}</p>
+              <p className="small">{st === 'low' ? 'Kittens should gain about 100 g a week. One low reading can be a scale error, but a drop is worth a vet’s view, especially with any tummy upset.' : 'Often it’s just a big kitten. A vet can check portion sizes with you.'}</p>
+            </div></div>
+          </div>
+        ) : (
+          <div className="card card--success"><div className="hstack"><Icon name="check" /><p className="small grow">+{Math.round((kg - 1.3) * 1000)} g since last week, right in the expected range.</p></div></div>
+        )}
+        <div className="card card--danger"><div className="hstack"><Icon name="alert" /><p className="small grow"><b>Not eating for 24 hours, or very sleepy and floppy?</b> Kittens get weak fast. Call your nearest emergency clinic now.</p></div></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Ask(api) {
+  const kg = api.state.kg || 1.15;
+  const sy = api.state.sym || [];
+  const slot = api.state.slot;
+  const syms = ['Eating less', 'Diarrhoea', 'Less playful', 'Seems normal'];
+  return (
+    <Phone cta={<Button block size="lg" icon="video" disabled={!slot} onClick={() => { api.toast('Booked with Dr. Brandt'); setTimeout(api.next, 900); }}>Book growth check</Button>}>
+      <AppBar title="Ask a vet" onBack={api.back} />
+      <Scroll>
+        <p className="h-title">Anything else going on?</p>
+        <div className="chips">{syms.map(x => <Chip key={x} selected={sy.includes(x)} onClick={() => api.set(s => { const cur = s.sym || []; return { sym: cur.includes(x) ? cur.filter(y => y !== x) : [...cur, x] }; })}>{x}</Chip>)}</div>
+        <div className="card card--sunken">
+          <p className="label">Sent with your booking</p>
+          <Row icon="chart" title="Growth chart, 8–12 weeks" sub={`5 weigh-ins · today ${fmt(kg)} kg`} right={<Icon name="check" size={20} />} />
+          <Row icon="file" title="Milo’s care plan and kitten check" sub="Diet: dry kitten food, 4 meals" right={<Icon name="check" size={20} />} />
+        </div>
+        <Section title="Pick a time">
+          <div className="hstack"><VetAv initials={vet2.initials} /><div className="grow"><p className="label">{vet2.name}</p><p className="small muted">Internal medicine</p></div><Badge tone="online">Online</Badge></div>
+          <div className="chips">{SLOTS.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+        </Section>
+        <div className="hstack"><p className="grow small muted">Video consult, 15 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function VetView(api) {
+  const kg = api.state.kg || 1.15;
+  const sy = api.state.sym && api.state.sym.length ? api.state.sym.join(', ') : 'None selected';
+  return (
+    <Desk title={`Before the call · Milo (kitten, 12 weeks) · ${api.state.slot || SLOTS[0]}`}>
+      <div className="desk__grid">
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-sky"><Icon name="chart" /></span><div className="grow"><p className="h-head">Growth since 8 weeks</p><p className="small muted">Logged by Anna at home</p></div>{status(kg) === 'ok' ? <Badge tone="success">On track</Badge> : <Badge tone="waiting">Off track</Badge>}</div>
+          <Chart kg={kg} />
+        </div>
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Why Anna booked</p>
+            <dl className="kv"><dt>Trigger</dt><dd>Growth tracker flag</dd><dt>Today</dt><dd>{fmt(kg)} kg (last week 1.3 kg)</dd><dt>Owner notes</dt><dd>{sy}</dd><dt>Diet</dt><dd>Dry kitten food, 4 meals</dd></dl>
+          </div>
+          <div className="card card--flat">
+            <p className="label">From the care plan</p>
+            <Row icon="video" title="Kitten check · 4 Nov" sub={`${data.vet.name} · 1.3 kg · healthy`} right={null} />
+            <Row icon="pill" title="Dewormed 5 Nov" sub="Kitten dewormer, dosed by weight" right={null} />
+          </div>
+          <p className="small muted">No need to ask for weights or diet: it’s all here.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function OnTrack(api) {
+  const rem = api.state.remind !== false;
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to Milo</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="scale" size={40} /></span>
+          <p className="h-display">Growing like a weed</p>
+          <p className="lead">Milo is right where a 12-week kitten should be. Saved to his growth chart.</p>
+        </div>
+        <div className="card card--lift">
+          <div className="row">
+            <span className="row__ic"><Icon name="bell" size={22} /></span>
+            <span className="row__main"><span className="row__t" style={{ display: 'block' }}>Weekly weigh-in reminder</span><span className="row__s" style={{ display: 'block' }}>Sundays at 10:00 until 6 months</span></span>
+            <button className="toggle-sw" role="switch" aria-checked={rem} aria-label="Weekly weigh-in reminder" onClick={() => api.set({ remind: !rem })} />
+          </div>
+        </div>
+        <p className="small muted center">Every weigh-in is shared with the vet at Milo’s 6-month check.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'C3', group: 'Plan ahead', title: 'Weight / growth tracker',
+    persona: 'New pet parent (Young animal)', impact: 'Low', effort: 'S', when: 'Q2 (month 6)',
+    story: 'As a new pet parent, I want to log my pet’s weight, so that I can see whether growth is on track and ask a vet if not.',
+    why: 'Ranked 24 of 24 on its own (low impact), but cheap and it feeds the care plan: a weekly reason to open the app and a data-backed path to a consult when growth is off.',
+    measure: ['Weekly weigh-in rate among young-animal owners', 'Off-track flag → consult booked', 'Young-animal 60-day return (shared with C1)', 'Flags vets judge “not needed” (guardrail)'],
+    notes: ['Breed-aware expected band, never a single “ideal” number', 'Off-track is amber “below range”, not red; red is kept for the emergency signs', 'The chart travels with the booking so the vet doesn’t re-ask weights or diet']
+  },
+  initialState: { input: '1.15' },
+  screens: [
+    { id: 'log', label: 'Log weight', who: 'Owner', render: Log, caption: 'Try both scenarios, or type your own (1.5 or 1,5 both work).' },
+    { id: 'curve', label: 'Curve vs expected range', who: 'Owner', render: Curve, caption: 'The decision point: on track, or ask a vet.' },
+    { id: 'ask', label: 'Ask a vet, chart attached', who: 'Owner', render: Ask },
+    { id: 'vet', label: 'Vet sees the chart', who: 'Vet', render: VetView, caption: 'Dr. Brandt’s pre-call view: the weights speak for themselves.' },
+    { id: 'ontrack', label: 'On-track branch', who: 'Owner', render: OnTrack, caption: 'The on-track branch: a little celebration and the next reminder.' }
+  ]
+});
+</script>
+</body>
+</html>

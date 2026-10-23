@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B5 Book next check — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .b5-call { flex: 1; display: flex; flex-direction: column; background: var(--sky-tint); }
+  .b5-call__video { flex: 1; display: grid; place-items: center; }
+  .b5-date { display: flex; align-items: center; gap: var(--space-3); }
+  .b5-date + .b5-date { border-top: var(--stroke-sticker) dashed var(--line); padding-top: var(--space-2); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Sheet, Row, VetAv, Section, Desk, data } = window.Proto;
+const { senior, vet, owner } = data;
+
+const INTERVALS = { '2 weeks': 14, '4 weeks': 28, '6 weeks': 42, '3 months': 91 };
+const BASE = new Date(2026, 9, 22); // today in the prototype: Thu 22 Oct
+function addDays(n) { const d = new Date(BASE); d.setDate(d.getDate() + n); return d; }
+function fmt(d) { return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }); }
+function slotsFor(interval) {
+  const d = addDays(INTERVALS[interval] || 28);
+  const d2 = addDays((INTERVALS[interval] || 28) + 1);
+  return [fmt(d) + ' · 18:00', fmt(d) + ' · 18:40', fmt(d2) + ' · 09:20'];
+}
+
+function VetEnd(api) {
+  const iv = api.state.interval;
+  return (
+    <Desk title={`Consultation · ${senior.name} (cat) · 16:48`}>
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="video"><span className="h-head">{owner.name} and {senior.name}</span><div className="video__pip small">You</div></div>
+          <div className="card card--flat">
+            <p className="label">Plan</p>
+            <p className="small">CKD stage 2, stable. Continue benazepril 2.5 mg. Repeat creatinine, SDMA and BP before next check.</p>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack"><span className="ic-badge bg-brand"><Icon name="calendar" /></span>
+              <div className="grow"><p className="h-head">Next check for Oskar</p><p className="small muted">Chronic default: 4 weeks. Anna can book before you hang up.</p></div></div>
+            <div className="chips" role="group" aria-label="Next check in">
+              {Object.keys(INTERVALS).map(k => <Chip key={k} selected={iv === k} onClick={() => api.set({ interval: k })}>{k}</Chip>)}
+            </div>
+            <p className="label">Bring to the check</p>
+            <div className="chips">
+              {['Fresh bloods', 'BP reading', 'Weight'].map(f => <Chip key={f} selected={(api.state.bring || []).includes(f)} onClick={() => api.set(s => ({ bring: (s.bring || []).includes(f) ? s.bring.filter(x => x !== f) : [...(s.bring || []), f] }))}>{f}</Chip>)}
+            </div>
+            <Button block icon="send" onClick={() => { api.toast(`Next check in ${iv} sent to ${owner.name}`); setTimeout(api.next, 900); }}>Send to {owner.name}</Button>
+          </div>
+          <p className="small muted">Shows on Anna’s screen while you’re still on the call, so she can ask about it.</p>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function OwnerCall(api) {
+  const sheet = (
+    <Sheet open label="Next check">
+      <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="label">{vet.name} suggests</p><p className="h-title">Next check in {api.state.interval}</p></div></div>
+      <p className="small">Around <b>{fmt(addDays(INTERVALS[api.state.interval] || 28))}</b>. Bring: {(api.state.bring || []).join(', ').toLowerCase() || 'nothing extra'}.</p>
+      <div className="card card--sunken"><p className="small">Book now and keep Dr. Weber. Her evening slots fill up about a week ahead.</p></div>
+      <Button block size="lg" icon="calendar" onClick={() => api.go('slot')}>Pick a time now</Button>
+      <Button block variant="ghost" onClick={() => api.go('later')}>Remind me later</Button>
+    </Sheet>
+  );
+  return (
+    <Phone sheet={sheet}>
+      <div className="b5-call">
+        <div className="b5-call__video"><div className="vstack center"><VetAv initials={vet.initials} lg /><p className="h-head">{vet.name}</p><Badge tone="online">On the call · 14:22</Badge></div></div>
+      </div>
+    </Phone>
+  );
+}
+
+function Slot(api) {
+  const slot = api.state.slot;
+  const repeat = api.state.repeat;
+  const slots = slotsFor(api.state.interval);
+  return (
+    <Phone cta={<Button block size="lg" disabled={!slot} onClick={() => api.go('booked')}>Book {repeat ? 'recurring check' : 'next check'}</Button>}>
+      <AppBar title="Next check" onBack={() => api.go('call')} />
+      <Scroll>
+        <div className="hstack"><PetAvatar name={senior.name} species="cat" size={56} /><div className="grow"><p className="h-head">{senior.name} · CKD check</p><p className="small muted">Video · 15 min · {vet.name}</p></div></div>
+        <Section title="Pick a time">
+          <div className="chips">{slots.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+        </Section>
+        <div className="card card--lift">
+          <div className="hstack">
+            <Icon name="refresh" />
+            <div className="grow"><p className="h-head">Keep this slot every {api.state.interval}</p><p className="small muted">Same day and time, same vet. Skip or move any date.</p></div>
+            <button className="toggle-sw" role="switch" aria-checked={!!repeat} aria-label="Repeat" onClick={() => api.set({ repeat: !repeat })} />
+          </div>
+        </div>
+        <div className="hstack"><p className="grow small muted">Paid per check, after each call. Cancel free up to 24 h before.</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Booked(api) {
+  const n = INTERVALS[api.state.interval] || 28;
+  const dates = api.state.repeat ? [1, 2, 3].map(i => addDays(n * i)) : [addDays(n)];
+  const time = (api.state.slot || '').split(' · ')[1] || '18:00';
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Done</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 40 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="calendar" size={40} /></span>
+          <p className="h-display">Oskar’s next check is in the diary</p>
+          <p className="lead">One less thing to remember. We’ll ask for fresh results a week before.</p>
+        </div>
+        <div className="card card--lift">
+          {dates.map((d, i) => (
+            <div key={i} className="b5-date">
+              <span className="ic-badge bg-sky-t" style={{ width: 40, height: 40 }}><Icon name="video" size={20} /></span>
+              <div className="grow"><p className="h-head">{fmt(d)} · {time}</p><p className="small muted">{vet.name}</p></div>
+              <Badge tone={i === 0 ? 'success' : 'neutral'}>{i === 0 ? 'Booked' : 'Held'}</Badge>
+            </div>
+          ))}
+        </div>
+        <Button block variant="ghost" icon="plus" onClick={() => api.toast('Added to your calendar')}>Add to calendar</Button>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Later(api) {
+  const d = addDays((INTERVALS[api.state.interval] || 28) - 7);
+  return (
+    <Phone nav="home" cta={<Button block size="lg" icon="calendar" onClick={() => api.go('slot')}>Book now instead</Button>}>
+      <AppBar title="Reminder set" onBack={() => api.go('call')} />
+      <Scroll>
+        <div className="card card--sunny">
+          <div className="hstack"><Icon name="bell" /><p className="h-head grow">We’ll remind you on {fmt(d)}</p></div>
+          <p className="small">One week before Oskar’s check is due, with Dr. Weber’s free times.</p>
+        </div>
+        <div className="card card--sunken">
+          <p className="small">Dr. Weber’s evening slots usually fill about a week ahead. Booking now keeps Oskar with her.</p>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'B5', group: 'Remember', title: 'Book next check before the call ends',
+    persona: 'Care manager (Chronic)', impact: 'Med', effort: 'S', when: 'Q1 quick win (months 1–2)',
+    story: 'As a care manager, I want to book my next check-in before the call ends, so that I keep a regular cadence without having to remember.',
+    why: 'Chronic owners already return on a ~26-day cadence and at 51%. Locking in the next slot protects that habit instead of relying on memory.',
+    measure: ['Share of chronic consults with next check booked in-call', 'Chronic 30-day return 29.5% → 31% (Q1)', 'Show-up rate for pre-booked checks', '“Remind me later” → booked conversion'],
+    notes: ['Vet sets the interval (default 4 weeks for chronic); owner sees it while still on the call', 'Recurring is opt-in and pay-per-check, with free cancellation', '“Remind me later” is a real branch, set one week before the due date']
+  },
+  initialState: { interval: '4 weeks', bring: ['Fresh bloods', 'BP reading'], repeat: true },
+  screens: [
+    { id: 'vet', label: 'Vet sets next check', who: 'Vet', render: VetEnd, caption: 'Last minute of Oskar’s CKD review: Dr. Weber picks when to see him again.' },
+    { id: 'call', label: 'Prompt during the call', who: 'Owner', render: OwnerCall, caption: 'The decision point: book now, or be reminded later?' },
+    { id: 'slot', label: 'Pick a slot, repeat', who: 'Owner', render: Slot },
+    { id: 'booked', label: 'Booked', who: 'Owner', render: Booked },
+    { id: 'later', label: 'Remind me later', who: 'Owner', render: Later, caption: 'The other branch: a reminder one week before.' }
+  ]
+});
+</script>
+</body>
+</html>

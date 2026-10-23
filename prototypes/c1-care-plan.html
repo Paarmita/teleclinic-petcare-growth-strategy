@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C1 Care plan at first visit — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .cp-item { display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 52px; padding: 8px 10px; border-radius: var(--radius-md); border: var(--stroke-sticker) solid var(--line-strong); background: var(--surface-raised); cursor: pointer; text-align: left; }
+  .cp-item.is-on { border-color: var(--ink); background: var(--brand-tint); }
+  .cp-box { flex: none; width: 26px; height: 26px; border-radius: 8px; border: var(--stroke-sticker) solid var(--ink); display: grid; place-items: center; background: var(--surface-raised); }
+  .cp-item.is-on .cp-box { background: var(--brand); color: var(--on-brand); }
+  .cp-when { font-size: 12px; font-weight: 800; color: var(--ink-muted); }
+  .tl__dot.is-done { background: var(--mint); }
+  .tl__dot.is-next { background: var(--brand); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { kitten, vet, owner } = data;
+
+// Kitten template (StIKo Vet style schedule). where: 'video' = PetDoc consult, 'clinic' = needs hands-on visit.
+const ITEMS = [
+  { id: 'visit', when: '10 weeks · today', date: '22 Oct', t: 'First visit with PetDoc', sub: 'Health check, diet and litter questions', where: 'video', done: true },
+  { id: 'worm', when: '12 weeks', date: '5 Nov', t: 'Deworming dose check', sub: 'Dose by weight, flea check by camera', where: 'video' },
+  { id: 'rcp2', when: '12 weeks', date: '5 Nov', t: '2nd RCP vaccine', sub: 'Cat flu and panleukopenia', where: 'clinic' },
+  { id: 'rcp3', when: '16 weeks', date: '3 Dec', t: '3rd RCP vaccine + rabies', sub: 'Rabies if Milo will go outdoors', where: 'clinic' },
+  { id: 'neuter', when: '5 months', date: 'mid Jan', t: 'Neutering talk', sub: 'Timing, recovery and costs', where: 'video' },
+  { id: 'growth', when: '6 months', date: 'mid Feb', t: 'Growth and diet check', sub: 'Switch from kitten food, weight on track', where: 'video' },
+  { id: 'booster', when: '15 months', date: 'Jan 2028', t: 'Booster vaccines', sub: 'Completes the basic course', where: 'clinic' }
+];
+const SLOTS = ['Wed 4 Nov 18:30', 'Thu 5 Nov 08:40', 'Thu 5 Nov 19:10'];
+
+function VetCreate(api) {
+  const on = api.state.items;
+  const toggle = id => api.set(s => ({ items: s.items.includes(id) ? s.items.filter(x => x !== id) : [...s.items, id] }));
+  return (
+    <Desk title="Consultation · Milo (kitten, 10 weeks) · 16:05" right={<span className="small">Owner: {owner.name}</span>}>
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="video"><span className="h-head">Anna &amp; Milo</span><div className="video__pip small">You</div></div>
+          <div className="card card--flat">
+            <p className="label">Assessment</p>
+            <p className="small">Healthy 10-week British Shorthair, 1.2 kg. 1st RCP vaccine at the breeder at 8 weeks (record photo uploaded). Eating kitten food, litter trained.</p>
+          </div>
+        </div>
+        <div className="vstack">
+          <div className="card card--lift">
+            <div className="hstack">
+              <span className="ic-badge bg-brand"><Icon name="calendar" /></span>
+              <div className="grow"><p className="h-head">Care plan for Milo</p><p className="small muted">Template: kitten, first year. Pre-filled from species and age.</p></div>
+            </div>
+            <div className="vstack" style={{ gap: 6 }}>
+              {ITEMS.filter(i => !i.done).map(i => (
+                <button key={i.id} className={`cp-item ${on.includes(i.id) ? 'is-on' : ''}`} role="checkbox" aria-checked={on.includes(i.id)} onClick={() => toggle(i.id)}>
+                  <span className="cp-box">{on.includes(i.id) && <Icon name="check" size={16} />}</span>
+                  <span className="grow"><span className="cp-when" style={{ display: 'block' }}>{i.when} · {i.date}</span><span className="label">{i.t}</span></span>
+                  <Badge tone="neutral">{i.where === 'video' ? 'Video' : 'Clinic'}</Badge>
+                </button>
+              ))}
+            </div>
+            <Button block icon="send" disabled={!on.length} onClick={() => { api.toast(`Plan sent to Anna · ${on.length} steps`); setTimeout(api.next, 900); }}>Send plan to Anna</Button>
+            <Button block variant="ghost" size="sm" onClick={api.next}>Not now</Button>
+          </div>
+          <div className="hstack"><Icon name="clock" size={18} /><p className="small muted grow">Template set-up takes about 20 seconds. Untick anything that doesn’t apply.</p></div>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Calendar(api) {
+  const steps = [ITEMS[0], ...ITEMS.filter(i => api.state.items.includes(i.id))];
+  const rem = api.state.reminders;
+  return (
+    <Phone cta={<Button block size="lg" icon="check" onClick={() => { api.set({ reminders: true }); api.toast('Reminders on for Milo'); setTimeout(api.next, 900); }}>Turn on reminders</Button>}>
+      <AppBar title="Care plan" onBack={api.back} />
+      <Scroll>
+        <div className="hstack">
+          <PetAvatar name={kitten.name} species="cat" size={64} />
+          <div className="grow"><p className="h-title">Milo’s first year</p><p className="small muted">Made by {vet.name} today</p></div>
+        </div>
+        <div className="card card--sunny">
+          <div className="hstack"><p className="label grow">1 of {steps.length} done</p><p className="small">Next: 5 Nov</p></div>
+          <div className="bar"><i style={{ width: `${Math.round(100 / steps.length)}%` }} /></div>
+        </div>
+        <ul className="tl" aria-label="Care calendar">
+          {steps.map((i, n) => (
+            <li key={i.id}>
+              <span className={`tl__dot ${i.done ? 'is-done' : n === 1 ? 'is-next' : ''}`} />
+              <p className="cp-when">{i.when} · {i.date}</p>
+              <div className="hstack" style={{ alignItems: 'flex-start' }}>
+                <div className="grow"><p className="label">{i.t}</p><p className="small muted">{i.sub}</p></div>
+                {i.done ? <Badge tone="success">Done</Badge> : <Badge tone="neutral">{i.where === 'video' ? 'PetDoc video' : 'Local clinic'}</Badge>}
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="card card--sky">
+          <div className="hstack"><Icon name="bell" /><p className="small grow">We’ll remind you a week before each step and let you book the right check in one tap. Clinic steps you can tick off here.</p></div>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Wednesday 28 October" time="18:12" hint="Tap the notification">
+        <Push title="Milo turns 12 weeks next week" text="Time for the deworming dose check and the 2nd vaccine. Book in one tap." onClick={api.next} />
+        <Push when="6d ago" title="Milo’s care plan is ready" text="7 steps for the first year, from Dr. Lena Weber." />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Reminder(api) {
+  const slot = api.state.slot;
+  return (
+    <Phone cta={<>
+      <Button block size="lg" icon="video" disabled={!slot} onClick={api.next}>Book kitten check</Button>
+      <Button block variant="ghost" onClick={() => api.go('elsewhere')}>Already done at a clinic</Button>
+    </>}>
+      <AppBar title="Due next week" onBack={api.back} />
+      <Scroll>
+        <div className="hstack">
+          <span className="ic-badge bg-brand"><Icon name="calendar" /></span>
+          <div className="grow"><p className="h-title">12-week steps</p><p className="small muted">From Milo’s care plan</p></div>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><Icon name="video" /><p className="h-head grow">Deworming dose check</p><Badge tone="neutral">PetDoc</Badge></div>
+          <p className="small">Milo’s dose depends on his weight. Weigh him at home before the call and have the tablets to hand.</p>
+          <hr className="divider" />
+          <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="label">{vet.name}</p><p className="small muted">Made Milo’s plan · has his notes</p></div><Badge tone="online">Online</Badge></div>
+          <p className="label">Kitten check · video · 15 min</p>
+          <div className="chips">{SLOTS.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+          <div className="hstack"><p className="grow small muted">Price</p><p className="h-head">{data.price}</p></div>
+        </div>
+        <div className="card card--flat">
+          <div className="hstack"><Icon name="syringe" /><div className="grow"><p className="label">2nd RCP vaccine</p><p className="small muted">Vaccines need a hands-on visit. Book this at your local clinic, then tick it off in the plan.</p></div></div>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Booked(api) {
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to Milo’s plan</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 40 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">Milo’s check is booked</p>
+          <p className="lead">{api.state.slot || SLOTS[0]} with {vet.name}. Tiny kitten, big milestones.</p>
+        </div>
+        <div className="card card--lift">
+          <Row icon="scale" title="Weigh Milo the day before" sub="Kitchen scale is fine: weigh yourself, then with Milo" right={null} />
+          <Row icon="bell" title="Reminder 10 min before" sub="Video link in the app" right={null} />
+        </div>
+        <div className="card card--sunken"><p className="small">Next in the plan: 3rd RCP vaccine + rabies around 3 December. We’ll remind you a week before.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Elsewhere(api) {
+  const which = api.state.done || [];
+  const opts = [{ id: 'worm', t: 'Deworming' }, { id: 'rcp2', t: '2nd RCP vaccine' }];
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" disabled={!which.length} onClick={() => { api.toast('Saved to Milo’s plan'); setTimeout(api.reset, 1200); }}>Save to plan</Button>}>
+      <AppBar title="Done at a clinic" onBack={() => api.go('reminder')} />
+      <Scroll>
+        <p className="h-title">Nice one. What did Milo have?</p>
+        <div className="chips">{opts.map(o => <Chip key={o.id} selected={which.includes(o.id)} onClick={() => api.set(s => ({ done: (s.done || []).includes(o.id) ? s.done.filter(x => x !== o.id) : [...(s.done || []), o.id] }))}>{o.t}</Chip>)}</div>
+        <Row icon="camera" title="Add a photo of the vaccine pass" sub="Optional · keeps Milo’s record complete" onClick={() => api.toast('Camera opens here')} />
+        <div className="card card--sunken"><p className="small">Your plan stays on track either way. We’ll still remind you about the 16-week steps, and any PetDoc vet will see what was done.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'C1', group: 'Plan ahead', title: 'Care plan at first visit',
+    persona: 'New pet parent (Young animal)', impact: 'High–Med ~+1.3pp', effort: 'M', when: 'Q2 big bet (A/B)',
+    story: 'As a new pet parent, I want a personalised care calendar, so that I don’t miss what my puppy or kitten needs.',
+    why: 'Young-animal owners are 22% of new users with predictable needs (vaccines, deworming, check-ups) that PetDoc doesn’t plan for. Target: 60-day return 15% → 21%.',
+    measure: ['Plan set-up at first young-animal visit (target 40–50%)', 'Reminder → booking (target 10–15%)', 'Young-animal 60-day return 15% → 21%', 'Vet set-up time < 30 s (guardrail)'],
+    notes: ['Vet starts from a species/age template and only unticks; no typing', 'Honest split: video steps book in one tap, vaccines are marked “local clinic” and ticked off', 'Reminder pre-selects the right consult type and the vet who made the plan']
+  },
+  initialState: { items: ['worm', 'rcp2', 'rcp3', 'neuter', 'growth', 'booster'] },
+  screens: [
+    { id: 'vet', label: 'Vet creates plan', who: 'Vet', render: VetCreate, caption: 'End of Milo’s first consult: the template is pre-filled. Untick steps to see the calendar change.' },
+    { id: 'calendar', label: 'Care calendar', who: 'Owner', render: Calendar, caption: 'Anna sees the plan straight after the call.' },
+    { id: 'lock', label: 'Reminder push', who: 'Owner', render: Lock, caption: 'A week before the 12-week steps.' },
+    { id: 'reminder', label: 'One-tap booking', who: 'Owner', render: Reminder, caption: 'The test: does a reminder turn into a booking? Try “Already done at a clinic” too.' },
+    { id: 'booked', label: 'Booked', who: 'Owner', render: Booked },
+    { id: 'elsewhere', label: 'Done elsewhere', who: 'Owner', render: Elsewhere, caption: 'The local-clinic branch: the plan still tracks it.' }
+  ]
+});
+</script>
+</body>
+</html>

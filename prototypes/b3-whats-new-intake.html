@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B3 Anything new since last time — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .b3-known { display: flex; align-items: center; gap: var(--space-3); min-height: 48px; }
+  .b3-known + .b3-known { border-top: var(--stroke-sticker) dashed var(--line); }
+  .b3-timer { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-size: 13px; color: var(--success); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar, PawProgress, TextField } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Row, VetAv, Section, data } = window.Proto;
+const { pet, vet, vet2, owner } = data;
+
+const CHANGES = [
+  { id: 'symptom', t: 'New symptom' },
+  { id: 'meds', t: 'New or stopped medication' },
+  { id: 'food', t: 'Different food' },
+  { id: 'weight', t: 'Weight changed' },
+  { id: 'vet', t: 'Seen another vet' }
+];
+const SLOTS = ['Today 17:20', 'Today 18:00', 'Tomorrow 09:10'];
+
+function Home(api) {
+  return (
+    <Phone nav="home">
+      <Scroll nav>
+        <div style={{ paddingTop: 16 }}><p className="small muted">Good afternoon, {owner.name}</p><p className="h-display">How can we help?</p></div>
+        <button className="card card--tap" onClick={api.next}>
+          <div className="hstack">
+            <PetAvatar name={pet.name} species="dog" size={56} />
+            <div className="grow"><p className="h-head">Book a consult for {pet.name}</p><p className="small muted">Vets online now · from {data.price}</p></div>
+            <Icon name="chevron" />
+          </div>
+        </button>
+        <Section title="Bella’s last visit">
+          <div className="card">
+            <Row icon="video" title="Itchy paws, likely food allergy" sub={`8 January · ${vet2.name}`} />
+            <Row icon="pill" title="Hypoallergenic diet" sub="Started 8 January" right={<Badge tone="success">Active</Badge>} />
+          </div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Reason(api) {
+  const r = api.state.reason;
+  const opts = [
+    { id: 'same', t: 'Itchy paws again', s: 'Follow-up on 8 January', c: 'bg-sky', ic: 'refresh' },
+    { id: 'new', t: 'Something new', s: 'A different problem', c: 'bg-sunny', ic: 'sparkle' }
+  ];
+  return (
+    <Phone cta={<Button block size="lg" disabled={!r} onClick={api.next}>Continue</Button>}>
+      <AppBar title="Book a consult" onBack={api.back} />
+      <Scroll>
+        <PawProgress steps={['Reason', 'What’s new', 'Time']} current={0} />
+        <p className="h-title">What’s this about?</p>
+        <div className="vstack" role="radiogroup" aria-label="Reason">
+          {opts.map(o => (
+            <button key={o.id} role="radio" aria-checked={r === o.id} className={`choice ${r === o.id ? 'is-on' : ''}`} onClick={() => api.set({ reason: o.id })}>
+              <span className={`choice__dot ${o.c}`}><Icon name={r === o.id ? 'check' : o.ic} size={20} /></span>
+              <span>{o.t}<span className="choice__sub">{o.s}</span></span>
+            </button>
+          ))}
+        </div>
+        {r === 'new' && (
+          <div className="chips">
+            {['Vomiting', 'Limping', 'Eye', 'Ear', 'Skin', 'Something else'].map(c => <Chip key={c} selected={api.state.topic === c} onClick={() => api.set({ topic: c })}>{c}</Chip>)}
+          </div>
+        )}
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Delta(api) {
+  const ch = api.state.changes || [];
+  const nothing = api.state.nothing;
+  const toggle = id => api.set(s => {
+    const cur = s.changes || [];
+    return { nothing: false, changes: cur.includes(id) ? cur.filter(x => x !== id) : [...cur, id] };
+  });
+  const ready = nothing || ch.length > 0;
+  return (
+    <Phone cta={<Button block size="lg" disabled={!ready} onClick={api.next}>{nothing ? 'Nothing new, continue' : 'Continue'}</Button>}>
+      <AppBar title="Book a consult" onBack={api.back} />
+      <Scroll>
+        <PawProgress steps={['Reason', 'What’s new', 'Time']} current={1} />
+        <div>
+          <p className="h-title">Anything new since 8 January?</p>
+          <p className="small muted">We already know the rest. Only tell us what changed.</p>
+        </div>
+        <div className="card card--sunken">
+          <p className="label">Still right?</p>
+          <div className="b3-known"><Icon name="scale" /><p className="grow small"><b>Weight</b> · {pet.weight}</p><Icon name="check" size={20} /></div>
+          <div className="b3-known"><Icon name="alert" /><p className="grow small"><b>Allergy</b> · Chicken</p><Icon name="check" size={20} /></div>
+          <div className="b3-known"><Icon name="bowl" /><p className="grow small"><b>Diet</b> · Hypoallergenic (insect protein)</p><Icon name="check" size={20} /></div>
+        </div>
+        <Section title="What’s changed?">
+          <div className="chips">
+            {CHANGES.map(c => <Chip key={c.id} selected={ch.includes(c.id)} onClick={() => toggle(c.id)}>{c.t}</Chip>)}
+            <Chip selected={!!nothing} onClick={() => api.set({ nothing: !nothing, changes: [] })}>Nothing new</Chip>
+          </div>
+        </Section>
+        {ch.includes('symptom') && (
+          <TextField label="What’s new?" hint="One line is enough" value={api.state.note || ''} onChange={e => api.set({ note: e.target.value })} />
+        )}
+        {ch.includes('food') && (
+          <div className="chips" aria-label="Food">
+            {['Back to old food', 'Treats with chicken', 'New brand'].map(f => <Chip key={f} selected={api.state.food === f} onClick={() => api.set({ food: f })}>{f}</Chip>)}
+          </div>
+        )}
+        {ch.includes('weight') && (
+          <TextField label="New weight in kg" inputMode="decimal" value={api.state.kg || ''} onChange={e => api.set({ kg: e.target.value })} hint="Like 27.0" />
+        )}
+        <p className="b3-timer"><Icon name="clock" size={18} />Usually takes about 20 seconds</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Confirm(api) {
+  const slot = api.state.slot;
+  const ch = api.state.changes || [];
+  const lines = [];
+  if (api.state.nothing) lines.push('Nothing new since 8 January');
+  if (ch.includes('symptom')) lines.push('New: ' + (api.state.note || 'licking paws at night'));
+  if (ch.includes('meds')) lines.push('Medication changed');
+  if (ch.includes('food')) lines.push('Food: ' + (api.state.food || 'changed'));
+  if (ch.includes('weight')) lines.push('Weight now ' + (api.state.kg || '?') + ' kg');
+  if (ch.includes('vet')) lines.push('Seen another vet since');
+  if (!lines.length) lines.push('Nothing new since 8 January');
+  return (
+    <Phone cta={<Button block size="lg" icon="video" disabled={!slot} onClick={api.next}>Book for {data.price}</Button>}>
+      <AppBar title="Book a consult" onBack={api.back} />
+      <Scroll>
+        <PawProgress steps={['Reason', 'What’s new', 'Time']} current={2} />
+        <div className="card card--lift">
+          <p className="label">Your vet will see first</p>
+          <p className="h-head">{api.state.reason === 'new' ? `Something new: ${api.state.topic || 'not sure yet'}` : 'Itchy paws again (follow-up)'}</p>
+          <ul className="small" style={{ margin: 0, paddingLeft: 18 }}>{lines.map(l => <li key={l}>{l}</li>)}</ul>
+          <hr className="divider" />
+          <p className="small muted">Plus Bella’s profile: 3 consults, allergy, diet, weight.</p>
+        </div>
+        <Section title="Pick a time">
+          <div className="hstack"><VetAv initials={vet2.initials} /><div className="grow"><p className="h-head">{vet2.name}</p><p className="small muted">Saw Bella in January</p></div><Badge tone="online">Online</Badge></div>
+          <div className="chips">{SLOTS.map(s => <button key={s} className={`slot ${slot === s ? 'is-on' : ''}`} aria-pressed={slot === s} onClick={() => api.set({ slot: s })}>{s}</button>)}</div>
+        </Section>
+        <div className="hstack"><p className="grow small muted">Video consult, 15 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Booked(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to home</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">Booked in seconds</p>
+          <p className="lead">{api.state.slot || 'Today 17:20'} with {vet2.name}. The call will start with what’s new, not with Bella’s whole story.</p>
+        </div>
+        <div className="card card--sky"><Row icon="video" title="Video consult" sub="We’ll remind you 10 min before" right={null} /></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'B3', group: 'Remember', title: '“Anything new since last time?” intake',
+    persona: 'Returning owners', impact: 'Med', effort: 'S–M', when: 'Q1 quick win (months 1–2)',
+    story: 'As a returning owner, I want to tell PetDoc only what has changed, so that booking takes seconds and the call starts with what matters.',
+    why: 'Re-telling happens in 19% of visits and cuts return by a third. The intake is where returning owners re-type the same story today.',
+    measure: ['Median intake time for returning owners', 'Re-telling rate 17–19% → < 10% by end of Q1', 'Share choosing “Nothing new”', 'Booking completion rate for returning owners'],
+    notes: ['Known facts shown as “still right?” checks instead of empty fields', '“Nothing new” is a real answer and skips straight to times', 'The delta is what the vet sees first in the pre-call summary (B2)']
+  },
+  initialState: { reason: 'same' },
+  screens: [
+    { id: 'home', label: 'Home', who: 'Owner', render: Home, caption: 'Anna comes back two months after Bella’s itchy paws.' },
+    { id: 'reason', label: 'Same problem or new?', who: 'Owner', render: Reason },
+    { id: 'delta', label: 'What’s changed?', who: 'Owner', render: Delta, caption: 'The test: only the change is asked. Try “Nothing new”, or pick a few changes.' },
+    { id: 'confirm', label: 'What the vet sees, pick a time', who: 'Owner', render: Confirm },
+    { id: 'booked', label: 'Booked', who: 'Owner', render: Booked }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A7 Case closure to pet record — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .a7-dot-ok { background: var(--success-tint); }
+  .a7-dot-open { background: var(--warning-tint); }
+  .a7-new { animation: a7-in 240ms cubic-bezier(.34,1.56,.64,1); }
+  @keyframes a7-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .a7-new { animation: none; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet, vet2 } = data;
+
+const ITEMS = [
+  { id: 'summary', icon: 'file', t: 'Dr. Weber’s care summary', s: 'Acute gastroenteritis · bland diet' },
+  { id: 'meds', icon: 'pill', t: 'Probiotic paste', s: '5 ml daily, 12–16 March' },
+  { id: 'photos', icon: 'image', t: '2 photos', s: 'Stool, 12 March' },
+  { id: 'cause', icon: 'flag', t: 'Likely cause', s: 'Ate something in the park' }
+];
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Sunday 15 March" time="10:02" hint="Tap the notification">
+        <Push title="How is Bella today?" text="Dr. Weber asked us to check in. Tap to answer — it takes 5 seconds." onClick={api.next} />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function Close(api) {
+  const { status, keep } = api.state;
+  const toggle = id => api.set(s => ({ keep: s.keep.includes(id) ? s.keep.filter(x => x !== id) : [...s.keep, id] }));
+  const opts = [
+    { id: 'normal', t: 'Back to normal', s: 'Close this episode', c: 'bg-mint', ic: 'check' },
+    { id: 'notyet', t: 'Better, not quite there', s: 'Keep it open a few more days', c: 'bg-sunny', ic: 'clock' }
+  ];
+  return (
+    <Phone cta={<Button block size="lg" disabled={!status} onClick={() => api.go(status === 'normal' ? 'record' : 'open')}>{status === 'notyet' ? 'Keep episode open' : 'Save to Bella’s record'}</Button>}>
+      <AppBar title="Check-in" onBack={api.back} />
+      <Scroll>
+        <div className="hstack"><PetAvatar name={pet.name} species="dog" size={56} /><div><p className="h-title">Glad she’s better</p><p className="small muted">Tummy upset · since Thu 12 March</p></div></div>
+        <div className="vstack" role="radiogroup" aria-label="How better">
+          {opts.map(o => (
+            <button key={o.id} role="radio" aria-checked={status === o.id} className={`choice ${status === o.id ? 'is-on' : ''}`} onClick={() => api.set({ status: o.id })}>
+              <span className={`choice__dot ${o.c}`}><Icon name={status === o.id ? 'check' : o.ic} size={20} /></span>
+              <span>{o.t}<span className="choice__sub">{o.s}</span></span>
+            </button>
+          ))}
+        </div>
+        {status === 'normal' && (
+          <Section title="Save to Bella’s record">
+            <div className="card">
+              {ITEMS.map(x => (
+                <Row key={x.id} icon={x.icon} title={x.t} sub={x.s}
+                  right={<button className="toggle-sw" role="switch" aria-checked={keep.includes(x.id)} aria-label={`Save ${x.t}`} onClick={() => toggle(x.id)} />} />
+              ))}
+            </div>
+            <p className="small muted">Any PetDoc vet Bella sees next will find this. You can delete it any time.</p>
+          </Section>
+        )}
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Open(api) {
+  return (
+    <Phone nav="consults" cta={<Button block size="lg" variant="secondary" onClick={() => api.go('close')}>Change answer</Button>}>
+      <AppBar title="Episode open" onBack={() => api.go('close')} />
+      <Scroll nav>
+        <div className="card card--sunny">
+          <div className="hstack"><Icon name="clock" /><p className="h-head">We’ll ask again on Wednesday</p></div>
+          <p className="small">The episode stays open, so if you need Dr. Weber, she’ll see everything from Thursday.</p>
+        </div>
+        <div className="card card--lift"><div className="hstack"><PetAvatar name={pet.name} species="dog" size={44} /><div className="grow"><p className="h-head">Tummy upset · since 12 March</p><p className="small muted">{vet.name}</p></div><Badge tone="waiting">Open</Badge></div></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Record(api) {
+  const keep = api.state.keep;
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" variant="secondary" onClick={api.next}>Jump to 5 months later</Button>}>
+      <AppBar title="Bella" />
+      <Scroll nav>
+        <div className="vstack center" style={{ paddingTop: 8 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 64, height: 64, borderRadius: 22 }}><Icon name="paw" size={32} /></span>
+          <p className="h-title">Saved — one less thing to remember</p>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><PetAvatar name={pet.name} species="dog" size={44} /><div className="grow"><p className="h-head">{pet.name}</p><p className="small muted">{pet.breed} · {pet.age} · {pet.weight}</p></div></div>
+        </div>
+        <Section title="Health timeline">
+          <ol className="tl">
+            <li className="a7-new">
+              <span className="tl__dot a7-dot-ok" />
+              <div className="hstack"><p className="label grow">Tummy upset · 12–15 March</p><Badge tone="success">Resolved</Badge></div>
+              <p className="small muted">{vet.name} · {keep.length} item{keep.length === 1 ? '' : 's'} saved</p>
+              {keep.includes('cause') && <p className="small">Likely cause: ate something in the park</p>}
+            </li>
+            <li>
+              <span className="tl__dot a7-dot-ok" />
+              <div className="hstack"><p className="label grow">Itchy skin · 2 Feb</p><Badge tone="success">Resolved</Badge></div>
+              <p className="small muted">{vet.name} · Apoquel 14 days</p>
+            </li>
+            <li>
+              <span className="tl__dot" />
+              <p className="label">Joined PetDoc · Nov 2025</p>
+            </li>
+          </ol>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function NewConsult(api) {
+  const keep = api.state.keep;
+  return (
+    <Desk title={`${vet2.name} · incoming · Bella (dog) · 14 Aug`} right={<Badge tone="fun">Returning patient</Badge>}>
+      <div className="desk__grid">
+        <div className="card card--lift">
+          <p className="label">Anna says</p>
+          <p className="small">“Vomited twice this morning, ate grass on our walk. Same as in March?”</p>
+          <hr className="divider" />
+          <p className="label">Bella’s history</p>
+          <Row icon="file" title="Tummy upset · 12–15 March · resolved" sub={keep.includes('summary') ? `${vet.name}: acute gastroenteritis, bland diet 3 d, recovered by day 3` : 'Details not shared by owner'} right={null} />
+          {keep.includes('meds') && <Row icon="pill" title="Probiotic paste worked" sub="5 ml daily, 5 days" right={null} />}
+          {keep.includes('cause') && <Row icon="flag" title="Pattern" sub="Scavenging on walks — 2nd time" right={<Badge tone="waiting">Repeat</Badge>} />}
+        </div>
+        <div className="card card--sunken">
+          <p className="small">Without closure, {vet2.name} would ask Anna to tell the March story again — the re-telling that cuts return from 23% to 15%.</p>
+          <Button block icon="video" onClick={() => api.toast('Consult started')}>Start consult</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+mount({
+  idea: {
+    code: 'A7', group: 'Follow up', title: 'Case closure saved to pet record',
+    persona: 'All owners', impact: 'Low (feeds B1)', effort: 'S', when: 'Q1 · with A1 and B1',
+    story: 'As an owner, I want the episode saved to my pet’s record, so that next time PetDoc already knows what happened.',
+    why: '19% of visits involve re-telling known information, which quietly cuts return from 23% to 15%. Closing each episode cleanly is the cheapest way to fill the thin pet profile (B1).',
+    measure: ['Episodes closed with an outcome (share of check-ins)', 'Items kept vs. switched off per episode', 'Re-telling rate on the next consult (target < 10% by end of Q1)', '“The vet already knew my pet” score'],
+    notes: ['“Better” splits into closed vs. not quite — a half-better pet is never filed as resolved', 'Owner sees and controls exactly what gets saved', 'Payoff shows on the next consult, with a different vet']
+  },
+  initialState: { status: null, keep: ['summary', 'meds', 'photos', 'cause'] },
+  screens: [
+    { id: 'lock', label: 'Day-3 check-in', who: 'Owner', render: Lock },
+    { id: 'close', label: 'Close the episode', who: 'Owner', render: Close, caption: 'Pick “Back to normal” to choose what’s saved, or “not quite” to keep it open.' },
+    { id: 'record', label: 'Saved to the timeline', who: 'Owner', render: Record },
+    { id: 'next', label: 'Next consult, new vet', who: 'Vet', render: NewConsult, caption: 'Five months later, a different vet already knows what happened in March.' },
+    { id: 'open', label: 'Not quite → stays open', who: 'Owner', render: Open, caption: 'The other branch: the episode stays open and we check in again.' }
+  ]
+});
+</script>
+</body>
+</html>

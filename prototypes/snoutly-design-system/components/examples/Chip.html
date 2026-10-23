@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../../tokens.css"><link rel="stylesheet" href="../bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="../bundle.js"></script><title>Chip — Snoutly</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.Snoutly, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(function(){var st=React.useState(['Vomiting','Not eating']),sel=st[0],set=st[1];
+ var all=['Vomiting','Not eating','Itchy skin','Limping','Sneezing','Lethargic','Something else'];
+ return h('div',{className:'sn-row',style:{maxWidth:380,gap:8}},all.map(function(s){var on=sel.indexOf(s)>=0;return h(S.Chip,{key:s,selected:on,onClick:function(){set(on?sel.filter(function(x){return x!==s}):sel.concat(s))}},s)}));}));
+</script>
+</body></html>

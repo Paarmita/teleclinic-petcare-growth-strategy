@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C6 Senior and chronic care plans — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .sp-line { display: flex; align-items: center; gap: var(--space-3); padding: 8px 0; }
+  .sp-line + .sp-line { border-top: var(--stroke-sticker) dashed var(--line); }
+  .sp-cad { display: flex; gap: 4px; }
+  .sp-cad button { min-height: 36px; padding: 0 10px; border-radius: var(--radius-pill); border: var(--stroke-sticker) solid var(--line-strong); background: var(--surface-raised); font-weight: 800; font-size: 12px; cursor: pointer; }
+  .sp-cad button[aria-pressed="true"] { border-color: var(--ink); background: var(--brand-tint); }
+  .sp-trend { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); }
+  .sp-trend div { padding: 8px; border-radius: var(--radius-md); background: var(--surface-sunken); text-align: center; }
+  .sp-trend div.is-now { background: var(--brand-tint); border: var(--stroke-sticker) solid var(--ink); }
+  .sp-trend div.is-off { background: var(--warning-tint); border: var(--stroke-sticker) solid var(--warning); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, LockScreen, Push, Row, VetAv, Section, Desk, data } = window.Proto;
+const { senior, vet2 } = data;
+
+// Same engine as C1, different template: senior cat with CKD (IRIS stage 2)
+const PLAN = [
+  { id: 'home', t: 'Home check-in', sub: 'Weight, appetite, drinking', icon: 'scale', where: 'App', cad: ['2 weeks', 'Monthly'] },
+  { id: 'review', t: 'Video review with Dr. Brandt', sub: 'Go through results and home checks', icon: 'video', where: 'PetDoc', cad: ['3 months', '6 months'] },
+  { id: 'bloods', t: 'Blood and urine tests', sub: 'Creatinine, SDMA, phosphate, urine', icon: 'syringe', where: 'Local clinic', cad: ['3 months', '6 months'] },
+  { id: 'bp', t: 'Blood pressure', sub: 'Measured at the clinic', icon: 'heart', where: 'Local clinic', cad: ['3 months', '6 months'] },
+  { id: 'diet', t: 'Kidney diet refill', sub: 'Renal wet food, 2 pouches a day', icon: 'bowl', where: 'Delivery', cad: ['Monthly'] }
+];
+const HISTORY = [['Jul', 4.3], ['Aug', 4.2], ['Sep', 4.1]];
+const SLOTS = ['Tomorrow 18:00', 'Tomorrow 18:30', 'Fri 08:40'];
+
+function VetPlan(api) {
+  const cad = api.state.cad;
+  return (
+    <Desk title="Consultation · Oskar (cat, 13 years) · CKD review" right={<span className="small">{vet2.name}</span>}>
+      <div className="desk__grid">
+        <div className="vstack">
+          <div className="card card--flat">
+            <p className="label">Latest results (local clinic, 18 Sep)</p>
+            <dl className="kv"><dt>Creatinine</dt><dd>2.3 mg/dl · IRIS stage 2</dd><dt>SDMA</dt><dd>19 µg/dl</dd><dt>Urine SG</dt><dd>1.018</dd><dt>BP</dt><dd>145 mmHg</dd><dt>Weight</dt><dd>4.1 kg (−0.2 kg in 3 months)</dd></dl>
+          </div>
+          <div className="card card--sunken"><p className="small">Stable stage 2. Owner reports good appetite, drinks a bit more than last year. On renal diet since June.</p></div>
+        </div>
+        <div className="card card--lift">
+          <div className="hstack"><span className="ic-badge bg-brand"><Icon name="calendar" /></span><div className="grow"><p className="h-head">Care plan for Oskar</p><p className="small muted">Template: senior cat · CKD stage 2</p></div></div>
+          {PLAN.map(p => (
+            <div key={p.id} className="sp-line">
+              <span className="row__ic"><Icon name={p.icon} size={20} /></span>
+              <div className="grow"><p className="label">{p.t}</p><p className="small muted">{p.where}</p></div>
+              <div className="sp-cad" role="group" aria-label={`${p.t} frequency`}>
+                {p.cad.map(c => <button key={c} aria-pressed={cad[p.id] === c} onClick={() => api.set(s => ({ cad: { ...s.cad, [p.id]: c } }))}>{c}</button>)}
+              </div>
+            </div>
+          ))}
+          <p className="label">Flag me if</p>
+          <div className="chips">
+            {['Weight drops > 5%', 'Eating less 3+ days', 'Drinking much more'].map(f => <Chip key={f} selected={(api.state.flags || []).includes(f)} onClick={() => api.set(s => ({ flags: (s.flags || []).includes(f) ? s.flags.filter(x => x !== f) : [...(s.flags || []), f] }))}>{f}</Chip>)}
+          </div>
+          <Button block icon="send" onClick={() => { api.toast('Plan sent to Anna'); setTimeout(api.next, 900); }}>Send plan to Anna</Button>
+        </div>
+      </div>
+    </Desk>
+  );
+}
+
+function Plan(api) {
+  const cad = api.state.cad;
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" onClick={api.next}>Got it</Button>}>
+      <AppBar title="Care plan" onBack={api.back} />
+      <Scroll nav>
+        <div className="hstack">
+          <PetAvatar name={senior.name} species="cat" size={64} />
+          <div className="grow"><p className="h-title">Oskar’s kidney plan</p><p className="small muted">{senior.age} · {vet2.name}</p></div>
+          <Badge tone="success">Stable</Badge>
+        </div>
+        <div className="card card--sky">
+          <p className="small">Kidney disease in cats changes slowly. Small, regular checks catch changes months before Oskar shows them.</p>
+        </div>
+        <Section title="Oskar’s routine">
+          <div className="card card--lift">
+            {PLAN.map(p => <Row key={p.id} icon={p.icon} title={p.t} sub={`${cad[p.id] === 'Monthly' ? 'Monthly' : 'Every ' + cad[p.id]} · ${p.where}`} right={p.where === 'PetDoc' ? <Badge tone="neutral">Video</Badge> : null} />)}
+          </div>
+        </Section>
+        <Section title="Coming up">
+          <div className="card card--flat">
+            <Row icon="scale" title="Home check-in" sub={cad.home === 'Monthly' ? 'Mon 2 Nov' : 'Mon 19 Oct'} right={null} />
+            <Row icon="video" title="Video review" sub="Mid December" right={null} />
+          </div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Lock(api) {
+  return (
+    <Phone dark>
+      <LockScreen date="Monday 2 November" time="09:30" hint="Tap the notification">
+        <Push title="Oskar’s monthly check-in" text="3 quick questions and his weight. About 2 minutes." onClick={api.next} />
+        <Push when="Fri" title="Kidney diet on its way" text="Delivery Tuesday" />
+      </LockScreen>
+    </Phone>
+  );
+}
+
+function HomeCheck(api) {
+  const s = api.state;
+  const w = s.w;
+  const qs = [
+    { k: 'appetite', t: 'Appetite', o: ['Normal', 'Picky', 'Eating less'] },
+    { k: 'drink', t: 'Drinking', o: ['Same', 'A bit more', 'Much more'] },
+    { k: 'energy', t: 'Energy', o: ['Normal', 'Sleeping more'] }
+  ];
+  const ready = w && qs.every(q => s[q.k]);
+  const fl = s.flags || [];
+  const flagged = (fl.includes('Weight drops > 5%') && w && (4.1 - w) / 4.1 > 0.05) || (fl.includes('Eating less 3+ days') && s.appetite === 'Eating less') || (fl.includes('Drinking much more') && s.drink === 'Much more');
+  return (
+    <Phone cta={<Button block size="lg" icon="check" disabled={!ready} onClick={() => api.go(flagged ? 'flag' : 'stable')}>Send check-in</Button>}>
+      <AppBar title="Monthly check-in" onBack={api.back} />
+      <Scroll>
+        <Section title="Weight today">
+          <div className="sp-trend">
+            {HISTORY.map(h => <div key={h[0]}><p className="small muted">{h[0]}</p><p className="label">{h[1].toFixed(1)} kg</p></div>)}
+            <div className={w ? ((4.1 - w) / 4.1 > 0.05 ? 'is-off' : 'is-now') : 'is-now'}><p className="small">Today</p><p className="label">{w ? `${w.toFixed(1)} kg` : '–'}</p></div>
+          </div>
+          <div className="chips">{[4.1, 4.0, 3.8].map(v => <button key={v} className={`slot ${w === v ? 'is-on' : ''}`} aria-pressed={w === v} onClick={() => api.set({ w: v })}>{v.toFixed(1)} kg</button>)}</div>
+        </Section>
+        {qs.map(q => (
+          <Section key={q.k} title={q.t}>
+            <div className="chips">{q.o.map(o => <Chip key={o} selected={s[q.k] === o} onClick={() => api.set({ [q.k]: o })}>{o}</Chip>)}</div>
+          </Section>
+        ))}
+        <div className="card card--danger"><div className="hstack"><Icon name="alert" /><p className="small grow"><b>Not eating at all, vomiting repeatedly or very weak?</b> Call your nearest emergency clinic now.</p></div></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Flag(api) {
+  const s = api.state;
+  const slot = s.slot;
+  const reasons = [];
+  if (s.w && (4.1 - s.w) / 4.1 > 0.05) reasons.push(`Weight ${s.w.toFixed(1)} kg, down ${Math.round(((4.1 - s.w) / 4.1) * 100)}% since September`);
+  if (s.appetite === 'Eating less') reasons.push('Eating less');
+  if (s.drink === 'Much more') reasons.push('Drinking much more');
+  return (
+    <Phone cta={<Button block size="lg" icon="video" disabled={!slot} onClick={() => { api.toast(`Booked with Dr. Brandt · ${slot}`); setTimeout(api.reset, 1400); }}>Book review with Dr. Brandt</Button>}>
+      <AppBar title="Worth a look" onBack={() => api.go('check')} />
+      <Scroll>
+        <div className="card card--warn">
+          <div className="hstack" style={{ alignItems: 'flex-start' }}><Icon name="alert" /><div className="grow">
+            <p className="label">Dr. Brandt asked us to flag this</p>
+            {(reasons.length ? reasons : ['Weight down since September']).map(r => <p key={r} className="small">· {r}</p>)}
+          </div></div>
+        </div>
+        <p className="small">Not an emergency, but in kidney disease these changes can mean the plan needs adjusting. Earlier is easier.</p>
+        <div className="card card--lift">
+          <div className="hstack"><VetAv initials={vet2.initials} /><div className="grow"><p className="label">{vet2.name}</p><p className="small muted">Oskar’s plan vet · has every check-in</p></div><Badge tone="online">Online</Badge></div>
+          <hr className="divider" />
+          <Row icon="chart" title="4 months of home check-ins" sub="Weight, appetite, drinking" right={<Icon name="check" size={20} />} />
+          <Row icon="file" title="September blood results" sub="Creatinine 2.3 · SDMA 19" right={<Icon name="check" size={20} />} />
+        </div>
+        <div className="chips">{SLOTS.map(x => <button key={x} className={`slot ${slot === x ? 'is-on' : ''}`} aria-pressed={slot === x} onClick={() => api.set({ slot: x })}>{x}</button>)}</div>
+        <div className="hstack"><p className="grow small muted">Video review, 15 min</p><p className="h-head">{data.price}</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Stable(api) {
+  return (
+    <Phone nav="pets" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to Oskar</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="check" size={40} /></span>
+          <p className="h-display">Steady as he goes</p>
+          <p className="lead">Oskar’s check-in looks stable. Dr. Brandt will see it at his next review.</p>
+        </div>
+        <div className="card card--lift">
+          <Row icon="scale" title="Next home check-in" sub="Wed 2 Dec" right={null} />
+          <Row icon="syringe" title="Blood and urine tests" sub="Due mid December · local clinic" right={<Badge tone="neutral">Next</Badge>} />
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'C6', group: 'Plan ahead', title: 'Senior / chronic care plans',
+    persona: 'Care manager (Chronic) + older pets', impact: 'Med (later)', effort: 'M', when: 'Q3 (months 7–9)',
+    story: 'As an owner of an older pet, I want a care plan for ageing, so that problems are caught early.',
+    why: 'Chronic owners return most (51% in 180 days, on a ~4-week cadence) but drop from 54.5% to 34.6% when context is lost. A plan reuses the C1 engine to keep that cadence and context.',
+    measure: ['Chronic 30-day return 29.5% → 33–35%', 'Monthly check-in completion', 'Flag → review booked; reviews vets mark “not needed” (guardrail)', 'Re-telling rate < 5%'],
+    notes: ['Same plan engine as C1, new template: senior cat with CKD stage 2', 'Vet sets cadence and what to flag; the app does the watching between reviews', 'Flags are amber and calm; only the emergency signs use red']
+  },
+  initialState: { cad: { home: 'Monthly', review: '3 months', bloods: '3 months', bp: '6 months', diet: 'Monthly' }, flags: ['Weight drops > 5%', 'Eating less 3+ days', 'Drinking much more'] },
+  screens: [
+    { id: 'vet', label: 'Vet sets senior plan', who: 'Vet', render: VetPlan, caption: 'Dr. Brandt picks a template and sets cadence and flags.' },
+    { id: 'plan', label: 'Oskar’s plan', who: 'Owner', render: Plan },
+    { id: 'lock', label: 'Monthly check-in push', who: 'Owner', render: Lock },
+    { id: 'check', label: 'Home check-in', who: 'Owner', render: HomeCheck, caption: 'The test: try 3.8 kg or “Much more” drinking to trigger one of the vet’s flags.' },
+    { id: 'flag', label: 'Flag → review', who: 'Owner', render: Flag },
+    { id: 'stable', label: 'Stable branch', who: 'Owner', render: Stable }
+  ]
+});
+</script>
+</body>
+</html>

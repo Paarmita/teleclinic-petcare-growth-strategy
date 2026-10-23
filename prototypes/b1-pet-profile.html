@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B1 Living pet profile — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .b1-tabs { display: flex; gap: var(--space-2); overflow-x: auto; padding-bottom: 2px; }
+  .b1-tabs .sn-chip { flex: none; }
+  .b1-hero { display: flex; align-items: center; gap: var(--space-4); }
+  .b1-saved { display: flex; align-items: center; gap: var(--space-2); color: var(--success); font-weight: 800; font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Sheet, Row, VetAv, Section, data } = window.Proto;
+const { pet, vet, vet2 } = data;
+
+const TABS = ['Overview', 'Consults', 'Uploads', 'Meds'];
+const ALLERGY_OPTS = ['Chicken', 'Beef', 'Penicillin', 'Flea collar', 'Grass pollen'];
+
+function Saved({ children }) {
+  return <span className="b1-saved"><Icon name="check" size={18} />{children}</span>;
+}
+
+function AfterCall(api) {
+  return (
+    <Phone cta={<Button block size="lg" icon="paw" onClick={api.next}>See Bella’s profile</Button>}>
+      <AppBar title="Consult complete" />
+      <Scroll>
+        <div className="hstack">
+          <VetAv initials={vet.initials} lg />
+          <div className="grow"><p className="h-title">Thanks for calling</p><p className="small muted">{vet.name} · Video · 18 min · Today 14:50</p></div>
+        </div>
+        <div className="card card--success">
+          <div className="hstack"><Icon name="check" /><p className="h-head grow">Saved to Bella’s profile</p></div>
+          <p className="small">You don’t need to do anything. Next time, any PetDoc vet will see this before the call.</p>
+        </div>
+        <div className="card card--lift">
+          <Row icon="file" title="Consult notes" sub="Acute gastroenteritis · bland diet 3 days" right={<Saved>Saved</Saved>} />
+          <Row icon="image" title="2 photos you uploaded" sub="Stool · 12 March" right={<Saved>Saved</Saved>} />
+          <Row icon="pill" title="Prescription" sub="Probiotic paste · 5 days" right={<Saved>Saved</Saved>} />
+          <Row icon="scale" title="Weight" sub="27.4 kg (you told Dr. Weber)" right={<Saved>Saved</Saved>} />
+        </div>
+        <p className="small muted center">Thin version: consults, uploads and meds only. Vaccines and weight history come later.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Profile(api) {
+  const tab = api.state.tab;
+  const allergies = api.state.allergies;
+  const sheetOpen = !!api.state.sheet;
+  const picked = api.state.picked || [];
+  const sheet = (
+    <Sheet open={sheetOpen} onClose={() => api.set({ sheet: false })} label="Add an allergy">
+      <p className="h-title">Add an allergy</p>
+      <p className="small muted">Tap anything Bella reacts to. Vets see this before every call.</p>
+      <div className="chips">
+        {ALLERGY_OPTS.filter(a => !allergies.includes(a)).map(a => (
+          <Chip key={a} selected={picked.includes(a)} onClick={() => api.set(s => ({ picked: (s.picked || []).includes(a) ? s.picked.filter(x => x !== a) : [...(s.picked || []), a] }))}>{a}</Chip>
+        ))}
+        <Chip onClick={() => api.toast('A text field opens here')}>Something else</Chip>
+      </div>
+      <Button block size="lg" disabled={!picked.length} onClick={() => { api.set(s => ({ allergies: [...s.allergies, ...picked], picked: [], sheet: false })); api.toast('Added to Bella’s profile'); }}>Save to profile</Button>
+    </Sheet>
+  );
+  return (
+    <Phone nav="pets" sheet={sheet}>
+      <AppBar title="My pets" right={<button className="ab__icon" aria-label="Edit profile" onClick={() => api.toast('Edit basics')}><Icon name="edit" /></button>} />
+      <Scroll nav>
+        <div className="b1-hero">
+          <PetAvatar name={pet.name} species="dog" size={80} />
+          <div className="grow">
+            <p className="h-display">{pet.name}</p>
+            <p className="small muted">{pet.breed} · {pet.age} · {pet.weight}</p>
+          </div>
+        </div>
+        <div className="b1-tabs" role="tablist" aria-label="Profile sections">
+          {TABS.map(t => <Chip key={t} selected={tab === t} onClick={() => api.set({ tab: t })}>{t}</Chip>)}
+        </div>
+
+        {tab === 'Overview' && (
+          <React.Fragment>
+            <div className="card card--danger">
+              <div className="hstack"><Icon name="alert" /><p className="h-head grow">Allergies</p>
+                <button className="sec__a" onClick={() => api.set({ sheet: true })}>Add</button></div>
+              <div className="chips">{allergies.length ? allergies.map(a => <Badge key={a} tone="urgent">{a}</Badge>) : <p className="small">None recorded yet</p>}</div>
+            </div>
+            <Section title="Right now">
+              <div className="card card--lift">
+                <Row icon="pill" title="Probiotic paste" sub="1 dose daily · 2 days left" right={<Badge tone="success">Active</Badge>} />
+                <Row icon="file" title="Tummy upset" sub={`Open since 12 March · ${vet.name}`} right={<Badge tone="waiting">Day 3</Badge>} />
+              </div>
+            </Section>
+            <Section title="Latest" action="See all" onAction={() => api.set({ tab: 'Consults' })}>
+              <div className="card">
+                <Row icon="video" title="Acute gastroenteritis" sub={`12 March · ${vet.name}`} onClick={api.next} />
+                <Row icon="chat" title="Itchy paws" sub={`8 January · ${vet2.name}`} onClick={() => api.toast('Opens the January consult')} />
+              </div>
+            </Section>
+          </React.Fragment>
+        )}
+        {tab === 'Consults' && (
+          <div className="card">
+            <Row icon="video" title="Acute gastroenteritis" sub={`12 March · ${vet.name} · video`} onClick={api.next} />
+            <Row icon="chat" title="Itchy paws, likely food allergy" sub={`8 January · ${vet2.name} · chat`} onClick={() => api.toast('Opens the January consult')} />
+            <Row icon="video" title="Limping, left front leg" sub={`14 October · ${vet.name} · video`} onClick={() => api.toast('Opens the October consult')} />
+          </div>
+        )}
+        {tab === 'Uploads' && (
+          <div className="card">
+            <Row icon="image" title="Stool photos (2)" sub="12 March · from the consult" />
+            <Row icon="image" title="Paw redness" sub="8 January · from the consult" />
+            <Row icon="file" title="Vaccination pass (scan)" sub="Uploaded by you · 2 May 2025" />
+            <Button block variant="secondary" size="sm" icon="plus" onClick={() => api.toast('Camera or files open here')}>Add a document</Button>
+          </div>
+        )}
+        {tab === 'Meds' && (
+          <div className="card">
+            <Row icon="pill" title="Probiotic paste" sub="12–16 March · Dr. Weber" right={<Badge tone="success">Active</Badge>} />
+            <Row icon="pill" title="Hypoallergenic diet" sub="Since 8 January · Dr. Brandt" right={<Badge tone="success">Active</Badge>} />
+            <Row icon="pill" title="Meloxicam 1.5 mg/ml" sub="14–21 October · Dr. Weber" right={<Badge tone="neutral">Finished</Badge>} />
+          </div>
+        )}
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Consult(api) {
+  return (
+    <Phone cta={<Button block size="lg" variant="secondary" onClick={api.back}>Back to Bella</Button>}>
+      <AppBar title="Consult · 12 March" onBack={api.back} />
+      <Scroll>
+        <div className="hstack"><VetAv initials={vet.initials} /><div className="grow"><p className="h-head">{vet.name}</p><p className="small muted">Video · 18 min</p></div><Badge tone="waiting">Open</Badge></div>
+        <div className="card card--lift">
+          <p className="label">Diagnosis</p>
+          <p>Acute gastroenteritis, likely dietary (ate something on a walk).</p>
+          <hr className="divider" />
+          <p className="label">Plan</p>
+          <ul className="small" style={{ margin: 0, paddingLeft: 18 }}>
+            <li>Bland diet (rice and boiled turkey) for 3 days</li>
+            <li>Probiotic paste once a day for 5 days</li>
+            <li>Small amounts of water often</li>
+          </ul>
+          <hr className="divider" />
+          <p className="label">Watch for</p>
+          <p className="small">Vomiting more than twice a day, no food for 24 hours, blood in stool.</p>
+        </div>
+        <Section title="Attached">
+          <div className="hstack">
+            <span className="thumb bg-sunny-t"><Icon name="image" /></span>
+            <span className="thumb bg-sunny-t"><Icon name="image" /></span>
+            <p className="small muted grow">2 photos you sent during the consult</p>
+          </div>
+        </Section>
+        <p className="small muted">Saved automatically. You can’t edit vet notes, but you can add a comment for the next vet.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function NextBooking(api) {
+  const allergies = api.state.allergies;
+  return (
+    <Phone cta={<Button block size="lg" icon="video" onClick={api.next}>Continue to times</Button>}>
+      <AppBar title="New consult" onBack={() => api.go('profile')} />
+      <Scroll>
+        <p className="h-title">Two months later: Bella is scratching again</p>
+        <div className="card card--sky">
+          <div className="hstack"><Icon name="shield" /><p className="h-head grow">Your vet already has this</p></div>
+          <p className="small">We share Bella’s profile with the vet before the call, so you can start with what’s new.</p>
+        </div>
+        <div className="card card--lift">
+          <Row icon="paw" title={`${pet.name}, ${pet.age}`} sub={`${pet.breed} · ${pet.weight}`} right={<Icon name="check" size={20} />} />
+          <Row icon="alert" title="Allergies" sub={allergies.length ? allergies.join(', ') : 'None recorded'} right={<Icon name="check" size={20} />} />
+          <Row icon="file" title="3 past consults" sub="Incl. itchy paws, January" right={<Icon name="check" size={20} />} />
+          <Row icon="pill" title="Hypoallergenic diet" sub="Active since January" right={<Icon name="check" size={20} />} />
+        </div>
+        <Section title="What’s going on?">
+          <div className="chips">
+            {['Itching', 'Red paws', 'Ear trouble', 'Something else'].map(c => <Chip key={c} selected={api.state.reason === c} onClick={() => api.set({ reason: c })}>{c}</Chip>)}
+          </div>
+        </Section>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Done(api) {
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.reset}>Back to home</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 48 }}>
+          <span className="ic-badge bg-mint pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="paw" size={40} /></span>
+          <p className="h-display">No story to re-tell</p>
+          <p className="lead">{vet2.name} will open Bella’s profile before the call, including January’s itchy paws and her diet.</p>
+        </div>
+        <div className="card card--sunken"><p className="small">Booking took 3 taps. You only told us: <b>{api.state.reason || 'Itching'}</b>.</p></div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+mount({
+  idea: {
+    code: 'B1', group: 'Remember', title: 'Living pet profile',
+    persona: 'All owners · essential for care managers', impact: 'High ~+1.4pp (enabler)', effort: 'L', when: 'Q1 core (months 1–3)',
+    story: 'As an owner, I want my pet’s information stored in one place, so that I never have to repeat it.',
+    why: '19% of visits involve re-telling known information, which cuts return from 23% to 15% while ratings barely move. A1, A3, B2, B4 and C1 all depend on a profile.',
+    measure: ['Re-telling rate 17–19% → < 5%', '“The vet already knew my pet” ≥ 80% (B7)', 'Share of consults with a profile shared before the call', 'Consultation length unchanged (guardrail)'],
+    notes: ['Thin version first: consults, uploads and meds saved automatically, zero owner effort', 'Allergies are the one owner-entered field, shown first and in danger colour with an icon and word', 'Vet notes are read-only; owners add comments instead of editing']
+  },
+  initialState: { tab: 'Overview', allergies: ['Chicken'], reason: 'Itching' },
+  screens: [
+    { id: 'after', label: 'Auto-saved after the call', who: 'Owner', render: AfterCall, caption: 'Right after the consult: everything is saved without Anna lifting a finger.' },
+    { id: 'profile', label: 'Bella’s profile', who: 'Owner', render: Profile, caption: 'Try the tabs, and tap “Add” on allergies to add one.' },
+    { id: 'consult', label: 'Past consult', who: 'Owner', render: Consult },
+    { id: 'booking', label: 'Next booking, no re-telling', who: 'Owner', render: NextBooking, caption: 'The test: the next booking only asks what’s new. Allergies you added show up here.' },
+    { id: 'done', label: 'Booked', who: 'Owner', render: Done }
+  ]
+});
+</script>
+</body>
+</html>

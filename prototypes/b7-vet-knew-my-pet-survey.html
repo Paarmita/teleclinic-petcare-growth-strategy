@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B7 The vet already knew my pet — PetDoc</title>
+<link rel="stylesheet" href="../snoutly-design-system/tokens.css">
+<link rel="stylesheet" href="../snoutly-design-system/components/bundle.css">
+<link rel="stylesheet" href="shared/proto.css">
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="../snoutly-design-system/components/bundle.js"></script>
+<script src="shared/proto.js"></script>
+<style>
+  .b7-stars { display: flex; gap: var(--space-2); justify-content: center; }
+  .b7-stars button { width: 48px; height: 48px; border: 0; background: transparent; cursor: pointer; color: var(--line-strong); display: grid; place-items: center; }
+  .b7-stars button.is-on { color: var(--sunny); }
+  .b7-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .b7-tile { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: var(--stroke-sticker) solid var(--ink); background: var(--surface-raised); }
+  .b7-tile b { display: block; font-family: var(--font-display); font-weight: 600; font-size: 28px; line-height: 34px; }
+  .b7-bars { display: flex; flex-direction: column; gap: var(--space-3); }
+  .b7-barrow { display: grid; grid-template-columns: 150px 1fr 48px; gap: var(--space-3); align-items: center; font-size: 14px; font-weight: 700; }
+  .b7-barrow .bar { height: 16px; }
+  @media (max-width: 560px) { .b7-tiles { grid-template-columns: 1fr; } .b7-barrow { grid-template-columns: 110px 1fr 44px; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { Button, Chip, Badge, PetAvatar } = window.Snoutly;
+const { mount, Icon, Phone, Scroll, AppBar, Row, VetAv, Section, Desk, data } = window.Proto;
+const { pet, vet } = data;
+
+const REPEATS = ['Past consults', 'Medication', 'Allergies', 'Test results', 'What I typed when booking', 'Weight or age'];
+
+function Stars(api) {
+  const r = api.state.stars || 0;
+  return (
+    <div className="b7-stars" role="radiogroup" aria-label="Rating">
+      {[1, 2, 3, 4, 5].map(n => (
+        <button key={n} role="radio" aria-checked={r === n} aria-label={`${n} star${n > 1 ? 's' : ''}`} className={n <= r ? 'is-on' : ''} onClick={() => api.set({ stars: n })}><Icon name="star" size={36} /></button>
+      ))}
+    </div>
+  );
+}
+
+function End(api) {
+  const k = api.state.knew;
+  const opts = [
+    { id: 'yes', t: 'Yes, already knew', c: 'bg-mint', ic: 'check' },
+    { id: 'partly', t: 'Partly', c: 'bg-sunny', ic: 'clock' },
+    { id: 'no', t: 'No, I had to explain again', c: 'bg-gum', ic: 'refresh' }
+  ];
+  return (
+    <Phone>
+      <AppBar title="Consult complete" />
+      <Scroll>
+        <div className="hstack">
+          <VetAv initials={vet.initials} lg />
+          <div className="grow"><p className="h-title">Thanks for calling</p><p className="small muted">{vet.name} · Video · 16 min</p></div>
+        </div>
+        <div className="card card--lift">
+          <p className="h-head">Did {vet.name} already know {pet.name}’s history?</p>
+          <p className="small muted">One tap. It helps us make sure you never repeat yourself.</p>
+          <div className="vstack" role="radiogroup" aria-label="Did the vet already know your pet">
+            {opts.map(o => (
+              <button key={o.id} role="radio" aria-checked={k === o.id} className={`choice ${k === o.id ? 'is-on' : ''}`}
+                onClick={() => { api.set({ knew: o.id }); setTimeout(() => api.go(o.id === 'yes' ? 'thanks' : 'what'), 350); }}>
+                <span className={`choice__dot ${o.c}`}><Icon name={k === o.id ? 'check' : o.ic} size={20} /></span>
+                <span>{o.t}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <Section title="How was the consult?">
+          <Stars {...api} />
+        </Section>
+        <p className="small muted center">Your answer isn’t shown to {vet.name}. It goes to our product team.</p>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function What(api) {
+  const sel = api.state.repeats || [];
+  return (
+    <Phone cta={<React.Fragment>
+      <Button block size="lg" disabled={!sel.length} onClick={api.next}>Send</Button>
+      <Button block variant="ghost" onClick={api.next}>Skip</Button>
+    </React.Fragment>}>
+      <AppBar title="Thanks for telling us" onBack={() => api.go('end')} />
+      <Scroll>
+        <p className="h-title">What did you have to repeat?</p>
+        <p className="small muted">Optional. Tap all that apply.</p>
+        <div className="chips">
+          {REPEATS.map(r => <Chip key={r} selected={sel.includes(r)} onClick={() => api.set(s => ({ repeats: (s.repeats || []).includes(r) ? s.repeats.filter(x => x !== r) : [...(s.repeats || []), r] }))}>{r}</Chip>)}
+        </div>
+        <div className="card card--sky">
+          <div className="hstack"><Icon name="shield" /><p className="small grow">We’re building {pet.name}’s profile so the next vet sees this before the call. Your answers tell us what to fix first.</p></div>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Thanks(api) {
+  const yes = api.state.knew === 'yes';
+  return (
+    <Phone nav="home" cta={<Button block size="lg" variant="secondary" onClick={api.next}>Done</Button>}>
+      <Scroll>
+        <div className="vstack center" style={{ paddingTop: 56 }}>
+          <span className="ic-badge bg-gum pop" style={{ width: 80, height: 80, borderRadius: 28 }}><Icon name="heart" size={40} /></span>
+          <p className="h-display">{yes ? 'Lovely to hear' : 'Thanks, noted'}</p>
+          <p className="lead">{yes ? `We’ll keep ${pet.name}’s story ready for every vet. Belly rubs are on you.` : `Sorry you had to repeat yourself. We’ve saved today’s consult to ${pet.name}’s profile so the next vet has it.`}</p>
+        </div>
+      </Scroll>
+    </Phone>
+  );
+}
+
+function Ops(api) {
+  const rows = [
+    { t: 'Care manager', v: 61 },
+    { t: 'New pet parent', v: 72 },
+    { t: 'Worried one-timer', v: 78 }
+  ];
+  const repeats = [
+    { t: 'Past consults', v: 44 },
+    { t: 'Medication', v: 31 },
+    { t: 'Test results', v: 27 },
+    { t: 'Booking text', v: 19 }
+  ];
+  return (
+    <Desk title="Retention · context-loss dashboard" right={<span className="small">Last 4 weeks · 1,180 answers</span>}>
+      <div className="b7-tiles">
+        <div className="b7-tile"><p className="small muted">“Vet already knew my pet”</p><b>74%</b><p className="small">Target ≥ 80%</p></div>
+        <div className="b7-tile"><p className="small muted">Average rating</p><b>4.8</b><p className="small">Barely moves</p></div>
+        <div className="b7-tile"><p className="small muted">Answer rate</p><b>63%</b><p className="small">One tap, after the call</p></div>
+      </div>
+      <div className="desk__grid">
+        <div className="card">
+          <p className="h-head">“Yes” by persona</p>
+          <div className="b7-bars">
+            {rows.map(r => (
+              <div key={r.t} className="b7-barrow"><span>{r.t}</span><div className="bar"><i style={{ width: r.v + '%' }} /></div><span>{r.v}%</span></div>
+            ))}
+          </div>
+          <p className="small muted">Care managers feel context loss most, and it costs most: 55% → 35% return.</p>
+        </div>
+        <div className="card">
+          <p className="h-head">What owners repeated</p>
+          <div className="b7-bars">
+            {repeats.map(r => (
+              <div key={r.t} className="b7-barrow"><span>{r.t}</span><div className="bar"><i style={{ width: r.v + '%', background: 'var(--sunny)' }} /></div><span>{r.v}%</span></div>
+            ))}
+          </div>
+          <p className="small muted">Share of “Partly” or “No” answers. Feeds B1 and B2 priorities.</p>
+        </div>
+      </div>
+      <div className="card card--warn">
+        <div className="hstack"><Icon name="alert" /><p className="small grow"><b>Silent churn.</b> Owners who had to re-tell still rate 3.9 on average (4.35 otherwise), yet come back about a third less often. Stars alone would miss this.</p></div>
+      </div>
+      <div className="hstack"><p className="small muted grow">Illustrative numbers. Baseline is set in month 1, before B1 and B2 ship.</p>
+        <Button size="sm" variant="secondary" onClick={api.reset}>Back to the owner view</Button></div>
+    </Desk>
+  );
+}
+
+mount({
+  idea: {
+    code: 'B7', group: 'Remember', title: '“The vet already knew my pet” survey',
+    persona: 'Product team (all owners)', impact: 'Measurement (leading metric)', effort: 'S', when: 'Q1 month 1 (rank 1)',
+    story: 'As a product team, we want a one-tap post-visit question, so that we can see context loss that star ratings hide.',
+    why: 'Re-telling cuts return by a third but only drops ratings from 4.35 to 3.90. Without this question, B1 and B2 have no leading metric.',
+    measure: ['“The vet already knew my pet” ≥ 80%', 'Answer rate (target 50%+)', 'Re-telling rate 17–19% → < 5%', 'Correlation of “No” with 30-day return'],
+    notes: ['Asked above the stars, so it isn’t skipped; one tap, no free text required', '“Yes” ends the survey; “Partly” or “No” asks what was repeated (optional)', 'Not shown to the vet, so answers stay honest; reported per persona']
+  },
+  initialState: {},
+  screens: [
+    { id: 'end', label: 'One-tap question', who: 'Owner', render: End, caption: 'The test: will owners answer one tap after the call? Try “Yes” and “No”.' },
+    { id: 'what', label: 'What did you repeat?', who: 'Owner', render: What, caption: '“Partly” or “No” branch: an optional follow-up.' },
+    { id: 'thanks', label: 'Thanks', who: 'Owner', render: Thanks },
+    { id: 'ops', label: 'Context-loss dashboard', who: 'Ops', render: Ops, caption: 'What the team sees: the gap that star ratings hide.' }
+  ]
+});
+</script>
+</body>
+</html>
