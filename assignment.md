@@ -23,8 +23,7 @@ You're the Senior Product Manager for Patient Experience at PetDoc. The first vi
 PetDoc works in missions. Each has its own goals, its own team and its own roadmap.
 - Patient Experience, your mission. The pet owner's experience from the moment they're here: the journey around the consultation, everything that happens afterwards, and the question of why someone comes back.
 - Vet Experience, everything vets do on the platform.
-- Growth, acquisition, activation through new use cases, opening up new user
-groups.
+- Growth, acquisition, activation through new use cases,opening up new user groups.
 
 Pricing and business model are fixed for this exercise. If your concept touches another mission, and good concepts often do, describe what you need from them and how you'd get it.
 Your mission's goal for this quarter is set: more users come back to PetDoc for a second consultation. Which problem you solve to get there, and what your team builds, is your call.
@@ -42,9 +41,7 @@ The concept answers:
 4. How you'd validate your hypothesis, and what would tell you that you were wrong.
 
 #### Deliverable 2: Working prototype
-Use the AI tools of your choice (Lovable, Claude, v0, Figma Make, whatever) to build a
-clickable prototype of your concept.
-Not the whole app. Just the point in the flow where it's decided whether your
+Use the AI tools of your choice (Lovable, Claude, v0, Figma Make, whatever) to build a clickable prototype of your concept. Not the whole app. Just the point in the flow where it's decided whether your
 hypothesis holds.
 
 #### Deliverable 3: Screen recording, max 5 minutes
