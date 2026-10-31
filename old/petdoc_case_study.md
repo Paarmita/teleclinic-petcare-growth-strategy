@@ -431,8 +431,6 @@ The reference material follows below, so the case reads top to bottom without it
 | C | Experimentation principles |
 | D | How to measure the hard metrics: re-telling, incremental re-checks, same vs new episode |
 | E | Glossary |
-| F | CTO review FAQ: strategy, architecture, data and AI, experimentation, clinical safety, business, long term, quick questions |
-| Goal prompt | The prompt that defines this case study's goal, structure and quality bar, reusable for the next case |
 
 ---
 
