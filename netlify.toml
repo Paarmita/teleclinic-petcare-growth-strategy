@@ -1,0 +1,8 @@
+# Static site: no build step. Serve the case study at the site root.
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/"
+  to = "/petdoc_case_study.html"
+  status = 200
