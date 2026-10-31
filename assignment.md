@@ -41,8 +41,7 @@ The concept answers:
 4. How you'd validate your hypothesis, and what would tell you that you were wrong.
 
 #### Deliverable 2: Working prototype
-Use the AI tools of your choice (Lovable, Claude, v0, Figma Make, whatever) to build a clickable prototype of your concept. Not the whole app. Just the point in the flow where it's decided whether your
-hypothesis holds.
+Use the AI tools of your choice (Lovable, Claude, v0, Figma Make, whatever) to build a clickable prototype of your concept. Not the whole app. Just the point in the flow where it's decided whether your hypothesis holds.
 
 #### Deliverable 3: Screen recording, max 5 minutes
 Walk us through your decisions: what you discarded, what you chose, and why. We’re looking for an unedited screen recording with a voiceover (Loom, QuickTime, any free tool works). We're assessing the content, not the production. No editing, no slides needed.

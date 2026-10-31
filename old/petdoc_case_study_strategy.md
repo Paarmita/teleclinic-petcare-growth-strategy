@@ -492,7 +492,7 @@ Always-on: advocate friction fixes (audio fallback, reliable uploads, Rx ≤4 da
 
 ---
 
-## Appendix A — Idea backlog and prioritisation (condensed)
+## Idea backlog and prioritisation (condensed)
 
 Impact and effort scored 1–5 (5 = highest). Priority = impact ÷ effort, adjusted for dependencies.
 
