@@ -132,7 +132,7 @@ The base case is about 85 a month from new owners: under one per vet per month. 
 The vet decides there is a follow-up, the copy reassures before it offers a visit ("this is normal until Friday"), the price is shown upfront, and the "not needed" share is a hard guardrail.
 
 **F5.6 What do German professional rules mean for this?**
-Two questions need legal sign-off in week 2: that a follow-up video consultation at the normal fee fits the veterinary fee schedule (GOT) and remote-treatment rules, and that the check-in counts as a service message under UWG and GDPR. I treat both as launch blockers, not footnotes.
+Two questions need legal sign-off in week 2: that a follow-up video consultation at the normal fee fits the veterinary fee schedule (GOT) and remote-treatment rules, and that the check-in counts as a service message under GDPR. I treat both as launch blockers, not footnotes.
 
 **F5.7 What does customer service need?**
 Scripts for "worse" and red-flag cases, a way to reopen an episode, and a feedback loop into the weekly review. They hear about failure modes first.
